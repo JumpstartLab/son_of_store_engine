@@ -1,0 +1,5 @@
+<h1>CATEGORIES INDEX</h1>
+
+<% @categories.each do |category| %>
+  <%= link_to category.name, category_products_path(category) %>
+<% end %>
