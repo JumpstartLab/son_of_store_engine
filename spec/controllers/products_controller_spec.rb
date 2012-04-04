@@ -1,31 +1,17 @@
 # require 'spec_helper'
 
-
 # describe ProductsController do
-#   render_views
-
-#   describe "GET 'index'" do
-
-#     let(:category1) { Fabricate(:category, :id => 1)}
-#     let(:product1) { Fabricate(:product, :category_id => 1)}
-#     let(:product2) { Fabricate(:product, :category_id => 2)}
-
-#     before(:each) do
-#       Product.stub(:all).and_return([product1, product2])
-#       Category.stub(:find_by_id).with(1).and_return(:cateogory1)
-#       category1.stub(:products).and_return([product1])
+#   context "create" do
+#     it "creates a new Product" do
+#       params = {title: "A PRODUCT",
+#                 price:"32.50",
+#                 image_url: "http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+#                 description: "I like cake!"}
+#       ProductsController.create
+#       new_product = Product.last
+#       new_product.title.should == "A PRODUCT"
 #     end
-
-#     context "a category id is passed" do
-#     end
-#     context "no category id is passed" do
-#       it "returns all products" do
-
-#         visit products_path
-#         page.should have_link("#{product1.title}")
-#       end
-#     end
-#   end
-#   describe "GET 'show'" do
 #   end
 # end
+
+#FUUUUUUUUUUUUUU!
