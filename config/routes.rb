@@ -8,6 +8,7 @@ StoreEngine::Application.routes.draw do
     resources :products
   end
   resources :products
+  resources :orders
 
   root :to => 'products#index'
 end

@@ -1,0 +1,26 @@
+<h1>Orders</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Status</th>
+      <th>User ID</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= link_to order.id.to_s, order_path(order) %></td>
+        <td><%= order.status %></td>
+        <td><%= order.user_id %></td>
+        <td>
+          <%= link_to 'Edit', edit_order_path(order), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', order_path(order), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New', new_order_path, :class => 'btn btn-primary' %>
