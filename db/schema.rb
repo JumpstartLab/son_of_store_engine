@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20120404190532) do
-=======
-ActiveRecord::Schema.define(:version => 20120404191312) do
->>>>>>> 3b5220ac9a50231441b3342615d53b66d6bd6b56
+ActiveRecord::Schema.define(:version => 20120404202633) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -34,13 +30,10 @@ ActiveRecord::Schema.define(:version => 20120404191312) do
     t.string   "title"
     t.text     "description"
     t.integer  "price"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-<<<<<<< HEAD
-=======
-    t.integer  "category_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "image_url"
->>>>>>> 3b5220ac9a50231441b3342615d53b66d6bd6b56
+    t.boolean  "on_sale",     :default => true
   end
 
   create_table "users", :force => true do |t|
@@ -56,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120404191312) do
     t.datetime "reset_password_email_sent_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.boolean  "on_sale"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

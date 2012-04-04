@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
     @products = if params[:category_id]
       Category.find_by_id(params[:category_id]).products
     else
-      Product.all
+      Product.where(:on_sale => true)
     end
   end
 

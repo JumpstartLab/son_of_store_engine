@@ -1,7 +1,11 @@
 class Product < ActiveRecord::Base
-  attr_accessible :description, :price, :title, :image_url
+  attr_accessible :description, :price, :title, :image_url, :on_sale
   has_many :categories, :through => :category_products
   has_many :category_products
+
+  # def initialize
+  #   self.on_sale = true
+  # end
 end
 # == Schema Information
 #
@@ -13,6 +17,7 @@ end
 #  price       :integer
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
-#  category_id :integer
+#  image_url   :string(255)
+#  on_sale     :boolean
 #
-  
+
