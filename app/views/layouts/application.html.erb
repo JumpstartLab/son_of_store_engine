@@ -7,25 +7,31 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if current_user %>
-  Logged in as <%= current_user.email %>.
-  <%= link_to "Log out", logout_path %>
-<% else %>
-  <%= link_to "Sign up", signup_path %> or
-  <%= link_to "log in", login_path %>.
-<% end %>
-<div id="sidebar"><%= render 'shared/sidebar' %></div>
-
-<div id = "main">
-<%= yield %>
-</div>
-  <div class="container_12 clearfix">
-    <div class="sidebar grid_2">
-      <%= render 'shared/sidebar' %>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <%= link_to "LivingSocial", root_path, :class => "brand" %>
+        <ul class="nav">
+            <% if current_user %>
+              <li>Logged in as <%= current_user.email %></li>
+              <li><%= link_to "Log out", logout_path %></li>
+            <% else %>
+              <li><%= link_to "Sign up", signup_path %></li>
+              <li><%= link_to "Login", login_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
-
-    <div class="main grid_10">
-      <%= yield %>
+  </div>
+  <div class = "container">
+    <div class="row">
+      <div class="span3">
+        <%= render 'shared/sidebar' %>
+      </div>
+      <div class="main span9">
+        <%= yield %>
+      </div>
     </div>
   </div>
 </body>

@@ -1,8 +1,24 @@
-<h1>PRODUCTS INDEX</h1>
+<h1>Products</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.title, product_path(product) %></td>
+        <td><%= product.description %></td>
+        <td>
+          <%= link_to 'Edit', edit_product_path(product), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', product_path(product), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<% @products.each do |product| %>
-  <%= link_to product.title, product_path(product), :method => "delete" %> ||
-  <%= link_to "Delete", product_path(product), :method => "delete" %><br>
-<% end %> 
-
-<%= link_to "Create New Product", new_product_path %>
+<%= link_to 'New', new_product_path, :class => 'btn btn-primary' %>
