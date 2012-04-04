@@ -16,8 +16,12 @@
 </p>
 
 <p>
-  <b>Category</b><br>
-  <%= @product.category_id %>
+  <b>Categories</b><br>
+  <ul>
+  <% @product.categoryies.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+  </ul>
 </p>
 
 <div class="form-actions">

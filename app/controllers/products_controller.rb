@@ -13,9 +13,11 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   def create
+    params[:price] *= 100
     product = Product.new(params[:product])
     product.save
     redirect_to products_path
@@ -29,6 +31,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find_by_id(params[:id])
+    @categories = Category.all
   end
 
   def update
