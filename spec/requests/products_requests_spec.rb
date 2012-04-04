@@ -67,7 +67,6 @@ describe "Products Requests" do
     it "should show a product form pre-filled with product's info" do
       visit edit_product_path(product)
       page.should have_selector("input#product_title")
-      save_and_open_page
       page.should have_selector("input", :value => product.title)
     end
   end
