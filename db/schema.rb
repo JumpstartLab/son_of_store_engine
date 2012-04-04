@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20120404212400) do
     t.datetime "reset_password_email_sent_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.boolean  "on_sale"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

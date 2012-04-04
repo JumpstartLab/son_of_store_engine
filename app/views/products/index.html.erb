@@ -5,7 +5,9 @@
       <th>Title</th>
       <th>Description</th>
       <th>Price</th>
+      <% if current_user && current_user.is_admin %>
       <th>Actions</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -14,10 +16,12 @@
         <td><%= link_to product.title, product_path(product) %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
-        <td>
-          <%= link_to 'Edit', edit_product_path(product), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', product_path(product), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <% if current_user && current_user.is_admin %>
+          <td>
+            <%= link_to 'Edit', edit_product_path(product), :class => 'btn btn-mini' %>
+            <%= link_to 'Destroy', product_path(product), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
