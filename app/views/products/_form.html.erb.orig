@@ -29,18 +29,31 @@
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :price, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :price, :class => 'number_field' %>
+<<<<<<< HEAD
+    <div class="control-group">
+      <%= f.label :on_sale, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.check_box :on_sale, :class => 'check_box' %>
+      </div>
     </div>
-  </div>
 
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to 'Cancel', products_path, :class => 'btn' %>
+=======
+  <div class="control-group">
+    <%= f.label :price, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :price, :class => 'number_field' %>
+>>>>>>> 45f6995e2e6df257d3b4a6432e3fb50b4c2336a5
     </div>
-  </fieldset>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to 'Cancel', products_path, :class => 'btn' %>
+  </div>
+</fieldset>
 <% end %>
 <script type="text/javascript">
 $(document).ready(function() {

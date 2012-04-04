@@ -19,6 +19,7 @@ describe "Products Requests" do
     let!(:category) { Fabricate(:category) }
     let!(:filtered_products) { [Fabricate(:product), Fabricate(:product)] }
     let!(:products) { [Fabricate(:product), Fabricate(:product)]}
+    let!(:removed_product) { Fabricate(:product, :on_sale => false) }
     before(:each) do
       Category.stub(:find_by_id).and_return(category)
       category.stub(:products).and_return(filtered_products)
@@ -32,12 +33,20 @@ describe "Products Requests" do
         end
       end
     end
+
     context "no category id is passed in params" do
       it "returns all products" do
         visit products_path
         products.each do |product|
           page.should have_link(product.title, :href => product_path(product))
         end
+      end
+    end
+
+    context "the product is not on sale" do
+      it "does not appear on the index" do
+        visit products_path
+        page.should_not have_link(removed_product.title, :href => product_path(removed_product))
       end
     end
   end

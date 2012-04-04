@@ -1,5 +1,15 @@
 require 'spec_helper'
 
 describe CategoryProduct do
-  pending "add some examples to (or delete) #{__FILE__}"
 end
+# == Schema Information
+#
+# Table name: category_products
+#
+#  id          :integer         not null, primary key
+#  product_id  :integer
+#  category_id :integer
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#
+
