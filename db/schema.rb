@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(:version => 20120404190532) do
+=======
 ActiveRecord::Schema.define(:version => 20120404191312) do
+>>>>>>> 3b5220ac9a50231441b3342615d53b66d6bd6b56
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -32,8 +36,11 @@ ActiveRecord::Schema.define(:version => 20120404191312) do
     t.integer  "price"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+<<<<<<< HEAD
+=======
     t.integer  "category_id"
     t.string   "image_url"
+>>>>>>> 3b5220ac9a50231441b3342615d53b66d6bd6b56
   end
 
   create_table "users", :force => true do |t|

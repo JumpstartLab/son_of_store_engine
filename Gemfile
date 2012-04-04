@@ -29,4 +29,5 @@ group :development, :test do
   gem 'fabrication'
   gem 'faker'
   gem 'sorcery'
+  gem 'simplecov', :require => false, :group => :test
 end
