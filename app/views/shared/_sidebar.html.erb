@@ -1,5 +1,5 @@
 <% Category.all.each do |category| %>
-  <h3><%= link_to category.name, category_path(category) %></h3>
+  <h3><%= link_to category.name, products_path(:category_id => category.id) %></h3>
 <% end %>
 <br>
 <%= link_to "Create New Category", new_category_path, :class => 'btn btn-primary' %>
