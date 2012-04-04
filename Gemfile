@@ -26,7 +26,6 @@ group :development, :test do
   gem 'launchy'
   gem 'guard'
   gem 'guard-rspec'
-  # gem 'growl_notify'
   gem 'fabrication'
   gem 'faker'
   gem 'sorcery'
