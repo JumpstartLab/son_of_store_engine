@@ -17,8 +17,12 @@ class ProductsController < ApplicationController
   end
 
   def create
-    params[:price] *= 100
+    @categories = Category.all
+    params[:product][:price] = params[:product][:price].to_i * 100
     product = Product.new(params[:product])
+    product.categories = @categories.select do |category|
+      params[:category_ids].include? category.id.to_s
+    end
     product.save
     redirect_to products_path
   end

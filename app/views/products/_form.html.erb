@@ -10,10 +10,7 @@
     </div>
 
     <div class="control-group">
-      <% @categories.each do |category| %>
-        <%= f.label category.name.to_sym, :class => 'control-label' %>
-        <%= check_box_tag(category.name, category.id) %>
-      <% end %>
+      <%= select_tag("category_ids[]", options_for_select(@categories.collect { |cat| [cat.name, cat.id] }, @product.categories.collect { |cat| cat.id}), {:multiple=>true, :size=>6})%>
     </div>
 
     <div class="control-group">
