@@ -27,4 +27,4 @@
   </tbody>
 </table>
 
-<%= link_to 'New', new_product_path, :class => 'btn btn-primary' %>
+<%= link_to 'New', new_product_path, :class => 'btn btn-primary' if current_user && current_user.is_admin %>
