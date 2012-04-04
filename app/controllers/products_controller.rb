@@ -17,11 +17,10 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @categories = Category.all
     params[:product][:price] = params[:product][:price].to_i * 100
     product = Product.new(params[:product])
-    product.categories = @categories.select do |category|
-      params[:category_ids].include? category.id.to_s
+    product.categories = params[:category_ids].map do |category_id|
+      Category.find_by_id(category_id)
     end
     product.save
     redirect_to products_path
@@ -41,7 +40,10 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by_id(params[:id])
     @product.update_attributes(params[:product])
-    redirect_to products_path
+    @product.categories = params[:category_ids].map do |category_id|
+      Category.find_by_id(category_id)
+    end
+    redirect_to product_path(@product)
   end
 
 end
