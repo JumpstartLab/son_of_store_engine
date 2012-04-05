@@ -26,8 +26,8 @@
           <a class="btn btn-success"> <i class = 'icon-refresh'></i> Update Cart</a>
         </tr>
         <tr>
-          <%= link_to "Clear Cart", edit_cart_path(@cart),
-          :class => "btn btn-danger", :method => 'destroy',
+          <%= link_to "Clear Cart", cart_path,
+          :class => "btn btn-danger", :method => :delete,
           :confirm => 'Are you sure you want to empty the cart?' %>
         </tr>
       </tbody>

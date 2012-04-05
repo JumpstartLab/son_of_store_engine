@@ -11,7 +11,7 @@ class CartsController < ApplicationController
 
   def destroy
     @cart.destroy
-    redirect_back
+    redirect_to
   end
 
 private
