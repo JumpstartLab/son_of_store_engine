@@ -19,7 +19,6 @@ class ProductsController < ApplicationController
   def create
     params[:product][:price] = params[:product][:price].to_i * 100
     product = Product.new(params[:product])
-    @product.categories = Category.find(params[:category_ids]) if params[:category_ids]
     if product.save
       redirect_to products_path
     else
@@ -42,7 +41,6 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by_id(params[:id])
     @product.update_attributes(params[:product])
-    @product.categories = Category.find(params[:category_ids]) if params[:category_ids]
     if @product.save
       redirect_to product_path(@product)
     else
