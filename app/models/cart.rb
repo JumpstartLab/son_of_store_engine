@@ -5,13 +5,23 @@ class Cart < ActiveRecord::Base
   has_one :user
   accepts_nested_attributes_for :cart_items
 
-  def add_product(item)
-    products << item
+  def add_product(product)
+    products << product
   end
 
   def add_product_by_id(product_id)
     product = Product.find_by_id(product_id)
     add_product(product)
+  end
+
+  def count
+    @count ||= update_count
+  end
+
+  def update_count
+    @count = cart_items.inject(0) do |sum, cart_item|
+      sum += cart_item.quantity
+    end
   end
 end
 # == Schema Information
