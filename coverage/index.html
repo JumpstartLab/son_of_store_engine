@@ -23,14 +23,14 @@
       <img src="./assets/0.5.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2012-04-04T23:43:45-04:00">2012-04-04T23:43:45-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2012-04-05T00:14:58-04:00">2012-04-05T00:14:58-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">85.23%</span></span>
+    (<span class="covered_percent"><span class="yellow">83.23%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
@@ -41,9 +41,9 @@
   <a name="AllFiles"></a>
   <div>
     <b>62</b> files in total.
-    <b>325</b> relevant lines. 
-    <span class="green"><b>277</b> lines covered</span> and
-    <span class="red"><b>48</b> lines missed </span>
+    <b>334</b> relevant lines. 
+    <span class="green"><b>278</b> lines covered</span> and
+    <span class="red"><b>56</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -82,11 +82,11 @@
       <tr>
         <td class="strong"><a href="#4cfc562e289ff21304b4ba1756e51218cd5a43db" class="src_link" title="app/controllers/orders_controller.rb">app/controllers/orders_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
+        <td>8</td>
         <td>6</td>
-        <td>4</td>
-        <td>4</td>
+        <td>6</td>
         <td>0</td>
-        <td>1.5</td>
+        <td>2.3</td>
       </tr>
       
       <tr>
@@ -651,12 +651,12 @@
       
       <tr>
         <td class="strong"><a href="#c6a93045ca0796ba87c50d150308daaa886c5559" class="src_link" title="spec/requests/orders_requests_spec.rb">spec/requests/orders_requests_spec.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>24</td>
-        <td>15</td>
-        <td>15</td>
-        <td>0</td>
-        <td>1.7</td>
+        <td class="red strong">63.64 %</td>
+        <td>35</td>
+        <td>22</td>
+        <td>14</td>
+        <td>8</td>
+        <td>1.2</td>
       </tr>
       
       <tr>
@@ -898,8 +898,8 @@
     <h3>app/controllers/orders_controller.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>4</b> relevant lines. 
-      <span class="green"><b>4</b> lines covered</span> and
+      <b>6</b> relevant lines. 
+      <span class="green"><b>6</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -919,25 +919,37 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="3">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="3">
+          <span class="hits">3</span>
           
           <code class="ruby">    @orders = Order.all</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="4">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="4">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @orders = @orders.status(params[:filter]) unless params[:filter].blank?</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="5">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @filters = Order.select(:status).uniq</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="6">
+          <span class="hits">3</span>
           
           <code class="ruby">    @statuses = Order.count(:all, :group =&gt; :status)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="5">
+        <li class="never" data-hits="" data-linenumber="7">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="6">
+        <li class="never" data-hits="" data-linenumber="8">
           
           
           <code class="ruby">end</code>
@@ -8828,11 +8840,11 @@
         <div class="source_table" id="c6a93045ca0796ba87c50d150308daaa886c5559">
   <div class="header">
     <h3>spec/requests/orders_requests_spec.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
+    <h4><span class="red">63.64 %</span> covered</h4>
     <div>
-      <b>15</b> relevant lines. 
-      <span class="green"><b>15</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <b>22</b> relevant lines. 
+      <span class="green"><b>14</b> lines covered</span> and
+      <span class="red"><b>8</b> lines missed.</span>
     </div>
   </div>
   
@@ -8857,26 +8869,26 @@
           <code class="ruby">describe &quot;Orders Requests&quot; do</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="4">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="4">
+          <span class="hits">4</span>
           
           <code class="ruby">  let!(:order1) { Fabricate(:order, :status =&gt; &quot;shipped&quot;) }</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="5">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="5">
+          <span class="hits">4</span>
           
           <code class="ruby">  let!(:order2) { Fabricate(:order, :status =&gt; &quot;pending&quot;) }</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="6">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="6">
+          <span class="hits">4</span>
           
           <code class="ruby">  let!(:order3) { Fabricate(:order, :status =&gt; &quot;pending&quot;) }</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="7">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="7">
+          <span class="hits">4</span>
           
           <code class="ruby">  let!(:orders) { [order1, order2, order3] }</code>
         </li>
@@ -8905,14 +8917,14 @@
           <code class="ruby">      visit orders_path</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="12">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="12">
+          
           
           <code class="ruby">      orders.each do |order|</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="13">
-          <span class="hits">3</span>
+        <li class="missed" data-hits="0" data-linenumber="13">
+          
           
           <code class="ruby">        page.should have_link(order.id.to_s, :href =&gt; order_path(order))</code>
         </li>
@@ -8947,14 +8959,14 @@
           <code class="ruby">      visit orders_path</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="19">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="19">
+          
           
           <code class="ruby">      within(&quot;table#status_counts&quot;) do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="20">
+          
           
           <code class="ruby">        page.should have_content(&quot;Pending: 2&quot;)</code>
         </li>
@@ -8978,6 +8990,72 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="25">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  context &quot;filtered index&quot; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="26">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &quot;lists orders only for that category&quot; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="27">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      visit orders_path</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="28">
+          
+          
+          <code class="ruby">      within(&quot;ul#filters&quot;) do</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="29">
+          
+          
+          <code class="ruby">        click_link(&quot;Pending&quot;)        </code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="31">
+          
+          
+          <code class="ruby">      page.should have_link(order2.id.to_s, :href =&gt; order_path(order2))</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="32">
+          
+          
+          <code class="ruby">      page.should_not have_link(order1.id.to_s, :href =&gt; order_path(order1))</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="33">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="34">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
           
           
           <code class="ruby">end</code>
