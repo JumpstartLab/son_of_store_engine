@@ -13,6 +13,16 @@ class Cart < ActiveRecord::Base
     product = Product.find_by_id(product_id)
     add_product(product)
   end
+
+  def count
+    @count ||= update_count
+  end
+
+  def update_count
+    @count = cart_items.inject(0) do |sum, cart_item|
+      sum += cart_item.quantity
+    end
+  end
 end
 # == Schema Information
 #

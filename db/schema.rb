@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120404212400) do
+ActiveRecord::Schema.define(:version => 20120405205124) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "cart_id"
     t.integer  "product_id"
-    t.integer  "quantity"
+    t.integer  "quantity",   :default => 1
     t.integer  "price"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "carts", :force => true do |t|
