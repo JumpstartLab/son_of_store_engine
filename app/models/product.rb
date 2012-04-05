@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  attr_accessible :description, :price, :title, :image_url, :on_sale
+  attr_accessible :description, :price, :title, :image_url, :on_sale, :category_ids
   has_many :categories, :through => :category_products
   has_many :category_products
   validates_presence_of :title
