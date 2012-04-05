@@ -3,6 +3,7 @@ class Cart < ActiveRecord::Base
   has_many :cart_items
   has_many :products, :through => :cart_items
   has_one :user
+  accepts_nested_attributes_for :cart_items
 
   def add_product(item)
     products << item
