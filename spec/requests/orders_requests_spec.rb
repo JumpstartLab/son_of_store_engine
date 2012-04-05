@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 describe "Orders Requests" do
-  let!(:order1) { Fabricate(:order, :status => "shipped") }
-  let!(:order2) { Fabricate(:order, :status => "pending") }
-  let!(:order3) { Fabricate(:order, :status => "pending") }
-  let!(:order4) { Fabricate(:order, :status => "paid") }
+  let!(:product1) { Fabricate(:product) }
+  let!(:product2) { Fabricate(:product) }
+  let!(:user1) { Fabricate(:user, :id => 1, :email => "ham@gmail.com", :name => "Fred Banks") }
+  let!(:user2) { Fabricate(:user, :id => 2)}
+  let!(:order1) { Fabricate(:order, :status => "shipped", :user_id => 1, :products => [product1, product2]) }
+  let!(:order2) { Fabricate(:order, :status => "pending", :user_id => 2) }
+  let!(:order3) { Fabricate(:order, :status => "pending", :user_id => 2) }
+  let!(:order4) { Fabricate(:order, :status => "paid", :user_id => 1) }
   let!(:orders) { [order1, order2, order3, order4] }
 
   before(:each) do
@@ -14,14 +18,21 @@ describe "Orders Requests" do
   context "index" do
     it "lists all orders" do
       orders.each do |order|
-        page.should have_link(order.id.to_s, :href => order_path(order))
+        page.should have_content(order.user.name)
       end
     end
 
     it "lists the number of orders for each status" do
-      within("table#status_counts") do
+      within("div#filters") do
         page.should have_content("Pending: 2")
       end
+    end
+
+    it "lists each product ordered for each order" do
+      #within("div#order_1_detail") do
+        page.should have_content(product1.title)
+        page.should have_content(product2.title)
+      #end
     end
 
     context "order status is pending" do
@@ -37,7 +48,7 @@ describe "Orders Requests" do
           click_link("Cancel Order")
         end
         within("tr#order_2") do
-          page.should have_content("canceled")
+          page.should have_content("Canceled")
         end
       end
     end
@@ -56,7 +67,7 @@ describe "Orders Requests" do
           click_link("Mark As Returned")
         end
         within("tr#order_1") do
-          page.should have_content("returned")
+          page.should have_content("Returned")
         end
       end
     end
@@ -74,7 +85,7 @@ describe "Orders Requests" do
           click_link("Mark As Shipped")
         end
         within("tr#order_4") do
-          page.should have_content("shipped")
+          page.should have_content("Shipped")
         end
       end
     end
@@ -82,11 +93,11 @@ describe "Orders Requests" do
 
   context "filtered index" do
     it "lists orders only for that category" do
-      within("ul#filters") do
+      within("div#filters") do
         click_link("Pending")        
       end
-      page.should have_link(order2.id.to_s, :href => order_path(order2))
-      page.should_not have_link(order1.id.to_s, :href => order_path(order1))
+      page.should have_content(order2.user.name)
+      page.should_not have_content(order1.user.name)
     end
   end
 end

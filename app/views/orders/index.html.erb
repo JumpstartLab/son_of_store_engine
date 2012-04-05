@@ -1,33 +1,34 @@
-<h1>Orders</h1>
-<ul id="filters">
+<h1>Administrator Dashboard</h1>
+<br>
+<div id="filters">
   <% @filters.each do |filter| %>
-    <li><%= link_to filter.status.capitalize, orders_path(:filter => filter.status)%></li>
+    <%= link_to "#{filter.status.capitalize}: #{@statuses[filter.status]}", orders_path(:filter => filter.status), :class => "btn btn-info"%>
   <% end %>
-</ul>
-
-</table>
-  <h3>Order Status Summary</h3>
-  <table class="table table-striped" id="status_counts">
-  <% @statuses.each do |status, count| %>
-    <tr><td><%= "#{status.capitalize}: #{count}" %></td></tr>
-  <% end %>
-</table>
-
+</div>
+<br>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>ID</th>
+      <th></th>
       <th>Status</th>
-      <th>User ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Order Date</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @orders.each do |order| %>
       <tr id="<%= dom_id order %>">
-        <td><%= link_to order.id.to_s, order_path(order) %></td>
-        <td><%= order.status %></td>
-        <td><%= order.user_id %></td>
+        <td>
+          <button class="btn btn-success" data-toggle="collapse" data-target="div#<%= dom_id order %>_detail">
+            View Order
+          </button>
+        </td>
+        <td><%= order.status.capitalize %></td>
+        <td><%= order.user.name %></td>
+        <td><%= order.user.email %></td>
+        <td><%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></td>
         <td>
           <% case order.status %>
           <% when "pending" %>
@@ -41,7 +42,21 @@
           <%= link_to 'Destroy', order_path(order), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
+      <div id = "<%= dom_id order %>_detail" class="collapse">
+        <tr>
+          <th>Product</tdh>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+        <% order.products.each do |product| %>
+          <tr>
+            <td><%= product.title %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </div>
     <% end %>
   </tbody>
-
-<%= link_to 'New', new_order_path, :class => 'btn btn-primary' %>

@@ -12,6 +12,7 @@
       <div class="container">
         <%= link_to "Jeff's Sweet Custom Dickies Shirts", root_path, :class => "brand" %>
         <ul class="nav">
+          
           <li><%= link_to "Dashboard", orders_path %></li>
           <% if current_user %>
           <li><%= link_to "Logged in as #{current_user.email}", user_path(current_user) %></li>
