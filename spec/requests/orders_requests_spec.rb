@@ -21,4 +21,15 @@ describe "Orders Requests" do
       end
     end
   end
+
+  context "filtered index" do
+    it "lists orders only for that category" do
+      visit orders_path
+      within("ul#filters") do
+        click_link("Pending")        
+      end
+      page.should have_link(order2.id.to_s, :href => order_path(order2))
+      page.should_not have_link(order1.id.to_s, :href => order_path(order1))
+    end
+  end
 end

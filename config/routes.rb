@@ -11,5 +11,7 @@ StoreEngine::Application.routes.draw do
   resources :products
   resources :orders
 
+  get "filter_order" => ""
+
   root :to => 'products#index'
 end
