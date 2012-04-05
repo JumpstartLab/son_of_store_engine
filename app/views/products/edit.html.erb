@@ -1,1 +1,3 @@
+<h1>Edit <%= @product.title %></h1>
+<%= render :partial => 'shared/errors', :locals => { :target => @product } %>
 <%= render :partial => 'form' %>

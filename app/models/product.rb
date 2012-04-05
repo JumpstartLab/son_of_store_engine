@@ -2,10 +2,17 @@ class Product < ActiveRecord::Base
   attr_accessible :description, :price, :title, :image_url, :on_sale
   has_many :categories, :through => :category_products
   has_many :category_products
+  validates_presence_of :title
+  # validates :price, :presences => true, :numericality => true
+  validates_presence_of :description
+  validates_associated  :categories
+  validate :categories_valid?
 
-  # def initialize
-  #   self.on_sale = true
-  # end
+  def categories_valid?
+    unless self.categories && self.categories.any?
+      errors[:base] << "YOU MUST PICK A CATEGORY"
+    end
+  end
 end
 # == Schema Information
 #
