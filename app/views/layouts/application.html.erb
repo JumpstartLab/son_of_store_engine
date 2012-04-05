@@ -7,48 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <%= link_to "Jeff's Sweet Custom Dickies Shirts", root_path, :class => "brand" %>
-        <ul class="nav">
-          
-          <li><%= link_to "Dashboard", orders_path %></li>
-          <% if current_user %>
-          <li><%= link_to "Logged in as #{current_user.email}", user_path(current_user) %></li>
-          <li><%= link_to "Log out", logout_path %></li>
-          <% else %>
-          <li><%= link_to "Sign up", signup_path %></li>
-          <li><%= link_to "Login", login_path %></li>
-          <% end %>
-
-          <li class="dropdown">
-            <a class="dropdown-toggle"
-            data-toggle="dropdown"
-            href="#">
-            Cart <%= @cart.count if @cart %>
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <% @cart.cart_items.each do |cart_item| %>
-              <li><%= cart_item.product.title %> <% cart_item.quantity%></li>
-            <% end %>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-</div>
-<div class = "container">
-  <div class="row">
-    <div class="span3">
-      <%= render 'shared/sidebar' %>
-    </div>
-    <div class="main span9">
+  <%= render partial: "shared/nav_bar" %>
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <%= render 'shared/sidebar' %>
+      </div>
+      <div class="main span9">
+        <% unless flash[:message] == nil || flash[:message] == "" %>
+        <div class="alert">
+          <a class="close" data-dismiss="alert">×</a>
+          <%= flash[:message] %>
+        </div>
+        <% end %>
       <%= yield %>
     </div>
-  </div>
-</div>
-</body>
+  </body>
 </html>

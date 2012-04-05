@@ -18,6 +18,10 @@ class Cart < ActiveRecord::Base
     @count ||= update_count
   end
 
+  def empty?
+    self.count == 0
+  end
+
   def update_count
     @count = cart_items.inject(0) do |sum, cart_item|
       sum += cart_item.quantity
