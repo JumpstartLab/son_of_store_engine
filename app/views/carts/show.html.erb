@@ -1,6 +1,2 @@
 <h1>Your Cart</h1>
-<div id="cart">
-  <% @cart.cart_items.each do |item| %>
-    <%= item.product.title %>
-  <% end %>
-</div>
+<%= render :partial => "shared/cart" %>

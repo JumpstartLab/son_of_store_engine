@@ -37,7 +37,10 @@
   <div class="control-group">
     <%= f.label :price, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :price, :class => 'number_field' %>
+      <div class="input-prepend input-append">
+        <span class="add-on">$</span>
+        <%= f.number_field :price, :class => 'number_field' %>
+      </div>
     </div>
   </div>
   <% if current_user && current_user.is_admin %>

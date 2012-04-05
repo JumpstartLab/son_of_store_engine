@@ -9,6 +9,11 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
+  def destroy
+    @cart.destroy
+    redirect_back
+  end
+
 private
 
   def find_or_create_cart_from_session
