@@ -1,0 +1,32 @@
+<a class="dropdown-toggle"
+data-toggle="dropdown"
+href="#">
+<i class="icon-shopping-cart icon-white"></i>
+Cart <span class="badge">
+<%= @cart.count unless @cart.empty? %>
+</span>
+<b class="caret"></b>
+</a>
+<ul>
+  <li class="dropdown-menu">
+    <% unless @cart.empty? %>
+    <table class="table table-striped">
+      <tbody>
+        <% @cart.cart_items.each do |cart_item| %>
+        <tr>
+          <td>
+            <%= cart_item.quantity%>
+          </td>
+          <td>
+            <%= link_to cart_item.product.title,
+            product_path(cart_item.product) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% else %>
+    <p>Nothing in your cart!</p>
+    <% end %>
+  </li>
+</ul>
