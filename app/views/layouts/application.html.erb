@@ -14,7 +14,7 @@
         <ul class="nav">
             <li><%= link_to "Dashboard", orders_path %></li>
             <% if current_user %>
-              <li>Logged in as <%= current_user.email %></li>
+              <li><%= link_to "Logged in as #{current_user.email}", user_path(current_user) %></li>
               <li><%= link_to "Log out", logout_path %></li>
             <% else %>
               <li><%= link_to "Sign up", signup_path %></li>

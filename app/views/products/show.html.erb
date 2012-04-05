@@ -26,7 +26,7 @@
 
 <div class="form-actions">
   <%= link_to 'Back', products_path, :class => 'btn'  %>
-  <%= link_to 'Add to Cart', cart_path(:product => @product), :class => 'btn' %>
+  <%= link_to 'Add to Cart', cart_path(:product => @product), :method => :put, :class => 'btn' %>
   <% if current_user && current_user.is_admin %>
     <%= link_to 'Edit', edit_product_path(@product), :class => 'btn' %>
     <%= link_to 'Delete', product_path(@product), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>

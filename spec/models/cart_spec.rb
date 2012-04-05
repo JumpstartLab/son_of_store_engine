@@ -8,10 +8,10 @@ describe Cart do
 
       before(:each) do
         products.each do |product|
-          @cart.add_item(product)
+          @cart.add_product(product)
         end
         it "returns the items" do
-          @cart.cart_items.count == 2
+          @cart.products.count == 2
         end
       end
     end

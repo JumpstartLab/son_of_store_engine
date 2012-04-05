@@ -4,8 +4,13 @@ class Cart < ActiveRecord::Base
   has_many :products, :through => :cart_items
   has_one :user
 
-  def add_item(product)
-    cart_items << CartItem.new(:product => product)
+  def add_product(item)
+    products << item
+  end
+
+  def add_product_by_id(product_id)
+    product = Product.find_by_id(product_id)
+    add_product(product)
   end
 end
 # == Schema Information

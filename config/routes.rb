@@ -1,5 +1,5 @@
 StoreEngine::Application.routes.draw do
-  resource :cart, :only => :show
+  resource :cart, :only => [:show, :update]
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
@@ -10,8 +10,5 @@ StoreEngine::Application.routes.draw do
   end
   resources :products
   resources :orders
-
-  get "filter_order" => ""
-
   root :to => 'products#index'
 end

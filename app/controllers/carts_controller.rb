@@ -1,15 +1,20 @@
 class CartsController < ApplicationController
+  before_filter { @cart = find_or_create_cart_from_session }
+
   def show
-    @cart = Cart.find_by_user_id(current_user)
-    @cart ||= Cart.new(:user => current_user)
-    if params[:product]
-      update
-    end
   end
 
   def update
-    @product = Product.find_by_id(params[:product])
-    @cart.add_item(@product)
-    @cart.save
+    @cart.add_product_by_id(params[:product])
+    redirect_to cart_path
+  end
+
+private
+
+  def find_or_create_cart_from_session
+    cart = Cart.find_by_id(session[:cart_id])
+    cart ||= Cart.create(:user => current_user)
+    session[:cart_id] = cart.id
+    cart
   end
 end
