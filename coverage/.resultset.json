@@ -1,14 +1,14 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/environment.rb": [
+      "/Users/danielkaufman/code/store_engine/config/environment.rb": [
         null,
         1,
         null,
         null,
         1
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/application.rb": [
+      "/Users/danielkaufman/code/store_engine/config/application.rb": [
         1,
         null,
         null,
@@ -82,7 +82,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/boot.rb": [
+      "/Users/danielkaufman/code/store_engine/config/boot.rb": [
         1,
         null,
         null,
@@ -90,7 +90,7 @@
         null,
         1
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/environments/test.rb": [
+      "/Users/danielkaufman/code/store_engine/config/environments/test.rb": [
         1,
         null,
         null,
@@ -129,7 +129,7 @@
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/initializers/backtrace_silencers.rb": [
+      "/Users/danielkaufman/code/store_engine/config/initializers/backtrace_silencers.rb": [
         null,
         null,
         null,
@@ -138,7 +138,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/initializers/inflections.rb": [
+      "/Users/danielkaufman/code/store_engine/config/initializers/inflections.rb": [
         null,
         null,
         null,
@@ -155,14 +155,14 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/initializers/mime_types.rb": [
+      "/Users/danielkaufman/code/store_engine/config/initializers/mime_types.rb": [
         null,
         null,
         null,
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/initializers/secret_token.rb": [
+      "/Users/danielkaufman/code/store_engine/config/initializers/secret_token.rb": [
         null,
         null,
         null,
@@ -171,7 +171,7 @@
         null,
         1
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/initializers/session_store.rb": [
+      "/Users/danielkaufman/code/store_engine/config/initializers/session_store.rb": [
         null,
         null,
         1,
@@ -181,7 +181,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/initializers/sorcery.rb": [
+      "/Users/danielkaufman/code/store_engine/config/initializers/sorcery.rb": [
         null,
         null,
         null,
@@ -569,7 +569,7 @@
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/initializers/wrap_parameters.rb": [
+      "/Users/danielkaufman/code/store_engine/config/initializers/wrap_parameters.rb": [
         null,
         null,
         null,
@@ -585,7 +585,7 @@
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/controllers/application_controller.rb": [
+      "/Users/danielkaufman/code/store_engine/app/controllers/application_controller.rb": [
         1,
         1,
         1,
@@ -594,31 +594,31 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/helpers/application_helper.rb": [
+      "/Users/danielkaufman/code/store_engine/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/helpers/categories_helper.rb": [
+      "/Users/danielkaufman/code/store_engine/app/helpers/categories_helper.rb": [
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/helpers/orders_helper.rb": [
+      "/Users/danielkaufman/code/store_engine/app/helpers/orders_helper.rb": [
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/helpers/products_helper.rb": [
+      "/Users/danielkaufman/code/store_engine/app/helpers/products_helper.rb": [
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/helpers/sessions_helper.rb": [
+      "/Users/danielkaufman/code/store_engine/app/helpers/sessions_helper.rb": [
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/helpers/users_helper.rb": [
+      "/Users/danielkaufman/code/store_engine/app/helpers/users_helper.rb": [
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/controllers/categories_controller.rb": [
+      "/Users/danielkaufman/code/store_engine/app/controllers/categories_controller.rb": [
         1,
         1,
         0,
@@ -640,35 +640,11 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/category.rb": [
+      "/Users/danielkaufman/code/store_engine/app/models/category.rb": [
         1,
         1,
         1,
         1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/controllers/orders_controller.rb": [
-        1,
-        1,
-        0,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/order.rb": [
-        1,
-        1,
-        1,
-        null,
         null,
         null,
         null,
@@ -681,7 +657,31 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/controllers/products_controller.rb": [
+      "/Users/danielkaufman/code/store_engine/app/controllers/orders_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/app/models/order.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/app/controllers/products_controller.rb": [
         1,
         1,
         0,
@@ -743,7 +743,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/product.rb": [
+      "/Users/danielkaufman/code/store_engine/app/models/product.rb": [
         1,
         1,
         1,
@@ -775,7 +775,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/controllers/sessions_controller.rb": [
+      "/Users/danielkaufman/code/store_engine/app/controllers/sessions_controller.rb": [
         1,
         1,
         null,
@@ -797,7 +797,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/controllers/users_controller.rb": [
+      "/Users/danielkaufman/code/store_engine/app/controllers/users_controller.rb": [
         1,
         1,
         0,
@@ -818,7 +818,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/user.rb": [
+      "/Users/danielkaufman/code/store_engine/app/models/user.rb": [
         1,
         1,
         1,
@@ -850,7 +850,7 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/cart.rb": [
+      "/Users/danielkaufman/code/store_engine/app/models/cart.rb": [
         1,
         1,
         1,
@@ -866,44 +866,8 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/cart_item.rb": [
+      "/Users/danielkaufman/code/store_engine/app/models/cart_item.rb": [
         1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/category_product.rb": [
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/app/models/order_item.rb": [
         1,
         1,
         null,
@@ -921,7 +885,43 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/config/routes.rb": [
+      "/Users/danielkaufman/code/store_engine/app/models/category_product.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/app/models/order_item.rb": [
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/config/routes.rb": [
         1,
         1,
         1,
@@ -937,7 +937,7 @@
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/support/example_data/projects.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/support/example_data/projects.rb": [
         1,
         1,
         1,
@@ -959,263 +959,21 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/controllers/categories_controller_spec.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/controllers/categories_controller_spec.rb": [
         1,
         null,
         1,
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/controllers/orders_controller_spec.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/controllers/orders_controller_spec.rb": [
         1,
         null,
         1,
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/controllers/products_controller_spec.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/controllers/sessions_controller_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/controllers/users_controller_spec.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/helpers/categories_helper_spec.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/helpers/orders_helper_spec.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/helpers/products_helper_spec.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/helpers/sessions_helper_spec.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/helpers/users_helper_spec.rb": [
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/cart_item_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/cart_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/category_product_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/category_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/order_item_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/order_spec.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/product_spec.rb": [
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
+      "/Users/danielkaufman/code/store_engine/spec/controllers/products_controller_spec.rb": [
         null,
         null,
         null,
@@ -1234,13 +992,229 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/models/user_spec.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/controllers/sessions_controller_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/controllers/users_controller_spec.rb": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/helpers/categories_helper_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/helpers/orders_helper_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/helpers/products_helper_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/helpers/sessions_helper_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/helpers/users_helper_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/models/cart_item_spec.rb": [
         1,
         null,
         1,
         null,
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/models/cart_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/models/category_product_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/models/category_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/models/order_item_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/models/order_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/models/product_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
         null,
         null,
         null,
@@ -1260,25 +1234,51 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/requests/orders_requests_spec.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/models/user_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/requests/orders_requests_spec.rb": [
         1,
         null,
         1,
         2,
-        1,
-        1,
+        2,
+        2,
         null,
         1,
         1,
-        0,
-        0,
-        0,
+        1,
+        1,
+        2,
         null,
         null,
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/requests/products_requests_spec.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/requests/products_requests_spec.rb": [
         1,
         null,
         1,
@@ -1362,37 +1362,12 @@
         null,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/cart_fabricator.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/cart_fabricator.rb": [
         1,
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/cart_item_fabricator.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/category_fabricator.rb": [
-        1,
-        1,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/category_product_fabricator.rb": [
-        1,
-        1,
-        1,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/order_fabricator.rb": [
-        1,
-        1,
-        1,
-        null
-      ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/order_item_fabricator.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/cart_item_fabricator.rb": [
         1,
         1,
         1,
@@ -1400,18 +1375,43 @@
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/product_fabricator.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/category_fabricator.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/category_product_fabricator.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/order_fabricator.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/order_item_fabricator.rb": [
+        1,
         1,
         1,
         1,
         1,
         null
       ],
-      "/Users/chrismaddox/Dropbox/LivingSocial/Hungry Academy/Projects/store_engine/spec/fabricators/user_fabricator.rb": [
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/product_fabricator.rb": [
+        1,
+        1,
+        1,
+        1,
+        null
+      ],
+      "/Users/danielkaufman/code/store_engine/spec/fabricators/user_fabricator.rb": [
         1,
         null
       ]
     },
-    "timestamp": 1333591442
+    "timestamp": 1333591785
   }
 }
