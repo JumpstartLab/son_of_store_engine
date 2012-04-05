@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
   def index
     @orders = Order.all
-    @orders = @orders.status(params[:filter]) unless params[:filter].blank?
+    if params[:filter]
+      @orders = Order.where(:status => params[:filter])
+    end
     @filters = Order.select(:status).uniq
     @statuses = Order.count(:all, :group => :status)
   end
