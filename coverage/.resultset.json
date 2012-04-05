@@ -660,7 +660,8 @@
       "/Users/danielkaufman/code/store_engine/app/controllers/orders_controller.rb": [
         1,
         1,
-        1,
+        2,
+        2,
         null,
         null
       ],
@@ -1272,15 +1273,23 @@
         1,
         null,
         1,
-        2,
-        2,
-        2,
+        3,
+        3,
+        3,
+        3,
         null,
         1,
         1,
         1,
         1,
-        2,
+        3,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
         null,
         null,
         null,
@@ -1421,6 +1430,6 @@
         null
       ]
     },
-    "timestamp": 1333595422
+    "timestamp": 1333597425
   }
 }

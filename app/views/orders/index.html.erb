@@ -22,5 +22,11 @@
     <% end %>
   </tbody>
 </table>
+  <h3>Order Status Summary</h3>
+  <table class="table table-striped" id="status_counts">
+  <% @statuses.each do |status, count| %>
+    <tr><td><%= "#{status.capitalize}: #{count}" %></td></tr>
+  <% end %>
+</table>
 
 <%= link_to 'New', new_order_path, :class => 'btn btn-primary' %>
