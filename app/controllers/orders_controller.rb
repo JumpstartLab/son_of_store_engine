@@ -7,4 +7,11 @@ class OrdersController < ApplicationController
     @filters = Order.select(:status).uniq
     @statuses = Order.count(:all, :group => :status)
   end
+
+  def update
+    @order = Order.find_by_id(params[:id])
+    @order.update_attributes(params[:order])
+    @order.save
+    redirect_to orders_path
+  end
 end

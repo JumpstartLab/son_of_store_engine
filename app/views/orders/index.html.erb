@@ -24,11 +24,19 @@
   </thead>
   <tbody>
     <% @orders.each do |order| %>
-      <tr>
+      <tr id="<%= dom_id order %>">
         <td><%= link_to order.id.to_s, order_path(order) %></td>
         <td><%= order.status %></td>
         <td><%= order.user_id %></td>
         <td>
+          <% case order.status %>
+          <% when "pending" %>
+            <%= link_to "Cancel Order", order_path(order, :order => {:status => "canceled" }), :method => :put, :class => "btn btn-warning" %>
+          <% when "shipped" %>
+            <%= link_to "Mark As Returned", order_path(order, :order => {:status => "returned" }), :method => :put, :class => "btn btn-primary" %>
+          <% when "paid" %>
+            <%= link_to "Mark As Shipped", order_path(order, :order => {:status => "shipped" }), :method => :put, :class => "btn btn-success" %>
+          <% end %>
           <%= link_to 'Edit', edit_order_path(order), :class => 'btn btn-mini' %>
           <%= link_to 'Destroy', order_path(order), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
