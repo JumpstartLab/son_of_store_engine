@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter { @cart = find_or_create_cart_from_session }
+
   def new
     @user = User.new
   end
@@ -16,4 +18,14 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(params[:id])
   end
+
+  private
+
+  def find_or_create_cart_from_session
+    cart = Cart.find_by_id(session[:cart_id])
+    cart ||= Cart.create(:user => current_user)
+    session[:cart_id] = cart.id
+    cart
+  end
+
 end
