@@ -5,14 +5,16 @@ describe "Application Requests" do
     before(:each) do
       visit "/"
     end
-
-    it "should have a link to the order dashboard" do
-      pending
-      if current_user.is_admin
-        page.should have_link("Dashboard", :href => orders_path)
+    if current_user.is_admin
+      context "layout" do
+        context "user is admin" do
+          it "should have a link to the order dashboard" do
+            visit "/"
+            page.should have_link("Dashboard", :href => orders_path)
+          end
+        end
       end
     end
-
     it "shows the cart in the nav bar" do
       page.should have_content("Cart")
     end
@@ -28,5 +30,6 @@ describe "Application Requests" do
     it "has a link to login (no one should be logged in)" do
       page.should have_link("Login", :href => "/login")
     end
+
   end
 end

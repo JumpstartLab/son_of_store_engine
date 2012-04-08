@@ -2,6 +2,8 @@ class Product < ActiveRecord::Base
   attr_accessible :description, :price, :title, :image_url, :on_sale, :category_ids
   has_many :categories, :through => :category_products
   has_many :category_products
+  has_many :order_items
+  has_many :orders, :through => :order_items
   validates_presence_of :categories, :description, :title, :price
   validate :categories_valid?
 
