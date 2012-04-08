@@ -5,16 +5,15 @@ describe "Application Requests" do
     before(:each) do
       visit "/"
     end
-    if current_user.is_admin
       context "layout" do
         context "user is admin" do
           it "should have a link to the order dashboard" do
+            pending "Need to inegrate sorcery with rspec"
             visit "/"
             page.should have_link("Dashboard", :href => orders_path)
           end
         end
       end
-    end
     it "shows the cart in the nav bar" do
       page.should have_content("Cart")
     end
