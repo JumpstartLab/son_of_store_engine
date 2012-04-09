@@ -2,4 +2,4 @@ jQuery ->
   $("a[rel=popover]").popover()
   $(".tooltip").tooltip()
   $("a[rel=tooltip]").tooltip()
-  $(".collapse").collapse()
+  $('#order_1_detail').modal

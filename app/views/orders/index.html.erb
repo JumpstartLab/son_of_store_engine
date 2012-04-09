@@ -21,9 +21,7 @@
     <% @orders.each do |order| %>
       <tr id="<%= dom_id order %>">
         <td>
-          <button class="btn btn-success" data-toggle="collapse" data-target="div#<%= dom_id order %>_detail">
-            View Order
-          </button>
+          <a class="btn" data-toggle="modal" href="#<%= dom_id order %>_detail" >View Order</a>
         </td>
         <td><%= order.status.capitalize %></td>
         <td><%= order.user.name %></td>
@@ -42,21 +40,21 @@
           <%= link_to 'Destroy', order_path(order), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
-      <div id = "<%= dom_id order %>_detail" class="collapse">
-        <tr>
-          <th>Product</tdh>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Total</th>
-        </tr>
-        <% order.products.each do |product| %>
-          <tr>
-            <td><%= product.title %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        <% end %>
-      </div>
     <% end %>
   </tbody>
+  <% @orders.each do |order| %>
+  <% order.products.each do |product| %>
+    <div class="modal hide" id="<%= dom_id order %>_detail">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Order from <%= order.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
