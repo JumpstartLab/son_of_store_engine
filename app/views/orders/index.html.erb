@@ -43,18 +43,41 @@
     <% end %>
   </tbody>
   <% @orders.each do |order| %>
-  <% order.products.each do |product| %>
     <div class="modal hide" id="<%= dom_id order %>_detail">
       <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
         <h3>Order from <%= order.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
       </div>
       <div class="modal-body">
-        <p>One fine body…</p>
+        <h4><%= order.user.name %>: <%= order.user.email %></h4>
+        <hr>
+        <div class="span5 product-titles">
+          <div class="span1"></div>
+          <div class="span1">Product</div>
+          <div class="span1">Price</div>              
+          <div class="span1">Quantity</div>
+          <div class="span1">Subtotal</div>
+        </div>
+        <% order.order_items.each do |item| %>
+          <% subtotal = 0 %>
+          <div class="span5 product-listing">
+            <hr>
+            <div class="span1"></div>
+            <div class="span1">
+              <%= link_to item.product.title, product_path(item.product) %>
+            </div>       
+            <div class="span1">$<%= item.decimal_price %></div>
+            <div class="span1"><%= item.quantity %></div>
+            <div class="span1">
+              <%= subtotal += item.decimal_price * item.quantity %>
+            </div>
+          </div>
+        <% end %>
+        <hr>
       </div>
+      <h3>Total: $<%= order.total %></h3>
       <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">Close</a>
       </div>
     </div>
-  <% end %>
   <% end %>

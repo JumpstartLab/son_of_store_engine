@@ -2,6 +2,10 @@ class OrderItem < ActiveRecord::Base
   attr_accessible :order_id, :price, :product_id, :quantity
   belongs_to :order
   belongs_to :product
+
+  def decimal_price
+    BigDecimal.new(price, 2)/100
+  end
 end
 # == Schema Information
 #
