@@ -4,8 +4,9 @@
   <b>Name</b><br>
   <%= @category.name %>
 </p>
-
+<% if current_user && current_user.is_admin? %>
 <div class="form-actions">
   <%= link_to 'Edit', edit_category_path(@product), :class => 'btn' %>
   <%= link_to 'Delete', category_path(@product), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
 </div>
+<% end %>

@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_presence_of :email
   validates_uniqueness_of :email
+
+  def is_admin?
+    is_admin
+  end
 end
 # == Schema Information
 #
