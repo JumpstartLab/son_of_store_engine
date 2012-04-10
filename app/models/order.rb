@@ -10,6 +10,17 @@ class Order < ActiveRecord::Base
     super
   end
 
+  def self.create_from_cart(cart)
+    order = Order.create
+    order.user_id = cart.user_id
+    order.status = "paid"
+    cart.cart_items.each do |cart_item|
+      cart_item.add_to_order(order)
+    end
+    order.save
+    order
+  end
+
   def total
     order_items.each.inject(0) { |sum, item| sum + item.price*item.quantity}
   end

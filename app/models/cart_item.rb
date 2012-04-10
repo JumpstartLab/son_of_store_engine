@@ -2,6 +2,15 @@ class CartItem < ActiveRecord::Base
   attr_accessible :cart, :price, :product, :quantity, :cart_id
   belongs_to :cart
   belongs_to :product
+
+  def add_to_order(order)
+    order_item = OrderItem.new
+    order_item.order_id = order.id
+    order_item.product_id = self.product.id
+    order_item.quantity = self.quantity
+    order_item.price = self.product.price
+    order_item.save
+  end
 end
 # == Schema Information
 #

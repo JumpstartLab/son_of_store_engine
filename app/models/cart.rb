@@ -1,5 +1,5 @@
 class Cart < ActiveRecord::Base
-  attr_accessible :cart_items, :user, :products
+  attr_accessible :cart_items, :user_id, :products, :user
   has_many :cart_items
   has_many :products, :through => :cart_items
   has_one :user
@@ -20,6 +20,12 @@ class Cart < ActiveRecord::Base
 
   def empty?
     self.count == 0
+  end
+
+  def clear
+    self.cart_items.each do |cart_item|
+      cart_item.destroy
+    end
   end
 
   def update_count
