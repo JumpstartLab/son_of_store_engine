@@ -18,4 +18,16 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find_by_id(params[:id])
   end
+  
+  def new
+  end
+
+  def create
+    order = Order.new
+    @cart.cart_items.each do |cart_item|
+      OrderItem.create!(product: cart_item.product, order: order)
+    end
+    @order = order.save!
+    redirect_to order_path(@order)
+  end
 end
