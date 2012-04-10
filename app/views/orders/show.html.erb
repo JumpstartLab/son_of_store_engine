@@ -1,0 +1,66 @@
+   <h3>Order from <%= @order.user.name %> on <%= @order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
+     <h3><%= @order.status.capitalize %></h3>
+  <h4><%= @order.user.name %>: <%= @order.user.email %></h4>
+ <div id="orders">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Date Placed</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th>Unique URL</th>
+          <th>Date Shipped</th>
+          <th>Date Returned</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <%= @order.created_at.strftime("%m/%d/%Y") %>
+          </td>
+          <td>
+            <%= @order.status %>
+          </td>
+          <td>
+            <%= @order.total %>
+          </td>
+          <td>
+            <%= link_to @bitly.shorten(order_url(@order), :history => 1).short_url, order_url(@order) %>
+          </td>
+          <td>
+            <%= @order.shipped %>            
+          </td>
+          <td>
+            <%= @order.returned %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Items</h3>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |item| %>
+        <td>
+          <%= link_to item.product.title, product_path(item.product) %>
+        </td>      
+        <td>$<%= item.decimal_price %></td>
+        <td><%= item.quantity %></td>
+        <td>
+          $<%= item.decimal_total %>
+        </td>
+        <% end %>
+      </tbody>
+  </table>
+<hr>
+<h3 class = "order-total">Total: $<%= @order.decimal_total %></h3>

@@ -14,7 +14,6 @@ private
     cart = Cart.find_by_id(session[:cart_id])
     cart ||= Cart.create(:user => current_user)
     if session[:old_cart_id]
-      raise "MEOW"
       cart.absorb(Cart.find_by_id(session[:old_cart_id]))
       session[:old_cart_id] = nil
     end

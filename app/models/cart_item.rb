@@ -1,5 +1,5 @@
 class CartItem < ActiveRecord::Base
-  attr_accessible :cart, :price, :product, :quantity
+  attr_accessible :cart, :price, :product, :quantity, :cart_id
   belongs_to :cart
   belongs_to :product
 end
