@@ -14,3 +14,12 @@ div.product-listing {
   text-align: right;
   padding-right: 80px;
 }
+
+div#droppable {
+  width: 200px;
+  height: 200px;
+  padding: 30px; 
+  float: right;
+  border: 3px dotted grey;
+  margin-top: 50px;
+}

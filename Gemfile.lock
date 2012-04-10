@@ -124,6 +124,8 @@ GEM
       activesupport (= 3.2.3)
       bundler (~> 1.0)
       railties (= 3.2.3)
+    rails-asset-jqueryui (0.0.3)
+      jquery-rails
     railties (3.2.3)
       actionpack (= 3.2.3)
       activesupport (= 3.2.3)
@@ -211,6 +213,7 @@ DEPENDENCIES
   launchy
   money
   rails (= 3.2.3)
+  rails-asset-jqueryui
   rspec-rails
   sass-rails (~> 3.2.3)
   simplecov

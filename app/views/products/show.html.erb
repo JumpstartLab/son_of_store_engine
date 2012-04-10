@@ -1,10 +1,12 @@
+<div id="droppable">Drag image here to add to cart</div>
+
 <h1>Product</h1>
 
 <p>
   <b>Title</b><br>
   <%= @product.title %>
 </p>
-  <img src="<%= @product.image_url %>">
+  <%= image_tag @product.image_url, :id => "draggable" %>
 <p>
   <b>Description</b><br>
   <%= @product.description %>
@@ -26,7 +28,7 @@
 
 <div class="form-actions">
   <%= link_to 'Back', products_path, :class => 'btn'  %>
-  <%= link_to 'Add to Cart', cart_path(:product => @product), :method => :put, :class => 'btn' %>
+  <%= link_to 'Add to Cart', cart_path(:product => @product), :method => :put, :class => 'btn', :id => "add-to-cart-button" %>
   <% if current_user && current_user.is_admin %>
     <%= link_to 'Edit', edit_product_path(@product), :class => 'btn' %>
     <%= link_to '<i class= "icon-trash icon-white"></i> Delete'.html_safe,
