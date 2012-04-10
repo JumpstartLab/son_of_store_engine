@@ -6,7 +6,7 @@
           <th>Date Placed</th>
           <th>Status</th>
           <th>Total</th>
-          <th>URL</th>
+          <th>Unique URL</th>
           <th>Date Shipped</th>
           <th>Date Returned</th>
         </tr>
@@ -27,7 +27,7 @@
             <%= order.total %>
           </td>
           <td>
-            <%= order_url(order) %>
+            <%= link_to @bitly.shorten(order_url(order), :history => 1).short_url, order_url(order) %>
           </td>
           <td>
             <%= order.shipped %>            
