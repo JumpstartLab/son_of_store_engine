@@ -14,4 +14,16 @@ class OrdersController < ApplicationController
     @order.save
     redirect_to orders_path
   end
+
+  def new
+  end
+
+  def create
+    order = Order.new
+    @cart.cart_items.each do |cart_item|
+      OrderItem.create!(product: cart_item.product, order: order)
+    end
+    @order = order.save!
+    redirect_to order_path(@order)
+  end
 end
