@@ -47,6 +47,14 @@
       <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
         <h3>Order from <%= order.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
+          <% case order.status %>
+          <% when "pending" %>
+            <%= link_to "Cancel Order", order_path(order, :order => {:status => "canceled" }), :method => :put, :class => "btn btn-warning" %>
+          <% when "shipped" %>
+            <%= link_to "Mark As Returned", order_path(order, :order => {:status => "returned" }), :method => :put, :class => "btn btn-primary" %>
+          <% when "paid" %>
+            <%= link_to "Mark As Shipped", order_path(order, :order => {:status => "shipped" }), :method => :put, :class => "btn btn-success" %>
+          <% end %>
       </div>
       <div class="modal-body">
         <h4><%= order.user.name %>: <%= order.user.email %></h4>
@@ -59,8 +67,7 @@
           <div class="span1">Subtotal</div>
         </div>
         <% order.order_items.each do |item| %>
-          <% subtotal = 0 %>
-          <div class="span5 product-listing">
+           <div class="span5 product-listing">
             <hr>
             <div class="span1"></div>
             <div class="span1">
@@ -69,14 +76,14 @@
             <div class="span1">$<%= item.decimal_price %></div>
             <div class="span1"><%= item.quantity %></div>
             <div class="span1">
-              <%= subtotal += item.decimal_price * item.quantity %>
+              $<%= item.decimal_total %>
             </div>
           </div>
         <% end %>
-        <hr>
       </div>
-      <h3>Total: $<%= order.total %></h3>
-      <div class="modal-footer">
+      <hr>
+       <h3 class = "order-total">Total: $<%= order.decimal_total %></h3>
+       <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">Close</a>
       </div>
     </div>

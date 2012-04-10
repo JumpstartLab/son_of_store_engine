@@ -9,3 +9,8 @@ div.product-listing {
   font-size: 13px;
   padding: 3px;
 }
+
+.order-total {
+  text-align: right;
+  padding-right: 80px;
+}

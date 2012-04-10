@@ -1,17 +1,24 @@
 require 'spec_helper'
 
 describe "Orders Requests" do
-  let!(:product1) { Fabricate(:product) }
-  let!(:product2) { Fabricate(:product) }
+  let!(:product1) { Fabricate(:product, :id => 1) }
+  let!(:product2) { Fabricate(:product, :id => 2) }
   let!(:user1) { Fabricate(:user, :id => 1, :email => "ham@gmail.com", :name => "Fred Banks") }
   let!(:user2) { Fabricate(:user, :id => 2)}
-  let!(:order1) { Fabricate(:order, :status => "shipped", :user_id => 1, :products => [product1, product2]) }
-  let!(:order2) { Fabricate(:order, :status => "pending", :user_id => 2) }
-  let!(:order3) { Fabricate(:order, :status => "pending", :user_id => 2) }
-  let!(:order4) { Fabricate(:order, :status => "paid", :user_id => 1) }
+  let!(:order1) { Fabricate(:order, :id => 1, :status => "shipped", :user_id => 1, :products => [product1, product2]) }
+  let!(:order2) { Fabricate(:order, :id => 2, :status => "pending", :user_id => 2) }
+  let!(:order3) { Fabricate(:order, :id => 3, :status => "pending", :user_id => 2) }
+  let!(:order4) { Fabricate(:order, :id => 4, :status => "paid", :user_id => 1) }
+  let!(:order_item1) { Fabricate(:order_item, :order_id => 1, :product_id => 1, :quantity => 2, :price => 10) }
+  let!(:order_item2) { Fabricate(:order_item, :order_id => 1, :product_id => 2, :quantity => 2, :price => 10) }
   let!(:orders) { [order1, order2, order3, order4] }
 
   before(:each) do
+    Order.any_instance.stub(:decimal_total).and_return(1)
+    OrderItem.any_instance.stub(:decimal_total).and_return(1)
+    OrderItem.any_instance.stub(:decimal_price).and_return(1)
+    order1.stub(:order_items).and_return([order_item1, order_item2])
+    order1.stub(:products).and_return([product1, product2])
     visit orders_path
   end
 
@@ -29,10 +36,13 @@ describe "Orders Requests" do
     end
 
     it "lists each product ordered for each order" do
-      #within("div#order_1_detail") do
-        page.should have_content(product1.title)
-        page.should have_content(product2.title)
-      #end
+      page.should have_content(product1.title)
+      page.should have_content(product2.title)
+    end
+
+    it "links to the individual product pages" do
+      page.should have_link(product1.title, :href => product_path(product1))
+      page.should have_link(product2.title, :href => product_path(product2))
     end
 
     context "order status is pending" do
