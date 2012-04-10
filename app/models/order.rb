@@ -5,7 +5,11 @@ class Order < ActiveRecord::Base
   has_many :products, :through => :order_items
 
   def total
-    order_items.each.inject(0) { |sum, item| sum + item.decimal_price*item.quantity}
+    order_items.each.inject(0) { |sum, item| sum + item.price*item.quantity}
+  end
+
+  def decimal_total
+    Money.new(total)
   end
 end
 # == Schema Information

@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe OrderItem do
+  let(:order) { Fabricate(:order) }
+  
+  describe '#decimal_total' do
+    it "should return a money object of the total/100" do
+      order.stub(:total).and_return(123)
+      order.decimal_total.should == Money.new(123)
+    end
+  end
 end
 # == Schema Information
 #

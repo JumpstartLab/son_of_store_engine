@@ -4,7 +4,15 @@ class OrderItem < ActiveRecord::Base
   belongs_to :product
 
   def decimal_price
-    BigDecimal.new(price, 2)/100
+    Money.new(price)
+  end
+
+  def total
+    price*quantity
+  end
+
+  def decimal_total
+    Money.new(total)
   end
 end
 # == Schema Information
