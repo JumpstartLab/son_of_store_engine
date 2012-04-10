@@ -12,6 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jqueryui
+//= require jquery-ui
 //= require twitter/bootstrap
 //= require_tree .
