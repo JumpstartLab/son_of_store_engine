@@ -7,6 +7,8 @@ class Product < ActiveRecord::Base
   validates_presence_of :categories, :description, :title, :price
   validate :categories_valid?
 
+  default_scope order(:title) #orders them by title
+
   def categories_valid?
     unless self.categories && self.categories.any?
       errors[:base] << "Please pick a category, homeslice."
