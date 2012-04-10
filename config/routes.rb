@@ -6,9 +6,6 @@ StoreEngine::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   resources :users
   resources :sessions
-  resources :categories do 
-    resources :products
-  end
   resources :products
   resources :orders
 
