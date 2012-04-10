@@ -25,7 +25,7 @@
             <%= @order.total %>
           </td>
           <td>
-            <%= link_to @bitly.shorten(order_url(@order), :history => 1).short_url, order_url(@order) %>
+            <%= link_to BITLY.shorten(order_url(@order), :history => 1).short_url, order_url(@order) %>
           </td>
           <td>
             <%= @order.shipped %>            
