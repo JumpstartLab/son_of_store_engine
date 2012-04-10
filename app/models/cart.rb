@@ -29,8 +29,10 @@ class Cart < ActiveRecord::Base
   end
 
   def absorb(other_cart)
-    other_cart.cart_items.each do |cart_item|
-      cart_item.cart_id = self.id
+    if other_cart
+      other_cart.cart_items.each do |cart_item|
+        cart_item.cart_id = self.id
+      end
     end
   end
 end
