@@ -23,6 +23,9 @@
           <td>
             <%= item.quantity %>
           </td>
+          <td>
+            <%= link_to "Remove from cart", cart_item_path(item), :class => "btn btn-danger", :method => "delete" %>
+          </td>
         </tr>
         <% end %>
         <tr>

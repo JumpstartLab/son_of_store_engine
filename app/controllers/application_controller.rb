@@ -16,4 +16,3 @@ private
     cart
   end
 end
-  
