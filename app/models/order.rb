@@ -4,6 +4,12 @@ class Order < ActiveRecord::Base
   has_many :order_items
   has_many :products, :through => :order_items
 
+  def update_attributes(params)
+    self.shipped = Time.now if params[:status] == "shipped" && status != "shipped"
+    self.returned = Time.now if params[:status] == "returned" && status != "returned"
+    super
+  end
+
   def total
     order_items.each.inject(0) { |sum, item| sum + item.price*item.quantity}
   end
