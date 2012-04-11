@@ -1,5 +1,5 @@
 class Cart < ActiveRecord::Base
-  attr_accessible :cart_items, :user_id, :products, :user
+  attr_accessible :cart_items, :user_id, :products, :user, :cart_id
   has_many :cart_items
   has_many :products, :through => :cart_items
   has_one :user

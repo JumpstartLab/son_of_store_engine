@@ -34,8 +34,7 @@
     <%= link_to "Clear Cart", cart_path,
     :class => "btn btn-danger", :method => :delete,
     :confirm => 'Are you sure you want to empty the cart?' %>
-    <%= if current_user %>
+    <% if current_user %>
       <%= link_to "¡Checkout!", new_order_path, class: "btn" %>
     <% end %>
-    <%= link_to "¡Checkout!", orders_path, method: "post", class: "btn" %>
   </div>
