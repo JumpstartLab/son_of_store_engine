@@ -39,5 +39,15 @@ RSpec.configure do |config|
 
   config.include Rails.application.routes.url_helpers
   config.include ExampleData::Projects
+  config.include Sorcery::TestHelpers::Rails
 end
 
+module Sorcery
+  module TestHelpers
+    module Rails
+      def login_user_post(email, password)
+        page.driver.post(sessions_path, { email: email, password: password, remember_me: false}) 
+      end
+    end
+  end
+end
