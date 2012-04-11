@@ -2,16 +2,30 @@ require 'spec_helper'
 
 describe Cart do  
   describe "#items" do
-    context "when items have been addded to the cart" do
-      let(:cart){ Cart.new }
-      let(:products) {[Fabricate(:product), Fabricate(:product)]}
+    context "when items have been added to the cart" do
+      let(:cart){ Fabricate(:cart) }
+      let(:cart2) { Fabricate(:cart, user_id: 2)}
+      let(:products) {[Fabricate(:product, id: 1), Fabricate(:product, id: 2)]}
+      let(:products2) {[Fabricate(:product, id: 3), Fabricate(:product, id: 4)]}
 
       before(:each) do
-        products.each do |product|
-          @cart.add_product(product)
-        end
-        it "returns the items" do
-          @cart.products.count == 2
+        products.each { |product| cart.add_product(product) }
+      end
+
+      it "adds the items to the cart" do
+        cart.products.count.should == 2
+      end
+
+      it "clears the cart" do
+        cart.clear
+        cart.products.count.should == 0
+      end
+
+      it "can absorb ALL the things" do
+        products2.each {|p| cart2.add_product(p) }
+        cart.absorb(cart2)
+        products2.each do |product|
+          cart.products.should be_include(product)
         end
       end
     end
