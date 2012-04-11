@@ -82,6 +82,7 @@ GEM
       thor (~> 0.14.6)
     guard-rspec (0.7.0)
       guard (>= 0.10.0)
+    haml (3.1.4)
     hike (1.2.1)
     httparty (0.8.1)
       multi_json
@@ -219,6 +220,7 @@ DEPENDENCIES
   faker
   guard
   guard-rspec
+  haml
   jquery-rails
   launchy
   money
