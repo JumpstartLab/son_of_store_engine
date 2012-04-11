@@ -5,6 +5,7 @@ gem 'jquery-rails'
 gem 'rails-asset-jqueryui'
 gem 'money'
 gem 'bitly'
+gem 'haml'
 
 # Gems used only for assets and not required
 # in production environments by default.
