@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    params[:product][:price] = params[:product][:price].to_i * 100
+    params[:product][:price] = params[:product][:price].to_i * 100 if params[:product][:price]
     product = Product.new(params[:product])
     if product.save
       redirect_to products_path

@@ -79,4 +79,32 @@ describe "Products Requests" do
       page.should have_selector("input", :value => product.title)
     end
   end
+
+  context "create" do
+    let!(:category) { Fabricate(:category) }
+    before(:each) do
+      visit new_product_path
+    end
+    context "the params are valid for the product" do
+      it "creates a new product" do
+        product_count = Product.all.count
+        fill_in('Title', :with => 'Title')
+        fill_in('Description', :with => 'Description')
+        fill_in('Price', :with => 123)
+        check(category.name)
+        click_button(:submit)
+        Product.all.count.should == product_count + 1
+      end
+    end
+    context "the params are not valid" do
+      it "does not create a new product and redirects to new page" do
+        product_count = Product.all.count
+        fill_in('Title', :with => 'Title')
+        fill_in('Description', :with => 'Description')
+        check(category.name)
+        click_button(:submit)
+        Product.all.count.should == product_count
+      end
+    end
+  end
 end
