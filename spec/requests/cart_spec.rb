@@ -29,10 +29,6 @@ describe "Using the shopping cart", :focus => true do
         end
       end
 
-      it "shows the cart total" do
-        pending
-      end
-
     end
     context "Clearing the cart" do
       before(:each) do
@@ -51,7 +47,6 @@ describe "Using the shopping cart", :focus => true do
           end
         end
       end
-
     end
   end
 

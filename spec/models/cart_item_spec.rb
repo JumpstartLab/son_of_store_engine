@@ -1,6 +1,30 @@
 require 'spec_helper'
 
 describe CartItem do
+  let!(:products) do 
+    [].tap { |a| 5.times { a << Fabricate(:product) } }
+  end
+  let!(:order) { Fabricate(:order) }
+  let!(:cart_items) do
+    a = [] 
+    5.times { a << Fabricate(:cart_item) }
+    a
+  end
+
+  context "add_to_order" do
+    cart_items.each do |cart_item|
+      it "adds itself to an order" do
+        cart_item.add_to_order(order)
+        match_array = order.order_items.select do |order_item|
+          order_item.order_id == order.id &&
+          order_item.product_id == cart_item.product.id &&
+          order_item.quantity == cart_item.quantity &&
+          order_item.price == cart_item.product.price
+        end
+        match_array.size_should == 1
+      end
+    end
+  end
 end
 # == Schema Information
 #
