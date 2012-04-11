@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(:version => 20120410213218) do
     t.datetime "reset_password_email_sent_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
-    t.boolean  "on_sale"
     t.string   "display_name"
   end
 
