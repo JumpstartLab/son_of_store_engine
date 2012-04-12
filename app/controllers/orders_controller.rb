@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    render :action => :create unless Customer.find_by_user_id(@cart.user)
+    render :action => :create if @cart.user.customer
     @order = Order.new
     @customer = Customer.find_or_create_by_user
   end
