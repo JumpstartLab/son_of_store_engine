@@ -1,7 +1,7 @@
 <h1>Administrator Dashboard</h1>
 <br>
 <div id="filters">
-  <%= link_to "All: #{@orders.count}", orders_path, :class => "btn btn-info"%>
+  <%= link_to "All: #{Order.all.count}", orders_path, :class => "btn btn-info"%>
   <% @filters.each do |filter| %>
     <%= link_to "#{filter.status.capitalize}: #{@statuses[filter.status]}", orders_path(:filter => filter.status), :class => "btn btn-info"%>
   <% end %>
@@ -76,7 +76,16 @@
               <%= link_to item.product.title, product_path(item.product) %>
             </div>       
             <div class="span1">$<%= item.decimal_price %></div>
-            <div class="span1"><%= item.quantity %></div>
+            <div class="span1">
+              <% if order.status == "pending" %>
+                <%= form_for item do |f| %>
+                  <%= f.number_field :quantity %>
+                  <%= f.submit "Update", :class => "order-quantity-submit" %>
+                <% end %>
+              <% else %>
+                <%= item.quantity %>
+              <% end %>
+            </div>
             <div class="span1">
               $<%= item.decimal_total %>
             </div>

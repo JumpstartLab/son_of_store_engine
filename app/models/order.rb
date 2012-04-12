@@ -13,7 +13,7 @@ class Order < ActiveRecord::Base
   def self.create_from_cart(cart)
     order = Order.create
     order.user_id = cart.user_id
-    order.status = "paid"
+    order.status = "pending"
     cart.cart_items.each do |cart_item|
       cart_item.add_to_order(order)
     end

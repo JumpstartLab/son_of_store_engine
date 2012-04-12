@@ -10,6 +10,10 @@ class OrdersController < ApplicationController
     @statuses = Order.count(:all, :group => :status)
   end
 
+  def edit
+    @order = Order.find_by_id(params[:id])
+  end
+
   def update
     @order = Order.find_by_id(params[:id])
     @order.update_attributes(params[:order])
