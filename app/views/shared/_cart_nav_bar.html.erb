@@ -2,10 +2,10 @@
 data-toggle="dropdown"
 href="#">
 <i class="icon-shopping-cart icon-white"></i>
-  Cart 
-  <span class="badge">
-    <%= @cart.count unless @cart.empty? %>
-  </span>
+Cart 
+<span class="badge">
+  <%= @cart.count unless @cart.empty? %>
+</span>
 <b class="caret"></b>
 </a>
 <ul>
@@ -24,6 +24,7 @@ href="#">
           </td>
         </tr>
         <% end %>
+        <tr><%= link_to "View Cart",cart_path %></tr>
       </tbody>
     </table>
     <% else %>
