@@ -26,10 +26,13 @@ class OrdersController < ApplicationController
   end
 
   def new
+    render :action => :create unless Customer.find_by_user_id(@cart.user)
+    @order = Order.new
+    @customer = Customer.find_or_create_by_user
   end
 
   def create
-    @order = Order.create_from_cart(@cart)
+    @order = Order.create_from_cart(@cart, Customer.new(params[:customer]))
     @cart.clear
     redirect_to order_path(@order)
   end
