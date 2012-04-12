@@ -30,4 +30,14 @@ describe "Users Requests" do
       page.should have_content(product2.title)
     end
   end
+
+  describe 'new' do
+    it 'shows the new user form' do
+      visit new_user_path
+      page.should have_selector('input#user_name')
+      page.should have_selector('input#user_display_name')
+      page.should have_selector('input#user_email')
+      page.should have_selector('input#user_password')
+    end
+  end
 end
