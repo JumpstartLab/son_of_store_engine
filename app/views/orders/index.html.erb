@@ -1,6 +1,7 @@
 <h1>Administrator Dashboard</h1>
 <br>
 <div id="filters">
+  <%= link_to "All: #{@orders.count}", orders_path, :class => "btn btn-info"%>
   <% @filters.each do |filter| %>
     <%= link_to "#{filter.status.capitalize}: #{@statuses[filter.status]}", orders_path(:filter => filter.status), :class => "btn btn-info"%>
   <% end %>
@@ -47,6 +48,7 @@
       <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
         <h3>Order from <%= order.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
+          <h4>Status: <%= order.status.capitalize %></h4>
           <% case order.status %>
           <% when "pending" %>
             <%= link_to "Cancel Order", order_path(order, :order => {:status => "canceled" }), :method => :put, :class => "btn btn-warning" %>

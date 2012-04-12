@@ -15,6 +15,10 @@ class Product < ActiveRecord::Base
       errors[:base] << "Please pick a category, homeslice."
     end
   end
+
+  def decimal_price
+    Money.new(price)
+  end
 end
 # == Schema Information
 #
