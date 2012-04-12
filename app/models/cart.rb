@@ -21,10 +21,6 @@ class Cart < ActiveRecord::Base
     add_product(product)
   end
 
-  def count
-    @count ||= update_count
-  end
-
   def empty?
     self.count == 0
   end
@@ -32,12 +28,6 @@ class Cart < ActiveRecord::Base
   def clear
     self.cart_items.each do |cart_item|
       cart_item.destroy
-    end
-  end
-
-  def update_count
-    @count = cart_items.inject(0) do |sum, cart_item|
-      sum += cart_item.quantity
     end
   end
 

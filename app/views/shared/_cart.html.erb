@@ -21,7 +21,10 @@
             $<%= item.product.decimal_price %>
           </td>
           <td>
-            <%= item.quantity %>
+            <%= form_for item do |f| %>
+              <%= f.number_field :quantity, :class => 'number_field' %>
+              <%= f.submit "Update Quantity" %>
+            <% end %>
           </td>
           <td>
             <%= link_to "Remove from cart", cart_item_path(item), :class => "btn btn-danger", :method => "delete" %>
