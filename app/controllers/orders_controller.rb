@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @user = User.new
   end
 
   def create

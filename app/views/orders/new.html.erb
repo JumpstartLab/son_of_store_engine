@@ -1,21 +1,48 @@
 <h1>Shipping and Billing Info</h1>
-<% form_for @order do |f| -%>
-  <%= f.label :shipping_address, "Shipping Address" %>
-  <%= f.text_field :shipping_address %>
+<% form_for @user do |f| -%>
 
-  <%= f.label :shipping_address2, "Shipping Address" %>
-  <%= f.text_field :shipping_address2 %>
+  <h3>Shipping Information</h3>
+  <%= f.label :ship_address, "Address" %>
+  <%= f.text_field :ship_address %>
 
-  <%= f.label :city, "City" %>
-  <%= f.text_field :city %>
+  <%= f.label :ship_address2, "Address" %>
+  <%= f.text_field :ship_address2 %>
 
-  <%= f.label :state, "State" %>
-  <%= f.text_field :state %>
+  <%= f.label :ship_city, "City" %>
+  <%= f.text_field :ship_city %>
 
-  <%= f.label :zipcode, "Zipcode" %>
-  <%= f.number_field :zipcode %>
+  <%= f.label :ship_state, "State" %>
+  <%= f.text_field :ship_state %>
 
+  <%= f.label :ship_zipcode, "Zipcode" %>
+  <%= f.number_field :ship_zipcode %>
 
+  <h3>Billing Information</h3>
 
+  <%= f.label :bill_address, "Address" %>
+  <%= f.text_field :bill_address %>
 
+  <%= f.label :bill_address2, "Address" %>
+  <%= f.text_field :bill_address2 %>
+
+  <%= f.label :bill_city, "City" %>
+  <%= f.text_field :bill_city %>
+
+  <%= f.label :sbill_state, "State" %>
+  <%= f.text_field :bill_state %>
+
+  <%= f.label :bill_zipcode, "Zipcode" %>
+  <%= f.number_field :bill_zipcode %>
+
+  <h3>Payment Info</h3>
+
+  <%= f.label :credit_card_type, "Credit Card Type" %>
+  <%= f.select :bill_zipcode, options_for_select(["Visa", "Mastercard", "Discover"]) %>
+
+  <%= f.label :credit_card_number, "Credit Card Number" %>
+  <%= f.number_field :credit_card_number %>
+
+  <%= f.label :security_code, "Security Code" %>
+  <%= f.number_field :security_code %>
+  
 <% end -%>
