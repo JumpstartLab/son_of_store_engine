@@ -4,7 +4,7 @@ href="#">
 <i class="icon-shopping-cart icon-white"></i>
 Cart 
 <span class="badge">
-  <%= @cart.count unless @cart.empty? %>
+  <%= @cart.cart_items.size unless @cart.empty? %>
 </span>
 <b class="caret"></b>
 </a>

@@ -1,0 +1,21 @@
+<h1>Shipping and Billing Info</h1>
+<% form_for @order do |f| -%>
+  <%= f.label :shipping_address, "Shipping Address" %>
+  <%= f.text_field :shipping_address %>
+
+  <%= f.label :shipping_address2, "Shipping Address" %>
+  <%= f.text_field :shipping_address2 %>
+
+  <%= f.label :city, "City" %>
+  <%= f.text_field :city %>
+
+  <%= f.label :state, "State" %>
+  <%= f.text_field :state %>
+
+  <%= f.label :zipcode, "Zipcode" %>
+  <%= f.number_field :zipcode %>
+
+
+
+
+<% end -%>
