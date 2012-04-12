@@ -32,7 +32,9 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create_from_cart(@cart, Customer.new(params[:customer]))
+    # @order = Order.create_from_cart(@cart, Customer.new(params[:customer]))
+    @order = Order.create_from_cart(@cart)
+    @order.customer = Customer.new(params[:customer])
     @cart.clear
     redirect_to order_path(@order)
   end
