@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   authenticates_with_sorcery!
   attr_accessible :email, :password, :name, :display_name
 
+  has_one :customer
   has_many :orders
   has_one :cart
 

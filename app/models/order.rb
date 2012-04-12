@@ -1,8 +1,10 @@
 class Order < ActiveRecord::Base
   attr_accessible :status, :user_id
-  belongs_to :user
+  belongs_to :customer
+  has_one :user, through: :customer
   has_many :order_items
   has_many :products, :through => :order_items
+  accepts_nested_attributes_for :customer
 
   def update_attributes(params)
     self.shipped = Time.now if params[:status] == "shipped" && status != "shipped"
