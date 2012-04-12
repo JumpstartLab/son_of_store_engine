@@ -80,6 +80,42 @@ describe "Products Requests" do
     end
   end
 
+  context "update" do
+    let!(:product) { Fabricate(:product) }
+    let!(:category) { Fabricate(:category) }
+    before(:each) do
+      visit edit_product_path(product)
+    end
+    context "valid params are passed" do
+      it "updates the product" do
+        fill_in('Price', :with => 225)
+        check(category.name)
+        click_button("Update Product")
+        Product.find_by_id(1).price.should == 225
+      end
+    end
+    context "invalid params are passed" do
+      it "does not update the product" do
+        fill_in('Price', :with => -2)
+        check(category.name)
+        click_button('Update Product')
+        Product.find_by_id(1).price.should_not == -2
+      end
+    end
+  end
+
+  context "destroy" do
+    let!(:product) { Fabricate(:product) }
+    let!(:user) { Fabricate(:user, :is_admin => true) }
+    it "removes the product from the database" do
+      product_count = Product.all.count
+      ProductsController.any_instance.stub(:current_user).and_return(user)
+      visit product_path(product)
+      click_link('Delete')
+      Product.all.count.should == product_count - 1
+    end
+  end
+
   context "create" do
     let!(:category) { Fabricate(:category) }
     before(:each) do
@@ -97,7 +133,7 @@ describe "Products Requests" do
       end
     end
     context "the params are not valid" do
-      it "does not create a new product and redirects to new page" do
+      it "does not create a new product" do
         product_count = Product.all.count
         fill_in('Title', :with => 'Title')
         fill_in('Description', :with => 'Description')
