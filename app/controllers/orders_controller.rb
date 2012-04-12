@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :verify_is_admin
+  before_filter :verify_is_admin, :only => [:index, :update, :destroy]
 
   def index
     @orders = Order.all
@@ -43,11 +43,5 @@ class OrdersController < ApplicationController
     @order = Order.find_by_id(params[:id])
     @order.destroy
     redirect_to orders_path
-  end
-
-  private
-
-  def verify_is_admin
-    (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless current_user.is_admin)
   end
 end

@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_filter :verify_is_admin, :only => [:new, :create, :destroy, :edit, :update]
+
   def index
     @products = if params[:category_id]
       Category.find_by_id(params[:category_id]).products

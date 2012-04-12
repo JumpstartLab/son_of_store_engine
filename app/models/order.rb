@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
 
   def update_attributes(params)
     self.shipped = Time.now if params[:status] == "shipped" && status != "shipped"
-    self.returned = Time.now if params[:status] == "returned" && status != "returned"
+    self.cancelled = Time.now if params[:status] == "cancelled" && status != "cancelled"
     super
   end
 
