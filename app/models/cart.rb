@@ -6,7 +6,14 @@ class Cart < ActiveRecord::Base
   accepts_nested_attributes_for :cart_items
 
   def add_product(product)
-    products << product
+    unless products.include? product
+      products << product
+    else
+      selected = cart_items.select do |cart_item|
+        cart_item.product == product
+      end
+      selected.first.tap{|c| c.quantity += 1}.save
+    end
   end
 
   def add_product_by_id(product_id)
