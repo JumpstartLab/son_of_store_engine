@@ -1,4 +1,4 @@
-<h1>Account Page for <%= @user.name %></h1>
+<h1>Account Page for <%= current_user.name %></h1>
 </br>
 <h3>Here's what is in your cart right now:</h3>
 <%= render :partial => "shared/cart" %>
@@ -38,7 +38,7 @@
             <%= order.shipped %>            
           </td>
           <td>
-            <%= order.returned %>
+            <%= order.cancelled %>
           </td>
         </tr>
         <% end %>
@@ -51,7 +51,14 @@
       <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
         <h3>Order from <%= order.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
-        <h3><%= order.status.capitalize %></h3>
+        <h3>
+          Status: <%= order.status.capitalize %>
+          <% if order.status == "shipped" %>
+            at <%= order.shipped.strftime("%B %e, %Y %l:%M %p") %>
+          <% elsif order.status == "cancelled" %>
+            at <%= order.cancelled.strftime("%B %e, %Y %l:%M %p") %>
+          <% end %>
+        </h3>
       </div>
       <div class="modal-body">
         <h4><%= order.user.name %>: <%= order.user.email %></h4>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410213218) do
+ActiveRecord::Schema.define(:version => 20120412180525) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "cart_id"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20120410213218) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.date     "shipped"
-    t.date     "returned"
+    t.date     "cancelled"
   end
 
   create_table "products", :force => true do |t|
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20120410213218) do
     t.datetime "reset_password_email_sent_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.boolean  "on_sale"
     t.string   "display_name"
   end
 
