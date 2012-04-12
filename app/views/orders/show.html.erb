@@ -22,7 +22,7 @@
             <%= @order.status %>
           </td>
           <td>
-            <%= @order.total %>
+            $<%= @order.decimal_total %>
           </td>
           <td>
             <%= link_to order_url(@order), order_url(@order) %>
@@ -51,14 +51,16 @@
     </thead>
     <tbody>
       <% @order.order_items.each do |item| %>
-        <td>
-          <%= link_to item.product.title, product_path(item.product) %>
-        </td>      
-        <td>$<%= item.decimal_price %></td>
-        <td><%= item.quantity %></td>
-        <td>
-          $<%= item.decimal_total %>
-        </td>
+        <tr>
+          <td>
+            <%= link_to item.product.title, product_path(item.product) %>
+          </td>      
+          <td>$<%= item.decimal_price %></td>
+          <td><%= item.quantity %></td>
+          <td>
+            $<%= item.decimal_total %>
+          </td>
+        </tr>
         <% end %>
       </tbody>
   </table>

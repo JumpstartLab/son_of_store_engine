@@ -18,7 +18,7 @@
             <%= link_to item.product.title, product_path(item.product) %>
           </td>
           <td>
-            <%= item.product.price %>
+            $<%= item.product.decimal_price %>
           </td>
           <td>
             <%= item.quantity %>
