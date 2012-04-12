@@ -22,7 +22,7 @@ class Cart < ActiveRecord::Base
   end
 
   def empty?
-    self.count == 0
+    self.cart_items.size == 0
   end
 
   def clear
