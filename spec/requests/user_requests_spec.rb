@@ -40,4 +40,26 @@ describe "Users Requests" do
       page.should have_selector('input#user_password')
     end
   end
+
+  describe 'create' do
+    context "when valid parameters are passed" do
+      before(:each) do
+        visit new_user_path
+        fill_in('Name', :with => 'Frank Zappa')
+        fill_in('Email', :with => 'polka@allday.com')
+        fill_in('Password', :with => 'password')
+      end
+      it "creates a new user" do
+        user_count = User.all.count
+        click_button(:submit)
+        User.all.count.should == user_count + 1
+      end
+      it "logs the user in" do
+        click_button(:submit)
+        puts UsersController..send(:current_user)
+      end
+    end
+    context "when invalid parameters are passed" do
+    end
+  end
 end

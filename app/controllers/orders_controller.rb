@@ -27,4 +27,11 @@ class OrdersController < ApplicationController
     @cart.clear
     redirect_to order_path(@order)
   end
+
+  def one_click
+    one_click_cart = Cart.new(:user_id => current_user.id)
+    one_click_cart.products << Product.find_by_id(params[:product])
+    @order = Order.create_from_cart(one_click_cart)
+    redirect_to order_path(@order)
+  end
 end
