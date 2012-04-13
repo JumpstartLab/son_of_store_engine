@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = if params[:category_id]
-      Category.find_by_id(params[:category_id]).products
+      Category.find_by_id(params[:category_id]).products.where(:on_sale => true)
     else
       Product.where(:on_sale => true)
     end

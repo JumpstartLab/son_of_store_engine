@@ -29,7 +29,7 @@
             <%= order.status %>
           </td>
           <td>
-            <%= order.total %>
+            $<%= order.decimal_total %>
           </td>
           <td>
             <%= link_to order_url(order), order_url(order) %>
