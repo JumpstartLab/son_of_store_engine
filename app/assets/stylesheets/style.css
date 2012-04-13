@@ -23,3 +23,13 @@ div#droppable {
   border: 3px dotted grey;
   margin-top: 50px;
 }
+
+input#order_item_quantity {
+  width: 60px;
+  margin-top: -20px;
+}
+
+.order-quantity-submit {
+  padding-left: 10px;
+  padding-right: 10px;
+}

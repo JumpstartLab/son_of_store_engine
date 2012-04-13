@@ -10,6 +10,10 @@ class OrdersController < ApplicationController
     @statuses = Order.count(:all, :group => :status)
   end
 
+  def edit
+    @order = Order.find_by_id(params[:id])
+  end
+
   def update
     @order = Order.find_by_id(params[:id])
     @order.update_attributes(params[:order])
@@ -22,13 +26,15 @@ class OrdersController < ApplicationController
   end
 
   def new
-    render :action => :create if Customer.find_by_user_id(current_user)
+    render :action => :create if @cart.user.customer
     @order = Order.new
     @customer = Customer.find_or_create_by_user(current_user)
   end
 
   def create
-    @order = Order.create_from_cart(@cart, Customer.new(params[:customer]))
+    # @order = Order.create_from_cart(@cart, Customer.new(params[:customer]))
+    @order = Order.create_from_cart(@cart)
+    @order.customer = Customer.new(params[:customer])
     @cart.clear
     redirect_to order_path(@order)
   end
