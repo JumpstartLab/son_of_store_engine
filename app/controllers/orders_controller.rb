@@ -22,9 +22,9 @@ class OrdersController < ApplicationController
   end
 
   def new
-    render :action => :create unless Customer.find_by_user_id(@cart.user)
+    render :action => :create if Customer.find_by_user_id(current_user)
     @order = Order.new
-    @customer = Customer.find_or_create_by_user
+    @customer = Customer.find_or_create_by_user(current_user)
   end
 
   def create
