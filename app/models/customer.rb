@@ -1,8 +1,8 @@
 class Customer < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessor :ship_address, :ship_address2, :ship_city, :ship_state,
-  :ship_zipcode, :stripe_token
+  attr_accessible :ship_address, :ship_address2, :ship_city, :ship_state,
+  :ship_zipcode, :stripe_customer_token
 
   def self.find_or_create_by_user(user)
     customer = Customer.find_by_user_id(user) || Customer.new
@@ -20,3 +20,20 @@ class Customer < ActiveRecord::Base
     false
   end
 end
+# == Schema Information
+#
+# Table name: customers
+#
+#  id                    :integer         not null, primary key
+#  stripe_token          :string(255)
+#  user_id               :integer
+#  ship_address          :string(255)
+#  ship_address2         :string(255)
+#  ship_state            :string(255)
+#  ship_zipcode          :string(255)
+#  ship_city             :string(255)
+#  created_at            :datetime        not null
+#  updated_at            :datetime        not null
+#  stripe_customer_token :string(255)
+#
+

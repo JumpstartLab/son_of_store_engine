@@ -35,5 +35,6 @@ end
 #  remember_me_token               :string(255)
 #  remember_me_token_expires_at    :datetime
 #  on_sale                         :boolean
+#  display_name                    :string(255)
 #
 

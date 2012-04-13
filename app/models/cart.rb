@@ -2,7 +2,7 @@ class Cart < ActiveRecord::Base
   attr_accessible :cart_items, :user_id, :products, :user, :cart_id
   has_many :cart_items
   has_many :products, :through => :cart_items
-  has_one :user
+  belongs_to :user
   accepts_nested_attributes_for :cart_items
 
   def add_product(product)
@@ -48,4 +48,13 @@ end
 #  user_id    :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+## == Schema Information
 #
+# Table name: carts
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

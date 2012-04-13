@@ -1,5 +1,7 @@
 <h1>Shipping and Billing Info</h1>
-<% form_for @customer, id: "ship_bill_form" do |f| -%>
+<%= form_for @customer, id: "ship_bill_form" do |f| %>
+<%= f.hidden_field :stripe_customer_token %>
+<%= f.hidden_field :user_id, :value => current_user.id %>
 
 <h3>Shipping Information</h3>
 <%= f.label :ship_address, "Address" %>
@@ -20,19 +22,19 @@
 <h3>Billing Information</h3>
 
 <%= f.label :bill_address, "Address" %>
-<%= f.text_field :bill_address %>
+<%= text_field_tag :bill_address %>
 
 <%= f.label :bill_address2, "Address" %>
-<%= f.text_field :bill_address2 %>
+<%= text_field_tag :bill_address2 %>
 
 <%= f.label :bill_city, "City" %>
-<%= f.text_field :bill_city %>
+<%= text_field_tag :bill_city %>
 
 <%= f.label :sbill_state, "State" %>
-<%= f.text_field :bill_state %>
+<%= text_field_tag :bill_state %>
 
 <%= f.label :bill_zipcode, "Zipcode" %>
-<%= f.number_field :bill_zipcode %>
+<%= text_field_tag :bill_zipcode %>
 
 <h3>Payment Info</h3>
 

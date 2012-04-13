@@ -11,6 +11,7 @@ StoreEngine::Application.routes.draw do
   resources :categories
   resources :orders
   resources :order_items, :only => :update
+  resources :customers
 
   root :to => 'products#index'
 end

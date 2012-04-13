@@ -23,4 +23,16 @@ end
 #  price      :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+## == Schema Information
 #
+# Table name: cart_items
+#
+#  id         :integer         not null, primary key
+#  cart_id    :integer
+#  product_id :integer
+#  quantity   :integer         default(1)
+#  price      :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+
