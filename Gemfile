@@ -5,7 +5,6 @@ gem 'jquery-rails'
 gem 'rails-asset-jqueryui'
 gem 'money'
 gem 'bitly'
-gem 'haml'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'sorcery'
 
