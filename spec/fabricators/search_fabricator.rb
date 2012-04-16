@@ -1,0 +1,2 @@
+Fabricator(:search) do
+end

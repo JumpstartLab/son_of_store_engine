@@ -19,6 +19,14 @@ class Product < ActiveRecord::Base
   def decimal_price
     Money.new(price)
   end
+
+  def self.search(search_term)
+    Product.where("title LIKE ? OR description LIKE ?", "%#{search_term}%", "%#{search_term}%")
+  end
+
+  def matches(search_term)
+    title.match "/.*#{search_term}.*/i"
+  end
 end
 # == Schema Information
 #

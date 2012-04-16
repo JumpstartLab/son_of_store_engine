@@ -17,7 +17,8 @@ class UsersController < ApplicationController
   end
   
   def show
-
+    @search = Search.new
+    @orders = current_user.orders
   end
 
   private

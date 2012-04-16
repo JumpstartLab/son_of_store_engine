@@ -30,6 +30,26 @@ class Order < ActiveRecord::Base
   def decimal_total
     Money.new(total)
   end
+
+  def self.search(search_term, user)
+    matching_orders = []
+    if find_by_id(user.id)
+      find_by_id(user.id).each do |order|
+        if order.matches(search_term)
+          matching_orders << order
+        end
+      end
+    end
+  end
+
+  def matches(search_term)
+    products.each do |product|
+      if product.matches(search_term)
+        return true
+      end
+    end
+    return false
+  end
 end
 # == Schema Information
 #
