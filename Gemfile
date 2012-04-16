@@ -3,6 +3,7 @@ gem 'rails', '3.2.3'
 gem 'pg'
 gem 'jquery-rails'
 gem 'rails-asset-jqueryui'
+gem 'twitter-bootstrap-rails'
 gem 'money'
 gem 'bitly'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
@@ -13,7 +14,6 @@ gem 'sorcery'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'twitter-bootstrap-rails'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platform => :ruby
   gem 'bootstrap-sass'
