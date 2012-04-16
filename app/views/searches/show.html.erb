@@ -1,4 +1,4 @@
-<% if @products && @products.any? %>
+<% if @products %>
   <%= render "shared/products" %>
 <% elsif @orders && @orders.any? %>
   <%= render "shared/past_orders" %>

@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_url
   end
 
+  def code
+    redirect_to URI.encode("https://github.com/tyre/store_engine")
+  end
+
 private
 
   def find_or_create_cart_from_session
@@ -19,8 +23,6 @@ private
     session[:cart_id] = cart.id
     cart
   end
-
-  private
 
   def verify_is_admin
     (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless current_user.is_admin)

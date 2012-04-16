@@ -26,17 +26,23 @@ class OrdersController < ApplicationController
   end
 
   def new
-    render :action => :create if current_user.customer
-    @order = Order.new
-    @customer = Customer.find_or_create_by_user(current_user)
+    self.create if current_user.customer
+    @order = Order.new(customer: Customer.find_or_create_by_user(current_user))
   end
 
   def create
-    # @order = Order.create_from_cart(@cart, Customer.new(params[:customer]))
-    @order = Order.create_from_cart(@cart)
-    @order.customer = Customer.create(params[:customer])
-    @cart.clear
-    redirect_to order_path(@order)
+    customer = Customer.find_by_user_id(current_user) ||
+    Customer.new(params[:customer])
+    if customer.save  
+      @order = Order.new(customer: customer)
+      @order.add_from_cart(@cart)
+      if @order.save  
+        @cart.clear
+        redirect_to order_path(@order)
+      else
+        render 'orders/new'
+      end
+    end
   end
 
   def one_click
