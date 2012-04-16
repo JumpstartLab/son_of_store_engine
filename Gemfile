@@ -7,6 +7,7 @@ gem 'money'
 gem 'bitly'
 gem 'haml'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'sorcery'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -29,7 +30,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'fabrication'
   gem 'faker'
-  gem 'sorcery'
   gem 'simplecov', :require => false, :group => :test
   gem 'cane'
 end
