@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
 
   def create
     customer = Customer.find_by_user_id(current_user) ||
-      Customer.new(params[:customer])
+    Customer.new(params[:customer])
     if customer.save  
       @order = Order.new(customer: customer)
       @order.add_from_cart(@cart)
