@@ -18,7 +18,9 @@ class UsersController < ApplicationController
   
   def show
     @search = Search.new
-    @orders = current_user.customer.orders
+    if User.last.customer
+      @orders = current_user.customer.orders
+    end
   end
 
   private
