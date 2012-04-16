@@ -1,5 +1,6 @@
 <h1>Shipping and Billing Info</h1>
-<%= form_for @customer, id: "ship_bill_form" do |f| %>
+<%= render partial: "shared/errors", locals: {target: @order} %>
+<%= form_for @order.customer, id: "ship_bill_form", url: orders_path do |f| %>
 <%= f.hidden_field :stripe_customer_token %>
 <%= f.hidden_field :user_id, :value => current_user.id %>
 
@@ -38,7 +39,7 @@
 
 <h3>Payment Info</h3>
 
-<% if @customer.stripe_token.present? %>
+<% if @order.customer.stripe_token.present? %>
 Credit card has been provided.
 <% else %>
 <div class="field">

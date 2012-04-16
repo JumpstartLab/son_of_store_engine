@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
-  attr_accessible :status, :user_id
+  attr_accessible :status, :customer
   belongs_to :customer
-  belongs_to :user
+  has_one :user, :through => :customer
   has_many :order_items
   has_many :products, :through => :order_items
   accepts_nested_attributes_for :customer
@@ -12,15 +12,11 @@ class Order < ActiveRecord::Base
     super
   end
 
-  def self.create_from_cart(cart)
-    order = Order.create
-    order.user_id = cart.user_id
-    order.status = "pending"
+  def add_from_cart(cart)
+    self.status = "pending"
     cart.cart_items.each do |cart_item|
-      cart_item.add_to_order(order)
+      cart_item.add_to_order(self)
     end
-    order.save
-    order
   end
 
   def total
