@@ -13,7 +13,6 @@ class Order < ActiveRecord::Base
   end
 
   def add_from_cart(cart)
-    self.status = "pending"
     cart.cart_items.each do |cart_item|
       cart_item.add_to_order(self)
     end

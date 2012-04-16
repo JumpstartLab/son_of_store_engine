@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
     customer = Customer.find_by_user_id(current_user) ||
     Customer.new(params[:customer])
     if customer.save  
-      @order = Order.new(customer: customer)
+      @order = Order.create(customer: customer, status: "pending")
       @order.add_from_cart(@cart)
       if @order.save  
         @cart.clear
