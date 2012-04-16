@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      user = login(params[:user][:email], params[:user][:password], params[:user][:remember_me])
       flash[:message] = "Signup successful, #{@user.name}! Now buy things!"
       redirect_to user_path(@user)
     else
@@ -18,9 +19,12 @@ class UsersController < ApplicationController
   
   def show
     @search = Search.new
-    if User.last.customer
+    if current_user.customer
       @orders = current_user.customer.orders
+    else
+      @orders = []
     end
+
   end
 
   private
