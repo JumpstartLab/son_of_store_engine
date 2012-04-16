@@ -2,7 +2,7 @@ class Customer < ActiveRecord::Base
   belongs_to :user
 
   attr_accessible :ship_address, :ship_address2, :ship_city, :ship_state,
-  :ship_zipcode, :stripe_customer_token
+  :ship_zipcode, :stripe_customer_token, :user_id
 
   def self.find_or_create_by_user(user)
     customer = Customer.find_by_user_id(user) || Customer.new
