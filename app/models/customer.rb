@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   belongs_to :user
+  has_many :orders
 
   attr_accessible :ship_address, :ship_address2, :ship_city, :ship_state,
   :ship_zipcode, :stripe_customer_token, :user_id

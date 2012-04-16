@@ -29,8 +29,8 @@ class Order < ActiveRecord::Base
 
   def self.search(search_term, user)
     matching_orders = []
-    if find_by_id(user.id)
-      find_by_id(user.id).each do |order|
+    if find_by_id(user.customer.id)
+      find_by_id(user.customer.id).each do |order|
         if order.matches(search_term)
           matching_orders << order
         end
@@ -51,12 +51,12 @@ end
 #
 # Table name: orders
 #
-#  id         :integer         not null, primary key
-#  status     :string(255)
-#  user_id    :integer
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#  shipped    :date
-#  cancelled  :date
+#  id          :integer         not null, primary key
+#  status      :string(255)
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#  shipped     :date
+#  cancelled   :date
+#  customer_id :integer
 #
 

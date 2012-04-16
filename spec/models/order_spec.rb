@@ -56,12 +56,12 @@ end
 #
 # Table name: orders
 #
-#  id         :integer         not null, primary key
-#  status     :string(255)
-#  user_id    :integer
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#  shipped    :date
-#  cancelled  :date
+#  id          :integer         not null, primary key
+#  status      :string(255)
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#  shipped     :date
+#  cancelled   :date
+#  customer_id :integer
 #
 
