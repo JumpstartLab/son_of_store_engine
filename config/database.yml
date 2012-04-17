@@ -5,12 +5,11 @@ development:
   timeout: 5000
 
 test: &TEST
-  adapter: postgresql
+  adapter: sqlite3
   encoding: utf8
   database: project_test
   pool: 5
-  username: 
-  password:
+  timeout: 5000
 
 production:
   adapter: postgresql
