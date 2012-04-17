@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :status, :customer
+  attr_accessible :status, :customer, :customer_id
   belongs_to :customer
   has_one :user, :through => :customer
   has_many :order_items
