@@ -1,10 +1,17 @@
 require 'spec_helper'
 
 describe Product do
+  let(:product){Fabricate(:product)}
   context "new" do
     it "should set on_sale to true" do
       product = Product.create
       product.on_sale.should == true
+    end
+  end
+  context ".search" do
+    it "finds the product" do
+      p = Product.search(product.title)
+      p.should == product
     end
   end
   

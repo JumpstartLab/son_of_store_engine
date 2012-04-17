@@ -13,7 +13,7 @@ describe "Using the shopping cart", :focus => true do
         click_link_or_button "Add to Cart"
       end
 
-      it "takes me to  the cart page!" do
+      it "takes me to the cart page!" do
         page.should have_content("Your Cart")
       end
 
@@ -26,6 +26,14 @@ describe "Using the shopping cart", :focus => true do
       it "shows the cart quantity" do
         within "li.dropdown" do
           page.should have_content("1")
+        end
+      end
+
+      it "adds to same item when pressed again" do
+        visit product_path(product)
+        click_link_or_button "Add to Cart"
+        within "li.dropdown" do
+          page.should have_content("2")
         end
       end
 
