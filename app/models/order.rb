@@ -1,5 +1,4 @@
 class Order < ActiveRecord::Base
-<<<<<<< HEAD
   attr_accessible :status, :customer, :customer_id
 
   belongs_to :customer
