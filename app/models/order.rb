@@ -1,5 +1,7 @@
 class Order < ActiveRecord::Base
+<<<<<<< HEAD
   attr_accessible :status, :customer, :customer_id
+
   belongs_to :customer
   has_one :user, :through => :customer
   has_many :order_items
@@ -35,6 +37,10 @@ class Order < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def cancelled?
+    !cancelled.nil?
   end
 
   def matches(search_term)
