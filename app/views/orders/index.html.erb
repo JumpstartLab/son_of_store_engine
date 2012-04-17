@@ -20,7 +20,7 @@
   </thead>
   <tbody>
     <% @orders.each do |order| %>
-      <tr id="<%= dom_id order %>">
+      <tr id="#{<%= dom_id order %>}">
         <td>
           <a class="btn" data-toggle="modal" href="#<%= dom_id order %>_detail" >View Order</a>
         </td>

@@ -11,7 +11,7 @@ describe Product do
   context ".search" do
     it "finds the product" do
       p = Product.search(product.title)
-      p.should == product
+      p.first.should === product
     end
   end
   

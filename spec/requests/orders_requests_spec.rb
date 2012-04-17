@@ -49,6 +49,7 @@ describe "Orders Requests" do
 
     context "order status is pending" do
       it "shows a link to 'cancel' orders" do
+        save_and_open_page
         within("tr#order_2") do
           page.should have_link("Cancel Order")
           page.should_not have_link("Mark As Returned")
@@ -67,7 +68,7 @@ describe "Orders Requests" do
 
     context "order status is shipped" do
       it "shows a link to 'mark as returned' orders" do
-        within("tr##{order_1.id}") do
+        within("tr#order_1") do
           page.should have_link("Mark As Returned")
           page.should_not have_link("Mark As Shipped")
           page.should_not have_link("Cancel Order")
