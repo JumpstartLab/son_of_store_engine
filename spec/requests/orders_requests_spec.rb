@@ -49,17 +49,17 @@ describe "Orders Requests" do
 
     context "order status is pending" do
       it "shows a link to 'cancel' orders" do
-        within("tr#order_2") do
+        within("tr##{order_2.id}") do
           page.should have_link("Cancel Order")
           page.should_not have_link("Mark As Returned")
           page.should_not have_link("Mark As Shipped")
         end
       end
       it "changes the order status to canceled when clicked" do
-        within("tr#order_2") do
+        within("tr##{order_2.id}") do
           click_link("Cancel Order")
         end
-        within("tr#order_2") do
+        within("tr##{order_2.id}") do
           page.should have_content("Canceled")
         end
       end
@@ -67,7 +67,7 @@ describe "Orders Requests" do
 
     context "order status is shipped" do
       it "shows a link to 'mark as returned' orders" do
-        within("tr#order_1") do
+        within("tr##{order_1.id}") do
           page.should have_link("Mark As Returned")
           page.should_not have_link("Mark As Shipped")
           page.should_not have_link("Cancel Order")
@@ -75,10 +75,10 @@ describe "Orders Requests" do
       end
 
       it "changes the order status to returned when clicked" do
-        within("tr#order_1") do
+        within("tr##{order_1.id}") do
           click_link("Mark As Returned")
         end
-        within("tr#order_1") do
+        within("tr##{order_1.id}") do
           page.should have_content("Returned")
         end
       end
@@ -86,17 +86,17 @@ describe "Orders Requests" do
 
     context "order status is paid" do
       it "shows a link to 'mark as shipped' orders" do
-        within("tr#order_4") do
+        within("tr##{order_4.id}") do
           page.should have_link("Mark As Shipped")
           page.should_not have_link("Cancel Order")
           page.should_not have_link("Mark as Returned")
         end
       end
       it "changes the order status to shipped when clicked" do
-        within("tr#order_4") do
+        within("tr##{order_4.id}") do
           click_link("Mark As Shipped")
         end
-        within("tr#order_4") do
+        within("tr##{order_4.id}") do
           page.should have_content("Shipped")
         end
       end
