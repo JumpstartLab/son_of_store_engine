@@ -8,6 +8,7 @@ gem 'money'
 gem 'bitly'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'sorcery'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,5 +32,4 @@ group :development, :test do
   gem 'fabrication'
   gem 'faker'
   gem 'simplecov', :require => false, :group => :test
-  gem 'cane'
 end

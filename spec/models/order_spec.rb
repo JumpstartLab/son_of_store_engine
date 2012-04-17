@@ -15,8 +15,8 @@ describe Order do
 
   describe '#update_attributes' do
     it "should update all attributes as normal" do
-      order.update_attributes(:user_id => 20)
-      order.user_id.should == 20
+      order.update_attributes(:customer_id => 20)
+      order.customer_id.should == 20
     end
     context "status is changed to shipped" do
       it "records the timestamp that the order was marked shipped" do
@@ -26,8 +26,8 @@ describe Order do
     end
     context "status is changed to returned" do
       it "records the timestamp that the order was marked returned" do
-        order.update_attributes(:status => "returned")
-        order.returned.to_date.should == Date.today
+        order.update_attributes(:status => "cancelled")
+        order.cancelled.to_date.should == Date.today
       end
     end
   end
