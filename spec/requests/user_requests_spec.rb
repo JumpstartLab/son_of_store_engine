@@ -1,26 +1,30 @@
 require 'spec_helper'
 
-describe "Users Requests" do
-  let!(:user) { Fabricate(:user) }
-  let!(:order1) { Fabricate(:order) }
-  let!(:order2) { Fabricate(:order) }
-  let!(:order_item1) { Fabricate(:order_item) }
-  let!(:order_item2) { Fabricate(:order_item) }
-  let!(:product1) { Fabricate(:product) }
-  let!(:product2) { Fabricate(:product) } 
+describe "User Requests" do
+  let!(:user) { Fabricate(:user, :id => 1) }
+  let!(:customer) { Fabricate(:customer, :user_id => 1, :id => 1)}
+  let!(:order1) { Fabricate(:order, :id => 1, :customer_id => 1) }
+  let!(:order2) { Fabricate(:order, :id => 2, :customer_id => 1) }
+  let!(:order_item1) { Fabricate(:order_item, :order_id => 1, :product_id => 1) }
+  let!(:order_item2) { Fabricate(:order_item, :order_id => 2, :product_id => 1) }
+  let!(:product1) { Fabricate(:product, :id => 1) }
+  let!(:product2) { Fabricate(:product, :id => 2) }
 
   before(:each) do
-    user.stub(:orders).and_return([order1, order2])
-    order1.stub(:order_items).and_return([order_item1, order_item2])
-    order1.stub(:user).and_return(user)
-    order2.stub(:user).and_return(user)
-    order_item1.stub(:product).and_return(product1)
-    order_item2.stub(:product).and_return(product2)
-    UsersController.any_instance.stub(:current_user).and_return(user)
-    visit user_path(user)
+      visit login_path
+      fill_in 'Email', :with => user.email
+      fill_in 'Password', :with => user.password
+      click_button 'Log in'
+
+      UsersController.any_instance.stub(:current_user).and_return(user)
+      user.stub(:customer).and_return(customer)
+      customer.stub(:orders).and_return([order1, order2])
   end
 
   describe 'show' do
+    before(:each) do
+      visit user_path(user)
+    end
     it "shows each order the user has made" do
       page.should have_content(order1.status)
       page.should have_content(order2.status)
@@ -54,12 +58,23 @@ describe "Users Requests" do
         click_button(:submit)
         User.all.count.should == user_count + 1
       end
-      it "logs the user in" do
+      it "takes the user to the products index" do
         click_button(:submit)
-        puts UsersController..send(:current_user)
+        page.should have_content(product1.title)
+        page.should have_content(product2.title)
       end
     end
     context "when invalid parameters are passed" do
+      it "renders the create page" do
+        visit new_user_path
+        fill_in('Name', :with => 'Frank Zappa')
+        fill_in('Email', :with => '')
+        fill_in('Password', :with => 'password')
+        click_button(:submit)
+        page.should have_content('Name')
+        page.should have_content('Email')
+        page.should have_content('Password')
+      end
     end
   end
 end

@@ -51,7 +51,7 @@
     <div class="modal hide" id="<%= dom_id order %>_detail">
       <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
-        <h3>Order from <%= order.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
+        <h3>Order from <%= order.customer.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
         <h3>
           Status: <%= order.status.capitalize %>
           <% if order.status == "shipped" %>
@@ -62,7 +62,7 @@
         </h3>
       </div>
       <div class="modal-body">
-        <h4><%= order.user.name %>: <%= order.user.email %></h4>
+        <h4><%= order.customer.user.name %>: <%= order.customer.user.email %></h4>
         <hr>
         <div class="span5 product-titles">
           <div class="span1"></div>

@@ -45,7 +45,8 @@ describe Order do
 
   describe "create_from_cart" do
     it "creates an order. FROM THE CART" do
-      o = Order.create_from_cart(cart)
+      o = Order.create
+      o.add_from_cart(cart)
       products.each do |p|
         o.products.should be_include(p)
       end
