@@ -21,6 +21,8 @@ describe "Orders Requests" do
     fill_in('Password', :with => "admin")
     click_button('Log in')
 
+    OrdersController.any_instance.stub(:current_user).and_return(admin_user)
+
     visit orders_path
   end
 

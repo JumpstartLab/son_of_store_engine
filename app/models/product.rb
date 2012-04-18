@@ -16,19 +16,15 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def price
-    decimal_price
-  end
-
   def decimal_price
-    Money.new(@price)
+    Money.new(price || 0)
   end
 
   def self.search(search_term)
     Product.where("title LIKE ? OR description LIKE ?", "%#{search_term}%", "%#{search_term}%")
   end
 
-  def matches(search_term)
+  def matches?(search_term)
     title.match "/.*#{search_term}.*/i"
   end
 end
