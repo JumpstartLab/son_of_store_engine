@@ -54,6 +54,7 @@
     else
       flash.alert.now = "We're sorry, but you must have placed a previous order to use 2-click™"
       redirect_to new_order_path
+    end
   end
 
   def destroy
