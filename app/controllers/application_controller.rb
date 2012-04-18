@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter { @cart = find_or_create_cart_from_session }
+  before_filter { @new_search = Search.new }
 
   def not_authenticated
     flash[:message] = "Please login to view this content."

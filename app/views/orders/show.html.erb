@@ -1,4 +1,4 @@
-   <h3>Order from <%= @order.user.name %> on <%= @order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
+   <h3>Order from <%= @order.customer.user.name %> on <%= @order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
      <h3><%= @order.status.capitalize %></h3>
   <h4><%= @order.user.name %>: <%= @order.user.email %></h4>
  <div id="orders">

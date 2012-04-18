@@ -1,8 +1,3 @@
-<%= form_for @search, :url => search_path, :method => "GET" do |f| %>
-  <%= f.text_field :products %>
-  <%= f.submit "Search for Products" %>
-<% end %>
-
   <h1><u>Products</u></h1>
   <% if @products.any? %>
   <table class="table table-striped table-bordered">

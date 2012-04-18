@@ -19,4 +19,9 @@ class CategoriesController < ApplicationController
     @category = Category.find_by_id(params[:id])
   end
 
+  def destroy
+    Category.find_by_id(params[:id]).destroy
+    redirect_to root_path
+  end
+
 end

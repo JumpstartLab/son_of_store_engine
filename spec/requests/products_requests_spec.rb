@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe "Products Requests" do
-  let!(:admin_user) { Fabricate(:auth_user) }
+  let!(:admin_user) { Fabricate(:auth_user, :id => 1) }
+  let!(:customer) { Fabricate(:customer, :user_id => 1) }
   let!(:product) { Fabricate(:product) }
   before(:each) do
     visit login_path
@@ -122,10 +123,9 @@ describe "Products Requests" do
 
   context "destroy" do
     let!(:product) { Fabricate(:product) }
-    let!(:user) { Fabricate(:user, :is_admin => true) }
     it "removes the product from the database" do
       product_count = Product.all.count
-      ProductsController.any_instance.stub(:current_user).and_return(user)
+      ProductsController.any_instance.stub(:current_user).and_return(admin_user)
       visit product_path(product)
       click_link('Delete')
       Product.all.count.should == product_count - 1
