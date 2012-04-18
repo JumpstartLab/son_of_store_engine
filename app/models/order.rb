@@ -19,6 +19,12 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def self.create_from_cart(cart)
+    o = Order.new
+    o.add_from_cart(cart)
+    o.save
+  end
+
   def total
     order_items.each.inject(0) { |sum, item| sum + item.price*item.quantity}
   end

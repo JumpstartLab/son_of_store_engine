@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+  class OrdersController < ApplicationController
   before_filter :verify_is_admin, :only => [:index, :update, :destroy]
 
   def index
