@@ -52,7 +52,7 @@
       @order = Order.create_from_cart(one_click_cart)
       redirect_to order_path(@order)
     else
-      flash[:message]= "We're sorry, but you must have placed a previous order to use 2-click"
+      flash[:message]= "We're sorry, but you must have placed a previous order to use 2-click. Please fill out your info below."
       redirect_to new_order_path
     end
   end

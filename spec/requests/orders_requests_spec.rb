@@ -86,8 +86,8 @@ describe "Orders Requests" do
 
     context "CRUD" do
       it "shows the created order" do
-        visit order_path(order1)
-        page.should have_content(order1.total)
+        visit order_path(order2)
+        page.should have_content(order2.total)
       end
 
       it "creates a new order from form" do

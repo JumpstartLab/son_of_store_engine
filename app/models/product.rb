@@ -21,7 +21,7 @@ class Product < ActiveRecord::Base
   end
 
   def decimal_price
-    Money.new(@price || 0)
+    Money.new(@price)
   end
 
   def self.search(search_term)
