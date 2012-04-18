@@ -89,6 +89,7 @@ describe "Orders Requests" do
     context "CRUD" do
       it "shows the created order" do
         visit order_path(order1)
+        raise order1.inspect
         page.should have_content(order1.total)
       end
 
