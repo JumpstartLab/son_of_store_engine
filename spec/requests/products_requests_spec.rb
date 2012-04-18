@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "Products Requests" do
   let!(:admin_user) { Fabricate(:auth_user) }
+  let!(:product) { Fabricate(:product) }
   before(:each) do
     visit login_path
     fill_in('Email', :with => admin_user.email)
@@ -61,6 +62,8 @@ describe "Products Requests" do
 
   context "one click" do
     it "impulse buys!" do
+      OrdersController.any_instance.stub(:current_user).and_return(admin_user)
+      visit product_path(product)
       page.find(:css, "#one-click").click
     end
   end
@@ -85,7 +88,6 @@ describe "Products Requests" do
   end
 
   context "edit" do
-    let!(:product) { Fabricate(:product) }
 
     it "should show a product form pre-filled with product's info" do
       visit edit_product_path(product)

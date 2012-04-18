@@ -12,7 +12,7 @@ describe CartItem do
   context "add_to_order" do
     it "adds_to_orders" do 
       cart_item.add_to_order(order)
-      match_array = order.order_items.select do |order_item|
+        match_array = order.order_items.select do |order_item|
         order_item.order_id == order.id &&
         order_item.product_id == cart_item.product.id &&
         order_item.quantity == cart_item.quantity &&
