@@ -1,5 +1,9 @@
 <div id="droppable">Drag image here to add to cart</div>
 
+<% unless @product.on_sale %>
+  <h1>THIS PRODUCT IS NO LONGER ON SALE</h1>
+<% end %>
+
 <h1>Product</h1>
 
 <p>

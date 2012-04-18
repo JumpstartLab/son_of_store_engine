@@ -43,20 +43,13 @@
       </div>
     </div>
   </div>
-  <% if current_user && current_user.is_admin %>
-  <div class="control-group">
-    <%= f.label :on_sale, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.check_box :on_sale, :class => 'check_box' %>
-    </div>
-  </div>
-  <% end %>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to 'Cancel', products_path, :class => 'btn' %>
   </div>
 </fieldset>
 <% end %>
+
 <script type="text/javascript">
 $(document).ready(function() {
   $('#preview').src = $('#image_url').text();
