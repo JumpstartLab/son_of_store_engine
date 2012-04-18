@@ -46,10 +46,14 @@
   end
 
   def one_click
-    one_click_cart = Cart.create(:user_id => current_user.id)
-    one_click_cart.add_product_by_id(params[:product])
-    @order = Order.create_from_cart(one_click_cart)
-    redirect_to order_path(@order)
+    if Customer.find_by_user_id(current_user.id)
+      one_click_cart = Cart.create(:user_id => current_user.id)
+      one_click_cart.add_product_by_id(params[:product])
+      @order = Order.create_from_cart(one_click_cart)
+      redirect_to order_path(@order)
+    else
+      flash.alert.now = "We're sorry, but you must have placed a previous order to use 2-click™"
+      redirect_to new_order_path
   end
 
   def destroy

@@ -6,7 +6,7 @@ class Customer < ActiveRecord::Base
   :ship_zipcode, :stripe_customer_token, :user_id
 
   def self.find_or_create_by_user(user)
-    customer = Customer.find_by_user_id(user) || Customer.new
+    customer = Customer.find_by_user_id(user) || Customer.new   
   end
 
   def save_with_payment
