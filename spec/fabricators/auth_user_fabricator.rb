@@ -6,5 +6,5 @@ Fabricator(:auth_user, :class_name => "User") do
   email { "whatever@whatever.com" }
   salt { "asdasdastr4325234324sdfds" }
   crypted_password { Sorcery::CryptoProviders::BCrypt.encrypt("secret", 
-                     "asdasdastr4325234324sdfds") }
+                     "asdas123dastr4325234324sdfds") }
 end
