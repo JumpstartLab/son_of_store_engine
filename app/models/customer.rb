@@ -29,7 +29,7 @@ end
 #  stripe_token          :string(255)
 #  user_id               :integer
 #  ship_address          :string(255)
-#  ship_address2         :string(255)
+#  ship_address2         :string(25 5)
 #  ship_state            :string(255)
 #  ship_zipcode          :string(255)
 #  ship_city             :string(255)

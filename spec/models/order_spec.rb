@@ -1,11 +1,12 @@
 require 'spec_helper'
-
 describe Order do
-  let(:order) { Fabricate(:order, :status => "pending") }
-  let(:order_item1) { Fabricate(:order_item, :price => 10, :quantity => 2) }
-  let(:order_item2) { Fabricate(:order_item, :price => 20, :quantity => 1) }
-  let(:products) {[Fabricate(:product, id: 1), Fabricate(:product, id: 2)]}
-  let(:cart){ Fabricate(:cart) }
+  let!(:order) { Fabricate(:order, :status => "pending") }
+  let!(:order_item1) { Fabricate(:order_item, :price => 10, :quantity => 2) }
+  let!(:order_item2) { Fabricate(:order_item, :price => 20, :quantity => 1) }
+  let!(:products) {[Fabricate(:product, id: 1), Fabricate(:product, id: 2)]}
+  let!(:cart){ Fabricate(:cart) }
+  let!(:user){ Fabricate(:user) }
+  let!(:customer){ Fabricate(:customer, user_id: user.id) }
 
 
   before(:each) do
@@ -14,6 +15,9 @@ describe Order do
   end
 
   describe '#update_attributes' do
+    it "shouldn't default to cancelled" do
+      order.should_not be_cancelled
+    end
     it "should update all attributes as normal" do
       order.update_attributes(:customer_id => 20)
       order.customer_id.should == 20
@@ -50,6 +54,23 @@ describe Order do
       products.each do |p|
         o.products.should be_include(p)
       end
+    end
+  end
+
+  describe "search, create" do
+    it "finds the correct order" do
+      o = Order.search(products.first, user)
+      o.products.should be_include(products[0])
+    end
+  end
+
+  describe "find an order by product" do
+    it "fails to find gibberish" do
+      Order.search("lkasdfkdfsak", user).any?.should == true
+    end
+
+    it "returns correct search result" do
+
     end
   end
 end

@@ -35,7 +35,7 @@
   <% if @product.on_sale %>
     <%= link_to 'Add to Cart', cart_path(:product => @product), :method => :put, :class => 'btn', :id => "add-to-cart-button" %>
     <% if current_user %>
-      <%= link_to image_tag('one-click.png'), one_click_path(:product => @product), :confirm => "Are you sure you want to spend your hard earned money on this crap?" %>
+      <%= link_to image_tag('one-click.png'), one_click_path(:product => @product), :confirm => "Are you sure you want to spend your hard earned money on this crap?", id: "one-click" %>
     <% end %>
   <% end %>
   <% if current_user && current_user.is_admin %>

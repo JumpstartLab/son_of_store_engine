@@ -1,7 +1,18 @@
 require 'spec_helper'
 
 describe Customer do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user){Fabricate(:user)}
+  let(:customer) { Fabricate(:customer, user_id: user.id) }
+  context "creation with payment" do
+    it "be able to save with valid user" do
+      customer.save_with_payment
+    end
+
+    it "finds that customer, given the user" do
+      c = Customer.find_or_create_by_user(user)
+      c.should_not == nil
+    end
+  end
 end
 # == Schema Information
 #
