@@ -13,6 +13,7 @@ describe "Orders Requests" do
   let!(:order_item2) { Fabricate(:order_item, :order_id => 1, :product_id => 2) }
   let!(:product1) { Fabricate(:product, :id => 1) }
   let!(:product2) { Fabricate(:product, :id => 2) }
+  let(:products) { [product1, product2] }
 
   before(:each) do
     visit login_path
@@ -83,6 +84,24 @@ describe "Orders Requests" do
       end
     end
 
+    context "CRUD" do
+      it "shows the created order" do
+        visit order_path(order1)
+        page.should have_content(order1.total)
+      end
+
+      it "creates a new order from form" do
+        visit new_order_path
+      end
+    end
+
+    context "search" do
+      it "matches searched terms" do
+        order1.products = products
+        p = order1.matches("#{products.first.title}")
+      end
+    end
+
     context "order status is paid" do
       it "shows a link to 'mark as shipped' orders" do
         within("tr#order_4") do
@@ -100,7 +119,7 @@ describe "Orders Requests" do
         end
       end
     end
-  end
+  end 
 
   context "filtered index" do
     it "lists orders only for that category" do

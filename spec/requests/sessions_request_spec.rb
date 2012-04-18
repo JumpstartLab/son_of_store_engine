@@ -20,4 +20,10 @@ describe "Logging in/out and creating/destroying sessions" do
       end
     end
   end
+  context "log a user out" do
+    it "no longer links to their account" do
+      visit logout_path
+      page.should_not have_content("#{user.email}")
+    end
+  end
 end

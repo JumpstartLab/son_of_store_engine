@@ -59,6 +59,12 @@ describe "Products Requests" do
     end
   end
 
+  context "one click" do
+    it "impulse buys!" do
+      page.find(:css, "#one-click").click
+    end
+  end
+
   context "show" do
     let!(:product) { Fabricate(:product) }
     it "shows the product title and price" do
