@@ -21,8 +21,10 @@ class Order < ActiveRecord::Base
 
   def self.create_from_cart(cart)
     o = Order.new(customer: Customer.find_or_create_by_user(cart.user))
+    o.status = "paid"
     o.add_from_cart(cart)
-    o.save
+    o.save!
+    return o
   end
 
   def total
