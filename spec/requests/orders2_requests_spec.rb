@@ -1,6 +1,7 @@
 # require 'spec_helper'
 
 # describe "Orders Requests" do
+#   let!(:admin_user) { Fabricate(:auth_user) }
 #   let!(:product1) { Fabricate(:product, :id => 1) }
 #   let!(:product2) { Fabricate(:product, :id => 2) }
 #   let!(:user1) { Fabricate(:user, :id => 1, :email => "ham@gmail.com", :name => "Fred Banks") }
@@ -8,24 +9,29 @@
 #   let!(:order1) { Fabricate(:order, :id => 1, :status => "shipped", :customer_id => 1, :products => [product1, product2]) }
 #   let!(:order2) { Fabricate(:order, :id => 2, :status => "pending", :customer_id => 2) }
 #   let!(:order3) { Fabricate(:order, :id => 3, :status => "pending", :customer_id => 2) }
-#   let!(:customer1) { Fabricate(:customer, :id => 1, :user_id => 1) }
-#   let!(:customer2) { Fabricate(:customer, :id => 2, :user_id => 2) }
 #   let!(:order4) { Fabricate(:order, :id => 4, :status => "paid", :customer_id => 1) }
 #   let!(:order_item1) { Fabricate(:order_item, :order_id => 1, :product_id => 1, :quantity => 2, :price => 10) }
 #   let!(:order_item2) { Fabricate(:order_item, :order_id => 1, :product_id => 2, :quantity => 2, :price => 10) }
 #   let!(:orders) { [order1, order2, order3, order4] }
 
 #   before(:each) do
+#     visit login_path
+#     fill_in('Email', :with => admin_user.email)
+#     fill_in('Password', :with => admin_user.password)
+#     click_button('Log in')
+
 #     Order.any_instance.stub(:decimal_total).and_return(1)
 #     OrderItem.any_instance.stub(:decimal_total).and_return(1)
 #     OrderItem.any_instance.stub(:decimal_price).and_return(1)
 #     order1.stub(:order_items).and_return([order_item1, order_item2])
 #     order1.stub(:products).and_return([product1, product2])
-#     OrdersController.stub(:verify_is_admin).and_return(true)
+#     OrdersController.any_instance.stub(:current_user).and_return(admin_user)
+#     visit orders_path
 #   end
 
 #   context "index" do
 #     it "lists all orders" do
+#       save_and_open_page
 #       orders.each do |order|
 #         page.should have_content(order.customer.user.name)
 #       end
@@ -49,6 +55,7 @@
 
 #     context "order status is pending" do
 #       it "shows a link to 'cancel' orders" do
+#         save_and_open_page
 #         within("tr#order_2") do
 #           page.should have_link("Cancel Order")
 #           page.should_not have_link("Mark As Returned")

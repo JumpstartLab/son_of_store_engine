@@ -20,13 +20,13 @@
   </thead>
   <tbody>
     <% @orders.each do |order| %>
-      <tr id="#{<%= dom_id order %>}">
+      <tr id="<%= dom_id order %>">
         <td>
           <a class="btn" data-toggle="modal" href="#<%= dom_id order %>_detail" >View Order</a>
         </td>
         <td><%= order.status.capitalize %></td>
-        <td><%= order.user.name %></td>
-        <td><%= order.user.email %></td>
+        <td><%= order.customer.user.name %></td>
+        <td><%= order.customer.user.email %></td>
         <td><%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></td>
         <td>
           <% case order.status %>
@@ -59,7 +59,7 @@
           <% end %>
       </div>
       <div class="modal-body">
-        <h4><%= order.user.name %>: <%= order.user.email %></h4>
+        <h4><%= order.customer.user.name %>: <%= order.customer.user.email %></h4>
         <hr>
         <div class="span5 product-titles">
           <div class="span1"></div>
