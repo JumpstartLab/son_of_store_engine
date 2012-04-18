@@ -1,8 +1,10 @@
 class SessionsController < ApplicationController
   def new
+    session[:return_to] = request.referrer
   end
 
   def create
+    return_to = session[:return_to]
     @old_cart_id = @cart.id
     user = login(params[:email], params[:password], params[:remember_me])
     if user
@@ -14,7 +16,11 @@ class SessionsController < ApplicationController
       flash[:message] = "Logged in!"
       @cart.user_id = current_user.id
       @cart.save!
-      redirect_back_or_to root_url
+      if return_to
+        redirect_to return_to
+      else
+        redirect_to root_path
+      end
     else
       flash[:message] = "Email or Password invalid"
       render :action => "new"
