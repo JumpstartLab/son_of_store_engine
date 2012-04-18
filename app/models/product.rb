@@ -16,6 +16,10 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def price
+    decimal_price
+  end
+
   def decimal_price
     Money.new(price)
   end
