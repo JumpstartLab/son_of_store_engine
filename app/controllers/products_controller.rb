@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   def index
     @search = Search.new
     @products = if params[:category_id]
-      Category.find_by_id(params[:category_id]).products(:conditions => "on_sale = true")
+      Category.find_by_id(params[:category_id]).products.select{ |product| product.on_sale = true }
     else
       Product.where(:on_sale => true)
     end

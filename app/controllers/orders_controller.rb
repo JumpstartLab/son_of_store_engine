@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by_id(params[:id])
+    @order = current_user.customer.orders.find_by_id(params[:id])
   end
 
   def new
@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
     customer = Customer.find_by_user_id(current_user) ||
     Customer.new(params[:customer])
     if customer.save  
-      @order = Order.create(customer: customer, status: "pending")
+      @order = Order.create(customer: customer, status: "paid")
       @order.add_from_cart(@cart)
       if @order.save  
         @cart.clear
