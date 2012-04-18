@@ -15,8 +15,10 @@ describe "Logging in/out and creating/destroying sessions" do
 
     it "should allow admin to see dashboard" do
       visit category_path(category)
-      within "ul.dropdown-menu" do 
-        page.should have_content("Dashboard")
+      within("ul.pull-right") do
+        within "ul.dropdown-menu" do 
+          page.should have_content("Dashboard")
+        end
       end
     end
   end
