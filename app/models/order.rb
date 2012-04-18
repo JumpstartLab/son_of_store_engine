@@ -34,27 +34,19 @@ class Order < ActiveRecord::Base
   end
 
   def self.search(search_term, user)
-    matching_orders = []
-    if find_by_id(user.customer.id)
-      find_by_id(user.customer.id).each do |order|
-        if order.matches(search_term)
-          matching_orders << order
-        end
-      end
-    end
+    Order.where(:customer_id => user.customer.id).map do |order|
+      order if order.matches?(search_term)
+    end.compact
   end
 
   def cancelled?
     !cancelled.nil?
   end
 
-  def matches(search_term)
+  def matches?(search_term)
     products.each do |product|
-      if product.matches(search_term)
-        return true
-      end
+      return true if product.matches?(search_term)
     end
-    return false
   end
 end
 # == Schema Information
