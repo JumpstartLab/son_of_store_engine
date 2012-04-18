@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.create_from_cart(cart)
-    o = Order.new
+    o = Order.new(customer: Customer.find_or_create_by_user(cart.user))
     o.add_from_cart(cart)
     o.save
   end
