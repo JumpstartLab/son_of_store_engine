@@ -7,13 +7,7 @@ class SessionsController < ApplicationController
     return_path = session[:return_to]
     @old_cart_id = @cart.id
     user = login(params[:email], params[:password], params[:remember_me])
-    if user
-      create_with_user(user)
-      redirect_to return_path
-    else
-      flash[:message] = "Email or Password invalid"
-      render :action => "new"
-    end
+    user_logged_in(user, return_path)
   end
 
   def destroy
@@ -41,5 +35,15 @@ class SessionsController < ApplicationController
     session[:cart_id] = user_cart ? user_cart.id : nil
     @cart = find_and_absorb
     @cart.save
+  end
+
+  def user_logged_in(user, return_path)
+    if user
+      create_with_user(user)
+      redirect_to return_path
+    else
+      flash[:message] = "Email or Password invalid"
+      render :action => "new"
+    end
   end
 end

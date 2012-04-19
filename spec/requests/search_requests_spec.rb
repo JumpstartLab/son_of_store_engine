@@ -49,7 +49,7 @@ describe "searching for a product" do
         params = { date: (order.created_at - 1) , d_sym: ">" }
         results = search.find(params)
         results.each do |ord|
-          ord.created_at.should > (order.created_at - 1)
+          ord.created_at.should >= (order.created_at - 1)
         end
       end
 
@@ -57,7 +57,7 @@ describe "searching for a product" do
         params = { date: (order.created_at - 1) , d_sym: "<" }
         results = search.find(params)
         results.each do |ord|
-          ord.created_at.should < (order.created_at - 1)
+          ord.created_at.should <= (order.created_at - 1)
         end
       end
     end
@@ -74,14 +74,14 @@ describe "searching for a product" do
         params = { total: order.total , t_sym: "<" }
         results = search.find(params)
         results.each do |ord|
-          ord.total.should < order.total
+          ord.total.should <= order.total
         end
       end
       it "finds orders less than total" do
         params = { total: (order.total + 100) , t_sym: ">" }
         results = search.find(params)
         results.each do |ord|
-          ord.total.should > (order.total + 100)
+          ord.total.should >= (order.total + 100)
         end
       end
     end
