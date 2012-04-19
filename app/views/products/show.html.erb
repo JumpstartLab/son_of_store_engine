@@ -1,3 +1,13 @@
+  <% if @product.similar_products.any? %>
+    <div class="similar-products">
+      <h2>Other shoppers who have bought this item also bought the following:</h2>
+        <% @product.similar_products.each do |product| %>
+      <span class="similar-images">
+        <%= link_to image_tag(product.image_url), product_path(product) %>
+      </span>
+      <% end %>
+    </div>
+  <% end %>
 <div id="droppable" class ="mini-cart">
   <%= render 'shared/cart_mini' %>
 </div>
@@ -24,13 +34,6 @@
       <h3><%= link_to category.name, products_path(:category_id => category.id) %></h3>
     <% end %>
   </div>
-
-  <% if @product.similar_products.any? %>
-    <div class="similar-products">
-      Other shoppers who have bought this item also bought the following:
-      <%= @product.similar_products %>
-    </div>
-  <% end %>
 
   <% if current_user && current_user.is_admin %>
     <%= link_to 'Edit', edit_product_path(@product), :class => 'btn' %>

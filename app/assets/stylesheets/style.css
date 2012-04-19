@@ -152,8 +152,6 @@ input#order_item_quantity {
   float: right;
   margin-top: 90px;
   margin-right: 100px;
-  width: 300px;
-  height: 300px;
 }
 
 .mini-cart {
@@ -183,4 +181,16 @@ input#order_item_quantity {
 .right-billing {
   float: right;
   margin-right: 100px;
+}
+
+.similar-products {
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 8px;
+  color: #F26C4F;
+  padding: 5px;
+}
+
+.similar-images {
+  margin: 25px;
 }

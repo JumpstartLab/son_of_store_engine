@@ -40,7 +40,7 @@ class Product < ActiveRecord::Base
     order_items = OrderItem.where("product_id = #{id}")
     orders = order_items.map { |item| Order.find_by_id(item.order_id) }
     products = products_in_orders(orders)
-    products.select{ |product| product.id != id }
+    products.select{ |product| product.id != id }[0,3]
   end
   def products_in_orders(orders)
     orders.collect do |order|
