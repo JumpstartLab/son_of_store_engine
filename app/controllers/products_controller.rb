@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
   end
 
   def make_product(product)
-    product.price *= 100 if price
+    product.price *= 100 if product.price
     product
   end
 
