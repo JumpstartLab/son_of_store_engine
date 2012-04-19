@@ -1,47 +1,33 @@
-<div id="droppable">Drag image here to add to cart</div>
-
+<div id="droppable" class ="mini-cart">
+  <%= render 'shared/cart_mini' %>
+</div>
 <% unless @product.on_sale %>
   <h1>THIS PRODUCT IS NO LONGER ON SALE</h1>
 <% end %>
 
-<h1>Product</h1>
-
-<p>
-  <b>Title</b><br>
-  <%= @product.title %>
-</p>
-  <%= image_tag @product.image_url, :id => "draggable" %>
-<p>
-  <b>Description</b><br>
-  <%= @product.description %>
-</p>
-
-<p>
-  <b>Price</b><br>
-  $<%= @product.decimal_price %>
-</p>
-
-<p>
-  <b>Categories</b><br>
-  <ul>
-  <% @product.categories.each do |category| %>
-    <li><%= category.name %></li>
-  <% end %>
-  </ul>
-</p>
-
-<div class="form-actions">
-  <%= link_to 'Back', products_path, :class => 'btn'  %>
-  <% if @product.on_sale %>
-    <%= link_to 'Add to Cart', cart_path(:product => @product), :method => :put, :class => 'btn', :id => "add-to-cart-button" %>
+  <div class="product-show-details">
+    <h1><%= @product.title %></h1>
+    <h3><%= @product.description %></h3>
+    <br>
+    <h3>$<%= @product.decimal_price %>
+    <% if @product.on_sale %>
+    <%= link_to 'Add to Cart', cart_path(:product => @product), :method => :put, :class => 'btn add-to-cart', :id => "add-to-cart-button" %>
     <% if current_user %>
-      <%= link_to image_tag('one-click.png'), one_click_path(:product => @product), :confirm => "Are you sure you want to spend your hard earned money on this crap?", id: "one-click" %>
+    <%= link_to 'Impulse Buy!', one_click_path(:product => @product), :confirm => "Are you sure you want buy this item?", id: "one-click", :class => 'btn add-to-cart' %>
     <% end %>
-  <% end %>
+    <% end %></h3>
+  </div>
+  <div class="product-show-image"><%= image_tag @product.image_url, :id => "draggable" %></div>
+  <div class="product-show-details">
+    <h3>Browse more products in:</h3><br>
+    <% @product.categories.each do |category| %>
+      <h3><%= link_to category.name, products_path(:category_id => category.id) %></h3>
+    <% end %>
+  </div>
+
   <% if current_user && current_user.is_admin %>
     <%= link_to 'Edit', edit_product_path(@product), :class => 'btn' %>
     <%= link_to '<i class= "icon-trash icon-white"></i> Delete'.html_safe,
       product_path(@product), :method => 'delete', :confirm => 'Are you sure?',
         :class => 'btn btn-danger' %>
   <% end %>
-</div>

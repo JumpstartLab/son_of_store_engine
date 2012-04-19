@@ -1,8 +1,8 @@
    <h3>Order from <%= @order.customer.user.name %> on <%= @order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
-     <h3><%= @order.status.capitalize %></h3>
+     <h3>Status: <%= @order.status.capitalize %></h3>
   <h4><%= @order.user.name %>: <%= @order.user.email %></h4>
  <div id="orders">
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered cart-table">
       <thead>
         <tr>
           <th>Date Placed</th>
@@ -40,7 +40,7 @@
 
   <h3>Items</h3>
 
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered cart-table">
     <thead>
       <tr>
         <th>Product</th>

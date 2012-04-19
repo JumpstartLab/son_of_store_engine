@@ -105,7 +105,7 @@ describe "Products Requests" do
     end
     context "valid params are passed" do
       it "updates the product" do
-        fill_in('Price', :with => 225)
+        fill_in('product_price', :with => 225)
         check(category.name)
         click_button("Update Product")
         Product.find_by_id(1).price.should == 225
@@ -113,7 +113,7 @@ describe "Products Requests" do
     end
     context "invalid params are passed" do
       it "does not update the product" do
-        fill_in('Price', :with => -2)
+        fill_in('product_price', :with => -2)
         check(category.name)
         click_button('Update Product')
         Product.find_by_id(1).price.should_not == -2
@@ -140,9 +140,9 @@ describe "Products Requests" do
     context "the params are valid for the product" do
       it "creates a new product" do
         product_count = Product.all.count
-        fill_in('Title', :with => 'Title')
-        fill_in('Description', :with => 'Description')
-        fill_in('Price', :with => 123)
+        fill_in('product_title', :with => 'Title')
+        fill_in('product_description', :with => 'Description')
+        fill_in('product_price', :with => 123)
         check(category.name)
         click_button(:submit)
         Product.all.count.should == product_count + 1
@@ -151,8 +151,8 @@ describe "Products Requests" do
     context "the params are not valid" do
       it "does not create a new product" do
         product_count = Product.all.count
-        fill_in('Title', :with => 'Title')
-        fill_in('Description', :with => 'Description')
+        fill_in('product_title', :with => 'Title')
+        fill_in('product_description', :with => 'Description')
         check(category.name)
         click_button(:submit)
         Product.all.count.should == product_count

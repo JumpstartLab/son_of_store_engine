@@ -1,0 +1,11 @@
+<% if @cart.cart_items.empty? %>
+  <h2>Your cart is currently empty. Drag items here to add to your cart.</h2>
+<% else %>
+  <h2>Currently in your cart:</h2>
+  <% @cart.cart_items.each do |item| %>
+    <h3><%= link_to pluralize(item.quantity, item.product.title), product_path(item.product) %></h3>
+  <% end %>
+  <br>
+  <h3>Drag items here to add to your cart.</h3>
+
+<% end %>

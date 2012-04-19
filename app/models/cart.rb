@@ -31,6 +31,10 @@ class Cart < ActiveRecord::Base
     end
   end
 
+  def total
+    Money.new(cart_items.inject(0) { |sum, item| sum + item.quantity*item.product.price })
+  end
+
   def absorb(other_cart)
     if other_cart
       other_cart.cart_items.each do |cart_item|

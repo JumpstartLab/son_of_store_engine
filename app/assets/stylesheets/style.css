@@ -28,11 +28,10 @@ div.product-listing {
 }
 
 div#droppable {
-  width: 200px;
+  width: 250px;
   height: 200px;
   padding: 30px; 
   float: right;
-  border: 3px dotted grey;
   margin-top: 50px;
 }
 
@@ -45,6 +44,8 @@ input#order_item_quantity {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+/*Product Index*/
 
 .product-box {
   width: 250px;
@@ -80,32 +81,43 @@ input#order_item_quantity {
   transition: all 0.15s ease-in-out;
 }
 
+.product-links {
+  position: absolute;
+}
+
 .product-box:hover .product-box-text {
   margin-top: 180px;
 }
 
+.product-box:hover {
+    cursor: pointer;
+}
+
 .title > a {
   text-decoration: none;
+  font-weight: bold;
   color: #E9F2F9;
-  font-size: 130%;
+  font-size: 120%;
 }
 
 .price {
   color: #E9F2F9;
-  font-size: 130%;
+  font-size: 120%;
 }
 
 .description {
   color: #E9F2F9;
-  font-size: 130%;
+  font-size: 90%;
   padding-left: 10px;
+  padding-right: 5px;
 }
 
+/*Footer*/
+
 #footer {
-  margin-top: 10px;
-  height: 52px;
+  margin-top: 20px;
+  height: 32px;
   background-color: white;
-  font-size: 150%;
   color: #666;
   padding-top: 20px;
   padding-right: 60px;
@@ -121,4 +133,60 @@ input#order_item_quantity {
 
 .left {
   float: left;
+}
+
+/*Product Form*/
+.text_area {
+  border-radius: 8px;
+  margin-left: 10px;
+  width:385px;
+}
+
+/*Product Show Page*/
+.product-show-details{
+  background-color: white;
+  color: #F26C4F;
+  border-radius: 8px;
+  padding: 30px;
+  width: 300px;
+  float: left;
+  margin-top: 70px;
+}
+
+.product-show-image {
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  float: right;
+  margin-top: 90px;
+  margin-right: 100px;
+}
+
+.mini-cart {
+  background-color: white;
+  border-radius: 8px;
+  float: right;
+}
+
+.add-to-cart {
+  float: right;
+}
+
+.quantity-field {
+  width: 40px;
+}
+
+.cart-table {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.left-billing {
+  float: left;
+  margin-left: 100px;
+}
+
+.right-billing {
+  float: right;
+  margin-right: 100px;
 }

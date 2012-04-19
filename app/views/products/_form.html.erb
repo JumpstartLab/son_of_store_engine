@@ -1,51 +1,36 @@
 <%= form_for @product, :html => { :class => 'form-horizontal' } do |f| %>
 
-<fieldset>
-  <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :title, :class => 'text_field' %>
-    </div>
-  </div>
 
-  <div class="control-group">
-    <%= f.label :image, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :image_url, :class => 'text_field', id: "image_url" %>
-    </div>
-  </div>
+      <%= f.text_field :title, :class => 'search-query span2', :placeholder => "Product Name" %>
 
-  Preview: <img id="preview" src="">
+      <%= f.text_field :image_url, :class => 'search-query span2', :placeholder => "Image URL" %>
+      <br>
+      <br>
+      <%= f.text_area :description, :class => 'text_area', :placeholder => "Product Description" %>
 
-  <div class="control-group">
+
+
     <%= hidden_field_tag "product[category_ids][]", nil %>
-    <% Category.all.each do |category| %>
-    <%= label_tag dom_id(category), category.name, :class => "checkbox" %>
-    <%= check_box_tag "product[category_ids][]", category.id, @product.category_ids.include?(category.id), id: dom_id(category), :class => "checkbox" %>
-    <% end %>
-  </div>
+    <ul>
+      <% Category.all.each do |category| %>
+      <%= label_tag dom_id(category), category.name, :class => "checkbox" %>
+      <%= check_box_tag "product[category_ids][]", category.id, @product.category_ids.include?(category.id), id: dom_id(category), :class => "checkbox" %>
+      <% end %>
+    </ul>
 
-  <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :description, :class => 'text_area' %>
-    </div>
-  </div>
 
-  <div class="control-group">
-    <%= f.label :price, :class => 'control-label' %>
-    <div class="controls">
+
+
       <div class="input-prepend input-append">
         <span class="add-on">$</span>
-        <%= f.number_field :price, :class => 'number_field' %>
+        <%= f.number_field :price, :class => 'number_field', :placeholder => "Price" %>
       </div>
-    </div>
-  </div>
+
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to 'Cancel', products_path, :class => 'btn' %>
   </div>
-</fieldset>
+
 <% end %>
 
 <script type="text/javascript">
