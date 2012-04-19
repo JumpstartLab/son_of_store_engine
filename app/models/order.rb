@@ -26,6 +26,7 @@ class Order < ActiveRecord::Base
     ord.status = "paid"
     ord.add_from_cart(cart)
     ord.save
+    ord
   end
 
   def total

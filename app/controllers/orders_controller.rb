@@ -51,7 +51,7 @@
       end
     end
 
-    def one_click_confimed
+    def one_click_confirmed
         one_click_cart = Cart.create(:user_id => current_user.id)
         one_click_cart.add_product_by_id(params[:product])
         @order = Order.create_from_cart(one_click_cart)

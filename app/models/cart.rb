@@ -13,6 +13,7 @@ class Cart < ActiveRecord::Base
         cart_item.product == product
       end
       selected.first.tap{|c_item| c_item.quantity += 1}.save
+      selected
     end
   end
 
