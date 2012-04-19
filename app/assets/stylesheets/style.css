@@ -160,6 +160,9 @@ input#order_item_quantity {
   float: right;
   margin-top: 90px;
   margin-right: 100px;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
 }
 
 .mini-cart {
