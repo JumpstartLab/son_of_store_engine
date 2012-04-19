@@ -1,13 +1,5 @@
 body {
-background-color: #E9F2F9;
-}
-
-#content {
-
-}
-
-a.dropdown-toggle {
-
+  background-color: #E9F2F9;
 }
 
 div.product-titles {
@@ -160,6 +152,9 @@ input#order_item_quantity {
   float: right;
   margin-top: 90px;
   margin-right: 100px;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
 }
 
 .mini-cart {

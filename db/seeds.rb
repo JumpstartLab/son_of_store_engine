@@ -8,14 +8,14 @@
 
 
 User.create(:name => "Matt Yoho",
-            :email => "matt.yoho@livingsocial.com",
+            :email => "demoXX+matt@jumpstartlab.com",
             :password => "hungry")
 User.create(:name => "Jeff Casimir",
-            :email => "jeff.casimir@livingsocial.com",
+            :email => "demoXX+jeff@jumpstartlab.com",
             :display_name => "j3",
             :password => "hungry")
 admin = User.new( :name => "Chad Fowler",
-                  :email => "chad.fowler@livingsocial.com",
+                  :email => "demoXX+chad@jumpstartlab.com",
                   :display_name => "SaxPlayer",
                   :password => "hungry")
 admin.is_admin = true

@@ -8,6 +8,7 @@
     end
     @filters = Order.select(:status).uniq
     @statuses = Order.count(:all, :group => :status)
+    @no_footer = true
   end
 
   def edit
@@ -51,6 +52,7 @@
       one_click_cart = Cart.create(:user_id => current_user.id)
       one_click_cart.add_product_by_id(params[:product])
       @order = Order.create_from_cart(one_click_cart)
+      ConfirmationMailer.confirmation_email(current_user).deliver
       redirect_to order_path(@order, :id => @order.id)
     else
       flash[:message]= "We're sorry, but you must have placed a previous order to use 2-click. Please fill out your info below."
