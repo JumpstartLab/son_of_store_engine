@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
   def user_logged_in(user, return_path)
     if user
       create_with_user(user)
-      redirect_to return_path
+      redirect_to return_path || root_path
     else
       flash[:message] = "Email or Password invalid"
       render :action => "new"
