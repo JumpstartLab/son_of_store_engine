@@ -10,8 +10,10 @@ class Order < ActiveRecord::Base
   validates_presence_of :customer_id
 
   def update_attributes(params)
-    self.shipped = Time.now if params[:status] == "shipped" && status != "shipped"
-    self.cancelled = Time.now if params[:status] == "cancelled" && status != "cancelled"
+    self.shipped = Time.now if params[:status] == "shipped" &&
+    status != "shipped"
+    self.cancelled = Time.now if params[:status] == "cancelled" &&
+    status != "cancelled"
     super
   end
 
@@ -22,11 +24,10 @@ class Order < ActiveRecord::Base
   end
 
   def self.create_from_cart(cart)
-    o = Order.new(customer: Customer.find_or_create_by_user(cart.user))
-    o.status = "paid"
-    o.add_from_cart(cart)
-    o.save!
-    return o
+    ord = Order.new(customer: Customer.find_or_create_by_user(cart.user))
+    ord.status = "paid"
+    ord.add_from_cart(cart)
+    ord.save
   end
 
   def total

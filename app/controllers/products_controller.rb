@@ -1,9 +1,12 @@
 class ProductsController < ApplicationController
-  before_filter :verify_is_admin, :only => [:new, :create, :destroy, :edit, :update]
+  before_filter :verify_is_admin,
+    :only => [:new, :create, :destroy, :edit, :update]
 
   def index
     @products = if params[:category_id]
-      Category.find_by_id(params[:category_id]).products.select{ |product| product.on_sale == true }
+      Category.find_by_id(params[:category_id]).products.select do |product|
+        product.on_sale == true
+      end
     else
       Product.where(:on_sale => true)
     end

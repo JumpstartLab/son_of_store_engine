@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   validates :name, :length => { :minimum => 1 }
   validates :display_name, :length => { :minimum => 2, :maximum => 32 }, :allow_blank => true
-  
+
 
   def is_admin?
     is_admin
