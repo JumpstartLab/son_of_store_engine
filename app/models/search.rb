@@ -6,25 +6,30 @@ class Search < ActiveRecord::Base
     params.each do |key, value|
       params[key] = nil if params[key].blank?
     end
-    orders = find_orders_by_date(params[:date], params[:d_sym] || "*") -
-    find_orders_by_total(params[:total], params[:t_sym] || "*") -
-    find_orders_by_user_email(params[:email]) -
+    o1 = find_orders_by_date(params[:date], params[:d_sym] || "*")
+    o2 = find_orders_by_total(params[:total], params[:t_sym] || "*")
+    o3 = find_orders_by_user_email(params[:email])
+    o4 = find_orders_by_status(params[:status])
+    # raise "#{(o1 &o2 & o3 & o4).inspect}"
+
+    orders = find_orders_by_date(params[:date], params[:d_sym] || "*") &
+    find_orders_by_total(params[:total], params[:t_sym] || "*") &
+    find_orders_by_user_email(params[:email]) &
     find_orders_by_status(params[:status])
-    orders.uniq!
     find_orders_by_products(params[:title], orders)
   end
 
-  def find_orders_by_products(title, orders=Order.all)
-    matches = []
-    Product.all.each do |product|
-      orders.each do |order|
-        if order.products.include?(product) &&
-          product.title == (title || product.title)
-          matches << order
-        end
+  def find_orders_by_products(title, orders)
+    if title
+      products = Product.find_all_by_title(title)
+
+      p_orders = products.inject([]) do |sum,product|
+        sum << product.orders
       end
+      p_orders.flatten.uniq & orders
+    else
+      orders
     end
-    matches
   end
 
   def find_orders_by_user_email(s_email)
@@ -60,6 +65,7 @@ class Search < ActiveRecord::Base
 
   def find_orders_by_total(s_total, sym)
     if s_total
+      s_total = s_total.to_i
       case sym
       when ">"
         Order.all.select do |order|
@@ -82,7 +88,7 @@ class Search < ActiveRecord::Base
   def find_orders_by_status(status)
     if status
       Order.all.select do |order|
-        order.status == status
+        order.status.downcase == status.downcase
       end
     else
       Order.all
