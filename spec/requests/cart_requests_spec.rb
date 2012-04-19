@@ -33,6 +33,20 @@ describe "Using the shopping cart", :focus => true do
         page.should have_content("2")
       end
 
+      it "removes an item from the cart" do
+        visit product_path(product)
+        click_link_or_button "Add to Cart"
+        click_link_or_button "Remove from cart"
+        page.should_not have_content("#{product.title}")
+      end
+
+      it "updates quantity" do
+        page.fill_in :cart_item_quantity, with: 4
+        click_link_or_button("Update Quantity")
+        page.should have_content("#{product.title}")
+        page.should have_content("4")
+    end
+
     end
     context "Clearing the cart" do
       before(:each) do

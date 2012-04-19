@@ -6,51 +6,51 @@ class Search < ActiveRecord::Base
     params.each do |key, value|
       params[key] = nil if params[key].blank?
     end
-    orders = find_orders_by_date(params[:date], params[:d_sym] || "*") +
-    find_orders_by_total(params[:total], params[:t_sym] || "*") +
-    find_orders_by_user_email(params[:email]) +
+    orders = find_orders_by_date(params[:date], params[:d_sym] || "*") -
+    find_orders_by_total(params[:total], params[:t_sym] || "*") -
+    find_orders_by_user_email(params[:email]) -
     find_orders_by_status(params[:status])
     orders.uniq!
-    find_products(params[:title], orders)
+    find_orders_by_products(params[:title], orders)
   end
 
-  def find_products(title, orders=Order.all)
+  def find_orders_by_products(title, orders=Order.all)
     matches = []
     Product.all.each do |product|
       orders.each do |order|
         if order.products.include?(product) &&
           product.title == (title || product.title)
-          matches << product
+          matches << order
         end
       end
     end
     matches
   end
 
-  def find_orders_by_user_email(email)
-    if email
+  def find_orders_by_user_email(s_email)
+    if s_email
       Order.all.select do |order|
-        order.user.email == email
+        order.user.email == s_email
       end
     else
       Order.all
     end
   end
 
-  def find_orders_by_date(date, sym)
-    if date
+  def find_orders_by_date(s_date, sym)
+    if s_date
       case sym
       when ">"
         Order.all.select do |order|
-          order.created_at > date
+          order.created_at > s_date
         end
       when "<"
         Order.all.select do |order|
-          order.created_at < date
+          order.created_at < s_date
         end
       when "="
         Order.all.select do |order|
-          order.created_at == date
+          order.created_at == s_date
         end
       end
     else
@@ -58,20 +58,20 @@ class Search < ActiveRecord::Base
     end
   end
 
-  def find_orders_by_total(total, sym)
-    if total
+  def find_orders_by_total(s_total, sym)
+    if s_total
       case sym
       when ">"
         Order.all.select do |order|
-          order.total > total
+          order.total > s_total
         end
       when "<"
         Order.all.select do |order|
-          order.total < total
+          order.total < s_total
         end
       when "="
         Order.all.select do |order|
-          order.total == total
+          order.total == s_total
         end
       end
     else

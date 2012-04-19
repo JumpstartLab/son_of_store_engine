@@ -16,11 +16,7 @@ class SessionsController < ApplicationController
       flash[:message] = "Logged in!"
       @cart.user_id = current_user.id
       @cart.save!
-      if return_to
-        redirect_to return_to
-      else
-        redirect_to root_path
-      end
+      redirect_to root_path
     else
       flash[:message] = "Email or Password invalid"
       render :action => "new"
