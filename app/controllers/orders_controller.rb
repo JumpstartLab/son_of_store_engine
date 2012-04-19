@@ -8,6 +8,7 @@
     end
     @filters = Order.select(:status).uniq
     @statuses = Order.count(:all, :group => :status)
+    @no_footer = true
   end
 
   def edit

@@ -24,8 +24,10 @@
       <%= yield %>
     </div>
   </div>
-  <div id="footer">
-    <%= render "shared/footer"%>
-  </div>
+  <% unless @no_footer %>
+    <div id="footer">
+      <%= render "shared/footer" %>
+    </div>
+  <% end %>
 </body>
 </html>
