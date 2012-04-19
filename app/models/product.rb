@@ -29,7 +29,7 @@ class Product < ActiveRecord::Base
 
   def self.search(search_term)
     Product.where("title LIKE ? OR description LIKE ?",
-      "%#{search_term}%", "%#{search_term}%")
+      "_#{search_term}_", "_#{search_term}_")
   end
 
   def matches?(search_term)
