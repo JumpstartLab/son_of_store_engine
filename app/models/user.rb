@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /^([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})$/i
   validates_presence_of :name
   validates :name, :length => { :minimum => 1 }
-  validates :display_name, :length => { :minimum => 2, :maximum => 32 }, :allow_blank => true
+  validates :display_name,
+  :length => { :minimum => 2, :maximum => 32 }, :allow_blank => true
 
 
   def is_admin?

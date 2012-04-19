@@ -59,7 +59,7 @@ class Search < ActiveRecord::Base
 
   def find_orders_by_total(s_total, sym)
     if s_total
-      s_total = s_total.to_i
+      s_total = s_total.to_i * 100
       find_total(s_total,sym)
     else
       Order.all
@@ -67,7 +67,7 @@ class Search < ActiveRecord::Base
   end
 
   def find_total(s_total,sym)
-    case t_sym
+    case sym
     when ">"
       Order.all.select do |order|
         order.total > s_total

@@ -49,16 +49,6 @@ describe Order do
     end
   end
 
-  describe "create_from_cart" do
-    it "creates an order. FROM THE CART" do
-      cart.stub(:user).and_return(user)
-      o = Order.create_from_cart(cart)
-      products.each do |p|
-        o.products.should be_include(p)
-      end
-    end
-  end
-
   describe "search, create" do
     it "finds the correct order" do
       o = Order.search(products.first.title, user)

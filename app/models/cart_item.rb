@@ -7,10 +7,10 @@ class CartItem < ActiveRecord::Base
     order_item = OrderItem.new
     order_item.order_id = order.id
     order_item.product_id = self.product.id
-    do_more(order)
+    do_more(order_item)
   end
   private
-  def do_more
+  def do_more(order_item)
     order_item.quantity = self.quantity
     order_item.price = self.product.price
     order_item.save

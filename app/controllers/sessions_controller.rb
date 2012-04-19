@@ -40,7 +40,6 @@ class SessionsController < ApplicationController
     user_cart = flash_and_user_cart
     session[:cart_id] = user_cart ? user_cart.id : nil
     @cart = find_and_absorb
-    @cart.user_id = current_user.id
     @cart.save
   end
 end
