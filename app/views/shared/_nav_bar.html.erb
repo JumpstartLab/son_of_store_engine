@@ -36,6 +36,7 @@
               user_path(current_user)%></li>
               <% if current_user.is_admin? %>
               <li><%= link_to "Dashboard", orders_path %></li>
+              <li><%= link_to "Advanced Search", new_search_path %></li>
               <% end %>
               <li><%= link_to "Log out", logout_path%></li>
             </ul>
