@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
-  attr_accessible :description, :price, :title, :image_url, :on_sale, :category_ids
+  attr_accessible :description, :price,
+    :title, :image_url, :on_sale, :category_ids
   has_many :categories, :through => :category_products
   has_many :category_products
   has_many :order_items
@@ -21,7 +22,8 @@ class Product < ActiveRecord::Base
   end
 
   def self.search(search_term)
-    Product.where("title LIKE ? OR description LIKE ?", "%#{search_term}%", "%#{search_term}%")
+    Product.where("title LIKE ? OR description LIKE ?",
+      "%#{search_term}%", "%#{search_term}%")
   end
 
   def matches?(search_term)

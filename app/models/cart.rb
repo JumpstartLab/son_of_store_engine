@@ -12,7 +12,7 @@ class Cart < ActiveRecord::Base
       selected = cart_items.select do |cart_item|
         cart_item.product == product
       end
-      selected.first.tap{|c| c.quantity += 1}.save
+      selected.first.tap{|c_item| c_item.quantity += 1}.save
     end
   end
 
@@ -32,7 +32,9 @@ class Cart < ActiveRecord::Base
   end
 
   def total
-    Money.new(cart_items.inject(0) { |sum, item| sum + item.quantity*item.product.price })
+    Money.new(cart_items.inject(0) do |sum, item|
+      sum + item.quantity*item.product.price
+    end)
   end
 
   def absorb(other_cart)

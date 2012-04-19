@@ -6,12 +6,6 @@ class Search < ActiveRecord::Base
     params.each do |key, value|
       params[key] = nil if params[key].blank?
     end
-    o1 = find_orders_by_date(params[:date], params[:d_sym] || "*")
-    o2 = find_orders_by_total(params[:total], params[:t_sym] || "*")
-    o3 = find_orders_by_user_email(params[:email])
-    o4 = find_orders_by_status(params[:status])
-    # raise "#{(o1 &o2 & o3 & o4).inspect}"
-
     orders = find_orders_by_date(params[:date], params[:d_sym] || "*") &
     find_orders_by_total(params[:total], params[:t_sym] || "*") &
     find_orders_by_user_email(params[:email]) &
@@ -66,22 +60,26 @@ class Search < ActiveRecord::Base
   def find_orders_by_total(s_total, sym)
     if s_total
       s_total = s_total.to_i
-      case sym
-      when ">"
-        Order.all.select do |order|
-          order.total > s_total
-        end
-      when "<"
-        Order.all.select do |order|
-          order.total < s_total
-        end
-      when "="
-        Order.all.select do |order|
-          order.total == s_total
-        end
-      end
+      find_total(s_total,sym)
     else
       Order.all
+    end
+  end
+
+  def find_total(s_total,sym)
+    case sym
+    when ">"
+      Order.all.select do |order|
+        order.total > s_total
+      end
+    when "<"
+      Order.all.select do |order|
+        order.total < s_total
+      end
+    when "="
+      Order.all.select do |order|
+        order.total == s_total
+      end
     end
   end
 
@@ -92,7 +90,7 @@ class Search < ActiveRecord::Base
       end
     else
       Order.all
-    end    
+    end
   end
 end
 # == Schema Information

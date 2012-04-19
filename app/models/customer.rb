@@ -6,19 +6,24 @@ class Customer < ActiveRecord::Base
   :ship_zipcode, :stripe_customer_token, :user_id
 
   def self.find_or_create_by_user(user)
-    customer = Customer.find_by_user_id(user) || Customer.new   
+    customer = Customer.find_by_user_id(user) || Customer.new
   end
 
   def save_with_payment
+    validate_and_submit
+  rescue Stripe::InvalidRequestError => error
+    logger.error "Stripe error while creating customer: #{error.message}"
+    errors.add :base, "There was a problem with your credit card."
+    false
+  end
+
+  def validate_and_submit
     if valid?
-      customer = Stripe::Customer.create(description: user.email, card: stripe_token)
+      customer = Stripe::Customer.create(description: user.email,
+        card: stripe_token)
       self.stripe_customer_token = customer.id
       save!
     end
-  rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error while creating customer: #{e.message}"
-    errors.add :base, "There was a problem with your credit card."
-    false
   end
 end
 # == Schema Information
