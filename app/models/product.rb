@@ -35,6 +35,17 @@ class Product < ActiveRecord::Base
   def matches?(search_term)
     title.match "/.*#{search_term}.*/i"
   end
+
+  def similar_products
+    order_items = OrderItem.where("product_id = #{id}")
+    orders = order_items.map { |item| Order.find_by_id(item.order_id) }
+    products = orders.collect do |order|
+      order.products.each do |product|
+        product
+      end
+    end.compact.flatten.uniq
+    products.select{ |product| product.id != id }
+  end
 end
 # == Schema Information
 #
