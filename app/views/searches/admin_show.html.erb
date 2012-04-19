@@ -1,2 +1,4 @@
 <h2>Search Results</h2>
-<%= render partial: "shared/products" %>
+<%= @orders.each do |order| %>
+<% @order = order %>
+<%= render partial: "orders/show_order"%>
