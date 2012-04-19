@@ -17,3 +17,43 @@ body { padding-top: 60px; }
 //
 // Example:
 // @linkColor: #ff0000;
+
+@navbarBackground: white;
+@navbarBackgroundHighlight: white;
+
+@navbarLinkColor: #666;
+@navbarLinkColorHover: black;
+
+
+
+.navbar .nav > li > a {
+  text-shadow: none;
+  :hover {
+    text-shadow: none;
+  }
+}
+
+.dropdown.open .dropdown-toggle{
+  color: black;
+}
+
+.navbar .nav .dropdown-toggle .caret, .navbar .nav .open.dropdown .caret {
+  border-top-color: black;
+}
+
+.dropdown-toggle {
+  font-color: @navbarLinkColor;
+}
+
+.navbar .brand {
+  color: #F26C4F;
+  padding-right: 0px;
+}
+
+.navbar .secondary {
+    color: #1B325F;
+}
+
+input[class*="span"], select[class*="span"], textarea[class*="span"], .uneditable-input {
+  margin-left: 10px;
+}

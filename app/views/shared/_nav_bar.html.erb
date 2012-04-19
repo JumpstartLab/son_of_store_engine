@@ -2,7 +2,8 @@
   <div class="navbar-inner">
     <div class="container">
       <div class="nav-collapse">
-        <%= link_to "House O' Rails Devs", root_path, :class => "brand" %>
+        <%= link_to "Kaddox", root_path, :class => "brand" %>
+        <%= link_to "LTD", root_path, :class => "brand secondary" %>
         <div class="navbar-search pull-left">
           <%= form_for @new_search, :url => search_path, :method => "GET" do |f| %>
             <%= f.text_field :products, :class => "search-query span2", :placeholder => "Search Products" %>
@@ -11,7 +12,7 @@
         <ul class="nav pull-left">
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-book icon-white"></i>
+              <i class="icon-book icon-black"></i>
               Categories
               <b class="caret"></b>
               <%= render 'shared/categories' %>
@@ -26,7 +27,7 @@
           <% if current_user %>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user icon-white"></i>
+              <i class="icon-user icon-black"></i>
               <%= current_user.email %>
               <b class="caret"></b>
             </a>

@@ -10,7 +10,9 @@
   <%= tag :meta, :name => "stripe-key", :content => "pk_KY4KeuSEU0hQK1hgaVKItVaj0BvQ7" %>
 </head>
 <body>
-  <%= render partial: "shared/nav_bar" %>
+  <div id="navigation-bar">
+    <%= render partial: "shared/nav_bar" %>
+  </div>
   <div class="container" id="content">
     <div class="main">
       <% unless flash[:message] == nil || flash[:message] == "" %>
@@ -21,6 +23,9 @@
       <% end %>
       <%= yield %>
     </div>
+  </div>
+  <div id="footer">
+    <%= render "shared/footer"%>
   </div>
 </body>
 </html>

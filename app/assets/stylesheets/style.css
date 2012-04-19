@@ -1,10 +1,13 @@
 body {
-  background-image: url('http://2.bp.blogspot.com/_dlvxrPCkxvI/TU8aOXakZ9I/AAAAAAAACWc/P8BsVzPoOuU/s1600/stockvault_2109_20070301.jpg');
+background-color: #E9F2F9;
 }
 
 #content {
-  background-color:rgba(205,201,201,0.95);
-  padding: 20px;
+
+}
+
+a.dropdown-toggle {
+
 }
 
 div.product-titles {
@@ -41,4 +44,81 @@ input#order_item_quantity {
 .order-quantity-submit {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.product-box {
+  width: 250px;
+  height: 250px;
+  display: inline-block;
+  margin: 15px;
+  position: relative;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.price {
+  float: right;
+  padding-right: 10px;
+}
+
+.title {
+  padding-left: 10px;
+}
+
+.product-box-text {
+  margin-top: 219px;
+  background-color: #9CC4E4;
+  opacity: .95;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  height: 52px;
+
+  -webkit-transition: all 0.15s ease-in-out;
+  -moz-transition: all 0.15s ease-in-out;
+  -o-transition: all 0.15s ease-in-out;
+  -ms-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+
+.product-box:hover .product-box-text {
+  margin-top: 180px;
+}
+
+.title > a {
+  text-decoration: none;
+  color: #E9F2F9;
+  font-size: 130%;
+}
+
+.price {
+  color: #E9F2F9;
+  font-size: 130%;
+}
+
+.description {
+  color: #E9F2F9;
+  font-size: 130%;
+  padding-left: 10px;
+}
+
+#footer {
+  margin-top: 10px;
+  height: 52px;
+  background-color: white;
+  font-size: 150%;
+  color: #666;
+  padding-top: 20px;
+  padding-right: 60px;
+  padding-left: 60px;
+  border-top-width: 3px;
+  border-color: #D8D8D8;
+  border-top-style: solid;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
