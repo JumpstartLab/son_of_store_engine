@@ -49,6 +49,7 @@ describe "Using the shopping cart", :focus => true do
 
     end
     context "Clearing the cart" do
+      let!(:cart_item) { Fabricate(:cart_item) }
       before(:each) do
         visit cart_path
       end

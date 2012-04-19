@@ -7,6 +7,8 @@ class Order < ActiveRecord::Base
   has_many :products, :through => :order_items
   accepts_nested_attributes_for :customer
 
+  validates_presence_of :customer_id
+
   def update_attributes(params)
     self.shipped = Time.now if params[:status] == "shipped" && status != "shipped"
     self.cancelled = Time.now if params[:status] == "cancelled" && status != "cancelled"
