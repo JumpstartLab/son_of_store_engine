@@ -1,0 +1,20 @@
+<%= form_for @search, url: admin_search_path do |f| %>
+
+  <%= f.label :product_title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :user_email %>
+  <%= f.text_field :email %>
+
+  <%= f.label :order_status %>
+  <%= f.select :status, ["Pending", "Shipped", "Returned" ,"Cancelled", "Paid"]
+   %>
+
+  <%= f.label :order_total %>
+  <%= f.select "t_sym", ["<", "=", ">"] %> <%= f.number_field :total %>
+
+  <%= f.label :order_date %>
+  <%= f.select "d_sym", ["<", "=", ">"] %><%= f.number_field :date %>
+
+  <%= f.submit %>
+<% end %>
