@@ -38,11 +38,11 @@ class SessionsController < ApplicationController
     user_cart = flash_and_user_cart
     session[:cart_id] = user_cart ? user_cart.id : nil
     @cart = find_and_absorb
-    @cart.user_id = current_user.id
     save_and_redirect
   end
 
   def save_and_redirect
+    @cart.user_id = current_user.id
     @cart.save
     redirect_to root_path
   end
