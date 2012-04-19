@@ -25,6 +25,7 @@ class SessionsController < ApplicationController
   def find_and_absorb
     find_or_create_cart_from_session.absorb(
       Cart.find_by_id(@old_cart_id))
+    @cart
   end
 
   def flash_and_user_cart
@@ -36,7 +37,13 @@ class SessionsController < ApplicationController
   def create_with_user(user)
     user_cart = flash_and_user_cart
     session[:cart_id] = user_cart ? user_cart.id : nil
-    @cart = find_and_absorb.tap {|cart| cart.user_id = current_user.id}.save!
+    @cart = find_and_absorb
+    @cart.user_id = current_user.id
+    save_and_redirect
+  end
+
+  def save_and_redirect
+    @cart.save
     redirect_to root_path
   end
 end

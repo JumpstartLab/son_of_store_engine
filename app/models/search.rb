@@ -67,7 +67,7 @@ class Search < ActiveRecord::Base
   end
 
   def find_total(s_total,sym)
-    case sym
+    case t_sym
     when ">"
       Order.all.select do |order|
         order.total > s_total
