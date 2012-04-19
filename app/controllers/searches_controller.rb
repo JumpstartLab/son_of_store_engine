@@ -13,6 +13,6 @@ class SearchesController < ApplicationController
   end
 
   def admin_show
-    @products = Search.new.find params[:search]
+    @orders = Search.new.find params[:search]
   end
 end
