@@ -6,7 +6,7 @@ describe "User Requests" do
   let!(:order1) { Fabricate(:order, :id => 1, :customer_id => 1) }
   let!(:order2) { Fabricate(:order, :id => 2, :customer_id => 1) }
   let!(:order_item1) { Fabricate(:order_item, :order_id => 1, :product_id => 1) }
-  let!(:order_item2) { Fabricate(:order_item, :order_id => 2, :product_id => 1) }
+  let!(:order_item2) { Fabricate(:order_item, :order_id => 2, :product_id => 2) }
   let!(:product1) { Fabricate(:product, :id => 1) }
   let!(:product2) { Fabricate(:product, :id => 2) }
 

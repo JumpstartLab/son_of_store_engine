@@ -100,10 +100,7 @@ describe "Orders Requests" do
     context "search" do
       it "matches searched terms" do
         order1.products = products
-        product_matches = order1.matches?("#{products.first.title}")
-        product_matches.each do |match|
-          match.title.should == products.first.title
-        end
+        order1.matches?("#{products.first.title}").should be_true
       end
     end
 

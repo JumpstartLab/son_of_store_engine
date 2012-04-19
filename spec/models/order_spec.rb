@@ -5,7 +5,9 @@ describe Order do
   let!(:order) { Fabricate(:order, :status => "pending", :id => 1, :customer_id => customer.id) }
   let!(:order_item1) { Fabricate(:order_item, :price => 10, :quantity => 2, :order_id => 1, :product_id => 1) }
   let!(:order_item2) { Fabricate(:order_item, :price => 20, :quantity => 1, :order_id => 1, :product_id => 2) }
-  let!(:products) {[Fabricate(:product, id: 1), Fabricate(:product, id: 2)]}
+  let!(:product1) { Fabricate(:product, :id => 1) }
+  let!(:product2) { Fabricate(:product, :id => 2) }
+  let!(:products) {[product1, product2]}
   let!(:cart){ Fabricate(:cart) }
 
 
@@ -49,8 +51,8 @@ describe Order do
 
   describe "create_from_cart" do
     it "creates an order. FROM THE CART" do
-      o = Order.create
-      o.add_from_cart(cart)
+      cart.stub(:user).and_return(user)
+      o = Order.create_from_cart(cart)
       products.each do |p|
         o.products.should be_include(p)
       end
