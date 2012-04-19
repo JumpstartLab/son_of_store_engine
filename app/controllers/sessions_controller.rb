@@ -4,10 +4,12 @@ class SessionsController < ApplicationController
   end
 
   def create
+    return_path = session[:return_to]
     @old_cart_id = @cart.id
     user = login(params[:email], params[:password], params[:remember_me])
     if user
       create_with_user(user)
+      redirect_to return_path
     else
       flash[:message] = "Email or Password invalid"
       render :action => "new"
@@ -38,12 +40,6 @@ class SessionsController < ApplicationController
     user_cart = flash_and_user_cart
     session[:cart_id] = user_cart ? user_cart.id : nil
     @cart = find_and_absorb
-    save_and_redirect
-  end
-
-  def save_and_redirect
-    @cart.user_id = current_user.id
     @cart.save
-    redirect_to root_path
   end
 end
