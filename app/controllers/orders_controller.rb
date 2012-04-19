@@ -36,7 +36,8 @@
     if customer.save  
       @order = Order.create(customer: customer, status: "paid")
       @order.add_from_cart(@cart)
-      if @order.save  
+      if @order.save 
+        ConfirmationMailer.confirmation_email(current_user).deliver 
         @cart.clear
         redirect_to order_path(@order)
       else

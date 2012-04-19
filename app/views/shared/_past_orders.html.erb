@@ -1,11 +1,10 @@
 <%= form_for @search, :url => search_path, :method => "GET" do |f| %>
-  <%= f.text_field :orders %>
-  <%= f.submit "Search for Past Orders" %>
+  <%= f.text_field :orders, :placeholder => "Search through Past Orders" %>
 <% end %>
 
 <h3>Past Orders:</h3>
  <div id="orders">
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered cart-table">
       <thead>
         <tr>
           <th></th>
