@@ -95,5 +95,15 @@ describe "searching for a product" do
       end
     end
 
+    describe "search from new search page" do 
+      it "finds an order from the search page" do
+        visit new_search_path
+        save_and_open_page
+        page.fill_in "title", with: product.title
+        click_link_or_button "Create Search"
+        page.should have_content product.title
+      end
+
+    end
   end
 end
