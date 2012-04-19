@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(params[:product])
+    product = make_product(Product.new(params[:product]))
     if product.save
       redirect_to product_path(product)
     else
@@ -35,6 +35,11 @@ class ProductsController < ApplicationController
     product = Product.find_by_id(params[:id])
     product.destroy
     redirect_to products_path
+  end
+
+  def make_product(product)
+    product.price *= 100 if product.price
+    product
   end
 
   def edit
