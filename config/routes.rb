@@ -7,6 +7,7 @@ StoreEngine::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   get "one_click" => "orders#one_click", :as => "one_click"
   get "code" => "application#code"
+  post "search_admin" => "searches#admin_show", as: "admin_search"
 
   resources :users
   resources :sessions
