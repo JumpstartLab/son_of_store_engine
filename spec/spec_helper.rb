@@ -49,5 +49,6 @@ RSpec.configure do |config|
   config.include RequestHelpers::SignUp
   config.include RequestHelpers::AddBilling
   config.include RequestHelpers::AddShipping
+  config.include RequestHelpers::NavHelpers
 end
 
