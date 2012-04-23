@@ -6,15 +6,15 @@ describe "admin" do
   before(:each) do
     user.update_attribute(:admin, true)
     user.update_attribute(:admin_view, true)
-    visit "/"
+    visit root_path
     click_link_or_button "Sign-In"
     login({email: user.email_address, password: user.password})
     visit admin_orders_path
   end
   context "admin product view" do
     before(:each) do
-      visit "/"
-      click_link_or_button "Admin View"
+      visit root_path
+      admin_nav_go_to("products")
     end
     it "has the proper header items" do
       within ".nav" do
@@ -41,7 +41,7 @@ describe "admin" do
     end
     it "can switch back to admin view" do
       click_link_or_button "The Urban Cyclist"
-      click_link_or_button "Admin View"
+      admin_nav_go_to("products")
       ["Edit", "Retire", "Destroy"].each do |button|
         page.should have_content button
       end
@@ -240,8 +240,7 @@ describe "admin" do
       it "shows a timestamp of cancelled orders" do
         visit root_path
         click_link_or_button "Add to Cart"
-        click_link_or_button "Admin View"
-        click_link_or_button "Dashboard"
+        admin_nav_go_to("orders")
         click_link_or_button "Cancel"
         page.should have_content Order.last.action_time
       end
@@ -267,8 +266,7 @@ describe "admin" do
        click_link_or_button "Add a Shipping Address"
        add_shipping(shipping)
        click_link_or_button "Check Out"
-       click_link_or_button "Admin View"
-       click_link_or_button "Dashboard"
+       admin_nav_go_to("orders")
        click_link_or_button "Mark as 'shipped'"
        page.should have_content Order.last.action_time.first(10)
      end
