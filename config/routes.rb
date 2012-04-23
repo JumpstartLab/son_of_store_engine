@@ -7,6 +7,17 @@ StoreEngine::Application.routes.draw do
 
   match '/code' => redirect('http://github.com/athal7/store_engine')
 
+  namespace :admin do
+    resources :orders
+    resources :products do
+      member  do
+       put :retire
+      end
+    end
+    resources :categories
+    resources :users
+  end
+
   resources :users, except: :destroy do
     member do
       put :view_as_admin
@@ -14,12 +25,7 @@ StoreEngine::Application.routes.draw do
     end
   end
 
-  resources :products do
-    member  do
-      put :retire
-    end
-  end
-
+  resources :products
   resources :categories
   resources :orders, except: [:new, :create]
   resources :billing_methods, except: [:destroy]

@@ -1,0 +1,7 @@
+= form_for @category, :url => admin_category_path(@category), :method => :put do |f|
+  = f.label :name
+  br/
+  = f.text_field :name
+  br/
+  = f.submit
+

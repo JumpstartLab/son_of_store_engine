@@ -17,11 +17,7 @@ module UsersHelper
   end
 
   def admin_view?
-    if current_user.present?
-      current_user.admin_view
-    else
-      false
-    end
+    controller_path.split("/").first=="admin"
   end
 
 
@@ -32,7 +28,7 @@ module UsersHelper
   end
 
   def require_user_or_admin
-    if current_user != @user && !admin_view?
+    if current_user != @user && !admin_view? && !admin?
       redirect_to root_url, notice: "Sorry, you are not allowed to view that."
     end
   end
