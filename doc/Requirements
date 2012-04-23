@@ -1,0 +1,58 @@
+Products:
+[Title, Description, Price, Photo, On_Sale?]
+1) Create new product
+2) Modify product
+3) Product image upload
+4) Toggle whether or not product is on sale
+5) Product Index
+6) 
+
+Categories:
+[Name]
+1) Create categories
+2) Assign/Remove products from categories
+
+Category_Product
+[ProductID, CategoryID]
+
+Orders:
+[Status, OrderDateTime, UserID, OrderCode]
+
+OrderItems:
+[OrderID, Quantity, Price]
+
+User:
+[Name, Email, Sorcery]
+
+CreditCard:
+[Number, CVV, ExpDate, UserID]
+
+Cart:
+[UserID]
+
+CartItem:
+[CartID, ProductID, Quantity, Price]
+
+User Authentication:
+1) Sign in on home page
+
+User Authorization:
+1) Only admins can create products
+2) Only admins can edit products
+
+Admin Dashboard:
+1) List all orders with links and filters
+
+
+
+Tonight:
+
+Chris
+
+- Remove a product from my cart
+- Increase the quantity of a product in my cart
+- Checkout by entering my billing information, shipping address, and email address
+  - Create order and associated order items
+
+
+

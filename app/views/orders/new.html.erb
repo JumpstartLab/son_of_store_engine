@@ -1,0 +1,74 @@
+<br>
+<div class="row">
+  <div class="left-billing">
+    <%= render partial: "shared/errors", locals: {target: @order} %>
+    <%= form_for @order.customer, id: "ship_bill_form", url: orders_path do |f| %>
+    <%= f.hidden_field :stripe_customer_token %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+
+    <h3>Shipping Information</h3>
+    <%= f.label :ship_address, "Address" %>
+    <%= f.text_field :ship_address %>
+
+    <%= f.label :ship_address2, "Address" %>
+    <%= f.text_field :ship_address2 %>
+
+    <%= f.label :ship_city, "City" %>
+    <%= f.text_field :ship_city %>
+
+    <%= f.label :ship_state, "State" %>
+    <%= f.text_field :ship_state %>
+
+    <%= f.label :ship_zipcode, "Zipcode" %>
+    <%= f.text_field :ship_zipcode %>
+  </div>
+  <div class="right-billing">
+    <h3>Billing Information</h3>
+
+    <%= f.label :bill_address, "Address" %>
+    <%= text_field_tag :bill_address %>
+
+    <%= f.label :bill_address2, "Address" %>
+    <%= text_field_tag :bill_address2 %>
+
+    <%= f.label :bill_city, "City" %>
+    <%= text_field_tag :bill_city %>
+
+    <%= f.label :sbill_state, "State" %>
+    <%= text_field_tag :bill_state %>
+
+    <%= f.label :bill_zipcode, "Zipcode" %>
+    <%= text_field_tag :bill_zipcode %>
+  </div>
+</div>
+<div class="row">
+<div class="left-billing">
+
+<h3>Payment Info</h3>
+
+  <% if @order.customer.stripe_token.present? %>
+  Credit card has been provided.
+  <% else %>
+  <div class="field">
+    <%= label_tag :card_number, "Credit Card Number" %>
+    <%= text_field_tag :card_number, nil, name: nil %>
+  </div>
+  <div class="field">
+    <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+    <%= text_field_tag :card_code, nil, name: nil %>
+  </div>
+  <div class="field">
+    <%= label_tag :card_month, "Card Expiration" %>
+    <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"} %>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
+  </div>
+  <% end %>
+  <div id="stripe_error">
+    <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+  </div>
+
+  <%= f.submit "Submit", :disable_with => 'Submiting...' %>
+
+  <% end %>
+</div>
+</div>

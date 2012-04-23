@@ -1,0 +1,53 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="nav-collapse">
+        <%= link_to "Kaddox", root_path, :class => "brand" %>
+        <%= link_to "LTD", root_path, :class => "brand secondary" %>
+        <div class="navbar-search pull-left">
+          <%= form_for @new_search, :url => search_path, :method => "GET" do |f| %>
+            <%= f.text_field :products, :class => "search-query span2", :placeholder => "Search Products" %>
+          <% end %>
+        </div>
+        <ul class="nav pull-left">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-book icon-black"></i>
+              Categories
+              <b class="caret"></b>
+              <%= render 'shared/categories' %>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav pull-right">
+          <li class="dropdown">
+            <%= render :partial => "shared/cart_nav_bar" %>
+          </li>
+          <li class="divider-vertical"></li>
+          <% if current_user %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-user icon-black"></i>
+              <%= current_user.email %>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Account",
+              user_path(current_user)%></li>
+              <% if current_user.is_admin? %>
+              <li><%= link_to "Dashboard", orders_path %></li>
+              <li><%= link_to "Advanced Search", new_search_path %></li>
+              <% end %>
+              <li><%= link_to "Log out", logout_path%></li>
+            </ul>
+          </li>
+          <% else %>
+          <li><%= link_to "Sign up", signup_path%></li>
+          <li class="divider-vertical"></li>
+          <li><%= link_to "Login", login_path %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

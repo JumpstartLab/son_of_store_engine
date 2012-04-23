@@ -1,0 +1,4 @@
+<%= link_to 'Create New Product', new_product_path, :class => 'btn btn-primary' if current_user && current_user.is_admin? %>
+
+<%= render "shared/products" %>
+

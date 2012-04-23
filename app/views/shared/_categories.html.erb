@@ -1,0 +1,9 @@
+<ul class="dropdown-menu">
+  <% Category.all.each do |category| %>
+    <li><%= link_to category.name, products_path(:category_id => category.id) %></li>
+  <% end %>
+  <br>
+  <li>
+    <%= link_to "Create New Category", new_category_path if current_user && current_user.is_admin %>
+  </li>
+</ul>
