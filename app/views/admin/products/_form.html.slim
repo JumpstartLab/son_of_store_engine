@@ -1,4 +1,4 @@
-= form_for @product, :html => { :class => 'form-horizontal' } do |f|
+= form_for @product, url: path, :html => { :class => 'form-horizontal' } do |f|
   - if @product.errors.any?
     div id="error_explanation"
       h2

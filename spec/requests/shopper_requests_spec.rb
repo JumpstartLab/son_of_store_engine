@@ -280,14 +280,5 @@ describe "shopper" do
         click_link_or_button category.name
         page.should have_content product.title
       end
-      it "cannot create or edit a category" do
-        visit new_category_path
-        current_path.should == "/"
-        page.should have_content "Unauthorized"
-        category = Fabricate(:category)
-        visit edit_category_path(category)
-        current_path.should == "/"
-        page.should have_content "Unauthorized"
-      end
     end
   end

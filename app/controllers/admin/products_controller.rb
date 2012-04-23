@@ -1,7 +1,6 @@
 #
 class Admin::ProductsController < ApplicationController
-  before_filter :lookup_product,
-  :only => [:show, :edit, :destroy, :update, :retire]
+  before_filter :lookup_product, :only => [:show, :edit, :destroy, :update, :retire]
   before_filter :require_admin
 
   def index

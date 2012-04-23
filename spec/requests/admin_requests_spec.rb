@@ -135,16 +135,16 @@ describe "admin" do
       page.should_not have_content product.title
     end
     it "doesn't allow missing product information" do
-      visit new_product_path
+      visit new_admin_product_path
       click_link_or_button "Create Product"
-      current_path.should == products_path
+      current_path.should == admin_products_path
       page.should have_content "errors"
     end
   end
   context "user" do
     let!(:other_user) { Fabricate(:user) }
     it "cannot edit another user's information" do
-      visit user_path(other_user)
+      visit admin_user_path(other_user)
       click_link_or_button "Change Profile"
       current_path.should == "/"
       page.should have_content "not allowed"
