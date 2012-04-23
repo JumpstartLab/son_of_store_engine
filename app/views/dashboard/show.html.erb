@@ -11,15 +11,15 @@
   
   <table id="status_numbers">
     <tbody>
-      <td style="width: 110px"><%= link_to "Pending:", statuses_path(:name => "pending") %> 
+      <td style="width: 110px"><%= link_to "Pending:", orders_path(:status_search => "pending") %> 
           <%= Order.pending.count %></td>
-      <td style="width: 120px"><%= link_to "Cancelled:", statuses_path(:name => "cancelled") %> 
+      <td style="width: 120px"><%= link_to "Cancelled:", orders_path(:status_search => "cancelled") %> 
           <%= Order.cancelled.count %></td>
-      <td style="width: 90px"><%= link_to "Paid:", statuses_path(:name => "paid") %>
+      <td style="width: 90px"><%= link_to "Paid:", orders_path(:status_search => "paid") %>
           <%= Order.paid.count %></td>
-      <td style="width: 120px"><%= link_to "Shipped:", statuses_path(:name => "shipped") %>
+      <td style="width: 120px"><%= link_to "Shipped:", orders_path(:status_search => "shipped") %>
           <%= Order.shipped.count %></td>
-      <td style="width: 120px"><%= link_to "Returned:", statuses_path(:name => "returned") %> 
+      <td style="width: 120px"><%= link_to "Returned:", orders_path(:status_search => "returned") %> 
           <%= Order.returned.count %></td>
     </tbody>
   </table>

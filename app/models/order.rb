@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   attr_accessible :status, :total_price, :user,
                   :products, :address_attributes,
-                  :address, :address_id
+                  :address, :address_id, :status
   attr_accessor :stripe_card_token
   attr_accessible :stripe_card_token
 
@@ -10,13 +10,19 @@ class Order < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :address
-  has_one :status
 
-  scope :pending, includes(:status).where("statuses.name" => "pending")
-  scope :paid, includes(:status).where("statuses.name" => "paid")
-  scope :shipped, includes(:status).where("statuses.name" => "shipped")
-  scope :cancelled, includes(:status).where("statuses.name" => "cancelled")
-  scope :returned, includes(:status).where("statuses.name" => "returned")
+
+  scope :pending, where(status: "pending")
+  scope :paid, where(status: "paid")
+  scope :shipped, where(status: "shipped")
+  scope :cancelled, where(status: "cancelled")
+  scope :returned, where(status: "returned")
+
+  after_create :set_default_status
+
+  def set_default_status
+    update_attribute(:status, "pending")
+  end
 
   accepts_nested_attributes_for :address
 
@@ -71,6 +77,10 @@ class Order < ActiveRecord::Base
   end
 
   def current_status
-    status.name
+    status
+  end
+
+  def is_paid!
+    update_attribute(:status, "paid")
   end
 end

@@ -4,7 +4,11 @@ class OrdersController < ApplicationController
   before_filter :admin_authorize, only: [:edit, :update]
 
   def index
-    @orders = Order.find_all_by_user_id(current_user.id)
+    if params[:status_search] && current_user && current_user.admin?
+      @orders = Order.where(status: params[:status_search])
+    else
+      @orders = Order.find_all_by_user_id(current_user.id)
+    end
   end
 
   def show
@@ -29,39 +33,28 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    @order.status.update_attribute(:name, params[:order][:status])
+    @order.update_attribute(:status, params[:order][:status])
     UserMailer.status_confirmation(@order.user, @order).deliver
     redirect_to order_path(@order)
   end
 
   def create
     @order = Order.new(params[:order])
-    @order.status = Status.new
     @order.user_id = current_user.id
     @order.save
-    create_part_two
-  end
-
-  def create_part_two
     @order.add_order_items_from(@cart)
     @order.address.user = current_user
-    create_part_three
-  end
-
-  def create_part_three
+    
     if @order.save_with_payment
       UserMailer.order_confirmation(current_user, @order).deliver
-      create_part_four
+      @order.is_paid!
+      @cart.destroy
+      session[:cart_id] = nil
+      redirect_to @order,
+      :notice => "Transaction Complete"
     else
       render :new
     end
   end
 
-  def create_part_four
-    @order.status.change
-    @cart.destroy
-    session[:cart_id] = nil
-    redirect_to @order,
-    :notice => "Transaction Complete"
-  end
 end

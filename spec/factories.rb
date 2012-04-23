@@ -19,9 +19,6 @@ FactoryGirl.define do
     order
   end
 
-  factory :status do
-  end
-
   factory :user do
     full_name Faker::Name.name
     password "foo"
@@ -32,7 +29,7 @@ FactoryGirl.define do
 
   factory :order do
     user
-    status
+    status "pending"
     factory :order_with_items do
       ignore do
         order_item_count 5

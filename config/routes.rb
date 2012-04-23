@@ -11,7 +11,6 @@ StoreEngine::Application.routes.draw do
   resource :two_click_orders
   resource :search
   resource :dashboard, :controller => 'dashboard'
-  resources :statuses
 
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"

@@ -6,7 +6,7 @@ class TwoClickOrdersController < ApplicationController
       create_order
       add_to_cart
       if @order.save_with_payment
-        @order.status.change
+        @order.is_paid!
         redirect_to order_path(@order.id),
         :notice => "Transaction Successful" and return
       end
@@ -17,7 +17,6 @@ class TwoClickOrdersController < ApplicationController
   def create_order
     @order = Order.new
     @order.user = current_user
-    @order.status = Status.new
     @order.save
   end
 
