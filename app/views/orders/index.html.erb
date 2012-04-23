@@ -1,0 +1,101 @@
+<h1>Administrator Dashboard</h1>
+<br>
+<div id="filters">
+  <%= link_to "All: #{Order.all.count}", orders_path, :class => "btn btn-info"%>
+  <% @filters.each do |filter| %>
+    <%= link_to "#{filter.status.capitalize}: #{@statuses[filter.status]}", orders_path(:filter => filter.status), :class => "btn btn-info"%>
+  <% end %>
+</div>
+<br>
+<table class="table table-striped cart-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Status</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Order Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr id="<%= dom_id order %>">
+        <td>
+          <a class="btn" data-toggle="modal" href="#<%= dom_id order %>_detail" >View Order</a>
+        </td>
+        <td><%= order.status.capitalize %></td>
+        <td><%= order.customer.user.name %></td>
+        <td><%= order.customer.user.email %></td>
+        <td><%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></td>
+        <td>
+          <% case order.status %>
+          <% when "pending" %>
+            <%= link_to "Cancel Order", order_path(order, :order => {:status => "canceled" }), :method => :put, :class => "btn btn-warning" %>
+          <% when "shipped" %>
+            <%= link_to "Mark As Returned", order_path(order, :order => {:status => "returned" }), :method => :put, :class => "btn btn-primary" %>
+          <% when "paid" %>
+            <%= link_to "Mark As Shipped", order_path(order, :order => {:status => "shipped" }), :method => :put, :class => "btn btn-success" %>
+          <% end %>
+          <%= link_to 'Edit', edit_order_path(order), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', order_path(order), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  <% @orders.each do |order| %>
+    <div class="modal hide" id="<%= dom_id order %>_detail">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Order from <%= order.user.name %> on <%= order.created_at.strftime("%B %e, %Y %l:%M %p") %></h3>
+          <h4>Status: <%= order.status.capitalize %></h4>
+          <% case order.status %>
+          <% when "pending" %>
+            <%= link_to "Cancel Order", order_path(order, :order => {:status => "canceled" }), :method => :put, :class => "btn btn-warning" %>
+          <% when "shipped" %>
+            <%= link_to "Mark As Returned", order_path(order, :order => {:status => "returned" }), :method => :put, :class => "btn btn-primary" %>
+          <% when "paid" %>
+            <%= link_to "Mark As Shipped", order_path(order, :order => {:status => "shipped" }), :method => :put, :class => "btn btn-success" %>
+          <% end %>
+      </div>
+      <div class="modal-body">
+        <h4><%= order.customer.user.name %>: <%= order.customer.user.email %></h4>
+        <hr>
+        <div class="span5 product-titles">
+          <div class="span1"></div>
+          <div class="span1">Product</div>
+          <div class="span1">Price</div>              
+          <div class="span1">Quantity</div>
+          <div class="span1">Subtotal</div>
+        </div>
+        <% order.order_items.each do |item| %>
+           <div class="span5 product-listing">
+            <hr>
+            <div class="span1"></div>
+            <div class="span1">
+              <%= link_to item.product.title, product_path(item.product) %>
+            </div>       
+            <div class="span1">$<%= item.decimal_price %></div>
+            <div class="span1">
+              <% if order.status == "pending" %>
+                <%= form_for item do |f| %>
+                  <%= f.number_field :quantity %>
+                  <%= f.submit "Update", :class => "order-quantity-submit" %>
+                <% end %>
+              <% else %>
+                <%= item.quantity %>
+              <% end %>
+            </div>
+            <div class="span1">
+              $<%= item.decimal_total %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <hr>
+       <h3 class = "order-total">Total: $<%= order.decimal_total %></h3>
+       <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  <% end %>

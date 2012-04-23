@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Thanks for ordering with us <%= @user.name %>!</h1>
+    <h3>You can view the details of your order here:</h3>
+    <h3><%= order_url(@user.customer.orders.last) %></h3>
+  </body>
+</html>

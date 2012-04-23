@@ -1,0 +1,6 @@
+<h1>Account Page for <%= current_user.name %></h1>
+</br>
+<h3>Here's what is in your cart right now:</h3>
+<%= render :partial => "shared/cart" %>
+<br><br>
+<%= render :partial => "shared/past_orders" %>

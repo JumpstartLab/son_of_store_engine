@@ -1,0 +1,43 @@
+  <% if @product.similar_products.any? %>
+    <div class="similar-products">
+      <h2>Other shoppers who have bought this item also bought the following:</h2>
+        <% @product.similar_products.each do |product| %>
+      <span class="similar-images">
+        <%= link_to image_tag(product.image_url), product_path(product) %>
+      </span>
+      <% end %>
+    </div>
+  <% end %>
+<div id="droppable" class ="mini-cart">
+  <%= render 'shared/cart_mini' %>
+</div>
+<% unless @product.on_sale %>
+  <h1>THIS PRODUCT IS NO LONGER ON SALE</h1>
+<% end %>
+
+  <div class="product-show-details">
+    <h1><%= @product.title %></h1>
+    <h3><%= @product.description %></h3>
+    <br>
+    <h3>$<%= @product.decimal_price %>
+    <% if @product.on_sale %>
+    <%= link_to 'Add to Cart', cart_path(:product => @product), :method => :put, :class => 'btn add-to-cart', :id => "add-to-cart-button" %>
+    <% if current_user %>
+    <%= link_to 'Impulse Buy!', one_click_path(:product => @product), :confirm => "Are you sure you want buy this item?", id: "one-click", :class => 'btn add-to-cart' %>
+    <% end %>
+    <% end %></h3>
+  </div>
+  <div class="product-show-image"><%= image_tag @product.image_url, :id => "draggable" %></div>
+  <div class="product-show-details">
+    <h3>Browse more products in:</h3><br>
+    <% @product.categories.each do |category| %>
+      <h3><%= link_to category.name, products_path(:category_id => category.id) %></h3>
+    <% end %>
+  </div>
+
+  <% if current_user && current_user.is_admin %>
+    <%= link_to 'Edit', edit_product_path(@product), :class => 'btn' %>
+    <%= link_to '<i class= "icon-trash icon-white"></i> Delete'.html_safe,
+      product_path(@product), :method => 'delete', :confirm => 'Are you sure?',
+        :class => 'btn btn-danger' %>
+  <% end %>

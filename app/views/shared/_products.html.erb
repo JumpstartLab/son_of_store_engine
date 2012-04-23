@@ -1,0 +1,23 @@
+<% if @products.any? %>
+  <div class="span12">
+    <% @products.each do |product| %>
+      <div class = "product-box" style="background-image: url(<%= product.image_url %>); background-repeat: no-repeat; background-position:center; vertical-align: center;" onclick="window.location='<%= product_path(product) %>';">
+        <div class="product-links">
+        <% if current_user && current_user.is_admin? %>
+          <%= link_to 'Edit', edit_product_path(product), :class => 'btn btn-small' %>
+          <%= link_to '<i class= "icon-trash icon-white"></i> Delete'.html_safe, product_path(product), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-small btn-danger' %>
+        <% end %>
+      </div>
+        <div class="product-box-text">
+          <div class="price">$<%= product.decimal_price %></div>
+          <div class="title">
+            <%= link_to product.title, product_path(product) %>
+          </div>
+          <div class="description"><%= product.description %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h2>No products matched this description.</h2>
+<% end %>
