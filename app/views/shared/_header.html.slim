@@ -28,8 +28,17 @@
             li= link_to "My Account", user_url(current_user)
             li= link_to "Logout", logout_path, :method => :delete
             - if admin?
-              li= link_to "Admin View", admin_products_path
-              li= link_to "Dashboard", admin_orders_path
+              li#admin_nav.dropdown
+                a.dropdown-toggle data-toggle="dropdown" href="#admin_nav"
+                  | Admin Dashboards
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    = link_to "Products", admin_products_path
+                  li
+                    = link_to "Orders", admin_orders_path
+                  li
+                    = link_to "Categories", admin_categories_path
           - else
             li= link_to "Sign-In", login_page_path
             li= link_to "Sign-Up", new_user_path
