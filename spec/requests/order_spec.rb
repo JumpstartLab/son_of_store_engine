@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "When I want to place an order" do
+describe "When I want to place an order", :focus => true do
   #before(:each) { visit new_order_path }
   let!(:user) { FactoryGirl.create(:user) }
   let(:product) { FactoryGirl.create(:product) }
@@ -19,9 +19,14 @@ describe "When I want to place an order" do
 
       context "and I have no previous billing info" do
         it "takes me back to the checkout process at the add credit_card stage" do
+<<<<<<< HEAD
           click_link_or_button("Checkout")
           fill_in "email", with: user.email
           fill_in "password", with: 'foobar'
+=======
+          fill_in "Email", with: user.email
+          fill_in "Password", with: 'foobar'
+>>>>>>> Working on order tests; Added filtering to spec_helper.rb
           click_link_or_button('Log in')
           current_path.should == new_credit_card_path
         end
@@ -31,7 +36,10 @@ describe "When I want to place an order" do
 
   context "as a logged-in user" do
     before(:each) do
+<<<<<<< HEAD
       #raise sessions_url.inspect
+=======
+>>>>>>> Working on order tests; Added filtering to spec_helper.rb
       login_user_post(user.email, "foobar")
     end
 
