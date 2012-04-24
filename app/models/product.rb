@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   REGEX = /^https?:\/\/(?:[a-z\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png|jpeg)$/
-  attr_accessible :description, :name, :photo, :price
+  attr_accessible :description, :name, :photo, :price, :store_id
   before_save :check_for_photo
 
   has_many :order_products
@@ -18,6 +18,8 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_numericality_of :price, :greater_than => 0
   validates_format_of :photo, with: REGEX, :allow_blank => true
+
+  belongs_to :store
 
   monetize :price_cents, :target_name => "price"
 
