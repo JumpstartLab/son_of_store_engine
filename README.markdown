@@ -1,3 +1,3 @@
-## StoreEngine
+## SonofStoreEngine
 
-http://tutorials.jumpstartlab.com/projects/store_engine.html
+http://tutorials.jumpstartlab.com/projects/son_of_store_engine.html
