@@ -1,4 +1,4 @@
-= form_for @category, :url => admin_category_path(@category), :method => :put do |f|
+= form_for @category, :url => admin_category_path(:domain, @category), :method => :put do |f|
   = f.label :name
   br/
   = f.text_field :name

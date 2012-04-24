@@ -4,6 +4,3 @@ li.span2.category id==dom_id(category)
   .overlay
     h3
       = link_to category.name, category_path(:domain, category)
-  - if admin_view?
-    = link_to 'Edit', edit_category_path(:domain, category), :class => 'btn btn-mini'
-    = link_to 'Destroy', category_path(:domain, category), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'

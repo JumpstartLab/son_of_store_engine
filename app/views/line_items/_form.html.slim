@@ -1,4 +1,4 @@
-= form_for @line_item do |f|
+= form_for @line_item, url: :url do |f|
   .control-group
     = f.label :quantity, :class => 'control-label'
     .controls
@@ -6,4 +6,4 @@
 
   .form-actions
     = f.submit "Update Quantity", :class => 'btn btn-primary'
-    = link_to 'Cancel', products_path, :class => 'btn'
+    = link_to 'Cancel', products_path(:domain), :class => 'btn'
