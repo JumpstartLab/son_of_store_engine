@@ -1,5 +1,7 @@
 StoreEngine::Application.routes.draw do
 
+  resources :stores
+
   resources :searches
   resources :products
   resources :orders
