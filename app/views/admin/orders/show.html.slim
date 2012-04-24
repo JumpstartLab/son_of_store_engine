@@ -16,7 +16,7 @@
   h2#subtotal Total: #{ number_to_currency(@order.amount)}
   br/
   - if @order.pending?
-    = link_to "Check Out", order_path(@order), method: :put, class: "btn btn-success"
+    = link_to "Check Out", order_path(:domain, @order), method: :put, class: "btn btn-success"
 -else
   h3 #{"Your Cart is Empty"}
-  = link_to "Browse Products", root_path, class: "btn btn-success"
+  = link_to "Browse Products", products_path(:domain), class: "btn btn-success"
