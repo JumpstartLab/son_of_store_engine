@@ -23,7 +23,7 @@ class Order < ActiveRecord::Base
   end
 
   def not_a_cart
-    true if not self.is_a?(Cart)
+    !self.is_a?(Cart)
   end
 
   def self.charge_two_click(cart_id)
@@ -31,6 +31,8 @@ class Order < ActiveRecord::Base
     order.charge if order.user.address && order.user.stripe_id
     order
   end
+
+  # What the hell?
   def self.process_cart(cart_id)
     Order.find_cart(cart_id)
   end
