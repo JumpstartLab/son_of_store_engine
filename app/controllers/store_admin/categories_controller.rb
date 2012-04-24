@@ -11,7 +11,7 @@ class StoreAdmin::CategoriesController < StoreAdminController
   def create
     @category = Category.new(params[:category])
     if @category.save
-      redirect_to admin_categories_path, :notice => "Category created."
+      redirect_to store_admin_categories_path, :notice => "Category created."
     else
       flash[:error] = "Create failed."
       render 'edit'
@@ -25,7 +25,7 @@ class StoreAdmin::CategoriesController < StoreAdminController
   def update
     @category = Category.find(params[:id])
     if @category.update_attributes(params[:category])
-      redirect_to admin_categories_path, :notice => "Category updated."
+      redirect_to store_admin_categories_path, :notice => "Category updated."
     else
       flash[:error] = "Update Failed."
       render 'edit'
@@ -34,7 +34,7 @@ class StoreAdmin::CategoriesController < StoreAdminController
 
   def destroy
     Category.find(params[:id]).destroy
-    redirect_to admin_categories_path, :notice => "Category deleted."
+    redirect_to store_admin_categories_path, :notice => "Category deleted."
   end
 
 end

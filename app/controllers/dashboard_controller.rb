@@ -1,5 +1,5 @@
 # Displays the dashboard
-class DashboardController < AdminController
+class DashboardController < StoreAdminController
 
   def index
   end
