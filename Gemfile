@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 gem 'jquery-rails'
-#gem 'sqlite3'
 gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'sorcery'
@@ -11,10 +10,7 @@ gem 'stripe'
 gem 'faker'
 gem 'rake'
 gem 'twilio-ruby'
-gem 'newrelic_rpm'
-gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
-
-
+  gem 'newrelic_rpm'
 group :production do
   gem 'pg'
 end
@@ -33,6 +29,7 @@ end
 
 group :development, :test do
   # gem 'fabrication'
+  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'capybara'
