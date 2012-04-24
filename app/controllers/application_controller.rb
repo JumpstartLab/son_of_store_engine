@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_cart
 
+  helper_method :current_store
+  def current_store
+    @current_store ||= Store.where(path: params[:store_path]).first
+  end
+
   def get_last_page
     @last_page = "Your last page: #{session[:last_page]}"
   end

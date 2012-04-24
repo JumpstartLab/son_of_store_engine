@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419022410) do
+ActiveRecord::Schema.define(:version => 20120424193614) do
 
   create_table "cart_products", :force => true do |t|
     t.integer  "cart_id"
@@ -25,15 +25,22 @@ ActiveRecord::Schema.define(:version => 20120419022410) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.integer  "store_id"
   end
 
+  add_index "carts", ["store_id", "id"], :name => "index_carts_on_store_id_and_id"
+  add_index "carts", ["store_id"], :name => "index_carts_on_store_id"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "store_id"
   end
+
+  add_index "categories", ["store_id", "id"], :name => "index_categories_on_store_id_and_id"
+  add_index "categories", ["store_id"], :name => "index_categories_on_store_id"
 
   create_table "credit_cards", :force => true do |t|
     t.datetime "created_at",                               :null => false
@@ -45,8 +52,11 @@ ActiveRecord::Schema.define(:version => 20120419022410) do
     t.string   "exp_year"
     t.string   "stripe_customer_token"
     t.boolean  "default_card",          :default => false
+    t.integer  "store_id"
   end
 
+  add_index "credit_cards", ["store_id", "id"], :name => "index_credit_cards_on_store_id_and_id"
+  add_index "credit_cards", ["store_id"], :name => "index_credit_cards_on_store_id"
   add_index "credit_cards", ["user_id"], :name => "index_credit_cards_on_user_id"
 
   create_table "discounts", :force => true do |t|
@@ -85,7 +95,11 @@ ActiveRecord::Schema.define(:version => 20120419022410) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "credit_card_id"
+    t.integer  "store_id"
   end
+
+  add_index "orders", ["store_id", "id"], :name => "index_orders_on_store_id_and_id"
+  add_index "orders", ["store_id"], :name => "index_orders_on_store_id"
 
   create_table "product_categories", :force => true do |t|
     t.integer  "product_id"
@@ -102,7 +116,11 @@ ActiveRecord::Schema.define(:version => 20120419022410) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "retired",     :default => false
+    t.integer  "store_id"
   end
+
+  add_index "products", ["store_id", "id"], :name => "index_products_on_store_id_and_id"
+  add_index "products", ["store_id"], :name => "index_products_on_store_id"
 
   create_table "shipping_details", :force => true do |t|
     t.string   "ship_to_name"
@@ -116,7 +134,20 @@ ActiveRecord::Schema.define(:version => 20120419022410) do
     t.datetime "updated_at",                                  :null => false
     t.boolean  "default_shipping_address", :default => false
     t.integer  "user_id"
+    t.integer  "store_id"
   end
+
+  add_index "shipping_details", ["store_id", "id"], :name => "index_shipping_details_on_store_id_and_id"
+  add_index "shipping_details", ["store_id"], :name => "index_shipping_details_on_store_id"
+
+  create_table "stores", :force => true do |t|
+    t.string   "name"
+    t.string   "path"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "stores", ["path"], :name => "index_stores_on_path"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                           :null => false
