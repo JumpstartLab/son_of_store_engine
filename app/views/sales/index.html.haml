@@ -7,11 +7,14 @@
 .tab-content
   #products.tab-pane.active
     - @sales.each do |sale|
-      = render 'products/list', :products => sale.products
+      - sale.products.each_slice(2) do |items_for_row|
+        %li.span6
+          = render :partial => 'products/list', :collection => items_for_row, :as => :product
   #categories.tab-pane
     - @sales.each do |sale|
       - sale.categories.each do |category|
         %h3= link_to category.name, category_path(category)
-        = render 'products/list', 
-          :products => category.products.where(:active => 1).take(5)
+        - sale.products.each_slice(2) do |items_for_row|
+          %li.span6
+            = render :partial => 'products/list', :collection => items_for_row, :as => :product
         .clear
