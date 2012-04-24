@@ -18,6 +18,7 @@ gem 'will_paginate'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'aws-sdk'
 gem 'newrelic_rpm'
+gem 'acts_as_tenant'
 
 # Gems used only for assets and not required
 # in production environments by default.
