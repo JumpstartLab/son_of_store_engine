@@ -1,7 +1,7 @@
 = render :partial => 'layouts/head'
 %body
   = render :partial => 'layouts/nav'
-  #content
+  .container
     - if flash[:notice]
       .alert.alert-success= flash[:notice]
     - elsif flash[:error]

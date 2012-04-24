@@ -1,10 +1,7 @@
-%h1 Products
+.page_header
+  %h1 Products
 %hr
-#product_holder
-  .span9
-    = render 'products/list', :products => @products
-  .span9
-    = will_paginate @products
-#category_holder
-  %br
-  = render 'categories/list', :categories => @categories
+%ul.thumbnails
+  -@products.each_slice(2) do |items_for_row|
+    %li.span6
+      = render :partial => 'products/list', :collection => items_for_row, :as => :product
