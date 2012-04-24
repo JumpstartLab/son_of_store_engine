@@ -25,7 +25,6 @@ private
     if session[:return_to_url]
       redirect_to session[:return_to_url]
     else
-      #raise root.inspect
       redirect_to products_path("Logged in!")
     end
   end
