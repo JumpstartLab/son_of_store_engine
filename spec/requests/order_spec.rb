@@ -31,6 +31,7 @@ describe "When I want to place an order", :focus => true do
 
   context "as a logged-in user" do
     before(:each) do
+      #raise sessions_url.inspect
       login_user_post(user.email, "foobar")
     end
 
