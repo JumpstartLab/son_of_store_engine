@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "ordering with two clicks" do
+describe "ordering with two clicks", :requests => :twoclick do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:address) { FactoryGirl.create(:address, :user => user) }
   before(:each) do
@@ -41,7 +41,7 @@ describe "ordering with two clicks" do
       let!(:card_user) { FactoryGirl.create(:user, :stripe_id => "cus_dHvnvCMsbUCTj") }
       let!(:address) { FactoryGirl.create(:address, :user => card_user) }
 
-      it "buys with two clicks" do
+      before(:each) do
         login(card_user)
         visit product_path(product)
         card   = valid_card_data
@@ -50,8 +50,15 @@ describe "ordering with two clicks" do
                                    currency:    'usd',
                                    description: "#{ card_user.email }"
         Stripe::Charge.stub!(:create).and_return(charge)     
-        click_link_or_button "Buy instantly" 
+        click_link_or_button "Buy instantly"
+      end
+
+      it "buys with two clicks" do
         page.should have_content("Transaction Successful")
+      end
+
+      it "should have a status of paid if saved with payment", requests: :two_click_1 do
+        page.should have_content("Status: PAID")
       end
     end
   end

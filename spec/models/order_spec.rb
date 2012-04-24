@@ -80,4 +80,31 @@ describe Order do
       test_user.stripe_id.should == customer.id
     end
   end
+
+  describe "#two_click", :order => :two_click do
+    let (:order) { FactoryGirl.create(:order) }
+    let (:product) { double("product", id: 100, price: "10000") }
+    let (:order_address) { FactoryGirl.create(:address) }
+    let (:two_click_user) { double("user", addresses: [order_address])}
+
+    before(:each) do
+      Product.stub(:find).with(100).and_return(product)
+    end
+
+    it "creates an order with one item" do
+      order.two_click(product.id)
+      order.order_items.length.should == 1
+    end
+
+    it "creates an order item with price 10000" do
+      order.two_click(product.id)
+      order.order_items.first.unit_price.should == BigDecimal.new("10000")
+    end
+
+    it "saves current user's address" do
+      order.should_receive(:user).and_return(two_click_user)
+      order.two_click(product.id)
+      order.address.should == order_address
+    end
+  end
 end
