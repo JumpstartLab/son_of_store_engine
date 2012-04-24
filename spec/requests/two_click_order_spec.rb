@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "ordering with two clicks" do
+describe "ordering with two clicks", :requests => :twoclick do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:address) { FactoryGirl.create(:address, :user => user) }
   before(:each) do

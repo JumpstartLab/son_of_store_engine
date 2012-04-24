@@ -86,10 +86,20 @@ class Order < ActiveRecord::Base
     update_attribute(:status, "paid")
   end
 
-  def update_status(new_status)
+def update_status(new_status)
     if VALID_STATUSES.include?(new_status)
       update_attribute(:status, new_status)
       UserMailer.status_confirmation(user, self).deliver
-    end
+end
+end
+
+  def two_click(product_id)
+    product = Product.find(product_id)
+      OrderItem.create( quantity: 1,
+                unit_price: product.price,
+                order_id: self.id,
+                product_id: product.id)
+     update_attribute(:address, user.addresses.first)
   end
+end
 end
