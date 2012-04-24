@@ -22,7 +22,6 @@ class OrdersController < ApplicationController
       :alert => "You can't order something with nothing in your cart."
     else
       @order = Order.new
-      @order_cart = @cart
       @order.build_address
     end
   end
@@ -33,25 +32,16 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    @order.update_attribute(:status, params[:order][:status])
-    UserMailer.status_confirmation(@order.user, @order).deliver
+    @order.update_status(params[:order][:status])
     redirect_to order_path(@order)
   end
 
   def create
-    @order = Order.new(params[:order])
-    @order.user_id = current_user.id
-    @order.save
+    @order = current_user.orders.create(params[:order])
     @order.add_order_items_from(@cart)
-    @order.address.user = current_user
-    
     if @order.save_with_payment
-      UserMailer.order_confirmation(current_user, @order).deliver
-      @order.is_paid!
-      @cart.destroy
-      session[:cart_id] = nil
-      redirect_to @order,
-      :notice => "Transaction Complete"
+      session[:cart_id] = Cart.create.id
+      redirect_to @order, :notice => "Transaction Complete"
     else
       render :new
     end
