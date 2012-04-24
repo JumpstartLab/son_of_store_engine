@@ -19,7 +19,6 @@ describe "When I want to place an order" do
 
       context "and I have no previous billing info" do
         it "takes me back to the checkout process at the add credit_card stage" do
-
           click_link_or_button("Checkout")
           fill_in "email", with: user.email
           fill_in "password", with: 'foobar'
@@ -41,7 +40,6 @@ describe "When I want to place an order" do
 
       context "and I add the product to my cart" do
         before(:each) { click_link_or_button('Add to cart') }
-
         it "should update my cart count" do
           page.should have_content("Cart (1)")
         end
@@ -56,7 +54,6 @@ describe "When I want to place an order" do
           context "and I submit valid information" do
             let(:stripe_card_token) { "tok_KM1feeMHDhSgiq" }
             let(:json) { JSON.parse(IO.read('spec/fixtures/stripe_new_customer_success.json')) }
-
             before(:each) do
               CreditCard.any_instance.stub(:add_details_from_stripe_card_token).and_return(true)
               fill_in "Credit Card Number", with: 4242424242424242
@@ -65,7 +62,6 @@ describe "When I want to place an order" do
               select("2014", from: "card_year")
               click_link_or_button('Create Credit card')
             end
-
           end
 
         end
