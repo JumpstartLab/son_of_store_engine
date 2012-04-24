@@ -6,7 +6,9 @@
       All Products in this category are all on sale!
 #product_holder
   .span9
-    = render 'products/list', :products => @products
+  - @products.each_slice(2) do |items_for_row|
+    %li.span6
+      = render :partial => 'products/list', :collection => items_for_row, :as => :product
   .span9
     = will_paginate @products
 #category_holder

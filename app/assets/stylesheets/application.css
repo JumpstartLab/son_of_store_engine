@@ -8,13 +8,11 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require bootstrap
- *= require responsive
  *= require_self
  *= require_tree .
- *= require jquery-star-rating
 */
-html{
+
+/*html{
   margin: 0;
   padding: 0;
   background: url(/assets/bg.png);
@@ -29,8 +27,10 @@ body {
   width:80%;
   margin:0 auto;
   margin-top: 30px;
-}
-#header {
+}*/
+
+
+/*#header {
   background: #262626;
   height: 90px;
   -webkit-border-top-left-radius: 20px;
@@ -39,7 +39,7 @@ body {
   -moz-border-radius-topright: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-}
+}*/
 #logo {
   margin-top: 23px;
   margin-left: 20px;
@@ -50,7 +50,7 @@ body {
   float:right;
   margin-top:-5px;
 }
-nav.main{
+/*nav.main{
   height: 40px;
   background-color: #454545;
   font-size: 14px;
@@ -69,17 +69,9 @@ nav.main a:hover, nav a.active{
   height: 40px;
   text-decoration:none;
   background: url(/assets/nav-hover.png); 
-}
-#content{
-  overflow: hidden;
-  background-color:white;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-sizing: border-box;
-  padding:2% 5%;
-  min-height:677px;
-  clear:both;
-}
+}*/
+/*
+*/
 #location{
   color: #909090;
   font-size: 14px;
@@ -177,10 +169,10 @@ nav.main a:hover, nav a.active{
   text-align: center;
 }
 
-.search { 
+/*.search { 
   margin: 10px; 
   margin-left: 20px;
-}
+}*/
 #product_holder{
   float:left;
   width:85%;
@@ -200,4 +192,9 @@ nav.main a:hover, nav a.active{
   text-decoration: none;
   border: 1px solid #DDD;
   border-left-width: 0;
+}
+
+ul img {
+  width: 150px;
+  height: 150px;
 }
