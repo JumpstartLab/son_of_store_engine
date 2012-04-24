@@ -1,6 +1,7 @@
 #
 class ProductsController < ApplicationController
   before_filter :lookup_product, :only => :show
+  # default_scope
 
   def index
     if params[:filtered].present?

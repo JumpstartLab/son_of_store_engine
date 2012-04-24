@@ -6,4 +6,8 @@ class Store < ActiveRecord::Base
   attr_accessible :name, :domain
   validates :name, :uniqueness => true
   validates :domain, :uniqueness => true
+
+  def to_param
+    domain
+  end
 end

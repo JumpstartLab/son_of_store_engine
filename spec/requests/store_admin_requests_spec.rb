@@ -1,15 +1,16 @@
 require 'spec_helper'
 
-describe "admin" do
+describe "store_admin" do
   let!(:user) { Fabricate(:user) }
   let!(:product) { Fabricate(:product) }
+  let!(:store) { Fabricate(:store) }
   before(:each) do
     user.update_attribute(:admin, true)
     user.update_attribute(:admin_view, true)
-    visit root_path
+    visit store_path(store)
     click_link_or_button "Sign-In"
     login({email: user.email_address, password: user.password})
-    visit admin_orders_path
+    visit store_admin_orders_path(store)
   end
   context "admin product view" do
     before(:each) do

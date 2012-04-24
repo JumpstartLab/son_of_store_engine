@@ -4,7 +4,7 @@ class UsersController < ApplicationController
                 :only => [:show, :edit, :destroy, :update, :view_as_admin,
                           :view_as_normal]
   before_filter :require_user, :only => [:edit, :update, :show]
-  before_filter :logged_in?, only: :profile
+  before_filter :prevent_guest, only: :profile
 
   def show
   end
