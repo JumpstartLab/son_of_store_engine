@@ -1,5 +1,7 @@
 require "spec_helper"
 
 describe UserMailer do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:user){ FactoryGirl.create(:user, id: 1) }
+
+
 end
