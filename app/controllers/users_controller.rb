@@ -33,6 +33,11 @@ class UsersController < ApplicationController
     redirect_to user_path(@user)
   end
 
+  def profile
+    @user = current_user
+    render 'show'
+  end
+
   private
 
   def lookup_user

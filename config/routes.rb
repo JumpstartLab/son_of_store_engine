@@ -6,6 +6,7 @@ StoreEngine::Application.routes.draw do
   delete 'sessions/destroy', :as => 'logout'
 
   match '/code' => redirect('http://github.com/athal7/store_engine')
+  match '/profile' => "users#profile"
 
   resources :users, except: :destroy do
     member do
@@ -14,6 +15,7 @@ StoreEngine::Application.routes.draw do
     end
   end
 
+  resources :stores
   resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :orders, except: [:new, :create, :destroy]
