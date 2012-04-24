@@ -16,11 +16,6 @@ RSpec.configure do |config|
 
   #by default will run only focused specs - hw
   #config.filter_run :focus => true
-
-<<<<<<< HEAD
-=======
-
->>>>>>> dd57557796abd27d244c120b8cc2dc97eb871190
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
