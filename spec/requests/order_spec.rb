@@ -19,8 +19,9 @@ describe "When I want to place an order", :focus => true do
 
       context "and I have no previous billing info" do
         it "takes me back to the checkout process at the add credit_card stage" do
-          fill_in "Email", with: user.email
-          fill_in "Password", with: 'foobar'
+          click_link_or_button("Checkout")
+          fill_in "email", with: user.email
+          fill_in "password", with: 'foobar'
           click_link_or_button('Log in')
           current_path.should == new_credit_card_path
         end
