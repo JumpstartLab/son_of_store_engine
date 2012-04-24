@@ -13,7 +13,7 @@ describe "logged in user" do
         ["Categories", "My Account", "Logout"].each do |good|
           page.should have_content good
         end
-        ["Sign-In", "Sign-Up", "Admin View"].each do |bad|
+        ["Sign-In", "Sign-Up", "Admin Dashboards"].each do |bad|
           page.should_not have_content bad
         end
       end
