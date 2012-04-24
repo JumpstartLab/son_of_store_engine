@@ -1,16 +1,16 @@
 .row
-  %h1= @product.name
-  %hr
-  .span6
+  %div.well
+    %h1= @product.name
+  .span5
     %img{:src => @product.avatar}
-  .span6
+  .span7
     - @product.star_rating.times do |star|
       %input.star{:class => "{split:2}", :name => "adv1", :type => "radio", :disabled => "disabled", :checked => "checked"}
     %br
     %h4= @product.categories.map(&:name).join(', ') 
     - if @product.best_sale
-      %h6{:style=> "text-decoration:line-through;"}= @product.price
-      %h4= "#{@product.sale_price_in_dollars} | #{@product.best_sale.display_percent} off!" 
+      %h4{:style=> "text-decoration:line-through;"}= @product.price
+      %h4.price= "#{@product.sale_price_in_dollars} | #{@product.best_sale.display_percent} off!" 
     - else
       %h4= @product.price
     %br
