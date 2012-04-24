@@ -14,5 +14,10 @@ describe OrderMailer do
       mail.deliver
       ActionMailer::Base.deliveries.last.should == mail
     end
+
+    it "sent to the correct email address" do
+      mail.deliver
+      ActionMailer::Base.deliveries.last.to.should == [user.email]
+    end
   end
 end
