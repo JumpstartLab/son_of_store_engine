@@ -1,11 +1,11 @@
 module CartHelpers
-    def find_cart
+  def find_cart
     current_user ? find_cart_for_user : find_cart_for_guest
   end
 
   def find_cart_for_user
-    current_user.cart = Cart.create if current_user.cart.nil?
-    merge_carts(cookies[:cart_id]) if !cookies[:cart_id].blank?
+    current_user.cart ||= Cart.create
+    merge_carts(cookies[:cart_id]) unless cookies[:cart_id].blank?
     @cart = current_user.cart
   end
 
