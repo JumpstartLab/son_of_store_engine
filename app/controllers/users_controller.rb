@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :lookup_user,
                 :only => [:show, :edit, :destroy, :update, :view_as_admin,
                           :view_as_normal]
-  before_filter :require_user, :only => [:edit, :update, :show]
+  before_filter :require_user, :only => [:edit, :update, :show, :profile]
 
   def show
   end
