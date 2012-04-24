@@ -1,5 +1,5 @@
 StoreEngine::Application.routes.draw do
-  root to: "products#index"
+  root to: "stores#index"
 
   get 'sessions/new', :as => 'login_page'
   get 'sessions/index'
@@ -17,6 +17,8 @@ StoreEngine::Application.routes.draw do
   namespace :admin do
     resources :stores
   end
+
+  resources :stores, only: [:index, :new, :create]
 
 
   scope "/:domain" do
