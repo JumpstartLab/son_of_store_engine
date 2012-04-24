@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe "User pages" do
 
+  describe "signin page" do
+    before { visit signin_path }
+
+    it "has a registration link" do
+      page.should have_content("Register")
+    end
+  end
+
   describe "signup page" do
     before { visit signup_path }
 
