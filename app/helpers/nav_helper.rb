@@ -13,7 +13,6 @@ module NavHelper
   def nav_array_admin
     {
       "Home" => root_path,
-      "Cart" => cart_path,
       "Sales" => sales_path,
       "Dashboard" => dashboard_path,
       "My Orders" => my_orders_orders_path,
@@ -24,7 +23,6 @@ module NavHelper
   def nav_array_user
     {
       "Home" => root_path,
-      "Cart" => cart_path,
       "Sales" => sales_path,
       "My Orders" => my_orders_orders_path,
       "Logout" => logout_path
@@ -34,7 +32,6 @@ module NavHelper
   def nav_guest
     {
       "Home" => root_path,
-      "Cart" => cart_path,
       "Sales" => sales_path,
       "Login or Signup" => login_path
     }
