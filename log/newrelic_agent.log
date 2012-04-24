@@ -1,0 +1,41 @@
+# Logfile created on 2012-04-23 11:13:47 -0400 by logger.rb/31641
+[04/23/12 11:13:47 -0400 Daruma.local (84050)] INFO : Dispatcher: webrick
+[04/23/12 11:13:47 -0400 Daruma.local (84050)] INFO : Application: My Application
+[04/23/12 11:13:47 -0400 Daruma.local (84050)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 11:13:47 -0400 Daruma.local (84050)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 84050
+[04/23/12 11:13:47 -0400 Daruma.local (84050)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/store_engine/log/newrelic_agent.log
+[04/23/12 11:16:29 -0400 Daruma.local (84268)] INFO : Dispatcher: webrick
+[04/23/12 11:16:29 -0400 Daruma.local (84268)] INFO : Application: My Application
+[04/23/12 11:16:29 -0400 Daruma.local (84268)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 11:16:29 -0400 Daruma.local (84268)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 84268
+[04/23/12 11:16:29 -0400 Daruma.local (84268)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/store_engine/log/newrelic_agent.log
+[04/23/12 11:28:04 -0400 Daruma.local (90408)] INFO : Dispatcher: webrick
+[04/23/12 11:28:04 -0400 Daruma.local (90408)] INFO : Application: My Application
+[04/23/12 11:28:04 -0400 Daruma.local (90408)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 11:28:04 -0400 Daruma.local (90408)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 90408
+[04/23/12 11:28:04 -0400 Daruma.local (90408)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/store_engine/log/newrelic_agent.log
+[04/23/12 15:53:36 -0400 Daruma.local (84238)] INFO : Dispatcher: webrick
+[04/23/12 15:53:36 -0400 Daruma.local (84238)] INFO : Application: My Application
+[04/23/12 15:53:36 -0400 Daruma.local (84238)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 15:53:36 -0400 Daruma.local (84238)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 84238
+[04/23/12 15:53:36 -0400 Daruma.local (84238)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/store_engine/log/newrelic_agent.log
+[04/23/12 17:36:58 -0400 Daruma.local (2856)] INFO : Dispatcher: webrick
+[04/23/12 17:36:58 -0400 Daruma.local (2856)] INFO : Application: My Application
+[04/23/12 17:36:58 -0400 Daruma.local (2856)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 17:36:58 -0400 Daruma.local (2856)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 2856
+[04/23/12 17:36:58 -0400 Daruma.local (2856)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/son_of_store_engine/log/newrelic_agent.log
+[04/23/12 17:38:17 -0400 Daruma.local (2943)] INFO : Dispatcher: webrick
+[04/23/12 17:38:17 -0400 Daruma.local (2943)] INFO : Application: My Application
+[04/23/12 17:38:17 -0400 Daruma.local (2943)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 17:38:17 -0400 Daruma.local (2943)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 2943
+[04/23/12 17:38:17 -0400 Daruma.local (2943)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/son_of_store_engine/log/newrelic_agent.log
+[04/23/12 17:39:48 -0400 Daruma.local (3212)] INFO : Dispatcher: webrick
+[04/23/12 17:39:48 -0400 Daruma.local (3212)] INFO : Application: My Application
+[04/23/12 17:39:48 -0400 Daruma.local (3212)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 17:39:48 -0400 Daruma.local (3212)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 3212
+[04/23/12 17:39:48 -0400 Daruma.local (3212)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/son_of_store_engine/log/newrelic_agent.log
+[04/23/12 20:05:32 -0400 Daruma.local (12163)] INFO : Dispatcher: webrick
+[04/23/12 20:05:32 -0400 Daruma.local (12163)] INFO : Application: My Application
+[04/23/12 20:05:32 -0400 Daruma.local (12163)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[04/23/12 20:05:32 -0400 Daruma.local (12163)] INFO : New Relic Ruby Agent 3.3.4 Initialized: pid = 12163
+[04/23/12 20:05:32 -0400 Daruma.local (12163)] INFO : Agent Log at /Users/jonan/Dropbox/hungry_academy/son_of_store_engine/log/newrelic_agent.log

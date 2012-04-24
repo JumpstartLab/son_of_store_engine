@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>StoreEngine</title>
+<link href="/assets/application.css" media="all" rel="stylesheet" type="text/css">
+<script src="/assets/application.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top"><div class="navbar-inner"><div class="container"><ul id="nav">
+<li class="nav" id="login">Logged in as peter.griffin@livingsocial.com. <a href="/logout">Log out</a>
+</li>
+<li class="nav brand">JD &amp; Co.</li>
+<li class="nav"><a href="/">Home</a></li>
+<li class="nav"><a href="/categories">Browse by Category</a></li>
+<li class="nav"><a href="/cart">View Cart</a></li>
+</ul></div></div></div>
+<h1>Billing Information</h1>
+<h1>[]</h1>
+<form accept-charset="UTF-8" action="/billing" method="post">
+<div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#10003;"></div>
+<input id="billing_order_id" name="billing[order_id]" type="hidden" value="11617"><div class="field">
+<label for="credit_card_credit_card_number">Credit card number</label><input id="credit_card_credit_card_number" name="credit_card[credit_card_number]" size="30" type="text" value="1234123412341234">
+</div>
+<div class="field">
+<label for="credit_card_cvc">Cvc</label><input id="credit_card_cvc" name="credit_card[cvc]" size="30" type="text" value="123">
+</div>
+<div class="field">
+<label for="credit_card_expiration_date">Expiration date</label><input id="credit_card_expiration_date" name="credit_card[expiration_date]" size="30" type="text" value="04/15">
+</div>
+<div class="field">
+<label for="address_street">Street</label><input id="address_street" name="address[street]" size="30" type="text" value="123 Jonan Street">
+</div>
+<div class="field">
+<label for="address_city">City</label><input id="address_city" name="address[city]" size="30" type="text" value="Jonanville">
+</div>
+<div class="field">
+<label for="address_state">State</label><input id="address_state" name="address[state]" size="30" type="text" value="MD">
+</div>
+<div class="field">
+<label for="address_zipcode">Zipcode</label><input id="address_zipcode" name="address[zipcode]" size="30" type="text" value="12345">
+</div>
+<div class="action"><input name="commit" type="submit" value="Submit"></div>
+</form>
+</body>
+</html>
