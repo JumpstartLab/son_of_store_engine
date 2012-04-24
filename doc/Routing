@@ -1,0 +1,33 @@
+Store Engine Admin
+	store-engine.com/admin
+	store-engine.com/admin/stores
+User
+	store-engine.com => root_path
+	store-engine.com/profile
+	store-engine.com/users => users_path
+
+Store Admin
+	store-engine.com/domain/admin => store_admin_path(@store)
+	store-engine.com/domain/admin/categories => store_admin_categories_path(@store)
+	store-engine.com/domain/admin/products => store_admin_products_path(@store)
+	store-engine.com/domain/admin/store_users => store_admin_store_users_path(@store)
+	
+Stocker
+	store-engine.com/domain/stock => store_stock_path(@store)
+	store-engine.com/domain/stock/products => store_stock_products_path(@store)
+
+Shopper
+	store-engine.com/domain => store_path
+	store-engine.com/domain/products => store_products_path
+	store-engine.com/domain/categories => store_categories_path
+	store-engine.com/domain/orders => store_orders_path
+	
+	
+------------------
+
+match '/profile', :to => 'users#show'
+
+resources :users
+
+
+resources stores, :path => "/:id"
