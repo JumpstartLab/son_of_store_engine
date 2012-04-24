@@ -12,7 +12,7 @@ gem 'faker'
 gem 'rake'
 gem 'twilio-ruby'
 gem 'newrelic_rpm'
-gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+#gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 
 
 group :production do
