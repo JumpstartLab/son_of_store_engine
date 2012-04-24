@@ -12,7 +12,12 @@ require 'capybara/rspec'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-RSpec.configure do |config|  
+RSpec.configure do |config|
+
+  #by default will run only focused specs - hw
+  #config.filter_run :focus => true
+
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -45,7 +50,7 @@ module Sorcery
   module TestHelpers
     module Rails
       def login_user_post(user, password)
-        page.driver.post(sessions_url, { email: user, password: password, remember_me: false}) 
+        page.driver.post(sessions_url, { email: user, password: password, remember_me: false})
       end
     end
   end
