@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "When I want to place an order", :focus => true do
+describe "When I want to place an order" do
   #before(:each) { visit new_order_path }
   let!(:user) { FactoryGirl.create(:user) }
   let(:product) { FactoryGirl.create(:product) }
