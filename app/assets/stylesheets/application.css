@@ -14,7 +14,7 @@
  *= require_tree .
  *= require jquery-star-rating
 */
-html{
+/*html{
   margin: 0;
   padding: 0;
   background: url(/assets/bg.png);
@@ -29,7 +29,7 @@ body {
   width:80%;
   margin:0 auto;
   margin-top: 30px;
-}
+}*/
 #header {
   background: #262626;
   height: 90px;
@@ -70,16 +70,8 @@ nav.main a:hover, nav a.active{
   text-decoration:none;
   background: url(/assets/nav-hover.png); 
 }
-#content{
-  overflow: hidden;
-  background-color:white;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-sizing: border-box;
-  padding:2% 5%;
-  min-height:677px;
-  clear:both;
-}
+/*
+*/
 #location{
   color: #909090;
   font-size: 14px;
@@ -200,4 +192,9 @@ nav.main a:hover, nav a.active{
   text-decoration: none;
   border: 1px solid #DDD;
   border-left-width: 0;
+}
+
+ul img {
+  width: 150px;
+  height: 150px;
 }
