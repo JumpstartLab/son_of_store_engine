@@ -19,5 +19,11 @@ describe OrderMailer do
       mail.deliver
       ActionMailer::Base.deliveries.last.to.should == [user.email]
     end
+
+    it "contains the unique url" do
+      mail.deliver
+      url = "localhost:3000/#{user.id.to_s}/orders/#{order.id.to_s}"
+      ActionMailer::Base.deliveries.last.body.encoded.should match(url)
+    end
   end
 end
