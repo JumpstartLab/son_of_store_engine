@@ -6,7 +6,6 @@ class TwoClickOrdersController < ApplicationController
       @order = Order.create(user: current_user)
       @order.two_click(params[:product_id])
       if @order.save_with_payment
-        @order.is_paid!
         redirect_to order_path(@order.id),
         :notice => "Transaction Successful" and return
       end
