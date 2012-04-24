@@ -22,6 +22,11 @@ class Order < ActiveRecord::Base
     includes(:products).includes(:status).includes(:user)
   end
 
+  def update_address_and_charge(params)
+    update_address(params[:user_attributes]) &&
+      charge(params[:stripe_card_token])
+  end
+
   def not_a_cart
     !self.is_a?(Cart)
   end
@@ -86,6 +91,7 @@ class Order < ActiveRecord::Base
       )
     self.status = Status.find_or_create_by_name("paid")
     self.is_cart = false
+    notify_charge
     self.save
   end
 

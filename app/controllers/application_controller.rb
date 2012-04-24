@@ -55,6 +55,10 @@ private
 
   def destroy_cart
     Cart.find(cookies[:cart_id]).destroy
+    clear_cart_from_session
+  end
+
+  def clear_cart_from_session
     cookies[:cart_id] = nil
   end
 
