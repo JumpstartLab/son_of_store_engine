@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  VALID_STATUSES = ['pending', 'paid', 'shipped', 'cancelled', 'returned']
   attr_accessible :status, :total_price, :user,
                   :products, :address_attributes,
                   :address, :address_id, :status
@@ -50,7 +51,8 @@ class Order < ActiveRecord::Base
         :currency => "usd",
         :customer => user.stripe_id,
         :description => "order##{id}" )
-
+      is_paid!
+      UserMailer.order_confirmation(user, self).deliver
       save!
     end
     rescue Stripe::InvalidRequestError => error
@@ -82,5 +84,12 @@ class Order < ActiveRecord::Base
 
   def is_paid!
     update_attribute(:status, "paid")
+  end
+
+  def update_status(new_status)
+    if VALID_STATUSES.include?(new_status)
+      update_attribute(:status, new_status)
+      UserMailer.status_confirmation(user, self).deliver
+    end
   end
 end
