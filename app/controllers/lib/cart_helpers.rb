@@ -13,16 +13,16 @@ module CartHelpers
 
   def find_cart_for_user
     current_user.cart ||= Cart.create
-    merge_carts(cart_id) unless cart_id.blank?
+    merge_carts(cart_id) if cart_id
     @cart = current_user.cart
   end
 
   def find_cart_for_guest
-    if cart_id.blank?
-      @cart = Cart.create
-      cart_id=(@cart.id)
-    else
+    if cart_id
       @cart = Cart.find(cart_id)
+    else
+      @cart = Cart.create
+      cart_id=(@cart.id)    
     end
   end
 
