@@ -1,5 +1,4 @@
 class Seeder
-
   def self.build_db
     build_users
     build_shipping_detail

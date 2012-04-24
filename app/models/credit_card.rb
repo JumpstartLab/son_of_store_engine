@@ -5,6 +5,7 @@ class CreditCard < ActiveRecord::Base
   validates_presence_of :user_id
   before_save :set_to_default
   belongs_to :user
+  belongs_to :store
 
   def set_to_default
     user = User.find(self.user_id)

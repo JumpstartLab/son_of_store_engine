@@ -7,6 +7,7 @@ class ShippingDetail < ActiveRecord::Base
 
   has_many :orders, :through => :order_shipping_details
   belongs_to :user
+  belongs_to :store
   before_save :set_to_default
 
 

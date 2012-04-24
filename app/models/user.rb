@@ -19,10 +19,16 @@ class User < ActiveRecord::Base
   has_one :cart
 
   def add_order(order)
-    self.orders << order
+    orders << order
   end
 
   def recent_orders
-    self.orders.limit(5)
+    orders.limit(5)
   end
+
+  def cart=(new_cart)
+    cart.destroy if cart #if user has cart, destroy
+    super(new_cart)
+  end
+
 end

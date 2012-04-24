@@ -20,8 +20,12 @@ class SessionsController < ApplicationController
 
 private
 
-  def successful_login(cart, user)
-    cart.assign_cart_to_user(user)
+  def successful_login(new_cart, user)
+    if new_cart.has_products?
+      user.cart = new_cart
+    else
+      destroy new_cart
+    end
     redirect_to_last_page("Logged in!")
   end
 
