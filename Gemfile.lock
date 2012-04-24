@@ -116,6 +116,11 @@ GEM
       activesupport (~> 3.0)
       haml (~> 3.0)
       railties (~> 3.0)
+    heroku (2.24.1)
+      launchy (>= 0.3.2)
+      netrc (~> 0.7.1)
+      rest-client (~> 1.6.1)
+      rubyzip
     hike (1.2.1)
     httparty (0.8.2)
       multi_json
@@ -151,6 +156,7 @@ GEM
     multi_xml (0.4.4)
     multipart-post (1.1.5)
     nested_form (0.2.0)
+    netrc (0.7.1)
     newrelic_rpm (3.3.2)
     nokogiri (1.5.2)
     oauth (0.4.5)
@@ -293,6 +299,7 @@ DEPENDENCIES
   guard
   guard-spork
   haml-rails
+  heroku
   jquery-rails
   jquery-star-rating-rails
   launchy
