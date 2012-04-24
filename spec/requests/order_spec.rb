@@ -31,11 +31,13 @@ describe 'viewing all orders' do
 end
   
 describe 'checking out' do
-  let(:user) { FactoryGirl.create(:user) } 
+  let(:user) { FactoryGirl.create(:user) }
+
   it "redirects to login if the user is not logged in" do
     visit "/orders/new"
     page.should have_content "You need to log in first."
   end
+
   context "when user is logged in" do
     before(:each) { login(user) }
     it "prevents user from checking out with no items in cart" do
@@ -72,6 +74,28 @@ describe 'checking out' do
         click_on "Place order"
         page.should have_content "Transaction Complete"
       end
+    end
+  end
+
+  context " when I dont have an account", :request => :cartz do
+    let(:test_cart) { FactoryGirl.create(:cart)}
+    let(:product) { FactoryGirl.create(:product) }
+    before(:each) { load_cart_with_products([product]) }
+
+    it "gives an opportunity to sign up for an account" do
+      click_link_or_button "Checkout"
+      find_link("Sign Up?").visible? == true
+    end
+
+    it "signs user up & takes you to new order page" do
+      click_link_or_button "Checkout"
+      click_on "Sign Up?"
+      fill_in "user[full_name]", :with => "Luke Skysauce"
+      fill_in "user[email]", :with => "sky@walker.com"
+      fill_in "user[password]", :with => "foobar"
+      fill_in "user[password_confirmation]", :with => "foobar"
+      click_on "Create User"
+      page.current_path.should == new_order_path
     end
   end
 
