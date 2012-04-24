@@ -27,13 +27,11 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
-    if @order.status == "pending" && @order.transition
-      check_out
-    elsif @order.status != "pending" && @order.transition
+    if @order.transition
       transition_status
     else
       notice = "Please input valid billing and shipping information."
-      redirect_to order_path(@order), notice: notice
+      redirect_to admin_order_path(@order), notice: notice
     end
   end
 
@@ -47,14 +45,6 @@ class Admin::OrdersController < ApplicationController
     @order.update_attribute(:status, "cancelled")
     @order.set_action_time("cancelled")
     session[:order_id] = nil if @order.user == current_user
-  end
-
-  def check_out
-    link = "<a href=\"#{url_for(@order)}\">View Details</a>"
-    notice = "Thank you for purchasing. #{link}".html_safe
-    session[:previous_order_id] = session[:order_id] if !logged_in?
-    session[:order_id] = nil
-    redirect_to root_url, notice: notice
   end
 
   def transition_status

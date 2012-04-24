@@ -1,7 +1,7 @@
 #
 class Product < ActiveRecord::Base
   attr_accessible :title, :description, :price, :photo_url, :category_ids,
-  :retired
+    :retired
   has_many :product_categorizations
   has_many :categories, :through => :product_categorizations
   has_many :line_items
@@ -11,11 +11,15 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_numericality_of :price
   validates_format_of :photo_url,
-  with: /^https?:\/\/(?:[a-z\-]+\.)+
-        [a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png|jpeg)$/x,
+    with: /^https?:\/\/(?:[a-z\-]+\.)+
+    [a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png|jpeg)$/x,
   allow_nil: true, unless: Proc.new { |prod| prod.photo_url.blank? }
 
   default_scope order(:title)
+
+  def self.active
+    where(retired: false)
+  end
 
   def to_param
     [id, title.downcase.split(" ")].join("-")
@@ -27,10 +31,6 @@ class Product < ActiveRecord::Base
 
   def make_active_again
     update_attribute(:retired, false)
-  end
-
-  def self.active
-    where(retired: false)
   end
 
   def category_ids=(params)

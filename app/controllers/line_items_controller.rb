@@ -17,6 +17,7 @@ class LineItemsController < ApplicationController
   end
 
   def edit
+    session[:return_to] = request.referrer
   end
 
   def show
@@ -29,7 +30,7 @@ class LineItemsController < ApplicationController
     else
       @line_item.update_attributes(params[:line_item])
     end
-    redirect_to order_path(@order)
+    redirect_to session[:return_to]
   end
 
   def destroy
