@@ -2,10 +2,7 @@
 module StoreAdmin
   class ProductsController < Controller
 
-    def index
-      @products = Product.where(:active => 1).paginate(:page => params[:page])
-      @categories = Category.all
-    end
+    include ProductsActions
 
     def new
       @product = Product.new
