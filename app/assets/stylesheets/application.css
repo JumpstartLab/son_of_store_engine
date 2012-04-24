@@ -30,7 +30,9 @@ body {
   margin:0 auto;
   margin-top: 30px;
 }*/
-#header {
+
+
+/*#header {
   background: #262626;
   height: 90px;
   -webkit-border-top-left-radius: 20px;
@@ -39,7 +41,7 @@ body {
   -moz-border-radius-topright: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-}
+}*/
 #logo {
   margin-top: 23px;
   margin-left: 20px;
@@ -50,7 +52,7 @@ body {
   float:right;
   margin-top:-5px;
 }
-nav.main{
+/*nav.main{
   height: 40px;
   background-color: #454545;
   font-size: 14px;
@@ -69,7 +71,7 @@ nav.main a:hover, nav a.active{
   height: 40px;
   text-decoration:none;
   background: url(/assets/nav-hover.png); 
-}
+}*/
 /*
 */
 #location{
@@ -169,10 +171,10 @@ nav.main a:hover, nav a.active{
   text-align: center;
 }
 
-.search { 
+/*.search { 
   margin: 10px; 
   margin-left: 20px;
-}
+}*/
 #product_holder{
   float:left;
   width:85%;

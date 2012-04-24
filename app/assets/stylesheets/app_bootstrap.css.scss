@@ -1,6 +1,12 @@
 // change colors
 $baseFontSize: 16px;
+$baseFontFamily: "proxima-nova";
 
 // import original bootstrap
 @import "bootstrap";
 @import "responsive";
+
+h1, h3 {
+  font-family: "museo-slab";
+  font-weight: 600;
+}
