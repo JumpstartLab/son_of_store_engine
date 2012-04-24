@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20120424192613) do
     t.integer  "store_id"
   end
 
+  add_index "categories", ["store_id", "id"], :name => "index_categories_on_store_id_and_id"
+
   create_table "category_products", :id => false, :force => true do |t|
     t.integer  "category_id", :null => false
     t.integer  "product_id",  :null => false
@@ -74,6 +76,8 @@ ActiveRecord::Schema.define(:version => 20120424192613) do
     t.integer  "store_id"
   end
 
+  add_index "orders", ["store_id", "id"], :name => "index_orders_on_store_id_and_id"
+
   create_table "product_ratings", :force => true do |t|
     t.string   "name"
     t.text     "body"
@@ -101,6 +105,8 @@ ActiveRecord::Schema.define(:version => 20120424192613) do
     t.integer  "store_id"
   end
 
+  add_index "products", ["store_id", "id"], :name => "index_products_on_store_id_and_id"
+
   create_table "sales", :force => true do |t|
     t.integer  "percent_off"
     t.datetime "end_at"
@@ -108,6 +114,8 @@ ActiveRecord::Schema.define(:version => 20120424192613) do
     t.datetime "updated_at",  :null => false
     t.integer  "store_id"
   end
+
+  add_index "sales", ["store_id", "id"], :name => "index_sales_on_store_id_and_id"
 
   create_table "statuses", :force => true do |t|
     t.string   "name"
