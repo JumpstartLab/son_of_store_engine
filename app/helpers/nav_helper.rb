@@ -40,13 +40,13 @@ module NavHelper
     }
   end
 
-  def dashboard_navigation
+  def store_admin_navigation
     {
-      "Products" => admin_products_path,
-      "Orders" => admin_orders_path,
-      "Categories" => admin_categories_path,
-      "Users" => admin_users_path,
-      "Sales" => admin_sales_path
+      "Products"    => store_admin_products_path,
+      "Orders"      => store_admin_orders_path,
+      "Categories"  => store_admin_categories_path,
+      "Users"       => store_admin_users_path,
+      "Sales"       => store_admin_sales_path
     }
   end
 end

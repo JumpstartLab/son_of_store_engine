@@ -4,13 +4,13 @@ StoreEngine::Application.routes.draw do
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
-  resources :sessions, :search
+  resources :sessions, :search, :store
   resources :users, :exclude => [:index]
 
   resources :sales, :only => [:show, :index]
   resources :categories, :only => [:show]
 
-  namespace :admin do
+  namespace "store_admin" do
     resources :categories, :products, :sales, :exclude => [:show]
     resources :users, :only => [:index, :destroy]
     resources :orders,:exclude => [:show] do
