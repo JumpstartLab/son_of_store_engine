@@ -22,7 +22,12 @@ private
 
   def successful_login(cart, user)
     cart.assign_cart_to_user(user)
-    redirect_to_last_page("Logged in!")
+    if session[:return_to_url]
+      redirect_to session[:return_to_url]
+    else
+      #raise root.inspect
+      redirect_to products_path("Logged in!")
+    end
   end
 
   def invalid_email
