@@ -33,6 +33,12 @@ describe User, :user_request => :user do
     page.should have_content("Signed out successfully.")
   end
 
+  context "after signing up" do
+    it "user receives confirmation email" do
+      expect { create_user(user) }.to change(ActionMailer::Base.deliveries,:size).by(1)
+    end
+  end
+
   context "after logging in" do
     before(:each) do
       visit product_path(product)

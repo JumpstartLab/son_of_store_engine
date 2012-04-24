@@ -48,6 +48,8 @@ class User < ActiveRecord::Base
                       :too_short => "pick a longer name",
                       :allow_nil => true
 
+  after_create :send_welcome_email
+
   def admin?
     role == 'admin'
   end
@@ -75,5 +77,9 @@ class User < ActiveRecord::Base
     order = Order.find(billing_information[:billing][:order_id])
     order.set_status('paid')
     order
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
   end
 end

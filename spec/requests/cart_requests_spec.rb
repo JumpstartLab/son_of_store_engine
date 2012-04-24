@@ -6,6 +6,20 @@ describe Cart do
   let(:category) { Fabricate(:category) }
   let(:user) { Fabricate(:user) }
 
+  context "as an unauthenticated user" do
+    context "when I click checkout with a product in my cart" do
+      before(:each) do
+        cart.add_product(product)
+        visit cart_path
+      end
+
+      it "offers to let me checkout as a guest" do
+        click_link "Checkout"
+        page.should have_link("Continue as guest")
+      end
+    end
+  end
+
   context "as an authenticated user" do
     context "when I click checkout with a product in my cart" do
       before(:each) do

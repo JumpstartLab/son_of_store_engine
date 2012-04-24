@@ -1,7 +1,6 @@
 # Interface to manage carts for guests and users
 class CartsController < ApplicationController
   before_filter :find_cart_from_session
-  before_filter :authenticate_user!, :only => :checkout
 
   def show
   end
