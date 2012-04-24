@@ -95,10 +95,10 @@ end
 
   def two_click(product_id)
     product = Product.find(product_id)
-      OrderItem.create( quantity: 1,
-                unit_price: product.price,
-                order_id: self.id,
-                product_id: product.id)
+    OrderItem.create( quantity: 1,
+              unit_price: product.price,
+              order_id: self.id,
+              product_id: product.id)
      update_attribute(:address, user.addresses.first)
   end
 end
