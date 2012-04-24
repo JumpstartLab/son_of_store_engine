@@ -34,7 +34,7 @@ describe "User" do
         page.should have_content("Edit User")
         fill_in 'user[name]', :with => "rabble"
         click_on "Edit User"
-        page.should have_content("rabble")        
+        page.should have_content("Update successful")        
       end
       it "has validation on update" do 
         visit edit_user_path(user)
@@ -63,7 +63,7 @@ describe "User" do
   context "Admin User Modifications" do
     before(:each) do
       login(user)
-      visit admin_users_path
+      visit store_admin_users_path
     end
     it "lists all the users" do
       page.should have_content user.name

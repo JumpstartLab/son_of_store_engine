@@ -17,7 +17,6 @@ describe "Order New" do
     end
     it "Address Updated with valid address" do
       visit new_order_path
-      click_on "Checkout"
       fill_in "order[user_attributes][street]", :with => "1375 Kenyon Street Nw"
       fill_in "order[user_attributes][zipcode]", :with => "20010"
       click_on "Pay"

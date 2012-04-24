@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120424183335) do
+ActiveRecord::Schema.define(:version => 20120424192613) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20120424183335) do
     t.integer  "sale_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+    t.integer  "store_id"
   end
 
   create_table "category_products", :id => false, :force => true do |t|
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20120424183335) do
     t.datetime "cancelled_at"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.integer  "store_id"
   end
 
   create_table "product_ratings", :force => true do |t|
@@ -96,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20120424183335) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer  "store_id"
   end
 
   create_table "sales", :force => true do |t|
@@ -103,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20120424183335) do
     t.datetime "end_at"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "store_id"
   end
 
   create_table "statuses", :force => true do |t|

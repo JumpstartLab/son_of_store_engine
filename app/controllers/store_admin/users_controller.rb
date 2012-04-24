@@ -7,7 +7,7 @@ class StoreAdmin::UsersController < StoreAdminController
 
   def destroy
     User.find(params[:id]).destroy
-    redirect_to users_path
+    redirect_to store_admin_users_path
   end
   
 end

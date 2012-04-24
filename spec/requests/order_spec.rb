@@ -41,7 +41,7 @@ describe "Indivdiaul Order" do
   context "Order Edit Page" do 
     before(:each) do
       login(user)
-      visit edit_admin_order_path(orders.first)
+      visit edit_store_admin_order_path(orders.first)
     end
     it "Can update an order" do
       click_on "Save Order"

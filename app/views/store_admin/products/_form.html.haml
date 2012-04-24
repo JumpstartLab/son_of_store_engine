@@ -10,4 +10,4 @@
 
 %hr
 - if @product and @product.id and @product.active == 1
-  = link_to 'Retire Product', admin_product_path(@product), :method => :delete
+  = link_to 'Retire Product', store_admin_product_path(@product), :method => :delete

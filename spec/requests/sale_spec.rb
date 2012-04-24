@@ -49,7 +49,7 @@ describe "Sale", :focus => true do
   end
   context "Can delete a sale" do
     it "deletes a sale" do
-      visit admin_sales_path
+      visit store_admin_sales_path
       within("#sale_#{sale.id}") do
         click_on "X"
       end

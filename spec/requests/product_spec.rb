@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Product" do 
-  let(:product) { FactoryGirl.create(:product)}   
+  let(:product) { FactoryGirl.create(:product)}
   context "Logged Out" do
     it "can't create a new product" do
       visit new_store_admin_product_path
@@ -68,14 +68,18 @@ describe "Product" do
         end        
       end
       context "Removing a product" do
+        let(:product2) { FactoryGirl.create(:product)}
         it "Deletes a product" do
-          visit product_path(product)
-          click_link("Delete item")
+          product2
+          visit store_admin_products_path
+          within("#product_#{product2.id}") do
+            click_link("X")
+          end
           page.should have_content("Product Removed")
         end
         it "Verify product isn't shown" do
-          visit products_path
-          page.should_not have_content(product.name)
+          visit store_admin_products_path
+          page.should_not have_content(product2.name)
         end
       end
     end
