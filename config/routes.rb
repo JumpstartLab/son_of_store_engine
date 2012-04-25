@@ -4,7 +4,7 @@ StoreEngine::Application.routes.draw do
   resource :cart, only: [:show]
 
   resources :sessions
-  resources :stores, only: [:index]
+  resources :stores, only: [:index, :new, :create]
   match '/admin/dashboard', :to => 'admin/dashboard#show'
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
@@ -12,7 +12,7 @@ StoreEngine::Application.routes.draw do
   root :to => "static_pages#home"
 
   scope "/:url_name" do
-    match '', :to => 'products#index'
+    match '', :to => 'stores#show', as: :store
 
     resources :products, only: [:index, :show] do
       resource :retirement, only: [:create, :update]
