@@ -11,11 +11,11 @@ html
       div class="navbar-inner"
         div class="container"
           ul id="nav"
-            - if current_user && current_user.admin?
-              li.nav = link_to("Admin", admin_dashboard_path)
-              li.nav = link_to("My Orders", orders_path(@store))
             - if current_user
-              li.nav = link_to("My Orders", orders_path(@store))
+              li.nav = link_to("Admin", admin_dashboard_path)
+            - if current_user
+              - if @store
+                li.nav = link_to("My Orders", orders_path(@store))
               li.nav id="right"
                 = "Logged in as #{current_user.email}. "
                 = link_to("Log out",
@@ -26,7 +26,10 @@ html
                 = link_to("Sign up", new_user_registration_path)
                 = " or "
                 = link_to("log in", new_user_session_path)
-            li.nav class="brand" = "Konami Coders Inc."
+            - if @store and not @store.name.blank?
+              li.nav class="brand" = @store.name.titlecase
+            - else
+              li.nav class="brand" = "Konami Coders Inc."
             - if @store
               li.nav = link_to "Home", products_path(@store)
               li.nav = link_to "Browse by Category", categories_path(@store)      

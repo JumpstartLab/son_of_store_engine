@@ -1,8 +1,12 @@
-100.times { Fabricate(:product, :photo => 'http://1337807.com/images/megaman.gif') }
+10.times { Fabricate(:store) }
+100.times { Fabricate(:product, :photo => 'http://1337807.com/images/megaman.gif', :store => Store.all.sample) }
 10.times { Fabricate(:category) }
 
 Product.all.each do |product|
-  Category.all.sample.add_product(product)
+  c = Category.all.sample
+  c.store = product.store
+  c.save()
+  c.add_product(product)
 end
 
 20.times do

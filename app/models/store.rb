@@ -14,6 +14,8 @@ class Store < ActiveRecord::Base
   attr_accessible :name, :user_id
   make_permalink :with => :name
 
+  validates :name, :presence => true, :uniqueness => true
+
   has_many :products
   has_many :categories
   has_many :orders

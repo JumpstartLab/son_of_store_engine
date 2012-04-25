@@ -14,7 +14,9 @@ StoreEngine::Application.routes.draw do
     put "product_retire" => "products#retire_product", :as => "product_retire"
   end
 
-  scope ":store" do
+  resources :stores
+
+  scope ":store_name" do
     get '/' => "stores#show"
     get "checkout" => "carts#checkout", :as => "checkout"
     get "billing" => "users#billing", :as => "billing"
