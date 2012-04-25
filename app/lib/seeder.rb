@@ -1,10 +1,13 @@
 class Seeder
 
   def self.build_db
+    build_stores
     build_users
     build_shipping_detail
     build_categories
-    build_products(20)
+    build_products(20, 1)
+    build_products(20, 2)
+    build_products(20, 3)
     build_orders
   end
 
@@ -61,11 +64,12 @@ class Seeder
     end
   end
 
-  def self.build_products(quantity)
+  def self.build_products(quantity, store_id)
     quantity.times do
       product = Product.create( name: "The #{Faker::Name.name}",
         description: Faker::Lorem.paragraph(3),
-        price: (15 + rand(10) + rand(4)*0.25) )
+        price: (15 + rand(10) + rand(4)*0.25),
+        store_id: store_id )
       (rand(3) + 1).times do
         offset = rand(Category.count)
         product.add_category(Category.first(:offset => offset))
@@ -81,6 +85,15 @@ class Seeder
     Category.create( name: 'Mittens' )
     Category.create( name: 'Boots' )
     Category.create( name: 'Coats' )
+  end
+
+  def self.build_stores
+    Store.create( name: "Best Sunglasses", url_name: "best-sunglasses",
+      description: "Buy our sunglasses!")
+    Store.create( name: "Worace's Workshop", url_name: "woraces-workshop",
+      description: "Wonderful wares whenever Worace wants!")
+    Store.create( name: "Matt's Mumus", url_name: "matts-mumus",
+      description: "They sure are comfortable!")
   end
 
   def self.build_users
