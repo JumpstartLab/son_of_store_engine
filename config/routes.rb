@@ -5,8 +5,6 @@ StoreEngine::Application.routes.draw do
   resources :sessions, :pages
   resources :users, :exclude => [:index]
 
-  root :to => "pages#index"
-
   namespace "store_admin" do
     get "dashboard" => "dashboard#index"
     resources :categories, :products, :sales, :exclude => [:show]
@@ -40,8 +38,9 @@ StoreEngine::Application.routes.draw do
         put :two_click
       end
     end
+    root :to => "products#index"
   end
-
+  root :to => "pages#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
