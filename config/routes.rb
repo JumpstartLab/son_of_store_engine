@@ -1,3 +1,47 @@
+# StoreEngine::Application.routes.draw do
+#   root to: "stores#index"
+# 
+#   get 'sessions/new', :as => 'login_page'
+#   get 'sessions/index'
+#   post 'sessions/create', :as => 'login'
+#   delete 'sessions/destroy', :as => 'logout'
+# 
+#   match '/code' => redirect('http://github.com/athal7/store_engine')
+# 
+#   match '/profile' => "users#profile"
+# 
+#   resources :users, except: :destroy
+#   resources :billing_methods, except: [:destroy]
+#   resources :shipping_addresses, except: [:destroy]
+# 
+#   namespace :admin do
+#     resources :stores
+#   end
+# 
+#   resources :stores, only: [:index, :new, :create, :destroy]
+# 
+#   scope "/:domain", module: :store do
+#     match "/" => "products#index"
+#     resources :products, only: [:index, :show]
+#     resources :categories, only: [:index, :show]
+#     resources :orders, except: [:new, :create, :destroy]
+#     resources :line_items, except: [:new]
+#     resource :admin, only: [:show, :update, :edit], controller: "admin"
+#     namespace :admin do
+#       resources :orders
+#       resources :products do
+#         member  do
+#           put :retire
+#         end
+#       end
+#       resources :categories
+#       resources :users
+#       # resource :store, only: [:show, :update, :edit]
+#     end
+#   end
+# end
+
+
 StoreEngine::Application.routes.draw do
   root to: "stores#index"
 

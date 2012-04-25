@@ -1,3 +1,4 @@
+#
 class Admin::CategoriesController < ApplicationController
   before_filter :lookup_category, :only => [:show, :edit, :destroy, :update]
   before_filter :require_admin
@@ -17,12 +18,12 @@ class Admin::CategoriesController < ApplicationController
     def create
       category = Category.new(params[:category])
       category.save
-      redirect_to admin_category_path(@store, category)
+      redirect_to admin_category_path(@current_store, category)
     end
 
     def destroy
       Category.destroy(@category)
-      redirect_to admin_categories_path(@store)
+      redirect_to admin_categories_path(@current_store)
     end
 
     def edit
@@ -30,7 +31,7 @@ class Admin::CategoriesController < ApplicationController
 
     def update
       @category.update_attributes(params[:category])
-      redirect_to admin_category_path(@store, @category)
+      redirect_to admin_category_path(@current_store, @category)
     end
 
     private
