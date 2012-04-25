@@ -1,10 +1,11 @@
 class CartProductsController < ApplicationController
 
   def new
-    if current_cart.add_product_by_id(params[:product_id])
+    # raise current_cart.inspect
+    if current_cart.add_product_by_id(params[:id])
       redirect_to cart_path
     else
-      redirect_to cart_path, :notice => "This product has been retired."
+      redirect_to cart_path, :notice => "Can't add product to cart."
     end
   end
 

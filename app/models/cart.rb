@@ -1,21 +1,16 @@
 class Cart < ActiveRecord::Base
   extend StoreQueries
 
-  attr_accessor :total, :user_id
+  attr_accessible :store, :store_id
 
   has_many :cart_products, :dependent => :destroy
   has_many :products, :through => :cart_products
-  validates_uniqueness_of :user_id, :allow_nil => true
   belongs_to :user
   belongs_to :store
 
   def add_product_by_id(id)
-    product = store.products.find(id)
-    if product.active?
-      add_product(product)
-    else
-      return false
-    end
+    product = store.products.where(:id => id).first
+    add_product(product) if product && product.active?
   end
 
   def remove_product_by_id(id)
@@ -32,8 +27,8 @@ class Cart < ActiveRecord::Base
       existing_product.quantity += 1
       existing_product.save
     else
-      self.cart_products.create(:cart_id => self.id, :product_id => product.id,
-                                :quantity => 1 )
+      cart_products.create(:cart => self, :product => product,
+                           :quantity => 1 )
     end
   end
 

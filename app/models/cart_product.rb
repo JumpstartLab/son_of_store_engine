@@ -1,5 +1,5 @@
 class CartProduct < ActiveRecord::Base
-  attr_accessible :cart_id, :product_id, :quantity
+  attr_accessible :cart, :product, :quantity
 
   validates_numericality_of :quantity, :greater_than_or_equal_to => 0
 

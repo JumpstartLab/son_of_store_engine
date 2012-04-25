@@ -1,12 +1,12 @@
 <% cart_products.each do |cart_product| %>
   <tr>
-    <td><%= link_to cart_product.name, cart_product.product %> 
-      <%= link_to cart_product_path(cart_product.id), :method => :delete do %>
+    <td><%= link_to cart_product.name, product_path(:store_slug => store_slug, :id => cart_product.product_id) %> 
+      <%= link_to cart_product_path(:store_slug => store_slug, :id => cart_product.id), :method => :delete do %>
       <i class="icon-trash"></i> Remove from cart
       <% end %>
     </td>
     <td>
-      <%= form_for cart_product do |f| %>
+      <%= form_for cart_product, :url => cart_product_path(:store_slug => store_slug, :id => cart_product.id) do |f| %>
         <%= f.text_field :quantity, :value => cart_product.quantity, :id => "quantity_product_#{cart_product.product.id}", :class => "cart_product_quantity" %>
         <%= f.submit "update", :class => "btn btn-medium btn-primary", :id => "update_product_#{cart_product.product.id}" %>
       <% end %>

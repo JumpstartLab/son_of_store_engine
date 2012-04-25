@@ -1,13 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :find_or_create_cart
   before_filter :get_last_page
   after_filter :set_last_page
 
   helper_method :current_cart
-
   helper_method :current_store
+
   def current_store
     @current_store ||= Store.where(slug: params[:store_slug]).first
   end
@@ -17,7 +16,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_cart
-    @cart ||= find_or_create_cart
+    @cart ||= get_cart_from_session || get_cart_from_user || create_new_cart
+  end
+
+  def cart_storage
+    @cart_storage ||= CartStorage.new(session)
   end
 
   # def redirect_to_last_page(message=nil)
@@ -39,21 +42,23 @@ class ApplicationController < ActionController::Base
 
 private
 
-  def find_or_create_cart
-    if session[:cart_id] && cart = Cart.find_by_id(session[:cart_id])
-      cart
-    elsif current_user
-      get_cart_from_user
-    else
-      Cart.create.tap{ |cart| session[:cart_id] = cart.id; }
-    end
+  def get_cart_from_session
+    cart_id = cart_storage[current_store.id]
+    current_store.carts.where(:id => cart_id, :store_id => current_store.id).first
   end
 
   def get_cart_from_user
-    # raise Cart.find_by_user_id(current_user.id).inspect
-    cart = current_user.cart || Cart.create!
-    session[:cart_id] = cart.id
-    current_user.cart = cart
+    if current_user
+      cart = current_user.carts.where(:store_id => current_store.id).first || current_user.carts.create!(:store_id => current_store.id)
+      cart_storage[current_store.id] = cart.id
+      cart
+    end
+  end
+
+  def create_new_cart
+    cart = current_store.carts.create
+    cart_storage[current_store.id] = cart.id
+    cart
   end
 
   def set_last_page

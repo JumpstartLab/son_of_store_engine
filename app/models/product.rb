@@ -33,25 +33,21 @@ class Product < ActiveRecord::Base
   end
 
   def activate
-    self.update_attribute(:retired, false)
+    update_attribute(:retired, false)
   end
 
   def retire
-    if self.update_attribute(:retired, true)
-      self.cart_products.destroy_all
+    if update_attribute(:retired, true)
+      cart_products.destroy_all
     end
   end
 
   def active?
-    if self.retired
-      false
-    else
-      true
-    end
+    !retired
   end
 
   def update_categories(ids)
-    self.categories.destroy_all
+    categories.destroy_all
     ids.each { |id| add_category_by_id(id) }
   end
 

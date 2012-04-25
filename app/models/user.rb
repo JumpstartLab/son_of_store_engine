@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :credit_cards
   has_many :shipping_details
-  has_one :cart
+  has_many :carts
 
   def add_order(order)
     orders << order
@@ -26,9 +26,9 @@ class User < ActiveRecord::Base
     orders.limit(5)
   end
 
-  def cart=(new_cart)
-    cart.destroy if cart #if user has cart, destroy
-    write_attribute(:cart, new_cart)
-  end
+  # def cart=(new_cart)
+  #   cart.destroy if cart #if user has cart, destroy
+  #   write_attribute(:cart, new_cart)
+  # end
 
 end
