@@ -29,7 +29,7 @@ describe 'viewing all orders' do
     end
   end
 end
-  
+
 describe 'checking out' do
   let(:user) { FactoryGirl.create(:user) }
 
@@ -94,15 +94,38 @@ describe 'checking out' do
   context " when I dont have an account", :request => :cartz do
     let(:test_cart) { FactoryGirl.create(:cart)}
     let(:product) { FactoryGirl.create(:product) }
-    before(:each) { load_cart_with_products([product]) }
+    let!(:user2) { FactoryGirl.create(:user, :email => "foo@bar.net") }
+    let!(:user3) { FactoryGirl.create(:visitor_user, :email => "foo1234@bar.net") }
+
+
+    before(:each) do 
+      load_cart_with_products([product]) 
+      click_link_or_button "Checkout"
+    end
 
     it "gives an opportunity to sign up for an account" do
-      click_link_or_button "Checkout"
       find_link("Sign Up?").visible? == true
     end
 
-    it "signs user up & takes you to new order page" do
-      click_link_or_button "Checkout"
+    it "lets you checkout as visitor" do
+      fill_in "guest_email", :with => "foobarbar@bar.net"
+      click_link_or_button "Checkout as Guest"
+      page.current_path.should == new_visitor_order_path
+    end
+
+    it "doesn't let you checkout with existing user email" do
+      fill_in "guest_email", :with => "foo@bar.net"
+      click_link_or_button "Checkout as Guest"
+      page.current_path.should == new_session_path
+    end
+
+    it "doesn't let you checkout with existing visitor email" do
+      fill_in "guest_email", :with => "foo1234@bar.net"
+      click_link_or_button "Checkout as Guest"
+      page.current_path.should == new_session_path
+    end
+
+    it "signs user up & takes you to new order page", :request => :fail do
       click_on "Sign Up?"
       fill_in "user[full_name]", :with => "Luke Skysauce"
       fill_in "user[email]", :with => "sky@walker.com"
@@ -110,6 +133,30 @@ describe 'checking out' do
       fill_in "user[password_confirmation]", :with => "foobar"
       click_on "Create User"
       page.current_path.should == new_order_path
+    end
+
+    it "create an order as a guest" do
+      fill_in "guest_email", :with => "foobarbar@bar.net"
+      click_link_or_button "Checkout as Guest"
+      
+      fill_in "card_number", :with => "4242424242424242"
+      fill_in "card_code", :with => "343"
+      select('2014', :from => 'card_year')
+      fill_in "order[address_attributes][street_1]", with: "3 Derby Ln" 
+      fill_in "order[address_attributes][city]", with: "Sunnydale"
+      fill_in "order[address_attributes][state]", with: "DC" 
+      fill_in "order[address_attributes][zip_code]", with: "24242" 
+      click_on "Place order"
+      page.current_path.should == visitor_order_path(Order.last.unique_url)
+    end
+
+    it "displays the unique order url" do
+      address = FactoryGirl.create(:address)
+      test_user = FactoryGirl.create(:visitor_user)
+      order =  FactoryGirl.create(:order,
+                                  :visitor_user => test_user, :address => address) 
+      visit visitor_order_path(order.unique_url)
+      page.should have_content(order.unique_url)
     end
   end
 

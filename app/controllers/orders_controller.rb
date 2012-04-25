@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-  before_filter :set_checking_out, :only => :new
   before_filter :authorize
   before_filter :admin_authorize, only: [:edit, :update]
 
@@ -24,6 +23,8 @@ class OrdersController < ApplicationController
       @order = Order.new
       @order.build_address
     end
+
+    @path = orders_path
   end
 
   def edit
@@ -46,11 +47,5 @@ class OrdersController < ApplicationController
     else
       render :new
     end
-  end
-
-  private
-
-  def set_checking_out
-    session[:checking_out] = true    
   end
 end

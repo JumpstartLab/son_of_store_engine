@@ -3,6 +3,7 @@
 <p>Thanks for purchasing some of our stuff! We hope you'll enjoy the shoes. So many shoes.</p>
 
 <h2>Order ID: #<%= @order.id %></h2>
+Unique Order Link: <%= link_to visitor_order_url(@order.unique_url),  visitor_order_url(@order.unique_url) %>
 <h3>You bought:</h3>
 <ul>
   <% @order.order_items.each do |oi| %>

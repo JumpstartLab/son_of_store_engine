@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       session[:user_id] = @user.id
-      if session[:checking_out]
+      if checking_out?
         redirect_to new_order_path, notice: "Thank you for signing up!"
       else 
         redirect_to root_path, notice: "Thank you for signing up!"

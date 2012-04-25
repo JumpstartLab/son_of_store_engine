@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
+  
   before_filter :lookup_cart
 
   private
@@ -64,10 +64,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def checking_out?
+    session[:checking_out] || false
+  end
+  
   helper_method :lookup_cart
   helper_method :admin_authorize
   helper_method :current_user
   helper_method :admin?
+  helper_method :checking_out?
 end
 
 

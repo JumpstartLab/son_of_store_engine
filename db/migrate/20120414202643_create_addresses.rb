@@ -7,7 +7,6 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.integer :user_id
-
       t.timestamps
     end
   end
