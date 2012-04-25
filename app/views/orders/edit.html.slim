@@ -1,6 +1,6 @@
 h1 Billing Information
 
-= form_for(@order) do |f| 
+= form_for(@order, :url => order_path(@store)) do |f| 
   = f.hidden_field :status, :value => 'paid'
 
   - if current_user

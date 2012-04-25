@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Cart do
-  let! (:store) { Fabricate(:store, :user => user) }
+  let!(:store) { Fabricate(:store, :user => user) }
   let(:product) { Fabricate(:product, :store => store) }
   let(:cart) { Fabricate(:cart, :store => store) }
   let(:category) { Fabricate(:category, :store => store) }
@@ -10,7 +10,7 @@ describe Cart do
   context "as an unauthenticated user" do
     context "when I click checkout with a product in my cart" do
       before(:each) do
-        visit product_path(product)
+        visit product_path(store, product)
         click_link 'Add to Cart'
         click_link "Checkout"
       end

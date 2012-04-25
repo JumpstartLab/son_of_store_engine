@@ -20,6 +20,6 @@ class OrdersController < ApplicationController
     order = Order.find(params[:id])
     order.update_with_addresses_and_card(params)
     OrderMailer.confirmation_email(order).deliver
-    redirect_to order_path(order), :notice => "Order placed. Thank you!"
+    redirect_to order_path(@store, order), :notice => "Order placed. Thank you!"
   end
 end
