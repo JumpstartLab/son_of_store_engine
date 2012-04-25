@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120424192613) do
+ActiveRecord::Schema.define(:version => 20120425142347) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -77,6 +77,13 @@ ActiveRecord::Schema.define(:version => 20120424192613) do
   end
 
   add_index "orders", ["store_id", "id"], :name => "index_orders_on_store_id_and_id"
+
+  create_table "pages", :force => true do |t|
+    t.string   "name"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "product_ratings", :force => true do |t|
     t.string   "name"

@@ -1,13 +1,9 @@
 # Base class that inherited by all other classes
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  set_current_tenant_by_subdomain(:store, :id)
-  before_filter :find_cart, :verify_user, :stripe_api_key
-
-  def subdomain?
-    request.subdomain.present? && request.subdomain != "www"
-  end
-
+  set_current_tenant_through_filter
+  before_filter :find_store, :find_cart, :verify_user, :stripe_api_key
+  
   def require_admin
     if current_user && !current_user.admin?
       flash[:alert] = "Must be an administrator"
@@ -24,6 +20,17 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def find_store
+    if !request.subdomain.empty?
+      current_store = Store.find_by_id(request.subdomain)
+      redirect_to "/404" if current_store.nil?
+      set_current_tenant(current_store)
+    elsif
+      current_store = Store.first
+      set_current_tenant(current_store)
+    end
+  end
 
   def not_authenticated
     flash[:alert] = "You must login first"

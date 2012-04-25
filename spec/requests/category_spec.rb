@@ -1,8 +1,14 @@
 require 'spec_helper'
 
-describe "Test Category Auth" do   
+describe "Test Category Auth" do
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end
   let(:category) do
-    FactoryGirl.create(:category) 
+    FactoryGirl.create(:category, :store => store) 
   end
   context "Logged Out" do
     it "Browse by category" do

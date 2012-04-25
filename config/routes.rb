@@ -4,11 +4,12 @@ StoreEngine::Application.routes.draw do
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
-  resources :sessions
+  resources :sessions, :pages
   resources :users, :exclude => [:index]
 
   resources :categories, :only => [:show]
 
+  root :to => "pages#index"
 
   namespace "store_admin" do
     resources :categories, :products, :sales, :exclude => [:show]
@@ -20,14 +21,37 @@ StoreEngine::Application.routes.draw do
     end
   end
 
- 
+  # scope ":store_id" do
+  #   resources :search, :categories
+  #   resources :sales, :only => [:show, :index]
+
+  #   resources :products, :only => [:show, :index] do
+  #     resources :product_ratings, :only => [:create, :edit, :update]
+  #   end  
+
+  #   resources :orders, :only => [:show, :new] do
+  #     collection do
+  #       put 'charge'
+  #       get 'track'
+  #       get 'my_orders'
+  #     end
+  #   end
+
+  #   resource :cart do
+  #     member do
+  #       put 'update_quantity'
+  #       put :two_click
+  #     end
+  #   end
+  # end
+
+  scope '', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     resources :search, :categories
     resources :sales, :only => [:show, :index]
 
     resources :products, :only => [:show, :index] do
       resources :product_ratings, :only => [:create, :edit, :update]
     end  
-    
 
     resources :orders, :only => [:show, :new] do
       collection do
@@ -43,9 +67,30 @@ StoreEngine::Application.routes.draw do
         put :two_click
       end
     end
+  end
 
-  root :to => "products#index"
+  ## FOR TESTING PURPOSES
+  # resources :search, :categories
+  # resources :sales, :only => [:show, :index]
 
+  # resources :products, :only => [:show, :index] do
+  # resources :product_ratings, :only => [:create, :edit, :update]
+  # end  
+
+  # resources :orders, :only => [:show, :new] do
+  # collection do
+  #   put 'charge'
+  #   get 'track'
+  #   get 'my_orders'
+  # end
+  # end
+
+  # resource :cart do
+  # member do
+  #   put 'update_quantity'
+  #   put :two_click
+  # end
+  # end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
