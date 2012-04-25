@@ -2,17 +2,19 @@ class VisitorOrdersController < ApplicationController
   before_filter :valid_email_or_redirect, :only => :new
 
   def create
-    @order = Order.create(params[:order])
+    visitor = VisitorUser.create(:email => session[:guest_email])
+    @order = visitor.orders.create(params[:order])
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
       session[:cart_id] = Cart.create.id
-      redirect_to @order, :notice => "Transaction Complete"
+      redirect_to visitor_order_path(@order), :notice => "Transaction Complete"
     else
       render :new
     end
   end
 
   def new
+    session[:guest_email] = params[:guest_email]
     if @cart.quantity == 0
       redirect_to '/',
       :alert => "You can't order something with nothing in your cart."
@@ -20,9 +22,12 @@ class VisitorOrdersController < ApplicationController
       @order = Order.new
       @order.build_address
     end
-      @path = visitor_orders_path
-    
-    render "shared/new_order"
+    @path = visitor_orders_path
+  end
+
+  def show
+    @order = Order.find(params[:id])
+    @address = @order.address
   end
 
 private
