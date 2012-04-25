@@ -11,7 +11,6 @@ class Order < ActiveRecord::Base
 
   has_many :order_items
   has_many :products, through: :order_items
-
   belongs_to :store
   belongs_to :user
   belongs_to :visitor_user
@@ -51,12 +50,13 @@ class Order < ActiveRecord::Base
 
   def save_with_payment
     if valid?
-      create_stripe_user(stripe_card_token) if !order_user.stripe_id
+      create_stripe_user(stripe_card_token) unless order_user.stripe_id
       Stripe::Charge.create(
         :amount => total_price_in_cents.to_i,
         :currency => "usd",
         :customer => order_user.stripe_id,
         :description => "order##{id}" )
+
       is_paid!
       UserMailer.order_confirmation(order_user, self).deliver
       save!
@@ -69,8 +69,7 @@ class Order < ActiveRecord::Base
   def create_stripe_user(token)
     customer = Stripe::Customer.create(description: order_user.email,
       card: token)
-    order_user.stripe_id = customer.id
-    order_user.save(:validate => false)
+    order_user.update_attribute(:stripe_id, customer.id)
   end
 
   def add_order_items_from(cart)
