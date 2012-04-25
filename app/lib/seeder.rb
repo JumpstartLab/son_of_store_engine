@@ -17,9 +17,11 @@ class Seeder
   end
 
   def self.build_stores
-    Store.create(:name => "Mittenberry", :slug => "mittenberry")
-    Store.create(:name => "Crackberry", :slug => "crackberry")
-    Store.create(:name => "Blackberry", :slug => "blackberry")
+    [ "Mittenberry", "Crackberry", "Blackberry" ].each do |name|
+      store = Store.create(:name => name)
+      store.slug = name.downcase
+      store.save
+    end
   end
 
   def self.build_shipping_detail

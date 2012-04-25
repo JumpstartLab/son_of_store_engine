@@ -35,7 +35,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'factory_girl_rails', '~> 3.1.0'
-  gem 'guard'
+  gem 'guard-rspec'
   gem 'growl'
   gem 'reek', :git => "git://github.com/mvz/reek.git", :branch => "ripper_ruby_parser-2"
   gem 'cane', :git => "git://github.com/square/cane.git"
