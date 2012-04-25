@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
                   :order_items_attributes,
                   :address_id,
                   :email,
-                  :url
+                  :slug
 
   has_many :order_items
   has_many :products, :through => :order_items
@@ -31,7 +31,7 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_items
 
-  before_save :generate_unique_url
+  after_save :update_slug
 
   def self.collect_by_status
     orders_by_status = {}
@@ -99,7 +99,9 @@ class Order < ActiveRecord::Base
     CreditCard.create(billing_data[:credit_card])
   end
 
-  def generate_unique_url
-    url = Digest::MD5.hexdigest("#{id}#{rand(777)}")
+  def update_slug
+    unless slug
+      update_attributes :slug => Digest::MD5.hexdigest([id, SLUG_SALT].join)
+    end
   end
 end

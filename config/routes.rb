@@ -2,6 +2,7 @@ StoreEngine::Application.routes.draw do
   devise_for :users
 
   match 'profile' => 'stores#new'
+  get "tracking/:slug" => "trackings#show", :as => "tracking"
 
   resources :stores
 

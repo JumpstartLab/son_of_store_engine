@@ -6,4 +6,4 @@ html
   body
     h1 = "Thank you for your order!"
     p = "Your order number is #{@order.id}"
-    p = "To review your order visit: #{@order.url}"
+    p = "To review your order visit: #{tracking_url(@order.slug)}"

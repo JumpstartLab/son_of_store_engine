@@ -15,6 +15,14 @@ describe Cart do
         click_link "Checkout"
       end
 
+      it "I can sign up for an account" do
+        page.should have_link("Sign up")
+      end
+
+      it "I can sign in to my existing account" do
+        page.should have_link("Log in")
+      end
+
       it "I can checkout as a guest" do
         page.should have_link("Checkout as guest")
       end
@@ -24,20 +32,55 @@ describe Cart do
           click_link "Checkout as guest"
         end
 
-        it "I'm prompted for my billing information" do
-          page.should have_content("Billing Information")
+        describe "I'm prompted for my billing information" do
+          it "including my email address" do
+            page.should have_field(:email)
+          end
+
+          it "including my billing address" do
+            page.should have_field(:billing_address)
+          end
+
+          it "including my shipping address" do
+            page.should have_field(:shipping_address)
+          end
+
+          it "including my credit card" do
+            page.should have_field(:credit_card)
+          end
         end
 
-        it "I'm prompted for my email address" do
-          page.should have_content("Email")
+        describe "when I submit my order" do
+          before(:each) do
+            click_button "Submit"
+          end
+
+          it "I see a thank you message" do
+            page.should have_content("Order placed. Thank you!")
+          end
+
+          it "I see a link to a unique hashed url" do
+            page.should have_link("unique_url")
+          end
+
+          describe "when I click unique hashed url link" do
+            before(:each) do
+              save_and_open_page
+              click_link "unique_url"
+            end
+
+            it "I see my order details" do
+              page.should have_selector("#order_number")
+            end
+
+            it "I don't see a flash message thanking me for my order" do
+              page.should_not have_content("Order placed. Thank you!")
+            end
+          end
         end
 
-        it "I see my order" do
-          click_button "Submit"
-          page.should have_content("Order placed. Thank you!")
-        end
 
-        it "I receive a confirmation email" do
+        it "when I submit my order I receive a confirmation email" do
           expect { click_button "Submit" }.to change(ActionMailer::Base.deliveries, :size).by(1)
         end
       end
