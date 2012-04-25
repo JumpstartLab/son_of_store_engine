@@ -7,7 +7,7 @@ class VisitorOrdersController < ApplicationController
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
       session[:cart_id] = Cart.create.id
-      redirect_to visitor_order_path(@order), :notice => "Transaction Complete"
+      redirect_to visitor_order_path(@order.unique_url), :notice => "Transaction Complete"
     else
       render :new
     end
@@ -26,7 +26,7 @@ class VisitorOrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    @order = Order.where(:unique_url => params[:id]).first
     @address = @order.address
   end
 

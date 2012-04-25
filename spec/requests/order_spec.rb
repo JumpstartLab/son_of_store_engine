@@ -29,7 +29,7 @@ describe 'viewing all orders' do
     end
   end
 end
-  
+
 describe 'checking out' do
   let(:user) { FactoryGirl.create(:user) }
 
@@ -147,7 +147,16 @@ describe 'checking out' do
       fill_in "order[address_attributes][state]", with: "DC" 
       fill_in "order[address_attributes][zip_code]", with: "24242" 
       click_on "Place order"
-      page.should have_content "Transaction Complete"
+      page.current_path.should == visitor_order_path(Order.last.unique_url)
+    end
+
+    it "displays the unique order url" do
+      address = FactoryGirl.create(:address)
+      test_user = FactoryGirl.create(:visitor_user)
+      order =  FactoryGirl.create(:order,
+                                  :visitor_user => test_user, :address => address) 
+      visit visitor_order_path(order.unique_url)
+      page.should have_content(order.unique_url)
     end
   end
 

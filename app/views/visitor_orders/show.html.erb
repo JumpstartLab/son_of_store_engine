@@ -4,7 +4,7 @@
 <br />
 <br />
 <h2>Status: <%= @order.current_status.upcase %></h2>
-Unique Order Link: <%= link_to unique_order_url(@order.unique_url),  unique_order_url(@order.unique_url) %>
+Unique Order Link: <%= link_to visitor_order_url(@order.unique_url),  visitor_order_url(@order.unique_url) %>
 <p/>
 <br/>
 <table class="table table-striped table-condensed">
