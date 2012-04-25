@@ -3,9 +3,7 @@ class CartsController < ApplicationController
 
   def update
     @cart.add_product(params[:product_id])
-    if @cart.save
-      redirect_to cart_path, :notice => "Product added to cart"
-    end
+    redirect_to cart_path, :notice => "Product added to cart" if @cart.save
   end
 
   def two_click

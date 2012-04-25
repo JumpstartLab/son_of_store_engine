@@ -1,6 +1,4 @@
 StoreEngine::Application.routes.draw do
-
-  get "dashboard" => "dashboard#index"
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
@@ -10,6 +8,7 @@ StoreEngine::Application.routes.draw do
   root :to => "pages#index"
 
   namespace "store_admin" do
+    get "dashboard" => "dashboard#index"
     resources :categories, :products, :sales, :exclude => [:show]
     resources :users, :only => [:index, :destroy]
     resources :orders,:exclude => [:show] do

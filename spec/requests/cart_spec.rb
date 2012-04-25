@@ -2,8 +2,11 @@ require 'spec_helper'
 require 'Capybara'
 
 describe "Cart" do
+  let(:store) do
+    FactoryGirl.create(:store)
+  end  
   before(:each) do
-    Capybara.app_host = "http://1.son.test"
+    Capybara.app_host = "http://#{store.id}.son.test"
   end
   let!(:real_address) do
     FactoryGirl.create(:address)
@@ -11,17 +14,14 @@ describe "Cart" do
   let!(:user) do 
     FactoryGirl.create(:user, :password => "mike", :address => real_address, :stripe_id => "cus_aAiayNrIfqHjGZ")
   end
-  let(:store) do
-    FactoryGirl.create(:store)
-  end
   let!(:products) do
     (1..4).map { FactoryGirl.create(:product, :store => store)}
   end  
   it "add item to cart" do
-    p1 = products.first
-    visit product_path(p1)
+    visit product_path(products.first)
     click_on "Add To Cart"
-    page.should have_content(p1.name)
+    save_and_open_page
+    page.should have_content(products.first.name)
   end
   context "Add & Remove Items" do
     let(:p1) do

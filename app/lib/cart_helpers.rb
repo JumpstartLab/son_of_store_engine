@@ -1,28 +1,20 @@
 module CartHelpers
-  def cart_id
-    cookies[:cart_id]
-  end
-
-  def cart_id=(input)
-    cookies[:cart_id] = input
-  end
-
   def find_cart
     current_user ? find_cart_for_user : find_cart_for_guest
   end
 
   def find_cart_for_user
-    current_user.cart ||= Cart.create
-    merge_carts(cart_id) if cart_id
+    current_user.cart = Cart.create if current_user.cart.nil?
+    merge_carts(session[:cart_id]) if !session[:cart_id].blank?
     @cart = current_user.cart
   end
 
   def find_cart_for_guest
-    if cart_id
-      @cart = Cart.find(cart_id)
-    else
+    if session[:cart_id].blank?
       @cart = Cart.create
-      cart_id=(@cart.id)    
+      session[:cart_id] = @cart.id
+    else
+      @cart = Cart.find(session[:cart_id])
     end
   end
 
@@ -32,12 +24,8 @@ module CartHelpers
   end
 
   def destroy_cart
-    Cart.destroy(cart_id)
-    clear_cart_from_session
-  end
-
-  def clear_cart_from_session
-    cart_id=(nil)
+    Cart.find(session[:cart_id]).destroy
+    session[:cart_id] = nil
   end
 
   def verify_user

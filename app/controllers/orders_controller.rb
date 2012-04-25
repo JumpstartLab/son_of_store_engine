@@ -53,11 +53,5 @@ class OrdersController < ApplicationController
       redirect_to root_url, :notice => 'That is not your order'
     end
   end
-
-  def charge_shit_steps(order)
-    session[:cart_id] = nil
-    order.notify_charge
-    redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
-  end
   
 end

@@ -85,7 +85,7 @@ class Order < ActiveRecord::Base
   end
 
   def charge(token=nil)
-    create_user(token) if !user.stripe_id
+    create_user(token) unless user.stripe_id
     BillingProcessor.charge(total_price_after_sale_in_cents, user)
     self.status = Status.find_or_create_by_name("paid")
     self.is_cart = false
