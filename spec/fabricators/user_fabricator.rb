@@ -22,7 +22,7 @@
 
 Fabricator(:user) do
   name "Peter Griffin"
-  email "peter.griffin@livingsocial.com"
+  email { Faker::Internet.email }
   username "peter"
   password "derpina"
 end

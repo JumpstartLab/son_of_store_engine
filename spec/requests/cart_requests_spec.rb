@@ -6,6 +6,7 @@ describe Cart do
   let(:cart) { Fabricate(:cart, :store => store) }
   let(:category) { Fabricate(:category, :store => store) }
   let(:user) { Fabricate(:user) }
+  let(:unsaved_user) { Fabricate.build(:user) }
 
   context "as an unauthenticated user" do
     context "when I click checkout with a product in my cart" do
@@ -25,6 +26,61 @@ describe Cart do
 
       it "I can checkout as a guest" do
         page.should have_link("Checkout as guest")
+      end
+
+      context "when I click 'Sign up'" do
+        before(:each) do
+          click_link "Sign up"
+        end
+
+        it "prompts me to create an account" do
+          find('h2').should have_content("Sign up")
+        end
+
+        describe "when I create my account" do
+          before(:each) do
+            complete_user_form(unsaved_user)
+            click_button "Sign up"
+          end
+
+          it "I am prompted for my billing information" do
+            page.should have_content("Billing Information")
+          end
+
+          it "after entering billing information I see my order confirmation" do
+            fill_billing_form
+            click_button "Submit"
+            page.should have_selector("#order_number")
+            page.should have_content("Order placed. Thank you!")
+          end
+        end
+      end
+
+      context "when I click 'Sign in'" do
+        before(:each) do
+          click_link "Log in"
+        end
+
+        it "prompts me to sign in" do
+          find('h2').should have_content("Sign in")
+        end
+
+        describe "when I sign in to my account" do
+          before(:each) do
+            login_as(user)
+          end
+
+          it "I am prompted for my billing information" do
+            page.should have_content("Billing Information")
+          end
+
+          it "after entering billing information I see my order confirmation" do
+            fill_billing_form
+            click_button "Submit"
+            page.should have_selector("#order_number")
+            page.should have_content("Order placed. Thank you!")
+          end
+        end
       end
 
       context "when I click checkout as guest" do
@@ -65,7 +121,6 @@ describe Cart do
 
           describe "when I click unique hashed url link" do
             before(:each) do
-              save_and_open_page
               click_link "unique_url"
             end
 

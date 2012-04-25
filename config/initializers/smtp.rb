@@ -8,11 +8,11 @@ ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true
 }
 
-host = if Rails.env.development?
-  Mail.register_interceptor(DevelopmentMailInterceptor)
-  'localhost:3000'
-else
-  'sonofstoreengine.com'
-end
+# host = if Rails.env.development?
+#   Mail.register_interceptor(DevelopmentMailInterceptor)
+#   'localhost:3000'
+# else
+#   'sonofstoreengine.com'
+# end
 
 ActionMailer::Base.default_url_options[:host] = 'sonofstoreengine.com'
