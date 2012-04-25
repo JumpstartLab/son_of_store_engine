@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "logged in user" do
+describe "logged in user", :shopper => true do
   let(:user) { Fabricate(:user) }
   let!(:store) { Fabricate(:store) }
   before(:each) do
