@@ -1,5 +1,5 @@
 class Store < ActiveRecord::Base
-  attr_accessible :name, :slug, :owner_id, :description
+  attr_accessible :name, :slug, :owner_id, :description, :status
 
   has_many :products
   has_many :privileges
@@ -18,6 +18,14 @@ class Store < ActiveRecord::Base
 
   def privilege_for(user)
     privileges.find_by_user_id(user.id)
+  end
+
+  def activate!
+    update_attribute(:status, "active")
+  end
+
+  def deactivate!
+    update_attribute(:status, "inactive")
   end
 
 end
