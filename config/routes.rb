@@ -9,7 +9,6 @@ StoreEngine::Application.routes.draw do
 
   resources :categories, :only => [:show]
 
-  match '', to: 'products#index', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
   root :to => "pages#index"
 
   namespace "store_admin" do
@@ -22,27 +21,27 @@ StoreEngine::Application.routes.draw do
     end
   end
 
- 
-  resources :search, :categories
-  resources :sales, :only => [:show, :index]
+  scope '', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
+    resources :search, :categories
+    resources :sales, :only => [:show, :index]
 
-  resources :products, :only => [:show, :index] do
-    resources :product_ratings, :only => [:create, :edit, :update]
-  end  
-  
+    resources :products, :only => [:show, :index] do
+      resources :product_ratings, :only => [:create, :edit, :update]
+    end  
 
-  resources :orders, :only => [:show, :new] do
-    collection do
-      put 'charge'
-      get 'track'
-      get 'my_orders'
+    resources :orders, :only => [:show, :new] do
+      collection do
+        put 'charge'
+        get 'track'
+        get 'my_orders'
+      end
     end
-  end
 
-  resource :cart do
-    member do
-      put 'update_quantity'
-      put :two_click
+    resource :cart do
+      member do
+        put 'update_quantity'
+        put :two_click
+      end
     end
   end
 
