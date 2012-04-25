@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425195448) do
+ActiveRecord::Schema.define(:version => 20120425203711) do
 
   create_table "billing_methods", :force => true do |t|
     t.string   "credit_card_number"
@@ -94,11 +94,11 @@ ActiveRecord::Schema.define(:version => 20120425195448) do
 
   create_table "stores", :force => true do |t|
     t.string   "name"
-    t.string   "status",      :default => "pending"
+    t.string   "approval_status", :default => "pending"
     t.string   "domain"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.boolean  "enabled",     :default => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.boolean  "enabled",         :default => false
     t.text     "description"
   end
 

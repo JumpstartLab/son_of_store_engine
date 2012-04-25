@@ -1,0 +1,11 @@
+- @stores.each do |store|
+	div id==dom_id(store)
+		= store.name
+		br/
+		= store.domain
+		br/
+		= store.description[0..31]
+		br/
+		= store.approval_status
+		br/
+		= store.active_status

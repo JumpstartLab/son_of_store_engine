@@ -15,4 +15,8 @@ class Store < ActiveRecord::Base
   def image
     "icon.png"
   end
+
+  def active_status
+    enabled ? "Enabled" : "Disabled"
+  end
 end
