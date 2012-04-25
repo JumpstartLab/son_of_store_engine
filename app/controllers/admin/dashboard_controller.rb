@@ -3,8 +3,8 @@ class Admin::DashboardController < ApplicationController
   before_filter :is_admin?
 
   def show
-    @orders = Order.orders_by_status(params[:order_status])
-    @categories = Category.all
+    @orders = current_store.orders.find_by_status(params[:order_status])
+    @categories = current_store.categories
   end
 
 end

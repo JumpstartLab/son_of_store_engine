@@ -5,11 +5,11 @@ class OrdersController < ApplicationController
 
   def new
     if current_user.credit_cards.empty?
-      redirect_to new_credit_card_path and return
+      redirect_to new_credit_card_path(store_slug) and return
     end
 
     if current_user.shipping_details.empty?
-      redirect_to new_shipping_detail_path and return
+      redirect_to new_shipping_detail_path(store_slug) and return
     end
 
     @credit_card = current_user.credit_cards.last
@@ -22,12 +22,12 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @or = current_user.orders.create
+    @order = current_user.orders.create
     build_order_from_cart(params)
 
-    if @or.set_cc_from_stripe_customer_token(params[:order][:customer_token])
-      redirect_to @or,
-      :notice => "Thank you for placing an order." if @or.charge(current_cart)
+    if @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
+      redirect_to order_path(current_store.slug, @order.id),
+        :notice => "Thank you for placing an order." if @order.charge(current_cart)
     else
       render :new
     end
@@ -42,15 +42,15 @@ class OrdersController < ApplicationController
 private
   def belongs_to_current_user?
     unless Order.user_by_order_id(params[:id]) == current_user
-      redirect_to_last_page
+      redirect_to root_path
     end
   end
 
   def build_order_from_cart(params)
-    @or.build_order_from_cart(current_cart)
+    @order.build_order_from_cart(current_cart)
     address_id = params[:order][:shipping_detail_id]
-    @or.shipping_detail = current_user.shipping_details.find(address_id)
-    @or.save
+    @order.shipping_detail = current_user.shipping_details.find(address_id)
+    @order.save
   end
 
 end

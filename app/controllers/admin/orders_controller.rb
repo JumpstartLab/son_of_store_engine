@@ -3,16 +3,15 @@ class Admin::OrdersController < ApplicationController
   before_filter :is_admin?
 
   def index
-    @orders = Order.all
+    @orders = current_store.orders
   end
 
   def show
-    #@orders = Order.all
-    @order = Order.find(params[:id])
+    @order = current_store.orders.find(params[:id])
   end
 
   def update
-    @order = Order.find_by_id(params[:id])
+    @order = current_store.orders.find_by_id(params[:id])
   end
 
 end
