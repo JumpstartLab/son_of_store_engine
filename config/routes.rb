@@ -6,6 +6,7 @@ StoreEngine::Application.routes.draw do
   resources :products
   resources :orders
   resources :users
+  resources :visitor_orders
   resources :sessions
   resources :cart_items
   resource :edit

@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :visitor_user do
+    sequence(:email) { |n| "person#{n}@example.com" }
   end
 end

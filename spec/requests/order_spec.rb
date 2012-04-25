@@ -95,10 +95,33 @@ describe 'checking out' do
     let(:test_cart) { FactoryGirl.create(:cart)}
     let(:product) { FactoryGirl.create(:product) }
     before(:each) { load_cart_with_products([product]) }
+    let!(:user2) { FactoryGirl.create(:user, :email => "foo@bar.net") }
+    let!(:user3) { FactoryGirl.create(:visitor_user, :email => "foo1234@bar.net") }
 
     it "gives an opportunity to sign up for an account" do
       click_link_or_button "Checkout"
       find_link("Sign Up?").visible? == true
+    end
+
+    it "lets you checkout as visitor" do
+      click_link_or_button "Checkout"
+      fill_in "guest_email", :with => "foobarbar@bar.net"
+      click_link_or_button "Checkout as Guest"
+      page.current_path.should == new_visitor_order_path
+    end
+
+    it "doesn't let you checkout with existing user email" do
+      click_link_or_button "Checkout"
+      fill_in "guest_email", :with => "foo@bar.net"
+      click_link_or_button "Checkout as Guest"
+      page.current_path.should == new_session_path
+    end
+
+    it "doesn't let you checkout with existing visitor email" do
+      click_link_or_button "Checkout"
+      fill_in "guest_email", :with => "foo1234@bar.net"
+      click_link_or_button "Checkout as Guest"
+      page.current_path.should == new_session_path
     end
 
     it "signs user up & takes you to new order page" do

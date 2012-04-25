@@ -16,6 +16,12 @@
   </div>
 <% end %>
  
- <% if checking_out? %>
-   test
- <% end %>
+<%= form_tag new_visitor_order_path,:method => :get, :class=>'well' do %>
+<label>
+    <%= "Email" %></label>
+    <%= email_field_tag :guest_email, params[:guest_email] %>
+    <div class="actions">
+    <%= submit_tag "Checkout as Guest", :class => 'btn' %>
+  </div>
+<% end %>
+

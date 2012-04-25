@@ -24,6 +24,8 @@ class OrdersController < ApplicationController
       @order = Order.new
       @order.build_address
     end
+
+    @path = orders_path
   end
 
   def edit
