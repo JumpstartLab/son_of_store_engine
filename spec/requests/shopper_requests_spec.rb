@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe "shopper" do
   let!(:product) { Fabricate(:product) }
+  let!(:store) { Fabricate(:store) }
   context "index" do
     before(:each) do
-      visit "/"
+      visit "/#{store.to_param}"
     end
     context "homepage layout" do
       context "header" do
@@ -18,16 +19,16 @@ describe "shopper" do
       it "has a clickable listing of products" do
         page.should have_selector "##{dom_id(product)}"
         click_link_or_button product.title
-        current_path.should == product_path(product)
+        current_path.should == "/#{store.to_param}/products/#{product.to_param}"
       end
       it "has a clickable list of product categories" do
         category = Fabricate(:category)
         product.categories << category
-        visit "/"
+        visit "/#{store.to_param}/products"
         within "#main-content" do
           page.should have_content category.name
           click_link_or_button category.name
-          current_path.should == category_path(category)
+          current_path.should == "/#{store.to_param}/categories/#{category.to_param}"
         end
       end
       it "searches products by their title" do
@@ -55,7 +56,7 @@ describe "shopper" do
       end
       it "does not overwrite cart items" do
         other_product = Fabricate(:product)
-        visit "/"
+        visit "/#{store.to_param}"
         within "##{dom_id(other_product)}" do
           click_link_or_button "Add to Cart"
         end
@@ -187,6 +188,7 @@ describe "shopper" do
           click_link_or_button "Sign-Up"
           sign_up({full_name: "Test User", email: "test@test.com",
            password: "test", display_name: "Test"})
+           puts current_path
           within "#cart-aside" do
             page.should have_content product.title
           end
