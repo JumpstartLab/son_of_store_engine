@@ -1,6 +1,6 @@
 # A generic label for multiple products
 class Category < ActiveRecord::Base
-  attr_accessible :name, :product_ids
+  attr_accessible :name, :product_ids, :store
   default_scope :conditions => { :active => 1 }
   acts_as_tenant(:store)
   has_many :category_products

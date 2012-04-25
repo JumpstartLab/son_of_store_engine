@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe "User" do
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end  
   let!(:user) do 
     FactoryGirl.create(:admin, :password => "mike")
   end

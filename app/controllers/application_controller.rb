@@ -26,9 +26,6 @@ private
       current_store = Store.find_by_id(request.subdomain)
       redirect_to "/404" if current_store.nil?
       set_current_tenant(current_store)
-    elsif
-      current_store = Store.first
-      set_current_tenant(current_store)
     end
   end
 

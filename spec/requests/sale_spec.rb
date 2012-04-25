@@ -1,10 +1,16 @@
 require 'spec_helper'
 
 describe "Sale", :focus => true do
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end
   let!(:user) { FactoryGirl.create(:admin, :password => "mike")}
-  let!(:sale) { FactoryGirl.create(:sale, :percent_off => 50) }
-  let!(:category) { FactoryGirl.create(:category, :sale => sale) }
-  let!(:product) { FactoryGirl.create(:product, :sale => sale, :price_in_cents => 33322) }
+  let!(:sale) { FactoryGirl.create(:sale, :percent_off => 50, :store => store) }
+  let!(:category) { FactoryGirl.create(:category, :sale => sale, :store => store) }
+  let!(:product) { FactoryGirl.create(:product, :sale => sale, :price_in_cents => 33322, :store => store) }
 
   context "View all sales" do
     it "Visit Sale Index" do

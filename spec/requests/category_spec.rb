@@ -53,7 +53,7 @@ describe "Test Category Auth" do
         end
       end
       context "DESTROY" do
-        let!(:category2) { FactoryGirl.create(:category) }
+        let!(:category2) { FactoryGirl.create(:category, :store => store) }
         it "Can destory" do
            visit store_admin_categories_path
            within("#category_#{category2.id}") do

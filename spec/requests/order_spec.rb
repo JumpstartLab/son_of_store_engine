@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe "Indivdiaul Order" do
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end  
   let!(:user) { FactoryGirl.create(:admin, :password => "mike") }
   let!(:non_admin_user) do
     FactoryGirl.create(:user, :password => "mike")
   end
 
   let!(:products) do
-    [FactoryGirl.create(:product), FactoryGirl.create(:product)]
+    [FactoryGirl.create(:product, :store => store), FactoryGirl.create(:product, :store => store)]
   end
 
   let!(:statuses) do
@@ -19,9 +25,9 @@ describe "Indivdiaul Order" do
   end
 
   let!(:orders) do
-    [FactoryGirl.create(:order, :products => products, :status => statuses.last), 
-      FactoryGirl.create(:order, :products => products, :status => statuses[1]),
-      FactoryGirl.create(:order, :user => user, :products => products, :status => statuses.first)]
+    [FactoryGirl.create(:order, :products => products, :status => statuses.last, :store => store), 
+      FactoryGirl.create(:order, :products => products, :status => statuses[1], :store => store),
+      FactoryGirl.create(:order, :user => user, :products => products, :status => statuses.first, :store => store)]
   end
   context "While not logged in" do
     it "Should be redirected if not logged in" do

@@ -1,14 +1,20 @@
 require 'spec_helper'
 
 describe "Product Rating", :focus => true do
-  let!(:product) { FactoryGirl.create(:product)}   
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end  
+  let!(:product) { FactoryGirl.create(:product, :store => store)}   
   let!(:user) { FactoryGirl.create(:user, :password => "mike")}
   let!(:user2) { FactoryGirl.create(:user, :password => "mike")}
   let!(:valid_rating) { FactoryGirl.create(:product_rating, :user => user, :product => product)}
   let!(:invalid_rating) { FactoryGirl.create(:product_rating, :user => user, :product => product, :created_at => 15.days.ago)}
   let!(:invalid_rating2) { FactoryGirl.create(:product_rating, :user => user2, :product => product, :created_at => 15.days.ago)}
   let!(:order) do
-    FactoryGirl.create(:order, :products => [product], :user => user)
+    FactoryGirl.create(:order, :products => [product], :user => user, :store => store)
   end 
   context "Can submit ratings while logged in" do
     before(:each) do
