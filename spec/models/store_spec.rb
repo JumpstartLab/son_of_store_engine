@@ -12,6 +12,7 @@
 #  updated_at      :datetime        not null
 #
 
+
 require 'spec_helper'
 
 describe Store do
@@ -44,6 +45,10 @@ describe Store do
 
   it "has an active? method" do
     store.should respond_to(:active?)
+  end
+
+  it "has a retired_products method" do
+    store.should respond_to(:retired_products)
   end
 
   context "when a store without a name is created" do
@@ -122,6 +127,10 @@ describe Store do
                                         description: "example store",
                                         status: "pending") }
 
+    it "responds to the pending? method" do
+      pending_store.pending?.should be_true
+    end
+
     it "is contained within the set of 'pending' stores" do
       Store.where(:status => 'pending').should include(pending_store)
     end
@@ -134,8 +143,21 @@ describe Store do
                                        description: "example store",
                                        status: "active") }
 
+    it "it responds to the active? method" do
+      active_store.active?.should be_true
+    end
+
     it "is contained within the set of 'active' stores" do
       Store.where(:status => 'active').should include(active_store)
+    end
+  
+    context "and it has retired products" do
+      let(:product) { Fabricate(:product, :store => store) }
+      let(:retired_product) { Fabricate(:product, :store => store, :retired => true) }
+
+      it "has a retired_products class method that returns all of the stores retired prodcuts" do
+        store.retired_products.should include(retired_product)
+      end
     end
   end
 end

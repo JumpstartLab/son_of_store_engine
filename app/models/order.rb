@@ -13,6 +13,7 @@
 #  url        :string(255)
 #
 
+
 # An order is created when a user checks out with products
 class Order < ActiveRecord::Base
   attr_accessible :user_id,
@@ -81,11 +82,6 @@ class Order < ActiveRecord::Base
 
   def items
     order_items
-  end
-
-  def set_status(status)
-    self.status = status
-    save
   end
 
   def update_with_addresses_and_card(billing_data)
