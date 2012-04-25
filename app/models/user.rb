@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :credit_cards
   has_many :shipping_details
-  has_many :carts
+  has_many :carts, :autosave => true
 
   def add_order(order)
     orders << order

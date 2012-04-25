@@ -3,7 +3,7 @@ class Cart < ActiveRecord::Base
 
   attr_accessible :store, :store_id
 
-  has_many :cart_products, :dependent => :destroy
+  has_many :cart_products, :dependent => :destroy, :autosave => true
   has_many :products, :through => :cart_products
   belongs_to :user
   belongs_to :store

@@ -4,10 +4,11 @@ class SessionsController < ApplicationController
   end
 
   def create
+    cart_before_login = current_cart
     if user = login(params[:email], params[:password], params[:remember_me])
-      successful_login(current_cart, user)
+      successful_login(cart_before_login, user)
     else
-      session[:cart_id] = current_cart.id
+      session[:cart_id] = cart.id
       invalid_email
     end
   end
@@ -19,16 +20,15 @@ class SessionsController < ApplicationController
 
 private
 
-  def successful_login(new_cart, user)
-    if new_cart.has_products?
+  def successful_login(cart_before_login, user)
+    if cart_before_login.has_products?
       existing_cart = user.carts.where(:store_id => current_store.id).first
       existing_cart.destroy if existing_cart
-      user.carts << new_cart
+      user.carts << cart_before_login
     else
-      new_cart.destroy
+      cart_before_login.destroy
     end
     redirect_to store_path(current_store.slug)
-    #redirect_to_last_page("Logged in!")
   end
 
   def invalid_email
