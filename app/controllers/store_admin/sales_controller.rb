@@ -22,7 +22,7 @@ module StoreAdmin
       if @sale.save
         redirect_to sale_path(@sale), :notice => "Sale created."
       else
-        flash[:error] = "Please fix the form."
+        flash[:notice] = "Invalid sale parameters"
         render 'new'
       end
     end
@@ -31,7 +31,8 @@ module StoreAdmin
       if @sale.update_attributes(params[:sale])
         redirect_to sale_path(@sale), :notice => "Sale updated."
       else
-        render 'edit', :notice => "Please fix the form."
+        flash[:notice] = "Invalid sale parameters"
+        render 'edit'
       end
     end
 
@@ -41,10 +42,8 @@ module StoreAdmin
     end
 
   private
-
     def find_sale
       @sale = Sale.find(params[:id])
     end
-
   end
 end

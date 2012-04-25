@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'spork'
-require 'ostruct'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -21,6 +20,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'capybara/rails'
+  require 'support/doubles/address_checker.rb'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -29,8 +29,6 @@ Spork.prefork do
   RSpec.configure do |config|  
 
     config.before(:each) do 
-      #Address.any_instance.stub(:geocoder).and_return(true)
-      Geocoder.stub(:search).and_return([OpenStruct.new(:state => "DC", :address => "123 First Street")])
       BillingProcessor.stub(:charge).and_return(true)
     end
 

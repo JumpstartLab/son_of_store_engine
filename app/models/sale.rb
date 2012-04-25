@@ -7,7 +7,7 @@ class Sale < ActiveRecord::Base
   has_many :products
 
   validates_presence_of :percent_off, :end_at
-  validates_inclusion_of :percent_off, :in => 0..100
+  validates_numericality_of :percent_off, :in => 0..100
 
   default_scope where("end_at > ?", Time.now)
 

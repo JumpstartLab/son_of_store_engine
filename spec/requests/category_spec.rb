@@ -29,7 +29,7 @@ describe "Test Category Auth" do
           visit edit_store_admin_category_path(category)
           fill_in "category[name]", :with => ""
           click_on "Save Category"
-          page.should have_content("Update Failed.")
+          page.should have_content("can't be blank")
         end
       end
       context "Creating a product" do
@@ -43,7 +43,7 @@ describe "Test Category Auth" do
           visit new_store_admin_category_path
           fill_in "category[name]", :with => ""
           click_on "Save Category"
-          page.should have_content "Create failed."
+          page.should have_content "can't be blank"
         end
       end
       context "DESTROY" do

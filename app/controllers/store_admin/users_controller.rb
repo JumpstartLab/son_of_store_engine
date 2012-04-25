@@ -1,13 +1,13 @@
 # Allows creating and modifying users
 module StoreAdmin
   class UsersController < Controller
-
     def index
       @users = User.all
     end
 
-  def destroy
-    User.find(params[:id]).destroy
-    redirect_to store_admin_users_path
+    def destroy
+      User.find(params[:id]).destroy
+      redirect_to store_admin_users_path
+    end
   end
 end

@@ -9,32 +9,36 @@ module StoreAdmin
       @category = Category.new
     end
 
-  def create
-    @category = Category.new(params[:category])
-    if @category.save
-      redirect_to store_admin_categories_path, :notice => "Category created."
-    else
-      flash[:error] = "Create failed."
-      render 'edit'
+    def create
+      @category = Category.new(params[:category])
+      if @category.save
+        flash[:notice] = "Category created."
+        redirect_to store_admin_categories_path
+      else
+        flash[:error] = "Create failed."
+        render 'edit'
+      end
     end
 
     def edit
       @category = Category.find(params[:id])
     end
 
-  def update
-    @category = Category.find(params[:id])
-    if @category.update_attributes(params[:category])
-      redirect_to store_admin_categories_path, :notice => "Category updated."
-    else
-      flash[:error] = "Update Failed."
-      render 'edit'
+    def update
+      @category = Category.find(params[:id])
+      if @category.update_attributes(params[:category])
+        flash[:notice] = "Category updated."
+        redirect_to store_admin_categories_path
+      else
+        flash[:error] = "Update Failed."
+        render 'edit'
+      end
     end
 
     def destroy
       Category.find(params[:id]).destroy
-      redirect_to admin_categories_path, :notice => "Category deleted."
+      flash[:notice] = "Category deleted."
+      redirect_to store_admin_categories_path
     end
-
   end
 end
