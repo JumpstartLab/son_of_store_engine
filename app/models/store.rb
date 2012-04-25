@@ -20,12 +20,32 @@ class Store < ActiveRecord::Base
     privileges.find_by_user_id(user.id)
   end
 
-  def activate!
-    update_attribute(:status, "active")
+  def enabled?
+    status == "enabled"
   end
 
-  def deactivate!
-    update_attribute(:status, "inactive")
+  def disabled?
+    status == "disabled"
+  end
+
+  def declined?
+    status == "declined"
+  end
+
+  def pending?
+    status == "pending"
+  end
+
+  def enable!
+    update_attribute(:status, "enabled")
+  end
+
+  def disable!
+    update_attribute(:status, "disabled")
+  end
+
+  def decline!
+    update_attribute(:status, "declined")
   end
 
 end

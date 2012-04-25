@@ -18,6 +18,14 @@ StoreEngine::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
 
   resource :cart, :only => [:show, :update]
+  namespace "admin" do
+    resources :stores do
+      put "enable", on: :member
+      put "disable", on: :member
+      put "approve", on: :member
+      put "decline", on: :member
+    end
+  end
   match "/code" => redirect("http://github.com/chrismanderson/store_engine")
   match "/profile" => "users#profile", as: "profile"
 

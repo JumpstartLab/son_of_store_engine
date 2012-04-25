@@ -1,0 +1,10 @@
+<h1>All Stores</h1>
+
+<ul><% @stores.each do |store| %>
+  <li><%= store.name %> |
+      <%= (store.description || "(blank)").truncate(32) %> |
+      <%= store.slug %>
+      <%= store.status %>
+      <%= admin_buttons_for_store(store) %></li>
+<% end %>
+</ul>
