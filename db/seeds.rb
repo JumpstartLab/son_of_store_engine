@@ -16,10 +16,16 @@ def user(values)
   u
 end
 
-def product(values)
+@new_store = Store.new(:name => "First Store", :active => true)
+@new_store.save
+
+@new_store_2 = Store.new(:name => "Second Store", :active => true)
+@new_store_2.save
+
+def product(values, store=@new_store)
   p =           Product.create(
                   :name => values[0], :description => values[1],
-                  :price => values[2], :avatar_from_url => values[3], 
+                  :price => values[2], :avatar_from_url => values[3], :store => store 
                 )
   p.categories = values[4] if values[4]
   p.save
@@ -55,8 +61,8 @@ c9 = Category.create( :name => "Traveling Devices")
 c10 = Category.create( :name => "Personal")
 c11 = Category.create( :name => "Office")
 
-p1 = product(["Nintendo", "DUCK HUNTER!!!", "9999.00", "http://images.sodahead.com/polls/001017851/nes_xlarge.jpeg"])
-p2 = product(["iPod", "Carry up to 300 songs in your pocket!", "99.75", "http://goo.gl/3gfMb", [c1, c2, c3, c6]])
+p1 = product(["Nintendo", "DUCK HUNTER!!!", "9999.00", "http://images.sodahead.com/polls/001017851/nes_xlarge.jpeg"], @new_store_2)
+p2 = product(["iPod", "Carry up to 300 songs in your pocket!", "99.75", "http://goo.gl/3gfMb", [c1, c2, c3, c6]], @new_store_2)
 p3 = product(["Racecar", "VRRRRRRRRRMMMMMMM", "20.65", "http://goo.gl/REU7v", [c2]])
 p4 = product(["PDA", "Check Yo email while you.... That's about all i can do.", "199.65", "http://goo.gl/O6g9m", [c3,c2]])
 p5 = product(["Basketball", "I'm gonna dunk on you", "14.95", "http://goo.gl/wuYFI", [c2]])

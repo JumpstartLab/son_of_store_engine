@@ -1,3 +1,6 @@
+.page_header
+  %h1 Products on Sale
+%br
 %ul.nav.nav-tabs
   %li.active
     %a{:href => "#products", "data-toggle" => "tab"} Products
@@ -6,10 +9,11 @@
   %li
 .tab-content
   #products.tab-pane.active
-    - @sales.each do |sale|
-      - sale.products.each_slice(2) do |items_for_row|
-        %li.span6
-          = render :partial => 'products/list', :collection => items_for_row, :as => :product
+    %ul.thumbnails
+      - @sales.each do |sale|
+        - sale.products.each_slice(2) do |items_for_row|
+          %li.span6
+            = render :partial => 'products/list', :collection => items_for_row, :as => :product
   #categories.tab-pane
     - @sales.each do |sale|
       - sale.categories.each do |category|
