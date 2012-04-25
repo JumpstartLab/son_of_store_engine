@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :verify_store_status
   before_filter :get_last_page
   after_filter :set_last_page
 

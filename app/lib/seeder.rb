@@ -23,6 +23,9 @@ class Seeder
       store.status = "approved"
       store.save
     end
+
+    Store.create(:name => "Testberry", :slug => "testberry",
+                 :description => "The berriest test of them all!")
   end
 
   def self.build_shipping_detail

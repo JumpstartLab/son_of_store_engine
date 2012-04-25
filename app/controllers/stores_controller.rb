@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  layout false, :only => [:index, :new, :create]
+  skip_before_filter :verify_store_status
   
   def new
     @store = Store.new
@@ -17,6 +17,5 @@ class StoresController < ApplicationController
   def index
     @stores = Store.approved
     # @stores = Store.all
-    render :layout => false
   end
 end
