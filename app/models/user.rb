@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_one :cart
   has_many :addresses
   has_many :orders
+  has_many :privileges
 
   attr_accessible :full_name, :email,
                   :username, :password,

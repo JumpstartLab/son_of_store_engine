@@ -1,4 +1,5 @@
 FactoryGirl.define do
+  
   factory :product do
     sequence(:title)  { |n| "New Product ##{n}" } 
     description Faker::Lorem.paragraph(sentence_count = 3)
@@ -24,7 +25,7 @@ FactoryGirl.define do
     password "foo"
     password_confirmation "foo"
     username Faker::Name.first_name
-    sequence(:email) { |n| "person#{n}@example.com" }
+    sequence(:email) { |n| "user#{n}@example.com" } 
   end
 
   factory :order do
@@ -50,5 +51,11 @@ FactoryGirl.define do
     city     Faker::Address.city
     state    Faker::Address.state_abbr
     association :user
+  end
+
+  factory :store do
+    name "Top Funky"
+    slug "top_funky"
+    owner_id 1 #FactoryGirl.create(:user).id
   end
 end
