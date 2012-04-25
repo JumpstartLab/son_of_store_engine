@@ -12,11 +12,11 @@ class OrdersController < ApplicationController
   end
 
   def charge
-    @order = cart.create_order
+    @order = @cart.create_order
 
     if @order.update_address_and_charge(params[:order])
        clear_cart_from_session
-       redirect_to order_path(cart), :notice => "I HAVE ALL YOUR MONEY!"
+       redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
     else
       flash[:alert] = "Address is invalid"
       render 'new'
