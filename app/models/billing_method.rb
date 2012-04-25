@@ -12,7 +12,6 @@ class BillingMethod < ActiveRecord::Base
   validates_numericality_of :zipcode, :credit_card_number, :month, :year,
                             only_integer: true
   validates_length_of :credit_card_number, :in => 15..16
-  validates_uniqueness_of :credit_card_number
   validates_format_of :street, with: /^[\da-zA-Z]{1,10}\s[a-zA-Z\d]{1,20}\s
                                      [a-zA-Z.\d]{1,20}/x
 

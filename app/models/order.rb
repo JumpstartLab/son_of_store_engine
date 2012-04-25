@@ -1,6 +1,9 @@
 #
+require 'digest/sha1'
+
 class Order < ActiveRecord::Base
-  attr_accessible :billing_method_id, :user_id, :status, :shipping_address_id, :store_id
+  before_create :create_special_url
+  attr_accessible :billing_method_id, :user_id, :status, :shipping_address_id, :store_id, :special_url
 
   validates_presence_of :status
 
@@ -117,6 +120,12 @@ class Order < ActiveRecord::Base
 
   def total_items
     line_items.sum(&:quantity)
+  end
+
+  private
+
+  def create_special_url
+    write_attribute(:special_url, Digest::SHA1.hexdigest(%Q|#{ Time.now.to_i.to_s + rand(1..10000).to_s }|))
   end
 
 end

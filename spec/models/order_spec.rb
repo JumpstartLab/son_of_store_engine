@@ -79,4 +79,23 @@ describe Order do
       ord.action_time.to_date.should == Time.now.to_date
     end
   end
+  describe '#create_special_url' do
+    it "sets a random url to the order" do
+      old_url = ord.special_url
+      ord.send(:create_special_url)
+      ord.special_url.should_not == old_url
+    end
+    it "sets a special order on creation" do
+      new_order = Fabricate(:order)
+      new_order.special_url.should_not be_nil
+    end
+    it "sets unique special order urls" do
+      orders = []
+      10.times do |i|
+        ord = Fabricate(:order)
+        orders[i] = ord.special_url
+      end
+      orders.uniq.should == orders
+    end
+  end
 end

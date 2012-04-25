@@ -1,7 +1,7 @@
 #
 class OrdersController < ApplicationController
   before_filter :lookup_order, :only => [:show, :edit, :update]
-  before_filter :require_order_user, only: [:show]
+  before_filter :require_order_user, only: [:show, :lookup]
 
   def index
     if params[:status] == "all"
@@ -28,6 +28,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  def lookup
+    order = Order.find_by_special_url(params[:sid])
+    redirect_to order_path(@current_store, order)
+  end
+
   private
 
   def lookup_order
@@ -36,12 +41,13 @@ class OrdersController < ApplicationController
 
   def check_out
     link = "<a href=\"#{url_for(@order.to_s)}\">View Details</a>"
-    notice = "Thank you for purchasing. #{link}".html_safe
+    notice = "Thank you for purchasing an email confirmation is on the way. #{link}".html_safe
+    OrderMailer.order_confirmation_email(@order).deliver
     session[:previous_order_id] = session[:order_id] if !logged_in?
     session[:order_id] = nil
     redirect_to products_path(@store), notice: notice
   end
-  
+
   def store_orders
     Order.where(store_id: @current_store.id)
   end

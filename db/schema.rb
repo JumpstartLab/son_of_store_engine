@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425163724) do
+ActiveRecord::Schema.define(:version => 20120425195448) do
 
   create_table "billing_methods", :force => true do |t|
     t.string   "credit_card_number"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20120425163724) do
     t.integer  "shipping_address_id"
     t.string   "action_time"
     t.integer  "store_id"
+    t.string   "special_url"
   end
 
   add_index "orders", ["store_id"], :name => "index_orders_on_store_id"

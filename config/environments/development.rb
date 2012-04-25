@@ -34,4 +34,7 @@ StoreEngine::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  Mail.register_interceptor(DevelopmentMailInterceptor)
+  ActionMailer::Base.default_url_options[:host] = 'localhost:3000'
 end
