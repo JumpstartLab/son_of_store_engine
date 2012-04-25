@@ -4,11 +4,11 @@ StoreEngine::Application.routes.draw do
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
-  resources :sessions, :search, :store
+  resources :sessions
   resources :users, :exclude => [:index]
 
-  resources :sales, :only => [:show, :index]
   resources :categories, :only => [:show]
+
 
   namespace "store_admin" do
     resources :categories, :products, :sales, :exclude => [:show]
@@ -20,25 +20,30 @@ StoreEngine::Application.routes.draw do
     end
   end
 
-  resources :products, :only => [:show, :index] do
-    resources :product_ratings, :only => [:create, :edit, :update]
-  end
-  
-  resources :orders, :only => [:show, :new] do
-    collection do
-      put 'charge'
-      get 'track'
-      get 'my_orders'
-    end
-  end
+ 
+    resources :search, :categories
+    resources :sales, :only => [:show, :index]
 
-  resource :cart do
-    member do
-      put 'update_quantity'
-      put :two_click
+    resources :products, :only => [:show, :index] do
+      resources :product_ratings, :only => [:create, :edit, :update]
+    end  
+    
+
+    resources :orders, :only => [:show, :new] do
+      collection do
+        put 'charge'
+        get 'track'
+        get 'my_orders'
+      end
     end
-  end
-  
+
+    resource :cart do
+      member do
+        put 'update_quantity'
+        put :two_click
+      end
+    end
+
   root :to => "products#index"
 
   # The priority is based upon order of creation:
