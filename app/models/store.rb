@@ -5,4 +5,8 @@ class Store < ActiveRecord::Base
 
   validates_presence_of :name, :url_name, :description
   validates_uniqueness_of :name, :url_name
+
+  # def to_param
+  #   url_name
+  # end
 end

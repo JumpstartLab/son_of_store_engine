@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_or_create_cart
   before_filter :get_last_page
   after_filter :set_last_page
+  #before_filter :store
 
   helper_method :current_cart
 
@@ -33,6 +34,10 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def store
+    @store ||= Store.where(:url_name => params[:url_name]).first
+  end
 
   def find_or_create_cart
     if session[:cart_id] && cart = Cart.find_by_id(session[:cart_id])

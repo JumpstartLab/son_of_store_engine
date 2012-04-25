@@ -24,16 +24,25 @@ StoreEngine::Application.routes.draw do
     end
     resources :users, only: [:show]
     resource :dashboards, only: [:show]
+    resources :stores
   end
+
+  #resources :stores
+  scope "/(:url_name)" do 
+    resources :products
+    resources :categories
+    #resources :orders
+    #resource  :stores,
+  end 
 
   match '/admin/dashboard', :to => 'admin/dashboard#show'
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
-  match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
+  #match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
   
-  # root :to => "static_pages#home"
-  root :to => "products#index"
+  root :to => "static_pages#home"
+  #root :to => "products#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
