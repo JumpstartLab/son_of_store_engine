@@ -50,6 +50,12 @@ body {
   float:right;
   margin-top:-5px;
 }
+
+#cart_info {
+  display: inline;
+  color: #53f139;
+  font-weight: 700;
+}
 /*nav.main{
   height: 40px;
   background-color: #454545;
