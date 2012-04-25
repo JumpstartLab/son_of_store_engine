@@ -15,4 +15,10 @@
 # Users can have billing or shipping addresses
 class Address < ActiveRecord::Base
   attr_accessible :city, :state, :street, :zipcode, :user_id
+
+  def self.create_multiple(addresses)
+    addresses.each do |address|
+      create(address) unless address[:street].blank?
+    end
+  end
 end

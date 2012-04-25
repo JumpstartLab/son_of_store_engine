@@ -26,6 +26,6 @@ class CartsController < ApplicationController
   def checkout
     order = Order.create_from_cart(@cart)
     order.update_attributes(:user_id => current_user.id) if current_user
-    redirect_to billing_path(:order_id => order.id)
+    redirect_to edit_order_path(order)
   end
 end

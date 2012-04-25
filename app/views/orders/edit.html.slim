@@ -1,10 +1,13 @@
 h1 Billing Information
 
-= form_for(:billing) do |f| 
-  = f.hidden_field :order_id, :value => params[:order_id]
+= form_for(@order) do |f| 
+  = f.hidden_field :status, :value => 'paid'
 
-  = f.label :email
-  = f.email_field :email
+  - if current_user
+    = f.hidden_field :email, :value => current_user.email
+  - else
+    = f.label :email
+    = f.email_field :email
 
   = fields_for :credit_card do |cc_form|
     div class="field"
@@ -20,7 +23,7 @@ h1 Billing Information
       = cc_form.text_field :expiration_date
 
   h4 Billing Address
-  = fields_for :address do |address|
+  = fields_for :billing_address do |address|
     div class="field"
       = address.label :street
       = address.text_field :street
