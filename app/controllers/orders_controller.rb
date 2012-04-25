@@ -40,7 +40,6 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.create(params[:order])
-    raise [:params]
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
       @cart.destroy
