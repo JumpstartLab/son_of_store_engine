@@ -40,6 +40,7 @@ class OrdersController < ApplicationController
     @order = current_user.orders.create(params[:order])
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
+      @cart.destroy
       session[:cart_id] = Cart.create.id
       redirect_to @order, :notice => "Transaction Complete"
     else

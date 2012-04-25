@@ -74,6 +74,20 @@ describe 'checking out' do
         click_on "Place order"
         page.should have_content "Transaction Complete"
       end
+
+      it "empties the cart" do
+        click_link_or_button "Checkout"
+        page.should have_content(number_to_currency(test_cart.total_price))
+        fill_in "card_number", :with => "4242424242424242"
+        fill_in "card_code", :with => "343"
+        select('2014', :from => 'card_year')
+        fill_in "order[address_attributes][street_1]", with: "3 Derby Ln" 
+        fill_in "order[address_attributes][city]", with: "Sunnydale"
+        fill_in "order[address_attributes][state]", with: "DC" 
+        fill_in "order[address_attributes][zip_code]", with: "24242" 
+        click_on "Place order"
+        find("#cart_count").text.should == "0"
+      end
     end
   end
 
