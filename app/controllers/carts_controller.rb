@@ -5,6 +5,10 @@ class CartsController < ApplicationController
   def show
   end
 
+  def prompt
+    redirect_to checkout_path if current_user
+  end
+
   def update
     if params[:cart] && params[:cart][:order_item]
       item = OrderItem.find(params[:cart][:order_item][:id])
@@ -21,7 +25,7 @@ class CartsController < ApplicationController
 
   def checkout
     order = Order.create_from_cart(@cart)
-    order.update_attributes(:user_id => current_user.id)
+    order.update_attributes(:user_id => current_user.id) if current_user
     redirect_to billing_path(:order_id => order.id)
   end
 end

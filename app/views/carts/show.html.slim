@@ -27,4 +27,4 @@ div.cart id="cart"
         td#total = @cart.total
       = f.submit "Update Cart"
 
-= link_to "Checkout", checkout_path(:cart_id => @cart.id)
+= link_to "Checkout", checkout_prompt_path

@@ -2,7 +2,8 @@ StoreEngine::Application.routes.draw do
   devise_for :users
 
   get "signup" => "users#new", :as => "signup"
-  get "checkout" => "carts#prompt", :as => "checkout"
+  get "checkout_prompt" => "carts#prompt", :as => "checkout_prompt"
+  get "checkout" => "carts#checkout", :as => "checkout"
   get "billing" => "users#billing", :as => "billing"
   post "billing" => "users#finalize_order", :as => "billing"
   get "add_category_to_product" => "admin/categories#add_product", :as => "add_category_to_product"

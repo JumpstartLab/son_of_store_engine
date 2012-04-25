@@ -60,25 +60,6 @@ class User < ActiveRecord::Base
     self
   end
 
-  def add_credit_card(cc)
-    cc[:user_id] = id
-    CreditCard.create(cc)
-  end
-
-  def add_address(address)
-    address[:user_id] = id
-    Address.create(address)
-  end
-
-  def finalize_order(billing_information)
-    add_credit_card(billing_information[:credit_card])
-    add_address(billing_information[:address])
-
-    order = Order.find(billing_information[:billing][:order_id])
-    order.set_status('paid')
-    order
-  end
-
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
   end
