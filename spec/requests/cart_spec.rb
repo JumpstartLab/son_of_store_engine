@@ -9,13 +9,15 @@ describe "Cart" do
   end
   let!(:products) do
     (1..4).map { FactoryGirl.create(:product)}
-  end  
+  end
+
   it "add item to cart" do
     p1 = products.first
     visit product_path(p1)
     click_on "Add To Cart"
     page.should have_content(p1.name)
   end
+
   context "Add & Remove Items" do
     let(:p1) do
       products[0]

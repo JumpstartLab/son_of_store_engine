@@ -28,7 +28,7 @@ describe "Sale", :focus => true do
     it "Fails" do  
       fill_in "sale[percent_off]", :with => 332
       click_on "Save Sale"
-      page.should have_content "Please fix the form."
+      page.should have_content "Invalid sale parameters"
     end    
   end
   context "An admin can modify a sale" do

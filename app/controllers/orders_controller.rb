@@ -12,10 +12,11 @@ class OrdersController < ApplicationController
   end
 
   def charge
-    @order = Order.process_cart(@cart.id)
-    if @order.user.update_address(params[:order][:user_attributes])
-        @order.charge(params[:order][:stripe_card_token])
-        charge_shit_steps(@order)
+    @order = @cart.create_order
+
+    if @order.update_address_and_charge(params[:order])
+       clear_cart_from_session
+       redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
     else
       flash[:alert] = "Address is invalid"
       render 'new'
@@ -58,5 +59,5 @@ class OrdersController < ApplicationController
     order.notify_charge
     redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
   end
-
+  
 end

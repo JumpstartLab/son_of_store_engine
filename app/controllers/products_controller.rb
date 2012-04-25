@@ -1,10 +1,7 @@
 # Restful actions for products
 class ProductsController < ApplicationController
   
-  def index
-    @products = Product.where(:active => 1).paginate(:page => params[:page])
-    @categories = Category.all
-  end
+  include ProductsActions
 
   def show
     @product = Product.find(params[:id])

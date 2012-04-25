@@ -15,7 +15,7 @@ module NavHelper
       "Home" => root_path,
       "Cart" => cart_path,
       "Sales" => sales_path,
-      "Dashboard" => dashboard_path,
+      "Dashboard" => store_admin_dashboard_path,
       "My Orders" => my_orders_orders_path,
       "Logout" => logout_path
     }

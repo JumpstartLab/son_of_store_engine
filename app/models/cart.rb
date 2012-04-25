@@ -3,6 +3,14 @@ class Cart < Order
   attr_accessible :current_cart, :individual_quantity, :store_id
   default_scope :conditions => { :is_cart => 1 }
 
+  def create_order
+    self
+  end
+
+  def update_address(address)
+    user.update_address(address)
+  end
+
   def add_product(id)
     product = Product.find(id)
     if products.include? product

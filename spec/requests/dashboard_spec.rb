@@ -27,7 +27,7 @@ describe "Dashboard" do
 
     before(:each) do
       login(user)
-      visit dashboard_path
+      visit store_admin_dashboard_path
       click_link 'Orders'
     end
 
@@ -66,11 +66,13 @@ describe "Dashboard" do
         page.should have_content(orders.first.user.name)
       end
     end
+
     it "The total number of orders by status" do
       within("#shipped") do
         page.should have_content(1)
       end
     end
+
     it "links to a specific order" do
       click_link orders.first.id.to_s
       page.should have_content "Order details"

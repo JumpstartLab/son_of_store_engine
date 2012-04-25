@@ -24,9 +24,11 @@ describe "Order New" do
     end
     it "Address failed with invalid address" do
       visit new_order_path
+      Geocoder.stub(:search)
       fill_in "order[user_attributes][street]", :with => "sfsdfdsfsd"
       fill_in "order[user_attributes][zipcode]", :with => "32322343"
       click_on "Pay"
+      save_and_open_page
       page.should have_content("Address is invalid")
     end
   end
