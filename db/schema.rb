@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20120425014203) do
   create_table "categories", :force => true do |t|
     t.integer  "product_category_id"
     t.string   "name"
+    t.integer  "store_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120425014203) do
     t.integer  "user_id"
     t.string   "status"
     t.integer  "address_id"
+    t.integer  "store_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "email"
@@ -75,8 +77,17 @@ ActiveRecord::Schema.define(:version => 20120425014203) do
     t.integer  "price"
     t.string   "photo"
     t.boolean  "retired",     :default => false
+    t.integer  "store_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "stores", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.string   "permalink"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

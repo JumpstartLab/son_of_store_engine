@@ -5,6 +5,7 @@
 #  id                  :integer         not null, primary key
 #  product_category_id :integer
 #  name                :string(255)
+#  store_id            :integer
 #  created_at          :datetime        not null
 #  updated_at          :datetime        not null
 #

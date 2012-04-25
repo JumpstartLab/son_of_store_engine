@@ -1,10 +1,10 @@
 # Shows all active products in a store
 class ProductsController < ApplicationController
   def index
-    @products = Product.find_all_by_retired(false)
+    @products = @store.active_products
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = @store.products.find(params[:id])
   end
 end

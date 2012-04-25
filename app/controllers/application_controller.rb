@@ -1,11 +1,33 @@
 # You should have a very good reason to add code to this file
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :create_cart
+  before_filter :create_cart, :find_store
 
   def create_cart
     unless session[:cart_id]
       session[:cart_id] = Cart.create.id
     end
   end
+
+  def find_store
+    @store = Store.find_by_param(params[:store])
+    if @store
+      session[:return_to_store] = request.fullpath
+    end
+  end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
+  def after_sign_in_path_for(resource)
+    if resource.is_a? User
+      session[:return_to_store]
+    end
+  end
+
+  def after_sign_out_path_for(resource)
+    session[:return_to_store] if resource == :user
+  end
+
 end

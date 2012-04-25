@@ -8,6 +8,7 @@
 #  price       :integer
 #  photo       :string(255)
 #  retired     :boolean         default(FALSE)
+#  store_id    :integer
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
 #

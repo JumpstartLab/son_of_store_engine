@@ -1,16 +1,17 @@
 # == Schema Information
 #
-# Table name: orders
+# Table name: stores
 #
 #  id         :integer         not null, primary key
+#  name       :string(255)
 #  user_id    :integer
-#  status     :string(255)
-#  address_id :integer
-#  store_id   :integer
+#  permalink  :string(255)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
-#  email      :string(255)
-#  url        :string(255)
 #
 
-Fabricator(:cart)
+require 'spec_helper'
+
+describe Store do
+  pending "add some examples to (or delete) #{__FILE__}"
+end

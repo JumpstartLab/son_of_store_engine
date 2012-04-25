@@ -8,6 +8,6 @@ table.products id="products" class="span12"
           td 
             img src="#{product.photo}" height="100px" width="100px"
         tr 
-          td = link_to product.title, product_path(product)
+          td = link_to product.title, product_path(@store, product)
         tr
           td = number_to_currency(product.price)

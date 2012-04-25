@@ -81,6 +81,9 @@ GEM
     faker (1.0.1)
       i18n (~> 0.4)
     ffi (1.0.11)
+    find_by_param (0.2.1)
+      activerecord
+      activesupport
     growl (1.0.3)
     guard (1.0.1)
       ffi (>= 0.5.0)
@@ -237,6 +240,7 @@ DEPENDENCIES
   devise
   fabrication
   faker
+  find_by_param
   growl
   guard
   guard-rspec

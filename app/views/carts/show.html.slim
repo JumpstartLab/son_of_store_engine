@@ -8,7 +8,7 @@ div.cart id="cart"
       th#cart Quantity
       th#cart Subtotal
       th#cart Actions
-    = form_for(@cart) do |f|
+    = form_for(@cart, url: cart_path(@store)) do |f|
       - @cart.items.each do |item|
         tr#cart
           td.title = item.title
@@ -27,4 +27,4 @@ div.cart id="cart"
         td#total = @cart.total
       = f.submit "Update Cart"
 
-= link_to "Checkout", checkout_prompt_path
+= link_to "Checkout", checkout_prompt_path(@store)

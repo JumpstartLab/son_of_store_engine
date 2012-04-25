@@ -16,7 +16,8 @@ class CartsController < ApplicationController
     else
       @cart.add_product_by_id(params[:product_id])
     end
-    redirect_to cart_path
+    
+    redirect_to cart_path(@store)
   end
 
   def find_cart_from_session
@@ -24,7 +25,7 @@ class CartsController < ApplicationController
   end
 
   def checkout
-    order = Order.create_from_cart(@cart)
+    order = Order.create_from_cart(@cart, @store)
     order.update_attributes(:user_id => current_user.id) if current_user
     redirect_to edit_order_path(order)
   end

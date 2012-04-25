@@ -2,11 +2,11 @@
 class CategoriesController < ApplicationController
   def show
     id = params[:id]
-    @category = Category.find(id)
-    @products = ProductCategory.find_all_by_category_id(id).map(&:product)
+    @category = @store.categories.find(id)
+    @products = @category.products
   end
 
   def index
-    @categories = Category.all.sort_by { |category| category.name}
+    @categories = @store.categories.sort_by { |category| category.name}
   end
 end

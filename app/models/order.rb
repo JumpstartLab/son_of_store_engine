@@ -6,6 +6,7 @@
 #  user_id    :integer
 #  status     :string(255)
 #  address_id :integer
+#  store_id   :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  email      :string(255)
@@ -26,6 +27,7 @@ class Order < ActiveRecord::Base
   belongs_to :address
   has_one :cart
   belongs_to :user
+  belongs_to :store
 
   accepts_nested_attributes_for :order_items
 
@@ -43,8 +45,8 @@ class Order < ActiveRecord::Base
     Order.all.map(&:status).uniq
   end
 
-  def self.create_from_cart(cart)
-    order = Order.create(:status => "pending")
+  def self.create_from_cart(cart, store)
+    order = store.orders.create(:status => "pending")
     cart.products.each { |product| order.add_product(product) }
     order.save
     order
@@ -59,7 +61,7 @@ class Order < ActiveRecord::Base
   end
 
   def increment_quantity_for(product)
-    oi = OrderItem.find_by_product_id(product.id)
+    oi = OrderItem.where(:order_id => id).find_by_product_id(product.id)
     oi.update_attribute(:quantity, oi.quantity + 1)
   end
 
@@ -68,12 +70,12 @@ class Order < ActiveRecord::Base
   end
 
   def subtotal(product)
-    oi = OrderItem.find_by_product_id(product.id)
+    oi = OrderItem.where(:order_id => id).find_by_product_id(product.id)
     (oi.quantity * oi.product.price).round(2)
   end
 
   def quantity_for(product)
-    oi = OrderItem.find_by_product_id(product.id)
+    oi = OrderItem.where(:order_id => id).find_by_product_id(product.id)
     oi.quantity
   end
 

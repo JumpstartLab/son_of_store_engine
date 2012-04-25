@@ -8,6 +8,7 @@
 #  price       :integer
 #  photo       :string(255)
 #  retired     :boolean         default(FALSE)
+#  store_id    :integer
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
 #
@@ -18,6 +19,7 @@ class Product < ActiveRecord::Base
   has_many :order_items
   has_many :orders, :through => :order_items
   has_many :product_categories
+  belongs_to :store
   has_many :categories, :through => :product_categories
   validates :title, :uniqueness => true,
             :presence => true
@@ -29,6 +31,18 @@ class Product < ActiveRecord::Base
               :with => URI::regexp(%w(http https)),
               :message => "must be URL"
             }
+
+  def self.retired
+    where(:retired => true)
+  end
+
+  def self.active
+    where(:retired => false)
+  end
+
+  def self.by_store(store)
+    where(:store_id => store.id)
+  end
 
   def add_category(category)
     categories << category

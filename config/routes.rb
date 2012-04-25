@@ -1,18 +1,8 @@
 StoreEngine::Application.routes.draw do
   devise_for :users
 
-  get "signup" => "users#new", :as => "signup"
   get "checkout_prompt" => "carts#prompt", :as => "checkout_prompt"
-  get "checkout" => "carts#checkout", :as => "checkout"
-  get "billing" => "users#billing", :as => "billing"
-  post "billing" => "users#finalize_order", :as => "billing"
   get "add_category_to_product" => "admin/categories#add_product", :as => "add_category_to_product"
-
-  resource :cart, :only => [:show, :update]
-  resources :orders
-  resource :cart_item, :only => [:destroy]
-  resources :products
-  resources :categories
 
   namespace :admin do
     resources :orders
@@ -24,5 +14,18 @@ StoreEngine::Application.routes.draw do
     put "product_retire" => "products#retire_product", :as => "product_retire"
   end
 
-  root :to => "products#index"
+  scope ":store" do
+    get '/' => "stores#show"
+    get "checkout" => "carts#checkout", :as => "checkout"
+    get "billing" => "users#billing", :as => "billing"
+    post "billing" => "users#finalize_order", :as => "billing"
+
+    resources :products
+    resources :categories
+    resources :orders
+    resource :cart, :only => [:show, :update]
+    resource :cart_item, :only => [:destroy]
+  end 
+
+  root :to => "stores#index"
 end
