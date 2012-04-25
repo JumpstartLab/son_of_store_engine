@@ -10,36 +10,13 @@
       .nav-collapse
         ul.nav.nav-pills
           li#menu1.dropdown
-            a.dropdown-toggle data-toggle="dropdown" href="#menu1"
-              | Categories
-              b.caret
-            ul.dropdown-menu
-              / - get_categories.each do |category|
-              /   li
-              /     = link_to category.name, category_(:domain, category)
-              / li
-              /   = link_to "All Categories", categories_path(:domain)
-          - if session[:order_id]
-            - cart = Order.find(session[:order_id])
-            li= link_to "Cart (#{cart.total_items})", order_path(:domain, cart), id: "cart", name: "cart"
           - if logged_in?
-            - if current_user.has_order?
-              | Orders
-              / li = link_to "Orders", orders_path(:domain)
             li= link_to "My Account", user_url(current_user)
             li= link_to "Logout", logout_path, :method => :delete
             - if admin?
-              li#admin_nav.dropdown
-                a.dropdown-toggle data-toggle="dropdown" href="#admin_nav"
-                  | Admin Dashboards
-                  b.caret
-                ul.dropdown-menu
-                  / li
-                  /   = link_to "Products", admin_products_path, id: "admin_nav_products"
-                  / li
-                  /   = link_to "Orders", admin_orders_path, id: "admin_nav_orders"
-                  / li
-                  /   = link_to "Categories", admin_categories_path, id: "admin_nav_categories"
+              li#admin_nav
+                li= link_to "Admin Dashboard", admin_stores_path
+
           - else
             li= link_to "Sign-In", login_page_path
             li= link_to "Sign-Up", new_user_path

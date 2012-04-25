@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe "logged in user" do
   let(:user) { Fabricate(:user) }
+  let!(:store) { Fabricate(:store) }
   before(:each) do
-    visit "/"
+    visit products_path(store)
     click_link_or_button "Sign-In"
     login({email: user.email_address, password: user.password})
   end
@@ -55,7 +56,7 @@ describe "logged in user" do
     end
     it "displays user information properly" do
       within "#main-content" do
-        ["Change Profile", user.display_name, "Orders"].each do |good|
+        ["Change Profile", user.display_name].each do |good|
           page.should have_content good
         end
       end
