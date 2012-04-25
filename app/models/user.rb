@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   end
 
   def verify_user(input)
-    raise input.inspect
     add_email(input[:email])
     update_address(input)
   end

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   set_current_tenant_through_filter
   before_filter :find_store, :find_cart, :stripe_api_key
-  #before_filter :verify_user
+  before_filter :verify_user
   
   def require_admin
     if current_user && !current_user.admin?

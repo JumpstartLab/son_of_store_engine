@@ -1,6 +1,7 @@
 # Allows restful actions for orders + charging orders
 class OrdersController < ApplicationController
-  # before_filter :require_login, :except => [:track]
+  before_filter :require_guest_login, :only => [:new]  
+  before_filter :require_login, :except => [:track, :charge, :new]
   before_filter :is_owner_or_admin, :only => [:show]
 
   def show
@@ -12,38 +13,19 @@ class OrdersController < ApplicationController
   end
 
   def charge
-    order = @cart.create_order
-    if current_user
-      charge_user(order)
+    @order = @cart.create_order
+    if @order.verify_user_and_charge(params[:order])
+      clear_cart_from_session
+      redirect_to track_orders_path(:id => @order.unique_url), 
+        :notice => "I HAVE ALL YOUR MONEY!"
     else
-      charge_guest(order)
+      flash[:alert] = "Address is invalid"
+      render 'new'
     end
   end
 
-  def charge_user(order)
-    @order = order
-    if @order.verify_user_and_charge(params[:order])
-      clear_cart_from_session
-      redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
-    else
-      flash[:alert] = "Address is invalid"
-      render 'new'
-    end      
-  end
-
-  def charge_guest(order)
-    @order = order
-    if @order.verify_user_and_charge(params[:order][:user_attributes])
-      clear_cart_from_session
-      redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
-    else
-      flash[:alert] = "Address is invalid"
-      render 'new'
-    end      
-  end
-
   def track
-    @order = Order.find_by_unique_url(params[:format])
+    @order = Order.find_by_unique_url(params[:id])
     if @order
       render 'show'
     else
@@ -66,10 +48,13 @@ class OrdersController < ApplicationController
     @orders = orders - current_user.orders.where(:status_id => status.id)
   end
 
+private
+
   def is_owner_or_admin
     @order = Order.find_by_id(params[:id])
     if not current_user.admin? and @order.user != current_user
       redirect_to root_url, :notice => 'That is not your order'
     end
   end
+
 end

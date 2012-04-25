@@ -136,4 +136,8 @@ class Order < ActiveRecord::Base
     self.shipped_at = DateTime.now
   end
 
+  def guest?
+    user.guest == true
+  end
+
 end
