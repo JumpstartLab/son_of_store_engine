@@ -1,7 +1,7 @@
 # Order placed on the system by a user
 class Order < ActiveRecord::Base
   attr_accessible :status, :status_id, :user, :products, :stripe_card_token,
-                  :is_cart, :order_products_attributes
+                  :is_cart, :order_products_attributes, :store
 
   default_scope :conditions => { :is_cart => 0 }
 

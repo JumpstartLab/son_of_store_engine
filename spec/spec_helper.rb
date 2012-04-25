@@ -20,17 +20,11 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'capybara/rails'
-  require 'support/doubles/address_checker.rb'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
-  RSpec.configure do |config|  
-
-    config.before(:each) do 
-      BillingProcessor.stub(:charge).and_return(true)
-    end
+  RSpec.configure do |config|
 
     # ## Mock Framework
     #

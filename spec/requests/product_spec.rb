@@ -1,7 +1,13 @@
 require 'spec_helper'
 
-describe "Product" do 
-  let(:product) { FactoryGirl.create(:product)}
+describe "Product" do
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end
+  let(:product) { FactoryGirl.create(:product, :store => store)}
   context "Logged Out" do
     it "can't create a new product" do
       visit new_store_admin_product_path
@@ -68,10 +74,11 @@ describe "Product" do
         end        
       end
       context "Removing a product" do
-        let(:product2) { FactoryGirl.create(:product)}
+        let(:product2) { FactoryGirl.create(:product, :store => store)}
         it "Deletes a product" do
           product2
           visit store_admin_products_path
+          save_and_open_page
           within("#product_#{product2.id}") do
             click_link("X")
           end

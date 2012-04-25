@@ -1,8 +1,14 @@
 require 'spec_helper'
 
-describe "Test Category Auth" do   
+describe "Test Category Auth" do
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end
   let(:category) do
-    FactoryGirl.create(:category) 
+    FactoryGirl.create(:category, :store => store) 
   end
   context "Logged Out" do
     it "Browse by category" do
@@ -29,7 +35,7 @@ describe "Test Category Auth" do
           visit edit_store_admin_category_path(category)
           fill_in "category[name]", :with => ""
           click_on "Save Category"
-          page.should have_content("can't be blank")
+          page.should have_content("Update Failed.")
         end
       end
       context "Creating a product" do
@@ -43,12 +49,12 @@ describe "Test Category Auth" do
           visit new_store_admin_category_path
           fill_in "category[name]", :with => ""
           click_on "Save Category"
-          page.should have_content "can't be blank"
+          page.should have_content "Create failed."
         end
       end
       context "DESTROY" do
-        let!(:category2) { FactoryGirl.create(:category) }
-        it "Can destroy" do
+        let!(:category2) { FactoryGirl.create(:category, :store => store) }
+        it "Can destory" do
            visit store_admin_categories_path
            within("#category_#{category2.id}") do
             click_on "X"
@@ -56,7 +62,6 @@ describe "Test Category Auth" do
            page.should have_content "Category deleted."
         end
       end
-
       it "can view all categories" do
         visit store_admin_categories_path
         page.should have_content "Dashboard - Categories"
