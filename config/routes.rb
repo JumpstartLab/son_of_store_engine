@@ -19,6 +19,7 @@ StoreEngine::Application.routes.draw do
 
   resource :cart, :only => [:show, :update]
   match "/code" => redirect("http://github.com/chrismanderson/store_engine")
+  match "/profile" => "users#profile", as: "profile"
 
   root :to => 'products#index'
   # The priority is based upon order of creation:

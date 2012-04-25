@@ -1,5 +1,5 @@
 class Store < ActiveRecord::Base
-  attr_accessible :name, :slug, :owner_id
+  attr_accessible :name, :slug, :owner_id, :description
 
   has_many :products
   has_many :privileges
@@ -9,6 +9,7 @@ class Store < ActiveRecord::Base
   validates_presence_of :owner_id
   validates_uniqueness_of :name
   validates_uniqueness_of :slug
+
 
   def set_privilege(user, level)
     privileges.where(user_id: user.id).destroy_all

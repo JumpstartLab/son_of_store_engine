@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
 
-  before_filter :authorize, :only => [:edit, :update, :delete, :show]
+  before_filter :authorize, :only => [:edit, :update, :delete, :show, :profile]
   before_filter :edit_self, :only => [:edit, :update]
 
   def show
     @user = User.find_by_id(params[:id])
     @addresses = @user.addresses
+  end
+
+  def profile
+    @user = current_user
   end
 
   def new

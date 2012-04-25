@@ -18,4 +18,9 @@ class User < ActiveRecord::Base
                       :minimum => 2,
                       :maximum => 32,
                       :allow_blank => true
+
+                      
+  def stores
+    Store.where(owner_id: id)
+  end
 end
