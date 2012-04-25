@@ -23,7 +23,7 @@ StoreEngine::Application.routes.draw do
   resources :products, :only => [:show, :index] do
     resources :product_ratings, :only => [:create, :edit, :update]
   end
-  
+
   resources :orders, :only => [:show, :new] do
     collection do
       put 'charge'
@@ -38,7 +38,7 @@ StoreEngine::Application.routes.draw do
       put :two_click
     end
   end
-  
+
   root :to => "products#index"
 
   # The priority is based upon order of creation:
