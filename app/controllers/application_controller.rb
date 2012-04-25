@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   set_current_tenant_through_filter
-  before_filter :find_store, :find_cart, :verify_user, :stripe_api_key
+  before_filter :find_store, :find_cart, :stripe_api_key
+  before_filter :verify_user
   
   def require_admin
     if current_user && !current_user.admin?

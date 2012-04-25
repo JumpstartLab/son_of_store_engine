@@ -15,8 +15,8 @@ class SessionsController < ApplicationController
       flash[:error] = "You have entered an incorrect username or password"
       render 'new'
     else
-        session[:cart_id] = cart_id
-       redirect_back_or_to(root_path, :notice => 'Login successful.')
+      session[:cart_id] = cart_id
+      redirect_back_or_to(root_path, :notice => 'Login successful.')
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425142347) do
+ActiveRecord::Schema.define(:version => 20120425145318) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -147,8 +147,9 @@ ActiveRecord::Schema.define(:version => 20120425142347) do
     t.integer  "active",           :default => 1
     t.string   "stripe_id"
     t.string   "phone_number"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "guest",            :default => false
   end
 
 end

@@ -3,6 +3,7 @@ class Address < ActiveRecord::Base
   attr_accessible :street, :zipcode
   before_validation :check_address
   belongs_to :user
+  belongs_to :order
 
   validates_presence_of :state
 

@@ -9,8 +9,9 @@
     %td.span3 Created
     %td= @order.created_at.to_formatted_s(:long_ordinal)
   %tr
-    %td Purchaser Name
-    %td= @order.user.name
+    - unless @order.user.guest?
+      %td Purchaser Name
+      %td= @order.user.name
   %tr
     %td Email
     %td= @order.user.email
