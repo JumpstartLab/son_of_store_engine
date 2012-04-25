@@ -1,5 +1,5 @@
 class OrderMailer < ActionMailer::Base
-  default from: "hungry.store.engine@gmail.com"
+  default from: "thanksforyourmoney@daughterofstoreengine.com"
 
   def order_confirmation_email(order)
     @order = order
