@@ -1,0 +1,6 @@
+= simple_form_for [:admin, @store] do |f|
+  %legend= legend_title
+  = f.input :name
+  = f.input :active
+  = f.input :enabled  
+  = f.submit :class => 'btn btn-primary controls'      

@@ -5,10 +5,11 @@ StoreEngine::Application.routes.draw do
   resources :sessions, :pages
   resources :users, :exclude => [:index]
 
-  namespace "store_admin" do
+  namespace "admin" do
     get "dashboard" => "dashboard#index"
     resources :categories, :products, :sales, :exclude => [:show]
     resources :users, :only => [:index, :destroy]
+    resources :stores
     resources :orders,:exclude => [:show] do
       member do
         get 'status'

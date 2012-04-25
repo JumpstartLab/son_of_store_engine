@@ -1,0 +1,24 @@
+%h1 Listing stores
+
+%table
+  %tr
+    %th Name
+    %th Description    
+    %th Active
+    %th Enabled
+    %th
+    %th
+
+  - @stores.each do |store|
+    %tr
+      %td= store.name
+      %td= store.description
+      %td= store.active
+      %td= store.enabled
+      %td= link_to 'Show', admin_store_path(store)
+      %td= link_to 'Edit', edit_admin_store_path(store)
+      %td= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Store', new_admin_store_path

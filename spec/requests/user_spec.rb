@@ -69,7 +69,7 @@ describe "User" do
   context "Admin User Modifications" do
     before(:each) do
       login(user)
-      visit store_admin_users_path
+      visit admin_users_path
     end
     it "lists all the users" do
       page.should have_content user.name

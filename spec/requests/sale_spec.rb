@@ -23,7 +23,7 @@ describe "Sale", :focus => true do
   end
   context "An admin can create a sale" do
     before(:each) do
-      visit new_store_admin_sale_path
+      visit new_admin_sale_path
     end
     it "Passes" do
       fill_in "sale[percent_off]", :with => 30
@@ -39,7 +39,7 @@ describe "Sale", :focus => true do
   end
   context "An admin can modify a sale" do
     before(:each) do
-      visit edit_store_admin_sale_path(sale)
+      visit edit_admin_sale_path(sale)
     end
     it "Passes" do
       fill_in "sale[percent_off]", :with => 30
@@ -50,7 +50,7 @@ describe "Sale", :focus => true do
   end
   context "Can delete a sale" do
     it "deletes a sale" do
-      visit store_admin_sales_path
+      visit admin_sales_path
       within("#sale_#{sale.id}") do
         click_on "X"
       end

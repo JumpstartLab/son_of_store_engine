@@ -22,7 +22,7 @@ module NavHelper
     {
       "Home" => root_path,
       "Sales" => sales_path,
-      "Dashboard" => store_admin_dashboard_path,
+      "Dashboard" => admin_dashboard_path,
       "My Orders" => my_orders_orders_path,
       "Logout" => logout_path
     }
@@ -45,13 +45,13 @@ module NavHelper
     }
   end
 
-  def store_admin_navigation
+  def admin_navigation
     {
-      "Products"    => store_admin_products_path,
-      "Orders"      => store_admin_orders_path,
-      "Categories"  => store_admin_categories_path,
-      "Users"       => store_admin_users_path,
-      "Sales"       => store_admin_sales_path
+      "Products"    => admin_products_path,
+      "Orders"      => admin_orders_path,
+      "Categories"  => admin_categories_path,
+      "Users"       => admin_users_path,
+      "Sales"       => admin_sales_path
     }
   end
 end

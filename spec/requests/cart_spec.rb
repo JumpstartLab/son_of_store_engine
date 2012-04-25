@@ -4,7 +4,7 @@ require 'Capybara'
 describe "Cart" do
   let(:store) do
     FactoryGirl.create(:store)
-  end  
+  end
   before(:each) do
     Capybara.app_host = "http://#{store.id}.son.test"
   end

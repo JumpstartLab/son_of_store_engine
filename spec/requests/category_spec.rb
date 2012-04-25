@@ -26,13 +26,13 @@ describe "Test Category Auth" do
       end
       context "Modify Products" do
         it "validation passed" do
-          visit edit_store_admin_category_path(category)
+          visit edit_admin_category_path(category)
           fill_in "category[name]", :with => "foooooo"
           click_on "Save Category"
           page.should have_content("Category updated.")
         end
         it "validation failed" do
-          visit edit_store_admin_category_path(category)
+          visit edit_admin_category_path(category)
           fill_in "category[name]", :with => ""
           click_on "Save Category"
           page.should have_content("Namecan't be blank")
@@ -40,13 +40,13 @@ describe "Test Category Auth" do
       end
       context "Creating a product" do
         it "validation passed" do
-          visit new_store_admin_category_path
+          visit new_admin_category_path
           fill_in "category[name]", :with => "Woo"
           click_on "Save Category"
           page.should have_content("Category created.")    
         end
         it "validation failed" do
-          visit new_store_admin_category_path
+          visit new_admin_category_path
           fill_in "category[name]", :with => ""
           click_on "Save Category"
           page.should have_content "Namecan't be blank"
@@ -55,7 +55,7 @@ describe "Test Category Auth" do
       context "DESTROY" do
         let!(:category2) { FactoryGirl.create(:category, :store => store) }
         it "Can destory" do
-           visit store_admin_categories_path
+           visit admin_categories_path
            within("#category_#{category2.id}") do
             click_on "X"
            end
@@ -63,7 +63,7 @@ describe "Test Category Auth" do
         end
       end
       it "can view all categories" do
-        visit store_admin_categories_path
+        visit admin_categories_path
         page.should have_content "Dashboard - Categories"
       end
     end
