@@ -4,9 +4,9 @@
       <%= link_to "mittenberry", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Products", products_path %></li>
+          <li><%= link_to "Products", products_path(store_slug) %></li>
           <li id="cart-menu">
-            <%= link_to cart_path do %>
+            <%= link_to cart_path(store_slug) do %>
             <i class='icon-shopping-cart icon-white'></i>&nbsp;&nbsp;<%= "Cart (#{get_cart_count})" %>
             <% end %>
           </li>

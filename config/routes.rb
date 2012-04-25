@@ -2,8 +2,10 @@ StoreEngine::Application.routes.draw do
 
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
 
-  scope ':store_path' do
-    resources :users, only: [:show, :create, :new, :update]
+  resources :users, only: [:show, :create, :new, :update]
+
+  scope ':store_slug' do
+    match '/', :to => 'products#index', :as => :store
 
     resource  :cart, only: [:show, :update]
     resources :sessions
@@ -33,11 +35,10 @@ StoreEngine::Application.routes.draw do
     match '/signup',  :to => 'users#new'
     match '/signin',  :to => 'sessions#new'
     match '/signout', :to => 'sessions#destroy'
-    resources :products
   end
 
   # root :to => "static_pages#home"
-  root :to => "products#index"
+  root :to => "stores#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

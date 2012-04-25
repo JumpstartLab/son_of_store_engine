@@ -1,12 +1,12 @@
 class ProductsController < ApplicationController
 
   def index
-    @products = Product.active.all
-    @categories = Category.all
+    @products = current_store.products.active
+    @categories = current_store.categories
   end
 
   def show
-    @product = Product.find_by_id(params[:id])
+    @product = current_store.products.find_by_id(params[:id])
     @categories = @product.categories
   end
 end

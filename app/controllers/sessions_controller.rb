@@ -24,7 +24,7 @@ private
     if new_cart.has_products?
       user.cart = new_cart
     else
-      destroy new_cart
+      new_cart.destroy
     end
     redirect_to_last_page("Logged in!")
   end

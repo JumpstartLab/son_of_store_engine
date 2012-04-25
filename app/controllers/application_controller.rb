@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_store
   def current_store
-    @current_store ||= Store.where(path: params[:store_path]).first
+    @current_store ||= Store.where(slug: params[:store_slug]).first
   end
 
   def get_last_page
@@ -20,14 +20,14 @@ class ApplicationController < ActionController::Base
     @cart ||= find_or_create_cart
   end
 
-  def redirect_to_last_page(message=nil)
-    last_page = params[:last_page] || session[:last_page]
-    if last_page
-      redirect_to(last_page, :notice => message)
-    else
-      redirect_to(root_path, :notice => message)
-    end
-  end
+  # def redirect_to_last_page(message=nil)
+  #   last_page = params[:last_page] || session[:last_page]
+  #   if last_page
+  #     redirect_to(last_page, :notice => message)
+  #   else
+  #     redirect_to(root_path, :notice => message)
+  #   end
+  # end
 
   def redirect_to_login(message=nil)
     redirect_to signin_path

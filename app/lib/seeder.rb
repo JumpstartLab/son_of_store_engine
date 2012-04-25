@@ -1,5 +1,6 @@
 class Seeder
   def self.build_db
+    build_stores
     build_users
     build_shipping_detail
     build_categories
@@ -15,15 +16,23 @@ class Seeder
     rand(max)+1
   end
 
+  def self.build_stores
+    Store.create(:name => "Mittenberry", :slug => "mittenberry")
+    Store.create(:name => "Crackberry", :slug => "crackberry")
+    Store.create(:name => "Blackberry", :slug => "blackberry")
+  end
+
   def self.build_shipping_detail
     User.all.each do |user|
       Seeder.at_least_one(2).times do
-        user.shipping_details.create( :ship_to_name => user.name,
+        shipping_detail = user.shipping_details.create( :ship_to_name => user.name,
           :ship_to_address_1 => Faker::Address.street_address,
           :ship_to_address_2 => Faker::Address.secondary_address,
           :ship_to_city => Faker::Address.city,
           :ship_to_state => Faker::Address.state, :ship_to_country => "USA",
           :ship_to_zip => Faker::Address.zip_code )
+        shipping_detail.store = Store.first(:offset => rand( Store.count ))
+        shipping_detail.save
       end
     end
   end
@@ -40,6 +49,7 @@ class Seeder
   def self.generate_order
     order = Order.new
     order.user = User.first(:offset => rand( User.count ))
+    order.store = Store.first(:offset => rand( Store.count ))
     Seeder.generate_order_products(order)
     order.save
     Seeder.generate_shipping_details(order)
@@ -68,6 +78,8 @@ class Seeder
       (rand(3) + 1).times do
         offset = rand(Category.count)
         product.add_category(Category.first(:offset => offset))
+        product.store = Store.first(:offset => rand( Store.count ))
+        product.save
       end
     end
   end
@@ -75,11 +87,13 @@ class Seeder
   def self.build_categories
     # should be:
     # [h,s,m].each do ...
-    Category.create( name: 'Hats' )
-    Category.create( name: 'Scarves' )
-    Category.create( name: 'Mittens' )
-    Category.create( name: 'Boots' )
-    Category.create( name: 'Coats' )
+    Store.all.each do |store|
+      store.categories.create( name: 'Category 1' )
+      store.categories.create( name: 'Category 2' )
+      store.categories.create( name: 'Category 3' )
+      store.categories.create( name: 'Category 4' )
+      store.categories.create( name: 'Category 5' )
+    end
   end
 
   def self.build_users

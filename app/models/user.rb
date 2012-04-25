@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   def cart=(new_cart)
     cart.destroy if cart #if user has cart, destroy
-    super(new_cart)
+    write_attribute(:cart, new_cart)
   end
 
 end
