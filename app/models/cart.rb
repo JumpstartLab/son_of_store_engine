@@ -21,7 +21,7 @@ class Cart < ActiveRecord::Base
   end
 
   def empty?
-    not   cart_products.any?
+    not cart_products.any?
   end
 
   def product_if_product_id_exists(id)
