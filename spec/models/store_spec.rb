@@ -1,6 +1,27 @@
 require 'spec_helper'
 
 describe Store do
+
+  context "changing a store status" do
+    let!(:store) { FactoryGirl.create(:store) }
+    before { ActionMailer::Base.deliveries = [] }
+
+    it "notifies the store owner via email when the store is approved" do
+      store.approve!
+      ActionMailer::Base.deliveries.first.subject.include?("approved").should be_true
+      ActionMailer::Base.deliveries.first.body.include?("making some moolah").should be_true
+    end
+
+    it "notifies the store owner via email when the store is declined" do
+      store.decline!  
+      ActionMailer::Base.deliveries.first.subject.include?("declined").should be_true
+      ActionMailer::Base.deliveries.first.body.include?("better idea").should be_true
+    end
+
+
+  end
+
+
   context "starting up a new store" do
     let!(:user) { FactoryGirl.create(:user) }
     it "does not allow a store to be created without an owner" do

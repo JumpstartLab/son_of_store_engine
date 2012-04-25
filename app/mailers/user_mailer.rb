@@ -14,4 +14,18 @@ class UserMailer < ActionMailer::Base
       :subject => "Your ShoeEngine Order #{order.id}
       is now #{order.current_status}" )
   end
+
+  def declined_store_notice(store)
+    @user = store.owner
+    @store = store
+    mail(:to => @user.email,
+      :subject => "Your Store Proposal for #{store.name} has been declined" )
+  end
+
+  def approved_store_notice(store)
+    @user = store.owner
+    @store = store
+    mail(:to => @user.email,
+      :subject => "Your Store Proposal for #{store.name} has been approved" )
+  end
 end

@@ -7,7 +7,7 @@ class Admin::StoresController < ApplicationController
   end
 
   def approve
-    @store.enable!
+    @store.approve!
     redirect_to admin_stores_path, notice: "Approved"
   end
 

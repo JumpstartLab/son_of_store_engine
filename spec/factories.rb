@@ -56,6 +56,10 @@ FactoryGirl.define do
   factory :store do
     name "Top Funky"
     slug "top_funky"
-    owner_id 1 #FactoryGirl.create(:user).id
+    owner_id 1
+    after_create do |store|
+      user = FactoryGirl.create(:user)
+      store.update_attribute(:owner_id, user.id)
+    end
   end
 end
