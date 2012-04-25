@@ -1,13 +1,21 @@
 module NavHelper
 
   def main_navigation
-    if current_user && current_user.admin?
+    if request.subdomain.empty?
+      nav_array_home
+    elsif current_user && current_user.admin?
       nav_array_admin
     elsif current_user
       nav_array_user
     else
       nav_guest
     end
+  end
+
+  def nav_array_home
+    { 
+      "Welcome!" => root_path
+    }  
   end
 
   def nav_array_admin

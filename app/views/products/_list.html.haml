@@ -1,7 +1,7 @@
 %div{:id => [product.id], :class => "thumbnail"}
   .row-fluid
     .span6
-      = link_to (image_tag product.avatar.url(:medium)), product_path(product)
+      = link_to (image_tag product.avatar.url(:medium), :class => "product_img"), product_path(product)
     .span6
       %h3= link_to product.name, product_path(product)
       - if product.best_sale

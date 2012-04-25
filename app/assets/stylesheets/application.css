@@ -102,6 +102,10 @@ nav.main a:hover, nav a.active{
 .clear {
   clear:both;
 }
+.product_img{
+  max-height:100px;
+  max-width:100px;
+}
 #cart{ 
   width:100px;
   color: white;
