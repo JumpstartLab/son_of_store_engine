@@ -1,12 +1,13 @@
 #
 class Order < ActiveRecord::Base
-  attr_accessible :billing_method_id, :user_id, :status, :shipping_address_id
+  attr_accessible :billing_method_id, :user_id, :status, :shipping_address_id, :store_id
 
   validates_presence_of :status
 
   belongs_to :billing_method
   belongs_to :user
   belongs_to :shipping_address
+  belongs_to :store
   has_many :line_items
   has_many :products, through: :line_items
 

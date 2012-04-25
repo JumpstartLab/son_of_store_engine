@@ -1,10 +1,11 @@
 #
 class Product < ActiveRecord::Base
   attr_accessible :title, :description, :price, :photo_url, :category_ids,
-    :retired
+    :retired, :store_id
   has_many :product_categorizations
   has_many :categories, :through => :product_categorizations
   has_many :line_items
+  belongs_to :store
 
   validates_presence_of :title, :description, :price
   validates_format_of :title, :description, with: /\w/

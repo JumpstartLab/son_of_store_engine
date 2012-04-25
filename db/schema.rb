@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425134851) do
+ActiveRecord::Schema.define(:version => 20120425163724) do
 
   create_table "billing_methods", :force => true do |t|
     t.string   "credit_card_number"
@@ -32,7 +32,10 @@ ActiveRecord::Schema.define(:version => 20120425134851) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "store_id"
   end
+
+  add_index "categories", ["store_id"], :name => "index_categories_on_store_id"
 
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
@@ -51,7 +54,10 @@ ActiveRecord::Schema.define(:version => 20120425134851) do
     t.string   "status",              :default => "pending"
     t.integer  "shipping_address_id"
     t.string   "action_time"
+    t.integer  "store_id"
   end
+
+  add_index "orders", ["store_id"], :name => "index_orders_on_store_id"
 
   create_table "product_categorizations", :force => true do |t|
     t.integer  "product_id"
@@ -68,7 +74,12 @@ ActiveRecord::Schema.define(:version => 20120425134851) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "retired",     :default => false
+    t.integer  "store_id"
   end
+
+  add_index "products", ["price"], :name => "index_products_on_price"
+  add_index "products", ["store_id"], :name => "index_products_on_store_id"
+  add_index "products", ["title"], :name => "index_products_on_title"
 
   create_table "shipping_addresses", :force => true do |t|
     t.string   "street"
@@ -101,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20120425134851) do
     t.string   "password_digest"
     t.boolean  "admin",           :default => false
     t.boolean  "admin_view",      :default => false
+    t.integer  "orders_count",    :default => 0
   end
 
 end
