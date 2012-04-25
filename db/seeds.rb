@@ -24,6 +24,7 @@ chad = User.create(full_name: 'Chad Fowler',
 chad.update_attribute(:admin, true)
 
 store = Store.create(name: 'Test Store', domain: 'test-store')
+store.update_attribute(:enabled, true)
 
 ['Bikes', 'Shoes', 'Helmets', 'Tires', 'Accessories' ].each do |cat|
   Category.create(name: cat, store_id: store.id)
@@ -81,6 +82,7 @@ end
 ### STORE 2 ###
 
 store2 = Store.create(name: 'Test Store'.reverse, domain: 'store-test')
+store2.update_attribute(:enabled, true)
 
 ['Bikes'.reverse, 'Shoes'.reverse, 'Helmets'.reverse, 'Tires'.reverse, 'Accessories'.reverse ].each do |cat|
   Category.create(name: cat, store_id: store2.id)
