@@ -31,7 +31,11 @@ private
 
   def successful_login(cart, user)
     cart.assign_cart_to_user(user)
-    redirect_to_last_page("Welcome! Thanks for signing up!")
+    if session[:return_to_url]
+      redirect_to session[:return_to_url]
+    else
+      redirect_to products_path("Thanks for registering!")
+    end
   end
 
 end
