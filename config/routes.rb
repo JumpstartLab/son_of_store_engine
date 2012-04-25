@@ -1,6 +1,5 @@
 StoreEngine::Application.routes.draw do
 
-  resources :products
   resources :orders
   resources :users
   resources :visitor_orders
@@ -29,6 +28,8 @@ StoreEngine::Application.routes.draw do
 
   root :to => 'stores#index'
 
-  resources :stores
+  resources :stores do
+    resources :products
+  end
   
 end
