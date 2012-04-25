@@ -1,7 +1,12 @@
 # Base class that inherited by all other classes
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  set_current_tenant_by_subdomain(:store, :id)
   before_filter :find_cart, :verify_user, :stripe_api_key
+
+  def subdomain?
+    request.subdomain.present? && request.subdomain != "www"
+  end
 
   def require_admin
     if current_user && !current_user.admin?
@@ -35,16 +40,16 @@ private
 
   def find_cart_for_user
     current_user.cart = Cart.create if current_user.cart.nil?
-    merge_carts(cookies[:cart_id]) if !cookies[:cart_id].blank?
+    merge_carts(session[:cart_id]) if !session[:cart_id].blank?
     @cart = current_user.cart
   end
 
   def find_cart_for_guest
-    if cookies[:cart_id].blank?
+    if session[:cart_id].blank?
       @cart = Cart.create
-      cookies[:cart_id] = @cart.id
+      session[:cart_id] = @cart.id
     else
-      @cart = Cart.find(cookies[:cart_id])
+      @cart = Cart.find(session[:cart_id])
     end
   end
 
@@ -54,8 +59,8 @@ private
   end
 
   def destroy_cart
-    Cart.find(cookies[:cart_id]).destroy
-    cookies[:cart_id] = nil
+    Cart.find(session[:cart_id]).destroy
+    session[:cart_id] = nil
   end
 
   def verify_user

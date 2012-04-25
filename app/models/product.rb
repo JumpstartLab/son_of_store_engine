@@ -3,7 +3,7 @@ require "open-uri"
 # Product has multiple things including name, description, etc
 class Product < ActiveRecord::Base
   attr_accessible :description, :name, :price,
-                  :categories, :avatar, :category_ids, :avatar_from_url
+                  :categories, :avatar, :category_ids, :avatar_from_url, :sale
 
   validates_presence_of :name, :description, :price
   validates_numericality_of :price_in_cents, :greater_than => 0
@@ -26,6 +26,7 @@ class Product < ActiveRecord::Base
   has_many :product_ratings
   belongs_to :sale
   self.per_page = 10
+  acts_as_tenant(:store)
 
   def average_rating
     pr = product_ratings

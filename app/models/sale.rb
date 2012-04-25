@@ -6,6 +6,8 @@ class Sale < ActiveRecord::Base
   has_many :categories
   has_many :products
 
+  acts_as_tenant(:store)
+
   validates_presence_of :percent_off, :end_at
   validates_inclusion_of :percent_off, :in => 0..100
 

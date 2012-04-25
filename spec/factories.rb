@@ -13,7 +13,12 @@
   factory :cart do
     is_cart true
   end
-  
+
+  factory :store do
+    name "test"
+    active 1
+  end
+
   factory :status do
     name "shipped"
   end
@@ -22,6 +27,7 @@
     user
     status
     is_cart false
+    store
   end
 
   factory :product_rating do
@@ -39,10 +45,12 @@
     sequence(:name) { |n| "product#{n}" }
     description "yummy foo"
     price_in_cents { Random.rand * 10000 }
+    store
   end
 
   factory :category do
     sequence(:name) { |n| "category#{n}" }
+    store
   end
   factory :address do
     street "1375 Kenyon Street NW"
@@ -51,6 +59,8 @@
   end
   factory :sale do
     end_at 30.days.from_now
+    percent_off 30
+    store
   end
 
 end

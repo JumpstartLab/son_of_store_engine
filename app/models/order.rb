@@ -7,6 +7,8 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :user, :products, :status, :if => :not_a_cart
 
+  acts_as_tenant(:store)
+  
   before_create :generate_unique_url
 
   belongs_to :user

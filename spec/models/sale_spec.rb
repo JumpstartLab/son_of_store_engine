@@ -11,7 +11,7 @@ describe Sale do
   let!(:category_with_out_sale) { FactoryGirl.create(:category) }
 
   let!(:product_with_out_sale) { FactoryGirl.create(:product, :price_in_cents => 33322) }
-  let!(:product_with_expired_sale) { FactoryGirl.create(:product, :sale => sale_product_expired, :price_in_cents => 33322, :name => "EXPIRED") }
+  let!(:product_with_expired_sale) { FactoryGirl.create(:product, :sale => Sale.create(:end_at => 30.days.ago), :price_in_cents => 33322, :name => "EXPIRED") }
   let!(:product_with_sale) { FactoryGirl.create(:product, :sale => sale_product, :price_in_cents => 33322) }
   let!(:product_with_category_sale) { FactoryGirl.create(:product, :price_in_cents => 33322, :categories => [category_with_sale]) }
   let!(:product_with_out_category_sale) { FactoryGirl.create(:product, :price_in_cents => 33322, :categories => [category_with_out_sale]) }

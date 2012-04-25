@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
   end
 
   def charge_shit_steps(order)
-    cookies[:cart_id] = nil
+    session[:cart_id] = nil
     order.notify_charge
     redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
   end
