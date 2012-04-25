@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>StoreEngine</title>
+<link href="/assets/application.css" media="all" rel="stylesheet" type="text/css">
+<script src="/assets/application.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top"><div class="navbar-inner"><div class="container"><ul id="nav">
+<li class="nav" id="login">
+<a href="/signup">Sign up</a> or <a href="/login">log in</a>
+</li>
+<li class="nav">JD &amp; Co.</li>
+<li class="nav"><a href="/">Home</a></li>
+<li class="nav"><a href="/categories">Browse by Category</a></li>
+<li class="nav"><a href="/cart">View Cart</a></li>
+</ul></div></div></div>
+<h1>Dashboard</h1>
+<div id="orders_by_status"><table>
+<tr>
+<th>pending</th>
+<th>paid</th>
+<th>shipped</th>
+<th>cancelled</th>
+<th>returned</th>
+</tr>
+<tr>
+<td class="pending_total">1</td>
+<td class="paid_total">1</td>
+<td class="shipped_total">1</td>
+<td class="cancelled_total">2</td>
+<td class="returned_total">1</td>
+</tr>
+</table></div>
+<div id="orders">Show:<ul>
+<li><a href="/admin/dashboard">all</a></li>
+<li><a href="/admin/dashboard?status=pending">pending</a></li>
+<li><a href="/admin/dashboard?status=paid">paid</a></li>
+<li><a href="/admin/dashboard?status=shipped">shipped</a></li>
+<li><a href="/admin/dashboard?status=cancelled">cancelled</a></li>
+<li><a href="/admin/dashboard?status=returned">returned</a></li>
+</ul>
+<table>
+<tr>
+<td>Order ID</td>
+<td>Status</td>
+<td>Created At</td>
+</tr>
+<tr class="pending_order" id="order_573">
+<td><a href="/admin/orders/573">573</a></td>
+<td>pending</td>
+<td>2012-04-18 18:36:56 UTC</td>
+<td><a href="/admin/orders/573/edit">Edit</a></td>
+<td><a href="/admin/orders/573?order%5Bstatus%5D=cancelled" data-method="put" rel="nofollow">Cancel</a></td>
+</tr>
+<tr class="paid_order" id="order_574">
+<td><a href="/admin/orders/574">574</a></td>
+<td>paid</td>
+<td>2012-04-18 18:36:56 UTC</td>
+<td><a href="/admin/orders/574/edit">Edit</a></td>
+<td><a href="/admin/orders/574?order%5Bstatus%5D=shipped" data-method="put" rel="nofollow">Mark as Shipped</a></td>
+</tr>
+<tr class="shipped_order" id="order_575">
+<td><a href="/admin/orders/575">575</a></td>
+<td>shipped</td>
+<td>2012-04-18 18:36:56 UTC</td>
+<td><a href="/admin/orders/575/edit">Edit</a></td>
+<td><a href="/admin/orders/575?order%5Bstatus%5D=returned" data-method="put" rel="nofollow">Mark as Returned</a></td>
+</tr>
+<tr class="cancelled_order" id="order_576">
+<td><a href="/admin/orders/576">576</a></td>
+<td>cancelled</td>
+<td>2012-04-18 18:36:56 UTC</td>
+<td><a href="/admin/orders/576/edit">Edit</a></td>
+<td></td>
+</tr>
+<tr class="returned_order" id="order_577">
+<td><a href="/admin/orders/577">577</a></td>
+<td>returned</td>
+<td>2012-04-18 18:36:56 UTC</td>
+<td><a href="/admin/orders/577/edit">Edit</a></td>
+<td></td>
+</tr>
+<tr class="cancelled_order" id="order_578">
+<td><a href="/admin/orders/578">578</a></td>
+<td>cancelled</td>
+<td>2012-04-18 18:36:56 UTC</td>
+<td><a href="/admin/orders/578/edit">Edit</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>StoreEngine</title>
+<link href="/Users/jonan/Dropbox/hungry_academy/son_of_store_engine/public/assets/application.css" media="all" rel="stylesheet" type="text/css">
+<script src="/Users/jonan/Dropbox/hungry_academy/son_of_store_engine/public/assets/application.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top"><div class="navbar-inner"><div class="container"><ul id="nav">
+<li class="nav" id="right">Logged in as peter.griffin@livingsocial.com. <a href="/users/sign_out" data-method="delete" rel="nofollow">Log out</a>
+</li>
+<li class="nav brand">Konami Coders Inc.</li>
+<li class="nav"><a href="/">Home</a></li>
+<li class="nav"><a href="/orders">My Orders</a></li>
+<li class="nav"><a href="/categories">Browse by Category</a></li>
+<li class="nav"><a href="/cart">View Cart</a></li>
+</ul></div></div></div>
+<div class="navbar navbar-fixed-bottom"><div class="navbar-inner"><div class="container"><ul>
+<li class="nav" id="right_big"><a href="http://www.jibjab.com/view/VAfMsYFRakU6mXaP?mt=1" target="blank">π</a></li>
+<li class="nav" id="right">Do not click me --&gt; </li>
+</ul></div></div></div>
+<h1>Billing Information</h1>
+<form accept-charset="UTF-8" action="/billing" method="post">
+<div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+<input id="billing_order_id" name="billing[order_id]" type="hidden" value="2"><div class="field">
+<label for="credit_card_credit_card_number">Credit card number</label><input id="credit_card_credit_card_number" name="credit_card[credit_card_number]" size="30" type="text">
+</div>
+<div class="field">
+<label for="credit_card_cvc">Cvc</label><input id="credit_card_cvc" name="credit_card[cvc]" size="30" type="text">
+</div>
+<div class="field">
+<label for="credit_card_expiration_date">Expiration date</label><input id="credit_card_expiration_date" name="credit_card[expiration_date]" size="30" type="text">
+</div>
+<h4>Billing Address</h4>
+<div class="field">
+<label for="address_street">Street</label><input id="address_street" name="address[street]" size="30" type="text">
+</div>
+<div class="field">
+<label for="address_city">City</label><input id="address_city" name="address[city]" size="30" type="text">
+</div>
+<div class="field">
+<label for="address_state">State</label><input id="address_state" name="address[state]" size="30" type="text">
+</div>
+<div class="field">
+<label for="address_zipcode">Zipcode</label><input id="address_zipcode" name="address[zipcode]" size="30" type="text">
+</div>
+<h4>Shipping Address</h4>
+<div class="field">
+<label for="shipping_address_street">Street</label><input id="shipping_address_street" name="shipping_address[street]" size="30" type="text">
+</div>
+<div class="field">
+<label for="shipping_address_city">City</label><input id="shipping_address_city" name="shipping_address[city]" size="30" type="text">
+</div>
+<div class="field">
+<label for="shipping_address_state">State</label><input id="shipping_address_state" name="shipping_address[state]" size="30" type="text">
+</div>
+<div class="field">
+<label for="shipping_address_zipcode">Zipcode</label><input id="shipping_address_zipcode" name="shipping_address[zipcode]" size="30" type="text">
+</div>
+<div class="action"><input name="commit" type="submit" value="Submit"></div>
+</form>
+</body>
+</html>
