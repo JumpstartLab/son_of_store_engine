@@ -3,8 +3,8 @@ module RequestHelpers
     def add_billing(params)
       select(params[:card_type], from: "Card type")
       fill_in 'Credit card number', :with => params[:credit_card_number]
-      fill_in "Month", with: params[:month]
-      fill_in "Year", with: params[:year]
+      select(params[:month], from: "Month")
+      select(params[:year], from: "Year")
       fill_in 'Street', :with => params[:street]
       fill_in 'City', :with => params[:city]
       select(params[:state], from: "billing_method_state")
@@ -15,8 +15,8 @@ module RequestHelpers
     def add_non_user_billing(params)
       select(params[:card_type], from: "Card type")
       fill_in 'Credit card number', :with => params[:credit_card_number]
-      fill_in "Month", with: params[:month]
-      fill_in "Year", with: params[:year]
+      select(params[:month], from: "Month")
+      select(params[:year], from: "Year")
       fill_in 'Street', :with => params[:street]
       fill_in 'City', :with => params[:city]
       select(params[:state], from: "billing_method_state")
