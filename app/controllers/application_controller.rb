@@ -45,7 +45,6 @@ private
   end
 
   def get_cart_from_user
-    # raise Cart.find_by_user_id(current_user.id).inspect
     cart = current_user.cart || Cart.create!
     session[:cart_id] = cart.id
     current_user.cart = cart

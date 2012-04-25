@@ -11,19 +11,55 @@ describe "When I want to place an order" do
         visit product_path(product)
         click_link_or_button("Add to cart")
       end
-
-      it "prompts me to sign in before checking out" do
-        click_link_or_button("Checkout")
-        current_path.should == signin_path
-      end
-
-      context "and I have no previous billing info" do
-        it "takes me back to the checkout process at the add credit_card stage" do
+      context "and I try to checkout" do
+        before(:each) do
           click_link_or_button("Checkout")
-          fill_in "email", with: user.email
-          fill_in "password", with: 'foobar'
-          click_link_or_button('Log in')
-          current_path.should == new_credit_card_path
+        end
+
+        it "takes me to the sign-in page" do
+          current_path.should == signin_path
+        end
+
+        it "shows an option to register a new account" do
+          within("#sign_up") do
+            page.should have_content("Sign up!")
+          end
+        end
+
+        context "and I register as a new user" do
+          before(:each) do
+            click_link_or_button("Sign up!")
+          end
+          it "takes me to the signup page" do
+            current_path.should == signup_path
+          end
+
+          it "redirects me back to the checkout process after registering" do
+            within("#new_user") do
+              fill_in "user_email", with: 'test@test.com'
+              fill_in "user_name", with: 'testuser'
+              fill_in "user_display_name", with: 'bomb-diggity'
+              fill_in "user_password", with: 'hungry'
+              fill_in "user_password_confirmation", with: 'hungry'
+              click_link_or_button('Create Account')
+              current_path.should == new_credit_card_path
+            end
+          end
+        end
+
+        context "and I log in under an existing account" do
+          context "and I have no previous billing info" do
+            it "takes me back to the checkout process at the add credit_card stage" do
+              fill_in "email", with: user.email
+              fill_in "password", with: 'foobar'
+              click_link_or_button('Log in')
+              current_path.should == new_credit_card_path
+            end
+          end
+        end
+
+        context "and I register as a new user" do
+
         end
       end
     end
