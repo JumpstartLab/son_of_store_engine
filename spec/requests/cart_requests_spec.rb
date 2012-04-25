@@ -9,13 +9,36 @@ describe Cart do
   context "as an unauthenticated user" do
     context "when I click checkout with a product in my cart" do
       before(:each) do
-        cart.add_product(product)
-        visit cart_path
+        visit product_path(product)
+        click_link 'Add to Cart'
+        click_link "Checkout"
       end
 
-      it "offers to let me checkout as a guest" do
-        click_link "Checkout"
-        page.should have_link("Continue as guest")
+      it "I can checkout as a guest" do
+        page.should have_link("Checkout as guest")
+      end
+
+      context "when I click checkout as guest" do
+        before(:each) do
+          click_link "Checkout as guest"
+        end
+
+        it "I'm prompted for my billing information" do
+          page.should have_content("Billing Information")
+        end
+
+        it "I'm prompted for my email address" do
+          page.should have_content("Email")
+        end
+
+        it "I see my order" do
+          click_button "Submit"
+          page.should have_content("Order placed. Thank you!")
+        end
+
+        it "I receive a confirmation email" do
+          expect { click_button "Submit" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+        end
       end
     end
   end

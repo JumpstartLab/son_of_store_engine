@@ -8,11 +8,18 @@
 #  address_id :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  email      :string(255)
+#  url        :string(255)
 #
 
 # An order is created when a user checks out with products
 class Order < ActiveRecord::Base
-  attr_accessible :user_id, :status, :order_items_attributes, :address_id
+  attr_accessible :user_id,
+                  :status,
+                  :order_items_attributes,
+                  :address_id,
+                  :email,
+                  :url
 
   has_many :order_items
   has_many :products, :through => :order_items
@@ -21,6 +28,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
 
   accepts_nested_attributes_for :order_items
+
+  before_save :generate_unique_url
 
   def self.collect_by_status
     orders_by_status = {}
@@ -75,5 +84,28 @@ class Order < ActiveRecord::Base
   def set_status(status)
     self.status = status
     save
+  end
+
+  def finalize(billing_information, user)
+    cc = billing_information[:credit_card]
+    address = billing_information[:address]
+
+    cc[:user_id] = nil
+    address[:user_id] = nil
+
+    cc[:user_id] = user.id if user
+    address[:user_id] = user.id if user
+
+    CreditCard.create(cc)
+    Address.create(address)
+
+    update_attributes(:email => billing_information[:email])
+    OrderMailer.confirmation_email(self).deliver
+
+    set_status('paid')
+  end
+
+  def generate_unique_url
+    url = Digest::MD5.hexdigest("#{id}#{rand(777)}")
   end
 end
