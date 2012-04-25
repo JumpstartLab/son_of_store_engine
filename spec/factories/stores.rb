@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :store do
-    name "MyString"
-    path "MyString"
+    name "Testberry"
+    description "My tasty tests."
+    slug "testberry"
   end
 end

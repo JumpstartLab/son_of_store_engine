@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_cart
   helper_method :current_store
+  helper_method :verify_store_status
 
   def current_store
     @current_store ||= Store.where(slug: params[:store_slug]).first
@@ -64,5 +65,12 @@ private
   def set_last_page
     session[:last_page] = request.url
   end
+
+  def verify_store_status
+    if current_store.status == "pending"
+      redirect_to stores_path, :notice => "That store is pending approval."
+    end
+  end
+
 
 end

@@ -143,8 +143,10 @@ ActiveRecord::Schema.define(:version => 20120425005235) do
   create_table "stores", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "status",      :default => "pending"
+    t.string   "description"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "stores", ["slug"], :name => "index_stores_on_path"

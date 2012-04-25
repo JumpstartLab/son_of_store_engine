@@ -3,7 +3,7 @@ StoreEngine::Application.routes.draw do
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
 
   resources :users, only: [:show, :create, :new, :update]
-
+  resources :stores, :only => [:index, :create, :new]
   scope ':store_slug' do
     match '/', :to => 'products#index', :as => :store
 
