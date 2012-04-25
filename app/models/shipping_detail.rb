@@ -1,7 +1,7 @@
 class ShippingDetail < ActiveRecord::Base
   attr_accessible :ship_to_name, :ship_to_address_1, :ship_to_address_2,
     :ship_to_city, :ship_to_state, :ship_to_country, :ship_to_zip,
-    :default_shipping_address
+    :default_shipping_address, :user_id
 
   validates_presence_of :user_id
 
@@ -15,6 +15,11 @@ class ShippingDetail < ActiveRecord::Base
     unless user.shipping_details.find_by_default_shipping_address(true)
       self.default_shipping_address = true
     end
+  end
+
+  def self.build_with_user_id(user_id)
+    shipping_detail = self.new
+    shipping_detail.tap {|sd| sd.update_attribute(:user_id, user_id) }
   end
 
 end

@@ -4,7 +4,7 @@ class OrderMailer < ActionMailer::Base
   def order_confirmation(order)
     @order = order
     @user = order.user
-    @url = "localhost:3000/#{@user.id.to_s}/orders/#{order.id.to_s}"
+    @url = "localhost:3000/orders/#{order.id.to_s}"
     @products = order.order_products
     mail(to: @user.email, subject: "Order Confirmation")
   end
