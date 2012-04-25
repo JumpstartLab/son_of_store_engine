@@ -137,7 +137,7 @@ class Order < ActiveRecord::Base
   end
 
   def guest?
-    user.guest == true
+    user.guest == true if user
   end
 
 end
