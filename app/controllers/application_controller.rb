@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_cart
-    @cart ||= get_cart_from_session || get_cart_from_user || create_new_cart
+    @cart ||= get_cart_from_session || get_cart_from_user_if_logged_in || create_new_cart
   end
 
   def cart_storage
@@ -48,7 +48,7 @@ private
     current_store.carts.where(:id => cart_id, :store_id => current_store.id).first
   end
 
-  def get_cart_from_user
+  def get_cart_from_user_if_logged_in
     if current_user
       cart = current_user.carts.where(:store_id => current_store.id).first || current_user.carts.create!(:store_id => current_store.id)
       cart_storage[current_store.id] = cart.id

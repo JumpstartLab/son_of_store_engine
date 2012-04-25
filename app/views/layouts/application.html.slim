@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Store Engine
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "https://js.stripe.com/v1", "application"
+    = csrf_meta_tags
+    = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
+  body
+    = render :partial => 'layouts/header'
+    .container
+      - flash.each do |key, value|
+        .alert.alert-#{key}
+      = yield
+      = render :partial => 'layouts/footer'
+      = debug(params) if Rails.env.development?

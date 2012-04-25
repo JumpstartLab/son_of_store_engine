@@ -1,0 +1,11 @@
+- # used in orders/show.html.erb
+  - if order_products.empty?
+    td colspan="4"
+  - else
+    - order_products.each do |order_product|
+      tr
+        td
+          = link_to order_product.product.name, order_product_path(store_slug, order_product.product)
+        td= order_product.quantity
+        td= order_product.price
+        td= order_product.subtotal
