@@ -139,6 +139,12 @@ User.create(  full_name: "Jeff",
               email: "demoXX+jeff@jumpstartlab.com",
               username: "j3" )
 
+User.create(  full_name: "Mark T",
+              password: "hungry",
+              password_confirmation: "hungry",
+              email: "mark.tabler@livingsocial.com",
+              username: "capncurry" )
+
 Address.create(  street_1: "10 Street",
                   city: "Washington",
                 state: "DC",

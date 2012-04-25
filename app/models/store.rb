@@ -10,6 +10,9 @@ class Store < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_uniqueness_of :slug
 
+  def owner
+    User.find(owner_id)
+  end
 
   def set_privilege(user, level)
     privileges.where(user_id: user.id).destroy_all
@@ -20,12 +23,34 @@ class Store < ActiveRecord::Base
     privileges.find_by_user_id(user.id)
   end
 
-  def activate!
-    update_attribute(:status, "active")
+  def enabled?
+    status == "enabled"
   end
 
-  def deactivate!
-    update_attribute(:status, "inactive")
+  def disabled?
+    status == "disabled"
+  end
+
+  def pending?
+    status == "pending"
+  end
+
+  def approve!
+    update_attribute(:status, "enabled")
+    UserMailer.approved_store_notice(self).deliver
+  end
+
+  def enable!
+    update_attribute(:status, "enabled")
+  end
+
+  def disable!
+    update_attribute(:status, "disabled")
+  end
+
+  def decline!
+    UserMailer.declined_store_notice(self).deliver
+    self.destroy
   end
 
 end
