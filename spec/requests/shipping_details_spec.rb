@@ -19,7 +19,6 @@ describe "Creating Shipping Detail" do
 
       before(:each) do
         visit new_shipping_detail_path
-        
         fill_in "shipping_detail_ship_to_name", with: "Ed"
         fill_in  "shipping_detail_ship_to_address_1", with: "1445 NH Ave"
         fill_in "shipping_detail_ship_to_city", with: "Washington"

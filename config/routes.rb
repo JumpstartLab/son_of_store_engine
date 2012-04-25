@@ -1,11 +1,15 @@
 StoreEngine::Application.routes.draw do
 
   resources :users, only: [:show, :create, :new, :update]
-
+  get "guest/new" => "guest#new", as: "new_guest"
+  post "guest" => "guest#create", as: "guest"
+  get "guest/shipping" => "guest#guest_shipping", as: "guest_shipping"
+  post "guest/payment" => "guest#guest_payment", as: "guest_payment"
+  post "guest/order" => "guest#guest_order", as: "guest_order"
   resource  :cart, only: [:show, :update]
+
   resources :sessions
   resources :cart_products, only: [:new, :update, :destroy]
-  # resource  :cart_product, only: []
   resources :products, only: [:index, :show] do
     resource :retirement, only: [:create, :update]
     resource :categories, only: :show

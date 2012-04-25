@@ -20,6 +20,10 @@ class Cart < ActiveRecord::Base
     remove_product(product)
   end
 
+  def empty?
+    not   cart_products.any?
+  end
+
   def product_if_product_id_exists(id)
     self.cart_products.find_by_product_id(id)
   end
