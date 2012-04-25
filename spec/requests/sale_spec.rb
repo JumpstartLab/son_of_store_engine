@@ -47,11 +47,6 @@ describe "Sale", :focus => true do
       click_on "Save Sale"
       page.should have_content "Sale updated."      
     end
-    it "Fails" do
-      fill_in "sale[percent_off]", :with => 332
-      click_on "Save Sale"
-      page.should have_content "is not included in the list"
-    end
   end
   context "Can delete a sale" do
     it "deletes a sale" do

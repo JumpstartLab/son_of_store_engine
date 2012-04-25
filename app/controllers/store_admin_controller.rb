@@ -1,5 +1,5 @@
 module StoreAdmin
-  class Controller < ApplicationController
+  class StoreAdminController < ActionController::Base
     protect_from_forgery
     before_filter :find_cart, :verify_user, :require_admin
 

@@ -31,4 +31,8 @@ module CartHelpers
   def verify_user
     @cart.add_user(current_user)
   end
+
+  def clear_cart_from_session
+    session[:cart_id] = nil
+  end
 end

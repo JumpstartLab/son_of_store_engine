@@ -20,7 +20,6 @@ describe "Cart" do
   it "add item to cart" do
     visit product_path(products.first)
     click_on "Add To Cart"
-    save_and_open_page
     page.should have_content(products.first.name)
   end
   context "Add & Remove Items" do

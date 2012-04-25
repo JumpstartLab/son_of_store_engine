@@ -1,7 +1,7 @@
 # Displays the dashboard
 module StoreAdmin
-  class DashboardsController < Controller
-    def show
+  class DashboardController < Controller
+    def index
     end
   end
 end
