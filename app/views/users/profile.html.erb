@@ -1,0 +1,10 @@
+<h2>Profile</h2>
+
+<%= link_to "Create A Store", new_store_path %>
+
+<h4>Stores:</h4>
+<ul>
+<% @user.stores.each do |store| %>
+  <li><%= store.name %> | <%= store.slug %> | <%= store.description %> | <%= store.status %></li>
+<% end %>
+</ul>

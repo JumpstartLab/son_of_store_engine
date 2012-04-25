@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423230717) do
+ActiveRecord::Schema.define(:version => 20120425004715) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street_1"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20120423230717) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.integer  "store_id"
   end
 
   create_table "categories", :force => true do |t|
@@ -61,6 +62,15 @@ ActiveRecord::Schema.define(:version => 20120423230717) do
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
     t.string   "status"
+    t.integer  "store_id"
+  end
+
+  create_table "privileges", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "store_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "product_categories", :force => true do |t|
@@ -78,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20120423230717) do
     t.string   "image_link"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
+    t.integer  "store_id"
   end
 
   create_table "searches", :force => true do |t|
@@ -85,6 +96,16 @@ ActiveRecord::Schema.define(:version => 20120423230717) do
     t.integer  "category_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "stores", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.integer  "owner_id"
+    t.text     "description"
+    t.string   "status",      :default => "pending"
   end
 
   create_table "users", :force => true do |t|

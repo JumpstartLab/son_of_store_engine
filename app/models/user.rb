@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_one :cart
   has_many :addresses
   has_many :orders
+  has_many :privileges
 
   attr_accessible :full_name, :email,
                   :username, :password,
@@ -17,4 +18,9 @@ class User < ActiveRecord::Base
                       :minimum => 2,
                       :maximum => 32,
                       :allow_blank => true
+
+                      
+  def stores
+    Store.where(owner_id: id)
+  end
 end
