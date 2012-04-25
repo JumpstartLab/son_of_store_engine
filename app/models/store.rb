@@ -9,7 +9,7 @@ class Store < ActiveRecord::Base
   has_many :carts
   has_many :categories
   has_many :credit_cards
-  has_many :orders
+  has_many :orders, :extend => FindByStatusExtension
   has_many :products
   has_many :shipping_details
 

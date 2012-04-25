@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
   has_many :order_products, :dependent => :destroy
   has_many :products, :through => :order_products
   has_one :order_status, :dependent => :destroy
-
+  
   has_one :order_shipping_detail
   has_one :shipping_detail, :through => :order_shipping_detail
   validates_presence_of :user_id
@@ -17,6 +17,22 @@ class Order < ActiveRecord::Base
   before_create :make_new_order_status
 
   scope :desc, order("id DESC")
+
+  class << self
+    def orders_by_status(status_filter=nil)
+      if status_filter.nil?
+        Order.all
+      else
+        Order.joins(:order_status).
+          where('order_statuses.status = ?', status_filter)
+      end
+    end
+
+    def user_by_order_id(id)
+      order = Order.find_by_id(id)
+      order.user if order
+    end
+  end
 
   def make_new_order_status
     self.build_order_status
@@ -61,19 +77,5 @@ class Order < ActiveRecord::Base
     order_products.inject(Money.new(0, "USD")) do |total, order_product|
       total + order_product.price * order_product.quantity
     end
-  end
-
-  def self.orders_by_status(status_filter=nil)
-    if status_filter.nil?
-      Order.all
-    else
-      Order.joins(:order_status).
-        where('order_statuses.status = ?', status_filter)
-    end
-  end
-
-  def self.user_by_order_id(id)
-    order = Order.find_by_id(id)
-    order.user if order
   end
 end
