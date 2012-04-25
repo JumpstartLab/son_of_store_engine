@@ -7,14 +7,14 @@ describe "store_admin" do
   before(:each) do
     user.update_attribute(:admin, true)
     user.update_attribute(:admin_view, true)
-    visit products_path(store)
+    visit "/#{store.to_param}/products"
     click_link_or_button "Sign-In"
     login({email: user.email_address, password: user.password})
-    visit store_admin_orders_path(store)
+    visit "/#{store.to_param}/admin/products"
   end
   context "admin product view" do
     before(:each) do
-      visit root_path
+      visit "/#{store.to_param}/products"
       admin_nav_go_to("products")
     end
     it "has the proper header items" do
@@ -74,7 +74,7 @@ describe "store_admin" do
     before(:each) do
       other_user = Fabricate(:user)
       order.update_attribute(:user_id, other_user.id)
-      visit admin_order_path(order)
+      visit "/#{store.to_param}/admin/orders/#{order.to_param}"
     end
     it "can see another user's order" do
       current_path.should have_content "orders"
@@ -96,12 +96,12 @@ describe "store_admin" do
       end
     end
     it "can cancel a pending order" do
-      visit admin_orders_path
+      visit "/#{store.to_param}/admin/orders"
       click_link_or_button "Cancel"
       page.should have_content "cancelled"
     end
     it "can transition an order" do
-      visit admin_orders_path
+      visit "/#{store.to_param}/admin/orders"
       click_link_or_button "Cancel"
       page.should have_content "cancelled"
     end
@@ -109,7 +109,7 @@ describe "store_admin" do
   context "product" do
     let!(:product) { Fabricate(:product) }
     before(:each) do
-      visit admin_product_path(product)
+      visit "/#{store.to_param}/admin/products/#{product.to_param}"
     end
     it "has admin buttons" do
       ["Edit", "Retire", "Destroy"].each do |button|
@@ -136,9 +136,9 @@ describe "store_admin" do
       page.should_not have_content product.title
     end
     it "doesn't allow missing product information" do
-      visit new_admin_product_path
+      visit "/#{store.to_param}/admin/products/new"
       click_link_or_button "Create Product"
-      current_path.should == admin_products_path
+      current_path.should == "/#{store.to_param}/admin/products"
       page.should have_content "errors"
     end
   end
@@ -157,7 +157,7 @@ describe "store_admin" do
   end
   context "category" do
     before(:each) do
-      visit new_admin_category_path
+      visit "/#{store.to_param}/admin/categories/new"
       fill_in "Name", with: "baseballs"
       click_link_or_button "Create Category"
     end
@@ -167,20 +167,20 @@ describe "store_admin" do
     it "can edit a category" do
       prod = Fabricate(:product)
       prod.categories << Category.last
-      visit admin_categories_path
+      visit "/#{store.to_param}/admin/categories"
       click_link_or_button "Edit"
       fill_in "Name", with: "tennis equipment"
       click_link_or_button "Update Category"
-      current_path.should == admin_category_path(Category.last)
+      current_path.should == "/#{store.to_param}/admin/categories/#{Category.last.to_param}"
       page.should_not have_content "baseballs"
       page.should have_content "tennis equipment"
     end
     it "can delete a category" do
       prod = Fabricate(:product)
       prod.categories << Category.last
-      visit admin_categories_path
+      visit visit "/#{store.to_param}/admin/categories"
       click_link_or_button "Destroy"
-      current_path.should == admin_categories_path
+      current_path.should == "/#{store.to_param}/admin/orders"
       page.should_not have_content "baseballs"
     end
   end
@@ -247,23 +247,23 @@ describe "store_admin" do
       end
       it "shows a timestamp of shipped orders" do
         billing = { credit_card_number: "5555555555555555",
-            month: "4",
-            year: "2012",
-            street: "One Mockingbird Lane",
-            city: "Anytown",
-            state: "Virginia",
-            zipcode: "22209",
-            card_type: 'Visa'
+          month: "4",
+          year: "2012",
+          street: "One Mockingbird Lane",
+          city: "Anytown",
+          state: "Virginia",
+          zipcode: "22209",
+          card_type: 'Visa'
         }
         shipping = { street: "One Mockingbird Lane", city: "Anytown",
          state: "Virginia", email_address: "test@test.com", zipcode: "22209", name: "Favorite Shipping"
        }
-       visit root_path
+       visit "/#{store.to_param}"
        click_link_or_button "Add to Cart"
-       visit admin_order_path(Order.find_by_user_id(user.id))
+       visit "/#{store.to_param}/admin/orders/#{Order.where(user: user).to_param}"
        click_link_or_button "Add a Billing Method"
        add_billing(billing)
-       visit admin_order_path(Order.find_by_user_id(user.id))
+       visit "/#{store.to_param}/admin/orders/#{Order.where(user: user).to_param}"
        click_link_or_button "Add a Shipping Address"
        add_shipping(shipping)
        click_link_or_button "Check Out"
