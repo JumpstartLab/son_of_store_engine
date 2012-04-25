@@ -1,14 +1,18 @@
 require 'spec_helper'
 
 describe "Dashboard" do
-
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end  
+  before(:each) do
+    Capybara.app_host = "http://#{store.id}.son.test"
+  end
   context 'orders' do
     let!(:user) do
       FactoryGirl.create(:admin, :password => "mike")
     end
-
     let!(:products) do
-      [FactoryGirl.create(:product), FactoryGirl.create(:product)]
+      [FactoryGirl.create(:product, :store => store), FactoryGirl.create(:product, :store => store)]
     end
 
     let!(:statuses) do
@@ -20,9 +24,9 @@ describe "Dashboard" do
     end
 
     let!(:orders) do
-      [FactoryGirl.create(:order, :products => products, :status => statuses.last), 
-        FactoryGirl.create(:order, :products => products, :status => statuses.first),
-        FactoryGirl.create(:order, :products => products, :status => statuses[1])]
+      [FactoryGirl.create(:order, :products => products, :status => statuses.last, :store => store), 
+        FactoryGirl.create(:order, :products => products, :status => statuses.first, :store => store),
+        FactoryGirl.create(:order, :products => products, :status => statuses[1], :store => store)]
     end
 
     before(:each) do

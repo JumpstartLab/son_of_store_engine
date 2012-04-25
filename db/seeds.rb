@@ -43,7 +43,7 @@ s3 = Status.create(   :name => "cancelled")
 s4 = Status.create(   :name => "paid"     )
 s5 = Status.create(   :name => "returned" )
 
-c1 = Category.create( :name => "Music"    )
+c1 = Category.create( :name => "Music", :store => store    )
 c2 = Category.create( :name => "Toys"     )
 c3 = Category.create( :name => "Electronics")
 c4 = Category.create( :name => "Relaxation")

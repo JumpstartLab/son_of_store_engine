@@ -21,6 +21,30 @@ StoreEngine::Application.routes.draw do
     end
   end
 
+  # scope ":store_id" do
+  #   resources :search, :categories
+  #   resources :sales, :only => [:show, :index]
+
+  #   resources :products, :only => [:show, :index] do
+  #     resources :product_ratings, :only => [:create, :edit, :update]
+  #   end  
+
+  #   resources :orders, :only => [:show, :new] do
+  #     collection do
+  #       put 'charge'
+  #       get 'track'
+  #       get 'my_orders'
+  #     end
+  #   end
+
+  #   resource :cart do
+  #     member do
+  #       put 'update_quantity'
+  #       put :two_click
+  #     end
+  #   end
+  # end
+
   scope '', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     resources :search, :categories
     resources :sales, :only => [:show, :index]
@@ -45,6 +69,28 @@ StoreEngine::Application.routes.draw do
     end
   end
 
+  ## FOR TESTING PURPOSES
+  # resources :search, :categories
+  # resources :sales, :only => [:show, :index]
+
+  # resources :products, :only => [:show, :index] do
+  # resources :product_ratings, :only => [:create, :edit, :update]
+  # end  
+
+  # resources :orders, :only => [:show, :new] do
+  # collection do
+  #   put 'charge'
+  #   get 'track'
+  #   get 'my_orders'
+  # end
+  # end
+
+  # resource :cart do
+  # member do
+  #   put 'update_quantity'
+  #   put :two_click
+  # end
+  # end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
