@@ -124,9 +124,9 @@ describe "logged in user", :shopper => true do
         page.should have_content product.title
       end
       it "cannot view anyone else's orders" do
-        other_product = Fabricate(:product)
+        other_product = Fabricate(:product, store_id: store.id)
         other_user = Fabricate(:user)
-        order = Fabricate(:order)
+        order = Fabricate(:order, store_id: store.id)
         li = Fabricate(:line_item)
         li.update_attributes({product_id: other_product.id,
           order_id: order.id})
