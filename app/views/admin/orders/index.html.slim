@@ -1,0 +1,10 @@
+h1 Admin Orders
+table.table.table-bordered.table-striped
+  tr
+    th Order Number
+    th Customer Name
+    th Date
+    /! <th>Total</th>
+    th Status
+    th Actions
+  = render :partial => "admin_order", :collection => @orders, :as => :admin_order

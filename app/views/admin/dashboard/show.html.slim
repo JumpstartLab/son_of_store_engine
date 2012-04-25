@@ -1,0 +1,48 @@
+h1 Admin Dashboard
+.row
+  .span6 style="margin-bottom:20px"
+    h4
+      = link_to 'Add a product', new_admin_product_path(:store_slug => store_slug)
+      | \
+      | \#{link_to 'Create a category', new_admin_category_path(:store_slug => store_slug)}
+h3 Orders by status
+br/
+table.table.table-bordered.table-striped
+  tr
+    th Status
+    th Orders
+  tr
+    td Pending
+    td= orders_count_by_status('pending')
+  tr
+    td Cancelled
+    td= orders_count_by_status('cancelled')
+  tr
+    td Paid
+    td= orders_count_by_status('paid')
+  tr
+    td Shipped
+    td= orders_count_by_status('shipped')
+  tr
+h3
+  | Orders Summary
+  h3
+    br/
+    h4
+      | Filter by:
+      \#{link_to 'Pending', admin_dashboard_path(store_slug: store_slug, order_status: 'pending')} \
+      \#{link_to 'Cancelled', admin_dashboard_path(store_slug: store_slug, order_status: 'cancelled')} \
+      \#{link_to 'Paid', admin_dashboard_path(store_slug: store_slug, order_status: 'paid')} \
+      \#{link_to 'Shipped', admin_dashboard_path(store_slug: store_slug, order_status: 'shipped')} \
+      | \#{link_to 'All', admin_dashboard_path}
+    br/
+    table.table.table-bordered.table-striped
+      tr
+        th Customer Name
+        th Date
+        th Status
+        th Actions
+      = render :partial => "admin/orders/admin_order", :collection => @orders
+    h2 Categories
+    table.table.table-bordered.table-striped
+      = render :partial => "categories/category", :collection => @categories

@@ -1,0 +1,22 @@
+h1 Add a Shipping Address
+= form_for @shipping_detail, :url => shipping_details_path(:last_page => session[:last_page]) do |f|
+  .field
+    = label_tag :ship_to_name, "Name"
+    = f.text_field :ship_to_name
+  .field
+    = label_tag :ship_to_address_1, "Address"
+    = f.text_field :ship_to_address_1
+    br/
+    = f.text_field :ship_to_address_2
+  .field
+    = label_tag :ship_to_city, "City"
+    = f.text_field :ship_to_city
+  .field
+    = label_tag :ship_to_state, "State"
+    = f.select :ship_to_state, options_for_select(us_states)
+  .field
+    = label_tag :ship_to_zip, "Zipcode"
+    = f.text_field :ship_to_zip
+  .actions
+    br/
+    = f.submit
