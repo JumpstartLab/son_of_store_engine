@@ -32,8 +32,9 @@ class GuestController < ApplicationController
     credit_card.update_attribute(:stripe_card_token, params[:credit_card][:stripe_card_token])
     if credit_card.save
       @order = Order.build_from_guest_id(credit_card.user_id, current_cart)
-      @order.save
-      redirect_to order_path(@order) and return
+      @order.charge_as_guest(current_cart)
+      @order.save  
+      redirect_to order_path(@order)
     else
       render :guest_payment
     end

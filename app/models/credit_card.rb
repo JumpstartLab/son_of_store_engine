@@ -31,6 +31,14 @@ class CreditCard < ActiveRecord::Base
     "#{exp_month}/#{exp_year}"
   end
 
+  def charge_as_guest(cart_total_in_cents)
+     Stripe::Charge.create(amount: cart_total_in_cents,
+                          currency: 'usd',
+                          card: stripe_card_token)
+  rescue Stripe::InvalidRequestError => error
+    send_charge_error(error)
+  end
+
   def charge(cart_total_in_cents)
     return false if stripe_customer_token.empty?
 

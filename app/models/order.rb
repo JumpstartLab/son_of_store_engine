@@ -45,14 +45,24 @@ class Order < ActiveRecord::Base
     user = User.find(user_id)
     order = user.orders.new
     order.build_order_from_cart(cart)
-    order.credit_card_id = CreditCard.scoped.where("user_id = #{user_id}")
+    order.credit_card_id = CreditCard.scoped.where("user_id = #{user_id}").last
     order.order_shipping_detail = OrderShippingDetail.new(shipping_detail_id:
-     ShippingDetail.scoped.where("user_id = #{user_id}").first)
+      ShippingDetail.scoped.where("user_id = #{user_id}").last.id)
     order
   end
 
   def charge(cart)
     if credit_card.charge(cart.cart_total_in_cents)
+      mark_as_paid
+      cart.destroy
+      true
+    else
+      false
+    end
+  end
+
+  def charge_as_guest(cart)
+    if credit_card.charge_as_guest(cart.cart_total_in_cents)
       mark_as_paid
       cart.destroy
       true

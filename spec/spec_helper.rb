@@ -14,6 +14,10 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
 
+  #stop tests when one fails
+  config.fail_fast = true 
+
+
   #by default will run only focused specs - hw
   #config.filter_run :focus => true
   # ## Mock Framework
