@@ -18,12 +18,12 @@ class Admin::CategoriesController < ApplicationController
     def create
       category = Category.new(params[:category])
       category.save
-      redirect_to admin_category_path(category)
+      redirect_to admin_category_path(@store, category)
     end
 
     def destroy
       Category.destroy(@category)
-      redirect_to admin_categories_path
+      redirect_to admin_categories_path(@store)
     end
 
     def edit
@@ -31,7 +31,7 @@ class Admin::CategoriesController < ApplicationController
 
     def update
       @category.update_attributes(params[:category])
-      redirect_to admin_category_path(@category)
+      redirect_to admin_category_path(@store, @category)
     end
 
     private

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :find_store_from_domain
   
   def find_store_from_domain
-    @store = Store.find_by_domain(params["domain"])
+    @current_store = Store.find_by_domain(params["domain"])
   end
 
   protected

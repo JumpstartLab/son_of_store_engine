@@ -24,7 +24,7 @@ describe Store do
         end
 
         it "display the store show page for the new store" do
-          current_path.should == store_path(@store)
+          current_path.should == admin_store_path(@store)
           find("#store_name").text.should have_content @store.name
           find("#store_domain").text.should have_content @store.domain
           find("#store_status").text.should have_content "pending"

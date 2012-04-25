@@ -261,11 +261,10 @@ describe "store_admin" do
        }
        visit "/#{store.to_param}"
        click_link_or_button "Add to Cart"
-       order = Order.where(user_id: user.id).first
-       visit "/#{store.to_param}/admin/orders/#{order.to_param}"
+       visit "/#{store.to_param}/admin/orders/#{Order.where(user: user).to_param}"
        click_link_or_button "Add a Billing Method"
        add_billing(billing)
-       visit "/#{store.to_param}/admin/orders/#{order.to_param}"
+       visit "/#{store.to_param}/admin/orders/#{Order.where(user: user).to_param}"
        click_link_or_button "Add a Shipping Address"
        add_shipping(shipping)
        click_link_or_button "Check Out"
