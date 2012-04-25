@@ -5,3 +5,13 @@ rvm:
 before_script:
   - "bundle exec rake db:create db:migrate"
   - "bundle exec rake db:test:prepare" 
+
+notifications:
+  email:
+    - mark.tabler@hungrymachine.com
+    - andrew.glass@hungrymachine.com
+    - austen.ito@hungrymachine.com
+
+branches:
+  only:
+    - master
