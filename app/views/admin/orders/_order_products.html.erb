@@ -3,7 +3,7 @@
 <% else %>
   <% order_products.each do |order_product| %>
     <tr>
-      <td><%= link_to order_product.name, admin_product_path(order_product.product) %> </td>
+      <td><%= link_to order_product.name, admin_product_path(store_slug: store_slug, id: order_product.product_id) %> </td>
       <td><%= order_product.quantity %></td>
       <td><%= order_product.price %></td>
       <td><%= order_product.subtotal %></td>

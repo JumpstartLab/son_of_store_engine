@@ -5,7 +5,7 @@
    <ul class="nav nav-pills">
      <h4>Categories:</h4><br />
      <%= render :partial => "categories/category", :collection => @categories %>
-     <li><%= link_to 'New Category', new_admin_category_path %></li>
+     <li><%= link_to 'New Category', new_admin_category_path(store_slug) %></li>
    </ul>
  </div>
 </div>
@@ -13,7 +13,7 @@
 
   <ul class="nav nav-pills">
     <h4>Products:</h4><br />
-    <li><%= link_to 'New Product', new_admin_product_path %></li>
+    <li><%= link_to 'New Product', new_admin_product_path(store_slug) %></li>
   </ul>
 
 <table class="table table-bordered table-striped">
@@ -27,7 +27,7 @@
     <th>Retire it!</th>
   </tr>
 
-<%= render :partial => "product_table", :collection => @products %>
+<%= render :partial => "product_table", :collection => @products, :as => :product %>
 </table>
 
 <div class="row">
@@ -46,7 +46,7 @@
     <th>Unretire it!</th>
   </tr>
 
-<%= render :partial => "retired_product_table", :collection => @retired_products %>
+<%= render :partial => "product_table", :collection => @retired_products, :as => :product %>
 </table>
  </div>
 </div>

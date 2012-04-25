@@ -3,8 +3,8 @@
 <div class="row">
   <div class="span6" style="margin-bottom:20px">
     <h4>
-    <%= link_to 'Add a product', new_admin_product_path %> | 
-    <%= link_to 'Create a category', new_admin_category_path %>
+    <%= link_to 'Add a product', new_admin_product_path(:store_slug => store_slug) %> | 
+    <%= link_to 'Create a category', new_admin_category_path(:store_slug => store_slug) %>
     </h4>
   </div>
 </div>
@@ -30,10 +30,10 @@
 
 <h3>Orders Summary<h3><br />
 <h4>Filter by:
-  <%= link_to 'Pending', admin_dashboard_path(order_status: 'pending') %> |
-  <%= link_to 'Cancelled', admin_dashboard_path(order_status: 'cancelled') %> |
-  <%= link_to 'Paid', admin_dashboard_path(order_status: 'paid') %> |
-  <%= link_to 'Shipped', admin_dashboard_path(order_status: 'shipped') %> |
+  <%= link_to 'Pending', admin_dashboard_path(store_slug: store_slug, order_status: 'pending') %> |
+  <%= link_to 'Cancelled', admin_dashboard_path(store_slug: store_slug, order_status: 'cancelled') %> |
+  <%= link_to 'Paid', admin_dashboard_path(store_slug: store_slug, order_status: 'paid') %> |
+  <%= link_to 'Shipped', admin_dashboard_path(store_slug: store_slug, order_status: 'shipped') %> |
   <%= link_to 'All', admin_dashboard_path %>
 </h4><br />
 <table class="table table-bordered table-striped">
