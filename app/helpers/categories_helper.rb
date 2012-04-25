@@ -1,5 +1,5 @@
 module CategoriesHelper
-  def get_categories
-    Category.all
+  def store_categories
+    Category.where(store_id: @current_store.id)
   end
 end
