@@ -1,6 +1,7 @@
 #
 class ProductsController < ApplicationController
   before_filter :lookup_product, :only => :show
+  before_filter :store_enabled
   # default_scope
 
   def index
@@ -25,5 +26,9 @@ class ProductsController < ApplicationController
 
   def lookup_product
     @product = Product.find(params[:id])
+  end
+  
+  def store_enabled
+    redirect_to root_path, notice: "This store does not exist" unless @current_store.enabled
   end
 end
