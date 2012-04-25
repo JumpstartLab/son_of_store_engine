@@ -9,5 +9,9 @@
           <%= label_tag :password %>
           <%= password_field_tag :password %>
   </label>
-  <div class="actions"><%= submit_tag "Log In", :class => 'btn' %>
+  <div class="actions">
+    <%= submit_tag "Log In", :class => 'btn' %>
+    or
+    <%= link_to "Sign Up?", new_user_path, :class => 'btn' %>
+  </div>
 <% end %>

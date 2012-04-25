@@ -3,7 +3,7 @@ class TwoClickOrdersController < ApplicationController
 
   def create
     if current_user.addresses.first && current_user.stripe_id
-      @order = Order.create(user: current_user)
+      @order = Order.new(user: current_user)
       @order.two_click(params[:product_id])
       if @order.save_with_payment
         redirect_to order_path(@order.id),
