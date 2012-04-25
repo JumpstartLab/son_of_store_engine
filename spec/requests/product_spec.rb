@@ -78,7 +78,6 @@ describe "Product" do
         it "Deletes a product" do
           product2
           visit store_admin_products_path
-          save_and_open_page
           within("#product_#{product2.id}") do
             click_link("X")
           end
