@@ -1,12 +1,13 @@
 # Allows restful actions for the categories
-class StoreAdmin::CategoriesController < StoreAdminController
-  def index
-    @categories = Category.all
-  end
+module StoreAdmin
+  class CategoriesController < Controller
+    def index
+      @categories = Category.all
+    end
 
-  def new
-    @category = Category.new
-  end
+    def new
+      @category = Category.new
+    end
 
   def create
     @category = Category.new(params[:category])
@@ -16,11 +17,10 @@ class StoreAdmin::CategoriesController < StoreAdminController
       flash[:error] = "Create failed."
       render 'edit'
     end
-  end
 
-  def edit
-    @category = Category.find(params[:id])
-  end
+    def edit
+      @category = Category.find(params[:id])
+    end
 
   def update
     @category = Category.find(params[:id])
@@ -30,11 +30,11 @@ class StoreAdmin::CategoriesController < StoreAdminController
       flash[:error] = "Update Failed."
       render 'edit'
     end
-  end
 
-  def destroy
-    Category.find(params[:id]).destroy
-    redirect_to store_admin_categories_path, :notice => "Category deleted."
-  end
+    def destroy
+      Category.find(params[:id]).destroy
+      redirect_to admin_categories_path, :notice => "Category deleted."
+    end
 
+  end
 end

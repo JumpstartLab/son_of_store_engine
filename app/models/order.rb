@@ -22,8 +22,13 @@ class Order < ActiveRecord::Base
     includes(:products).includes(:status).includes(:user)
   end
 
+  def update_address_and_charge(params)
+    update_address(params[:user_attributes]) &&
+      charge(params[:stripe_card_token])
+  end
+
   def not_a_cart
-    true if not self.is_a?(Cart)
+    !self.is_a?(Cart)
   end
 
   def self.charge_two_click(cart_id)
@@ -31,6 +36,8 @@ class Order < ActiveRecord::Base
     order.charge if order.user.address && order.user.stripe_id
     order
   end
+
+  # What the hell?
   def self.process_cart(cart_id)
     Order.find_cart(cart_id)
   end
@@ -84,6 +91,7 @@ class Order < ActiveRecord::Base
       )
     self.status = Status.find_or_create_by_name("paid")
     self.is_cart = false
+    notify_charge
     self.save
   end
 
