@@ -12,4 +12,10 @@ class StoresController < ApplicationController
     end
   end
 
+  def show
+    @store = Store.find_by_id(params[:id])
+    unless @store.enabled
+      redirect_to root_path, notice: "Store Not Found"
+    end
+  end
 end

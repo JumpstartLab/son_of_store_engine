@@ -28,6 +28,12 @@ describe Store do
           find("#store_name").text.should have_content @store.name
           find("#store_domain").text.should have_content @store.domain
           find("#store_status").text.should have_content "pending"
+          find("#store_enabled").text.shoud have_content "disabled"
+        end
+
+        it "returns a not found error when visit the store show page" do
+          visit store_path(@store)
+          page.should have_content "Store Not Found"
         end
       end
 

@@ -3,7 +3,7 @@ class Store < ActiveRecord::Base
   has_many :orders
   has_many :categories
 
-  attr_accessible :name, :domain
+  attr_accessible :name, :domain, :description
   validates :name, :uniqueness => true
   validates :domain, :uniqueness => true
 
