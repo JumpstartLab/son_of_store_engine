@@ -125,7 +125,7 @@ class Order < ActiveRecord::Base
   private
 
   def create_special_url
-    write_attribute(:special_url, Digest::SHA1.hexdigest(%Q|#{ Time.now.to_i.to_s + rand(1..10000).to_s }|))
+    write_attribute(:special_url, Digest::SHA1.hexdigest(%Q|#{ Time.now.to_i.to_s + rand(10000).to_s }|))
   end
 
 end
