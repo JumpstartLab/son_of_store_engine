@@ -113,7 +113,7 @@ describe "logged in user" do
       page.should have_content "New Shipping"
     end
     context "orders" do
-      let!(:product) { Fabricate(:product) }
+      let!(:product) { Fabricate(:product, store_id: store.id) }
       before(:each) do
         visit "/#{store.to_param}/products"
         click_link_or_button "Add to Cart"
@@ -164,8 +164,8 @@ describe "logged in user" do
         page.should have_content "not allowed"
       end
       it "cannot see another user's orders" do
-        product = Fabricate(:product)
-        order = Fabricate(:order)
+        product = Fabricate(:product, store_id: store.id)
+        order = Fabricate(:order, store_id: store.id)
         order.update_attribute(:user_id, other_user.id)
         li = Fabricate(:line_item)
         li.update_attributes( { product_id: product.id, order_id: order.id } )

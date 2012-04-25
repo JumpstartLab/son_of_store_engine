@@ -77,9 +77,7 @@ ActiveRecord::Schema.define(:version => 20120425163724) do
     t.integer  "store_id"
   end
 
-  add_index "products", ["price"], :name => "index_products_on_price"
   add_index "products", ["store_id"], :name => "index_products_on_store_id"
-  add_index "products", ["title"], :name => "index_products_on_title"
 
   create_table "shipping_addresses", :force => true do |t|
     t.string   "street"
@@ -112,7 +110,6 @@ ActiveRecord::Schema.define(:version => 20120425163724) do
     t.string   "password_digest"
     t.boolean  "admin",           :default => false
     t.boolean  "admin_view",      :default => false
-    t.integer  "orders_count",    :default => 0
   end
 
 end

@@ -5,11 +5,11 @@ class OrdersController < ApplicationController
 
   def index
     if params[:status] == "all"
-      @orders = store_orders
+      @orders = store_orders.all
     elsif params[:status]
       @orders = store_orders.where(:status => params[:status])
     else
-      @orders = store_orders
+      @orders = store_orders.all
     end
   end
 
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   private
 
   def lookup_order
-    @order = store_orders.find(params[:id])
+    @order = store_orders.where(id: params[:id]).first
   end
 
   def check_out
@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
   end
   
   def store_orders
-    Order.find_all_by_store_id(@current_store.id)
+    Order.where(store_id: @current_store.id)
   end
 
 end

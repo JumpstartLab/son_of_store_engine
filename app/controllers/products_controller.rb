@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
         end
         )
     else
-      @products = active_store_products
+      @products = active_store_products.all
       @line_item = LineItem.new
     end
   end
@@ -25,15 +25,15 @@ class ProductsController < ApplicationController
   private
 
   def lookup_product
-    @product = store_products.find(params[:id])
+    @product = store_products.where(id: params[:id]).first
   end
   
   def active_store_products
-    Product.active.find_all_by_store_id(@current_store.id)
+    Product.active.where(store_id: @current_store.id)
   end
   
   def store_products
-    Product.find_all_by_store_id(@current_store.id)
+    Product.where(store_id: @current_store.id)
   end
   
   def store_enabled

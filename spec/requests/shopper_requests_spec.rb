@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "shopper" do
-  let!(:product) { Fabricate(:product) }
   let!(:store) { Fabricate(:store) }
+  let!(:product) { Fabricate(:product, store_id: store.id) }
   context "index" do
     before(:each) do
       visit "/#{store.to_param}"
@@ -22,7 +22,7 @@ describe "shopper" do
         current_path.should == "/#{store.to_param}/products/#{product.to_param}"
       end
       it "has a clickable list of product categories" do
-        category = Fabricate(:category)
+        category = Fabricate(:category, store_id: store.id)
         product.categories << category
         visit "/#{store.to_param}/products"
         within "#main-content" do
@@ -55,7 +55,7 @@ describe "shopper" do
         end
       end
       it "does not overwrite cart items" do
-        other_product = Fabricate(:product)
+        other_product = Fabricate(:product, store_id: store.id)
         visit "/#{store.to_param}"
         within "##{dom_id(other_product)}" do
           click_link_or_button "Add to Cart"
@@ -239,7 +239,7 @@ describe "shopper" do
       end
     end
     context "category page" do
-      let!(:category) { Fabricate(:category) }
+      let!(:category) { Fabricate(:category, store_id: store.id) }
       before(:each) do
         product.categories << category
         visit "/#{store.to_param}/categories/#{category.to_param}"
@@ -264,8 +264,8 @@ describe "shopper" do
         page.should have_content "not allowed"
       end
       it "cannot see another user's orders" do
-        product = Fabricate(:product)
-        order = Fabricate(:order)
+        product = Fabricate(:product, store_id: store.id)
+        order = Fabricate(:order, store_id: store.id)
         order.update_attributes(user_id: other_user.id, billing_method_id: nil,
           shipping_address_id:nil)
         li = Fabricate(:line_item)
@@ -275,7 +275,7 @@ describe "shopper" do
         page.should have_content "not allowed"
       end
       it "can visit the category index page" do
-        category = Fabricate(:category)
+        category = Fabricate(:category, store_id: store.id)
         product.categories << category
         visit "/#{store.to_param}/categories"
         page.should have_content category.name

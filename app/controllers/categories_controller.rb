@@ -13,12 +13,12 @@ class CategoriesController < ApplicationController
     private
 
     def lookup_category
-      @category = store_categories.find(params[:id])
+      @category = store_categories.where(id: params[:id]).first
       @products = @category.products
     end
     
     def store_categories
-      Category.find_all_by_store_id(@current_store.id)
+      Category.where(store_id: @current_store.id)
     end
 end
 

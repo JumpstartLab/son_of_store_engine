@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe "store_admin" do
   let!(:user) { Fabricate(:user) }
-  let!(:product) { Fabricate(:product) }
   let!(:store) { Fabricate(:store) }
+  let!(:product) { Fabricate(:product, store_id: store) }
   before(:each) do
     user.update_attribute(:admin, true)
     user.update_attribute(:admin_view, true)
@@ -62,11 +62,11 @@ describe "store_admin" do
 
   context "orders" do
     let!(:order) {
-      ord = Fabricate(:order)
+      ord = Fabricate(:order, store_id: store.id)
       ord.update_attributes({billing_method_id: nil, shipping_address_id: nil})
       ord
     }
-    let!(:product) { Fabricate(:product) }
+    let!(:product) { Fabricate(:product, store_id: store.id) }
     let!(:line_item) {
       li = Fabricate(:line_item)
       li.update_attributes( { product_id: product.id, order_id: order.id} )
@@ -108,7 +108,7 @@ describe "store_admin" do
     end
   end
   context "product" do
-    let!(:product) { Fabricate(:product) }
+    let!(:product) { Fabricate(:product, store_id: store.id) }
     before(:each) do
       visit "/#{store.to_param}/admin/products/#{product.to_param}"
     end
@@ -166,7 +166,7 @@ describe "store_admin" do
       current_path.should have_content "baseballs"
     end
     it "can edit a category" do
-      prod = Fabricate(:product)
+      prod = Fabricate(:product, store_id: store.id)
       prod.categories << Category.last
       visit "/#{store.to_param}/admin/categories"
       click_link_or_button "Edit"
@@ -192,7 +192,7 @@ describe "store_admin" do
       let!(:orders) {
         orders = []
         6.times do |i|
-          orders[i] = Fabricate(:order)
+          orders[i] = Fabricate(:order, store_id: store.id)
           orders[i].update_attributes(user_id: nil, billing_method_id: billing.id, shipping_address_id: shipping.id)
         end
         orders
@@ -200,8 +200,8 @@ describe "store_admin" do
       let!(:products) {
         products = []
         3.times do |i|
-          products[i] = Fabricate(:product)
-          products[i] = Fabricate(:product) until products[i].valid?
+          products[i] = Fabricate(:product, store_id: store.id)
+          products[i] = Fabricate(:product, store_id: store.id) until products[i].valid?
         end
         products
       }

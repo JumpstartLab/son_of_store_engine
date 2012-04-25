@@ -41,7 +41,7 @@ class LineItemsController < ApplicationController
   private
 
   def create_order
-    order = Order.create()
+    order = Order.create(store_id: @current_store.id)
     if session[:user_id]
       order.add_user(session[:user_id])
       order.try_to_add_billing_and_shipping(session[:user_id])
