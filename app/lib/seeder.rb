@@ -20,6 +20,7 @@ class Seeder
     [ "Mittenberry", "Crackberry", "Blackberry" ].each do |name|
       store = Store.create(:name => name)
       store.slug = name.downcase
+      store.status = "approved"
       store.save
     end
   end

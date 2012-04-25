@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_filter :verify_store_status
 
   def index
     @products = current_store.products.active
