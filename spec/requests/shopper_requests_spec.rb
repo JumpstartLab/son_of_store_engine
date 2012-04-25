@@ -109,7 +109,7 @@ describe "shopper" do
               page.should have_content "Two-Click Check Out"
               click_link_or_button "Two-Click Check Out"
             end
-            current_path.should == "/"
+            current_path.should == "/#{store.to_param}/products"
             page.should have_content "Thank you"
           end
         end
@@ -148,7 +148,7 @@ describe "shopper" do
               page.should have_content "Check Out"
               click_link_or_button "Check Out"
             end
-            current_path.should == "/"
+            current_path.should == "/#{store.to_param}/products"
             page.should have_content "Thank you"
           end
           it "does not checkout without valid billing" do
@@ -188,7 +188,7 @@ describe "shopper" do
           click_link_or_button "Sign-Up"
           sign_up({full_name: "Test User", email: "test@test.com",
            password: "test", display_name: "Test"})
-           puts current_path
+          visit "/#{store.to_param}/products"
           within "#cart-aside" do
             page.should have_content product.title
           end
@@ -199,7 +199,7 @@ describe "shopper" do
         it "creates a new session with this user" do
           click_link_or_button "Sign-In"
           login({email: user.email_address, password: user.password})
-          current_path.should == "/"
+          current_path.should == "/#{store.to_param}"
           page.should have_content "Welcome"
           page.should have_content "My Account"
         end
@@ -215,7 +215,7 @@ describe "shopper" do
     end
     context "product page" do
       before(:each) do
-        visit product_path(product)
+        visit "/#{store.to_param}/products/#{product.to_param}"
       end
       context "when viewing the page" do
         it "display the product properly" do
@@ -242,7 +242,7 @@ describe "shopper" do
       let!(:category) { Fabricate(:category) }
       before(:each) do
         product.categories << category
-        visit category_path(category)
+        visit "/#{store.to_param}/categories/#{category.to_param}"
       end
       it "has the proper content" do
         page.should have_content product.title
@@ -270,14 +270,14 @@ describe "shopper" do
           shipping_address_id:nil)
         li = Fabricate(:line_item)
         li.update_attributes( { product_id: product.id, order_id: order.id } )
-        visit order_path(order)
+        visit "/#{store.to_param}/orders/#{order.to_param}"
         current_path.should == "/"
         page.should have_content "not allowed"
       end
       it "can visit the category index page" do
         category = Fabricate(:category)
         product.categories << category
-        visit categories_path
+        visit "/#{store.to_param}/categories"
         page.should have_content category.name
         click_link_or_button category.name
         page.should have_content product.title
