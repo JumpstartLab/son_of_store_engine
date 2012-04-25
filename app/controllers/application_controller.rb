@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   after_filter :set_last_page
   #before_filter :store
 
-  helper_method :current_cart
+  helper_method :current_cart, :store
 
   def get_last_page
     @last_page = "Your last page: #{session[:last_page]}"

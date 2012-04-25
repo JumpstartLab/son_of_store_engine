@@ -6,10 +6,10 @@ StoreEngine::Application.routes.draw do
   resources :sessions
   resources :cart_products, only: [:new, :update, :destroy]
   # resource  :cart_product, only: []
-  resources :products, only: [:index, :show] do
-    resource :retirement, only: [:create, :update]
-    resource :categories, only: :show
-  end
+  # resources :products, only: [:index, :show] do
+  #   resource :retirement, only: [:create, :update]
+  #   resource :categories, only: :show
+  # end
   resources :categories , only: [:show]
   resources :orders, only: [:index, :new, :show, :create]
   resources :credit_cards, only: [:new, :create, :index]
@@ -28,11 +28,15 @@ StoreEngine::Application.routes.draw do
   end
 
   #resources :stores
-  scope "/(:url_name)" do 
-    resources :products
-    resources :categories
+  scope "/:url_name" do 
+    resources :products, only: [:index, :show] do
+      resource :retirement, only: [:create, :update]
+      #resource :categories, only: :show
+    end
+    resources :categories , only: [:show]
+    match '', :to => 'products#index'
     #resources :orders
-    #resource  :stores,
+    #resource  :stores
   end 
 
   match '/admin/dashboard', :to => 'admin/dashboard#show'

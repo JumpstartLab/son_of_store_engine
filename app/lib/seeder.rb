@@ -80,11 +80,12 @@ class Seeder
   def self.build_categories
     # should be:
     # [h,s,m].each do ...
-    Category.create( name: 'Hats' )
-    Category.create( name: 'Scarves' )
-    Category.create( name: 'Mittens' )
-    Category.create( name: 'Boots' )
-    Category.create( name: 'Coats' )
+    Category.create( name: 'Hats', store_id: 1 )
+    Category.create( name: 'Scarves', store_id: 1 )
+    Category.create( name: 'Mittens', store_id: 2 )
+    Category.create( name: 'Boots', store_id: 2 )
+    Category.create( name: 'Coats', store_id: 3 )
+    Category.create( name: 'Jackets', store_id: 3 )
   end
 
   def self.build_stores

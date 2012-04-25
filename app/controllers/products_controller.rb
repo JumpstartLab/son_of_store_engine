@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
     # @products = Product.active.all
     # @categories = Category.all
     #raise params.inspect
-    @categories = Category.all
+    @categories = Category.where(:store_id => store.id)
     #@store = Store.where(:url_name => params[:url_name]).first
     @products = Product.where(:store_id => store.id)
   end
