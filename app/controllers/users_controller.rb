@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     user_info = params[:user]
     @user = User.new(user_info)
     if @user.save
+      UserMailer.signup_confirmation(@user).deliver
       cart = current_cart
       if user = login(user_info[:email], user_info[:password])
         successful_login(cart, user)
@@ -31,7 +32,11 @@ private
 
   def successful_login(cart, user)
     cart.assign_cart_to_user(user)
-    redirect_to_last_page("Welcome! Thanks for signing up!")
+    if session[:return_to_url]
+      redirect_to session[:return_to_url]
+    else
+      redirect_to products_path("Thanks for registering!")
+    end
   end
 
 end
