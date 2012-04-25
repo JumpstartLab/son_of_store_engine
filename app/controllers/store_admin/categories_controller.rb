@@ -35,8 +35,8 @@ module StoreAdmin
       end
     end
 
-    def destroy
-      Category.find(params[:id]).destroy
+    def destroy      
+      Category.destroy(params[:id])
       flash[:notice] = "Category deleted."
       redirect_to store_admin_categories_path
     end

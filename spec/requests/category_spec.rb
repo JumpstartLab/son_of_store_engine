@@ -48,7 +48,7 @@ describe "Test Category Auth" do
       end
       context "DESTROY" do
         let!(:category2) { FactoryGirl.create(:category) }
-        it "Can destory" do
+        it "Can destroy" do
            visit store_admin_categories_path
            within("#category_#{category2.id}") do
             click_on "X"
@@ -56,6 +56,7 @@ describe "Test Category Auth" do
            page.should have_content "Category deleted."
         end
       end
+
       it "can view all categories" do
         visit store_admin_categories_path
         page.should have_content "Dashboard - Categories"
