@@ -68,4 +68,9 @@ describe "Store" do
     page.should_not have_content(product_store_2.title)
     page.should have_content(product_store_1.title)
   end
+
+  it 'has a valid store page' do
+    visit "/#{store.to_param}"
+    page.should have_content(store.name)
+  end
 end

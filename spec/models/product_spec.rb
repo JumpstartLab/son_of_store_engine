@@ -16,7 +16,9 @@
 require 'spec_helper'
 
 describe Product do
-  let(:product) { Fabricate :product }
+  let!(:store) { Fabricate :store }
+  let(:product) { Fabricate :product, :store => store }
+  let(:retired_product) { Fabricate :product, :retired => true }
 
   it "can't be created with a blank title" do
     product.title = ""
@@ -41,5 +43,13 @@ describe Product do
   it "rounds correctly" do
     product.update_attributes(:price => "34.567")
     Product.find(product.id).price.to_s.should == "34.57"
+  end
+
+  it 'is retired' do
+    Product.retired.first == retired_product
+  end
+
+  it 'by store' do
+    Product.by_store(store).first == product
   end
 end
