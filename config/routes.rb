@@ -4,11 +4,13 @@ StoreEngine::Application.routes.draw do
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
-  resources :sessions
+  resources :sessions, :pages
   resources :users, :exclude => [:index]
 
   resources :categories, :only => [:show]
 
+  match '', to: 'products#index', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
+  root :to => "pages#index"
 
   namespace "store_admin" do
     resources :categories, :products, :sales, :exclude => [:show]
@@ -21,30 +23,28 @@ StoreEngine::Application.routes.draw do
   end
 
  
-    resources :search, :categories
-    resources :sales, :only => [:show, :index]
+  resources :search, :categories
+  resources :sales, :only => [:show, :index]
 
-    resources :products, :only => [:show, :index] do
-      resources :product_ratings, :only => [:create, :edit, :update]
-    end  
-    
+  resources :products, :only => [:show, :index] do
+    resources :product_ratings, :only => [:create, :edit, :update]
+  end  
+  
 
-    resources :orders, :only => [:show, :new] do
-      collection do
-        put 'charge'
-        get 'track'
-        get 'my_orders'
-      end
+  resources :orders, :only => [:show, :new] do
+    collection do
+      put 'charge'
+      get 'track'
+      get 'my_orders'
     end
+  end
 
-    resource :cart do
-      member do
-        put 'update_quantity'
-        put :two_click
-      end
+  resource :cart do
+    member do
+      put 'update_quantity'
+      put :two_click
     end
-
-  root :to => "products#index"
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
