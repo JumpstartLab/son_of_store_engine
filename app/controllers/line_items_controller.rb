@@ -4,7 +4,7 @@ class LineItemsController < ApplicationController
   before_filter :lookup_order, :only => [:show, :edit, :destroy, :update]
 
   def index
-    redirect_to root_url
+    redirect_to products_path(@store)
   end
 
   def create
@@ -13,7 +13,7 @@ class LineItemsController < ApplicationController
     end
     params[:line_item][:order_id] = session[:order_id]
     LineItem.increment_or_create_line_item(params[:line_item])
-    redirect_to root_url
+    redirect_to products_path(@store)
   end
 
   def edit

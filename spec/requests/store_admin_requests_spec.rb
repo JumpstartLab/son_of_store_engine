@@ -7,7 +7,7 @@ describe "store_admin" do
   before(:each) do
     user.update_attribute(:admin, true)
     user.update_attribute(:admin_view, true)
-    visit store_path(store)
+    visit products_path(store)
     click_link_or_button "Sign-In"
     login({email: user.email_address, password: user.password})
     visit store_admin_orders_path(store)

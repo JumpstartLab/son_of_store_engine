@@ -4,7 +4,7 @@ describe "logged in user" do
   let(:user) { Fabricate(:user) }
   let!(:store) { Fabricate(:store) }
   before(:each) do
-    visit products_path(store)
+    visit "/#{store.to_param}/products"
     click_link_or_button "Sign-In"
     login({email: user.email_address, password: user.password})
   end
@@ -114,29 +114,31 @@ describe "logged in user" do
     end
     context "orders" do
       let!(:product) { Fabricate(:product) }
-      it "can view it's orders" do
-        visit "/"
+      before(:each) do
+        visit "/#{store.to_param}/products"
         click_link_or_button "Add to Cart"
-        click_link_or_button "My Account"
-        click_link_or_button "View Orders"
-        current_path.should == orders_path
+      end
+      it "can view it's orders" do
+        click_link_or_button "Orders"
+        current_path.should == "/#{store.domain}/orders"
         page.should have_content product.title
       end
       it "cannot view anyone else's orders" do
+        other_product = Fabricate(:product)
         other_user = Fabricate(:user)
         order = Fabricate(:order)
         li = Fabricate(:line_item)
-        li.update_attributes({product_id: product.id,
+        li.update_attributes({product_id: other_product.id,
           order_id: order.id})
         order.update_attribute(:user_id, other_user.id)
-        click_link_or_button "View Orders"
+        click_link_or_button "Orders"
         within "#main-content" do
-          page.should_not have_content product.title
+          page.should_not have_content other_product.title
         end
       end
       it "does not see admin stuff" do
         adm_links = ["Destroy", "Edit", "Actions", "Transition", "ID", "Name"]
-        click_link_or_button "View Orders"
+        click_link_or_button "Orders"
         within "#main-content" do
           adm_links.each do |bad|
             page.should_not have_content bad
@@ -144,9 +146,8 @@ describe "logged in user" do
         end
       end
       it "can add item, logout, add item, login, and items are merged" do
-        visit "/"
-        click_link_or_button "Add to Cart"
         click_link_or_button "Logout"
+        visit "/#{store.to_param}/products"
         click_link_or_button "Add to Cart"
         click_link_or_button "Sign-In"
         login({email: user.email_address, password: user.password})
@@ -168,7 +169,7 @@ describe "logged in user" do
         order.update_attribute(:user_id, other_user.id)
         li = Fabricate(:line_item)
         li.update_attributes( { product_id: product.id, order_id: order.id } )
-        visit order_path(order)
+        visit "/#{store.to_param}/orders/#{order.to_param}"
         current_path.should == "/"
         page.should have_content "not allowed"
       end

@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
     notice = "Thank you for purchasing. #{link}".html_safe
     session[:previous_order_id] = session[:order_id] if !logged_in?
     session[:order_id] = nil
-    redirect_to root_url, notice: notice
+    redirect_to products_path(@store), notice: notice
   end
 
 end
