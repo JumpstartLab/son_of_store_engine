@@ -86,23 +86,15 @@ class Order < ActiveRecord::Base
     save
   end
 
-  def finalize(billing_information, user)
-    cc = billing_information[:credit_card]
-    address = billing_information[:address]
+  def update_with_addresses_and_card(billing_data)
+    update_attributes(billing_data[:order])
 
-    cc[:user_id] = nil
-    address[:user_id] = nil
+    Address.create_multiple([
+      billing_data[:billing_address],
+      billing_data[:shipping_address]
+    ])
 
-    cc[:user_id] = user.id if user
-    address[:user_id] = user.id if user
-
-    CreditCard.create(cc)
-    Address.create(address)
-
-    update_attributes(:email => billing_information[:email])
-    OrderMailer.confirmation_email(self).deliver
-
-    set_status('paid')
+    CreditCard.create(billing_data[:credit_card])
   end
 
   def generate_unique_url
