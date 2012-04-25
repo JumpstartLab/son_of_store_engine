@@ -25,7 +25,14 @@
       .control-group
         = label_tag :zipcode
         = user.number_field :zipcode
-      
-        
+      - if @cart.user.email.blank?
+        .control-group
+          = label_tag :email
+          = user.text_field :email
+
     .actions
       = f.submit "Pay",{ :class => 'btn'}
+
+
+
+

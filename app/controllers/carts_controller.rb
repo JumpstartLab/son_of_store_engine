@@ -37,4 +37,11 @@ class CartsController < ApplicationController
     end
   end
 
+  def guest
+    u = User.create(:guest => true)
+    @cart.user = u
+    @cart.save
+    redirect_to new_order_path
+  end
+
 end

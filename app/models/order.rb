@@ -24,10 +24,15 @@ class Order < ActiveRecord::Base
     includes(:products).includes(:status).includes(:user)
   end
 
-  def update_address_and_charge(params)
-    update_address(params[:user_attributes]) &&
+  def verify_user_and_charge(params)
+    user.verify_user(params[:user_attributes]) &&
       charge(params[:stripe_card_token])
   end
+
+  # def update_address_and_charge(params)
+  #   update_address(params[:user_attributes]) &&
+  #     charge(params[:stripe_card_token])
+  # end
 
   def not_a_cart
     !self.is_a?(Cart)
