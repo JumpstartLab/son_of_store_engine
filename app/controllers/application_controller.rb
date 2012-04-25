@@ -1,7 +1,8 @@
 # Base class that inherited by all other classes
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :find_cart, :verify_user, :stripe_api_key
+  before_filter :find_cart, :stripe_api_key
+  # :verify_user,
 
   def require_admin
     if current_user && !current_user.admin?
@@ -28,7 +29,7 @@ private
   def stripe_api_key
     Stripe.api_key = ENV['STRIPE_TOKEN'] if Rails.env.to_s == "production"
   end
-  
+
   def find_cart
     current_user ? find_cart_for_user : find_cart_for_guest
   end
@@ -58,8 +59,8 @@ private
     cookies[:cart_id] = nil
   end
 
-  def verify_user
-    @cart.add_user(current_user)
-  end
+  # def verify_user
+  #   @cart.add_user(current_user)
+  # end
 
 end

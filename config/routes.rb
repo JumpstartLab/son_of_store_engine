@@ -36,6 +36,7 @@ StoreEngine::Application.routes.draw do
     member do
       put 'update_quantity'
       put :two_click
+      post 'guest'
     end
   end
 

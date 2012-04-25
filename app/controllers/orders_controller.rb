@@ -1,6 +1,6 @@
 # Allows restful actions for orders + charging orders
 class OrdersController < ApplicationController
-  before_filter :require_login, :except => [:track]
+  # before_filter :require_login, :except => [:track]
   before_filter :is_owner_or_admin, :only => [:show]
 
   def show
@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
 
   def charge
     @order = Order.process_cart(@cart.id)
-    if @order.user.update_address(params[:order][:user_attributes])
+    if @order.user.add_email(params[:order][:user_attributes])
         @order.charge(params[:order][:stripe_card_token])
         charge_shit_steps(@order)
     else
@@ -23,21 +23,21 @@ class OrdersController < ApplicationController
   end
 
   def track
-    @order = Order.find_by_unique_url(params[:id])
-    if not @order
-      return redirect_to root_url, :notice => 'Invalid Order tracking code'
+    @order = Order.find_by_unique_url(params[:format])
+    if @order
+      render 'show'
+    else
+      redirect_to root_url, :notice => 'Invalid Order tracking code' and return
     end
-
-    render 'show'
   end
 
   def my_orders
     st = params[:mq]
     if st
       orders = current_user.orders.
-                            joins(:products).where('products.name LIKE ? or
-                            products.description LIKE ?',"%#{st}%",
-                            "%#{st}%").uniq
+      joins(:products).where('products.name LIKE ? or
+      products.description LIKE ?',"%#{st}%",
+      "%#{st}%").uniq
     else
       orders = current_user.orders
     end
@@ -56,7 +56,11 @@ class OrdersController < ApplicationController
   def charge_shit_steps(order)
     cookies[:cart_id] = nil
     order.notify_charge
-    redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
+    if current_user
+      redirect_to order_path(@order), :notice => "I HAVE ALL YOUR MONEY!"
+    elsif order.user.guest
+      redirect_to track_orders_path(order.unique_url)
+    end
   end
 
 end
