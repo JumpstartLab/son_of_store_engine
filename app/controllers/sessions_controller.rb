@@ -23,8 +23,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
-    session[:cart_id] = nil
+    session.clear
     respond_to do |format|
       format.html { redirect_to root_url, notice: "Logged out!" }
     end

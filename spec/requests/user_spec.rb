@@ -77,7 +77,7 @@ describe "User" do
       fill_in "user[password]", :with => "foobar"
       fill_in "user[password_confirmation]", :with => "foobar"
       click_on "Create User"
-      page.should have_content "Thank you for signing up!"
+      page.current_path.should == root_path
     end
 
     it "fails to create a user given invalid attributes" do
@@ -122,4 +122,5 @@ describe "User" do
       page.should have_content "can't be blank"
     end
   end
+
 end
