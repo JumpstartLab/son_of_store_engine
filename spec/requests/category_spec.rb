@@ -80,7 +80,7 @@ describe "sorting by categories" do
   context "viewing categories" do
     let(:category) { FactoryGirl.create(:category) }
     it "appears on the homepage" do
-      visit ('/')
+      visit products_path
       click_on category.title
       page.should have_content("Products by #{category.title}")
     end

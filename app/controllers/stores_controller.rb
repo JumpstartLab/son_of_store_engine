@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_filter :authorize
+  before_filter :authorize, except: "index"
 
   def new
     @store = Store.new
@@ -13,5 +13,9 @@ class StoresController < ApplicationController
       flash[:error] = @store.errors.full_messages.join(", ")
       return redirect_to :back
     end
+  end
+
+  def index
+    @stores = Store.where status: "enabled"
   end
 end
