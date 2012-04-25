@@ -33,7 +33,8 @@ class GuestController < ApplicationController
     if credit_card.save
       @order = Order.build_from_guest_id(credit_card.user_id, current_cart)
       @order.charge_as_guest(current_cart)
-      @order.save  
+      @order.save
+      current_cart.destroy
       redirect_to order_path(@order)
     else
       render :guest_payment
