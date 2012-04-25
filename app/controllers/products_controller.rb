@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 
   def index
     if params[:filtered].present?
-      @products = Product.active.where(
+      @products = active_store_products.where(
         if Rails.env.production?
           ["title ILIKE ?", "%#{params[:filtered]}%"]
         else
@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
         end
         )
     else
-      @products = Product.active.all
+      @products = active_store_products
       @line_item = LineItem.new
     end
   end
@@ -25,7 +25,15 @@ class ProductsController < ApplicationController
   private
 
   def lookup_product
-    @product = Product.find(params[:id])
+    @product = store_products.find(params[:id])
+  end
+  
+  def active_store_products
+    Product.active.find_all_by_store_id(@current_store.id)
+  end
+  
+  def store_products
+    Product.find_all_by_store_id(@current_store.id)
   end
   
   def store_enabled

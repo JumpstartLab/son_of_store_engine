@@ -5,11 +5,11 @@ class OrdersController < ApplicationController
 
   def index
     if params[:status] == "all"
-      @orders = Order.all
+      @orders = store_orders
     elsif params[:status]
-      @orders = Order.where(:status => params[:status])
+      @orders = store_orders.where(:status => params[:status])
     else
-      @orders = Order.all
+      @orders = store_orders
     end
   end
 
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   private
 
   def lookup_order
-    @order = Order.find(params[:id])
+    @order = store_orders.find(params[:id])
   end
 
   def check_out
@@ -40,6 +40,10 @@ class OrdersController < ApplicationController
     session[:previous_order_id] = session[:order_id] if !logged_in?
     session[:order_id] = nil
     redirect_to products_path(@store), notice: notice
+  end
+  
+  def store_orders
+    Order.find_all_by_store_id(@current_store.id)
   end
 
 end
