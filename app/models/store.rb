@@ -20,8 +20,11 @@ class Store < ActiveRecord::Base
   validates :store_unique_id, :presence => true
   validates :description, :presence => true
 
-  validates_uniqueness_of :store_unique_id, :on => :create
-  validates_uniqueness_of :name, :on => :create
+  validates_uniqueness_of :store_unique_id,
+                          :case_sensitive => false,
+                          :on => :create
+
+  validates_uniqueness_of :name, :case_sensitive => false, :on => :create
 
   has_many :products
   has_many :categories
