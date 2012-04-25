@@ -10,7 +10,7 @@ StoreEngine::Application.routes.draw do
   #   resource :retirement, only: [:create, :update]
   #   resource :categories, only: :show
   # end
-  resources :categories , only: [:show]
+  #resources :categories , only: [:show]
   resources :orders, only: [:index, :new, :show, :create]
   resources :credit_cards, only: [:new, :create, :index]
   resources :shipping_details, only: [:new, :create, :index]
