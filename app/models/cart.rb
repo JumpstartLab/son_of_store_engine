@@ -10,7 +10,7 @@
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  email      :string(255)
-#  url        :string(255)
+#  slug       :string(255)
 #
 
 # A cart is an order with state, and becomes an order on checkout.

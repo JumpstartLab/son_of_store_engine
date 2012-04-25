@@ -11,7 +11,7 @@ html
       div class="navbar-inner"
         div class="container"
           ul id="nav"
-            - if can? :manage, @store
+            - if @store && (can? :manage, @store)
               li.nav = link_to("Admin", admin_dashboard_path)
             - if current_user
               - if @store

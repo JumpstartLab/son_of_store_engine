@@ -40,9 +40,17 @@ module UserHelper
     fill_in "Cvc", :with => billing[:cvc]
     fill_in "Expiration date", :with => billing[:expiration_date]
     fill_billing_address(billing[:address])
+    fill_shipping_address(billing[:address])
   end
 
   def fill_billing_address(address)
+    fill_in "Street", :with => address[:street]
+    fill_in "City", :with => address[:city]
+    fill_in "State", :with => address[:state]
+    fill_in "Zipcode", :with => address[:zipcode]
+  end
+
+  def fill_shipping_address(address)
     fill_in "Street", :with => address[:street]
     fill_in "City", :with => address[:city]
     fill_in "State", :with => address[:state]
