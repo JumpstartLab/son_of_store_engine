@@ -8,6 +8,7 @@ StoreEngine::Application.routes.draw do
   resources :users
   resources :visitor_orders
   resources :sessions
+  resources :unique_orders, :only => :show
   resources :cart_items
   resource :edit
   resources :categories, :except => [:index]

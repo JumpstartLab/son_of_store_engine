@@ -1,4 +1,7 @@
+require 'digest/sha1'
+
 class Order < ActiveRecord::Base
+  
   VALID_STATUSES = ['pending', 'paid', 'shipped', 'cancelled', 'returned']
   attr_accessible :status, :total_price, :user,
                   :products, :address_attributes,
@@ -22,6 +25,7 @@ class Order < ActiveRecord::Base
   scope :returned, where(status: "returned")
 
   after_create :set_default_status
+  after_create :generate_unique_url
 
   def set_default_status
     update_attribute(:status, "pending")
@@ -103,6 +107,8 @@ class Order < ActiveRecord::Base
     update_attribute(:address, user.addresses.first)
   end
 
+
+
   private
 
   def order_user
@@ -111,5 +117,10 @@ class Order < ActiveRecord::Base
     else 
       VisitorUser.find_by_id(visitor_user.id)
     end
+  end
+
+  def generate_unique_url
+    self.unique_url = Digest::SHA1.hexdigest("store-order-url-#{id}")
+    save
   end
 end

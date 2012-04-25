@@ -107,4 +107,11 @@ describe Order do
       order.address.should == order_address
     end
   end
+
+  describe "#generate_unique_url", :model => :unique_url do
+    it "generates a url upon order creation" do
+      order = FactoryGirl.create(:order)
+      Order.last.unique_url.should_not == nil
+    end
+  end
 end
