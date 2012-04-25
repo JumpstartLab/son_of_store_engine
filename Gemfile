@@ -11,6 +11,7 @@ gem 'stripe'
 gem 'faker'
 gem 'rake'
 gem 'twilio-ruby'
+gem 'slim'
 
 group :production do
   gem 'pg'

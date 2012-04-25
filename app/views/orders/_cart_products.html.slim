@@ -1,0 +1,10 @@
+- cart_products.each do |cart_product|
+  tr
+    td
+      = link_to cart_product.name, cart_product.product
+      = link_to cart_product_path(cart_product.id), :method => :delete do
+        i.icon-trash
+        | Remove from cart
+    td= cart_product.quantity
+    td= cart_product.price
+    td= cart_product.subtotal

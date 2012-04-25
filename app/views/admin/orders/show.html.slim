@@ -1,0 +1,30 @@
+h1 Order Details - Admin View
+.row
+  .span3 style="background-color: #eee; padding: 10px"
+    h2 Order Details
+    ul.unstyled
+      li
+        | Order number: #{@order.id}
+      li
+        | Date: #{@order.created_at.to_s(:pretty)}
+      li
+        | Status: #{@order.status}
+      li= timestamp(@order)
+      li
+        | Actions: #{order_actions_by_status(@order)}
+br/
+.row
+  .span12
+    table.table.table-bordered.table-striped
+      thead
+        tr
+          th Name
+          th Quantity
+          th Price
+          th Total
+      tbody
+        = render :partial => "order_products", :locals => { :order_products => @order.order_products }
+        tr#total-row
+          td colspan="2"
+          td style="border-left: 0px; border-right: 0px;"
+          td= @order.order_total
