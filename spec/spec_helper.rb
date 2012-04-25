@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'spork'
+require 'ostruct'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -28,7 +29,9 @@ Spork.prefork do
   RSpec.configure do |config|  
 
     config.before(:each) do 
-      Address.any_instance.stub(:geocoder).with(true)
+      #Address.any_instance.stub(:geocoder).and_return(true)
+      Geocoder.stub(:search).and_return([OpenStruct.new(:state => "DC", :address => "123 First Street")])
+      BillingProcessor.stub(:charge).and_return(true)
     end
 
     # ## Mock Framework
