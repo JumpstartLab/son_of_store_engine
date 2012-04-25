@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Cart do
-  let(:product) { Fabricate(:product) }
-  let(:cart) { Fabricate(:cart) }
-  let(:category) { Fabricate(:category) }
+  let! (:store) { Fabricate(:store, :user => user) }
+  let(:product) { Fabricate(:product, :store => store) }
+  let(:cart) { Fabricate(:cart, :store => store) }
+  let(:category) { Fabricate(:category, :store => store) }
   let(:user) { Fabricate(:user) }
 
   context "as an unauthenticated user" do
@@ -46,9 +47,10 @@ describe Cart do
   context "as an authenticated user" do
     context "when I click checkout with a product in my cart" do
       before(:each) do
+        visit products_path(store)
         cart.add_product(product)
         login_as(user)
-        visit cart_path
+        visit cart_path(store)
       end
 
       it "takes me to a billing page" do
@@ -99,7 +101,7 @@ describe Cart do
         it "clears my cart" do
           fill_billing_form
           click_button "Submit"
-          visit cart_path
+          visit cart_path(store)
           page.should have_content("Your Cart is Empty.")
         end
 
@@ -123,12 +125,12 @@ describe Cart do
 
   context "when a user clicks on 'add to cart'" do
     before(:each) do
-      visit product_path(product)
+      visit product_path(store, product)
       click_link "Add to Cart"
     end
 
     it "adds the product to the cart" do
-      visit cart_path
+      visit cart_path(store)
       within ("#cart") do
         page.should have_content(product.title)
       end
@@ -142,12 +144,12 @@ describe Cart do
   context "when an authenticated user clicks on 'add to cart'" do
     before(:each) do
       login_as(user)
-      visit product_path(product)
+      visit product_path(store, product)
       click_link "Add to Cart"
     end
 
     it "adds the product to the cart" do
-      visit cart_path
+      visit cart_path(store)
       within ("#cart") do
         page.should have_content(product.title)
       end
@@ -160,36 +162,36 @@ describe Cart do
 
   context "is linked from" do
     it "the products page" do
-      visit products_path
+      visit products_path(store)
       page.should have_content("View Cart")
     end
 
     it "a product page" do
-      visit product_path(product)
+      visit product_path(store, product)
       page.should have_content("View Cart")
     end
 
     it "a category page" do
-      visit category_path(category)
+      visit category_path(store, category)
       page.should have_content("View Cart")
     end
   end
 
   context "can be visited by clicking 'View Cart' from" do
     it "the products page" do
-      visit products_path
+      visit products_path(store)
       click_link "View Cart"
       page.should have_content("Your Cart")
     end
 
     it "a product page" do
-      visit product_path(product)
+      visit product_path(store, product)
       click_link "View Cart"
       page.should have_content("Your Cart")
     end
 
     it "a category page" do
-      visit category_path(category)
+      visit category_path(store, category)
       click_link "View Cart"
       page.should have_content("Your Cart")
     end
@@ -197,7 +199,7 @@ describe Cart do
 
   context "when I click on remove" do
     before(:each) do
-      visit product_path(product)
+      visit product_path(store, product)
       click_link "Add to Cart"
       click_link "Remove"
     end
@@ -209,7 +211,7 @@ describe Cart do
 
   context "when I increase the quantity of a product and click update cart" do
     before(:each) do
-      visit product_path(product)
+      visit product_path(store, product)
       click_link "Add to Cart"
       fill_in "cart_order_item_quantity", :with => "2"
       @previous_total = find("#total").text.to_f

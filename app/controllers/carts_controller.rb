@@ -16,7 +16,7 @@ class CartsController < ApplicationController
     else
       @cart.add_product_by_id(params[:product_id])
     end
-    
+
     redirect_to cart_path(@store)
   end
 

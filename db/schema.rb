@@ -84,10 +84,12 @@ ActiveRecord::Schema.define(:version => 20120425014203) do
 
   create_table "stores", :force => true do |t|
     t.string   "name"
+    t.string   "store_unique_id"
+    t.string   "description"
+    t.string   "status",          :default => "pending"
     t.integer  "user_id"
-    t.string   "permalink"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "users", :force => true do |t|

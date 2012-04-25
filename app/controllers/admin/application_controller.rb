@@ -1,10 +1,16 @@
 # You should have a very good reason to add code to this file
 class Admin::ApplicationController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :admin?
+  before_filter :authenticated_store_user!
 
-  def admin?
-    error = "Access denied. This page is for administrators only."
-    redirect_to :root, :notice => error unless current_user.admin?
+  def default_url_options(options={})
+    { :store_unique_id => params[:store_unique_id] }
+  end
+
+  def authenticated_store_user!
+    unless can? :manage, @store
+      return redirect_to products_path(@store),
+        :notice => 'Access denied. This page is for administrators only.'
+    end
   end
 end

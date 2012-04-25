@@ -1,12 +1,12 @@
 # Allows administrators to CRUD items and retire them.
 class Admin::ProductsController < Admin::ApplicationController
   def index
-    @products = Product.all.sort_by { |product| product.title}
+    @products = @store.products.all.sort_by { |product| product.title }
   end
 
   def show
-    @categories = Category.all
-    @product = Product.find(params[:id])
+    @categories = @store.categories
+    @product = @store.products.find(params[:id])
   end
 
   def new
@@ -14,13 +14,14 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def create
-    product = Product.create(params[:product])
-    redirect_to admin_product_path(product), :notice => "Product created."
+    product = @store.products.create(params[:product])
+    flash[:notice] = "Product created."
+    redirect_to admin_product_path(@store, product)
   end
 
   def edit
-    @categories = Category.all
-    @product = Product.find(params[:id])
+    @categories = @store.categories.all
+    @product = @store.products.find(params[:id])
   end
 
   def update
@@ -32,6 +33,6 @@ class Admin::ProductsController < Admin::ApplicationController
     product = Product.find(params[:product_id])
     product.retire
     notice = "Product #{product.title} retired."
-    redirect_to admin_products_path, :notice => notice
+    redirect_to admin_products_path(@store), :notice => notice
   end
 end

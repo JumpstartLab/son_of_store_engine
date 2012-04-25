@@ -9,5 +9,5 @@ table
     th.categories Actions
   - @categories.each do |category|
     tr
-      td = link_to category.name, admin_category_path(category)
-      td = link_to "Edit", edit_admin_category_path(category)
+      td = link_to category.name, admin_category_path(@store, category)
+      td = link_to "Edit", edit_admin_category_path(@store, category)

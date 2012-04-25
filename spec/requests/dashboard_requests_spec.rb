@@ -1,22 +1,24 @@
 require 'spec_helper'
 
 describe "Dashboard" do
+  let!(:store) { Fabricate(:store) }
   let (:user) { Fabricate(:user) }
-  let (:product) { Fabricate(:product) }
-  let (:cart) { Fabricate(:cart) }
-  let (:order) { Fabricate(:order) }
-  let! (:pending_order) { Fabricate(:order, :status => "pending") }
-  let! (:paid_order) { Fabricate(:order, :status => "paid") }
-  let! (:shipped_order) { Fabricate(:order, :status => "shipped") }
-  let! (:cancelled_order) { Fabricate(:order, :status => "cancelled") }
-  let! (:returned_order) { Fabricate(:order, :status => "returned") }
+  let (:product) { Fabricate(:product, :store => store) }
+  let (:cart) { Fabricate(:cart, :store => store) }
+  let (:order) { Fabricate(:order, :store => store) }
+  let! (:pending_order) { Fabricate(:order, :status => "pending", :store => store) }
+  let! (:paid_order) { Fabricate(:order, :status => "paid", :store => store) }
+  let! (:shipped_order) { Fabricate(:order, :status => "shipped", :store => store) }
+  let! (:cancelled_order) { Fabricate(:order, :status => "cancelled", :store => store) }
+  let! (:returned_order) { Fabricate(:order, :status => "returned", :store => store) }
   let (:address) { Fabricate(:address) }
 
   before(:each) do
     order.add_product(product)
     admin_user = user.set_role('admin')
+    visit products_path(store)
     login_as(admin_user)
-    visit admin_dashboard_path
+    visit admin_dashboard_path(store)
   end
 
   it "view total number of orders by status" do
@@ -28,11 +30,12 @@ describe "Dashboard" do
   end
 
   it "click links for each order" do
-    page.should have_link("#{order.id}", :href => admin_order_path(order))
+    page.should have_link("#{order.id}", 
+      :href => admin_order_path(store, order))
   end
 
   it "filter by status type" do
-    visit admin_dashboard_path
+    visit admin_dashboard_path(store)
     click_link "pending"
     page.should_not have_link("#{paid_order.id}")
   end
@@ -60,7 +63,7 @@ describe "Dashboard" do
       before(:each) do
         order.update_attributes(:address_id => address.id)
         order.update_attributes(:user_id => user.id)
-        visit admin_order_path(order)
+        visit admin_order_path(store, order)
       end
 
       it "date and time" do

@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe User, :user_request => :user do
+  let(:store) { Fabricate(:store) }
   let (:user) { Fabricate(:user) }
-  let (:product) { Fabricate(:product) }
-  let (:cart) { Fabricate(:cart) }
+  let (:product) { Fabricate(:product, :store => store) }
+  let (:cart) { Fabricate(:cart, :store => store) }
 
   after(:all) do
     User.destroy_all
@@ -41,29 +42,29 @@ describe User, :user_request => :user do
 
   context "after logging in" do
     before(:each) do
-      visit product_path(product)
+      visit product_path(store, product)
       click_link "Add to Cart"
       login_as(user)
     end
 
     it "preserves the contents of my cart" do
-      visit cart_path
+      visit cart_path(store)
       page.should have_content(product.title)
     end
 
     it "can view their orders" do
-      visit cart_path
+      visit cart_path(store)
       click_link "Checkout"
       fill_billing_form
       click_button "Submit"
-      visit orders_path
+      visit orders_path(store)
       page.should have_link("#{product.price}")
     end
   end
 
   context "an unauthenticated user" do
     it "can't create new products" do
-      visit new_admin_product_path
+      visit new_admin_product_path(store)
       page.should have_content("Sign in")
       page.should have_content("You need to sign in or sign up")
     end
@@ -73,7 +74,7 @@ describe User, :user_request => :user do
     context "nil" do
       it "cannot visit the new product page" do
         login_as(user.set_role(nil))
-        visit new_admin_product_path
+        visit new_admin_product_path(store)
         error = "Access denied. This page is for administrators only."
         page.should have_content(error)
         page.should have_content("Products")
@@ -83,7 +84,7 @@ describe User, :user_request => :user do
     context "'blank'" do
       it "cannot visit the new product page" do
         login_as(user.set_role(''))
-        visit new_admin_product_path
+        visit new_admin_product_path(store)
 
         error = "Access denied. This page is for administrators only."
         page.should have_content(error)
@@ -98,7 +99,7 @@ describe User, :user_request => :user do
 
       it "cannot visit the new product page" do
         login_as(user)
-        visit new_admin_product_path
+        visit new_admin_product_path(store)
 
         error = "Access denied. This page is for administrators only."
         page.should have_content(error)

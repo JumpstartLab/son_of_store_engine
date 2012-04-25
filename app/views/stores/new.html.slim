@@ -1,13 +1,21 @@
-- if @store.errors.any?
+- if @store_new.errors.any?
   div id="error_explanation"
     ul
-    - @store.errors.full_messages.each do |msg|
+    - @store_new.errors.full_messages.each do |msg|
       li = msg
 
-= form_for(@store) do |f|
+= form_for(@store_new) do |f|
   div class="field"
     = f.label :name
     = f.text_field :name
+
+  div class="field"
+    = f.label "Unique Store ID"
+    = f.text_field :store_unique_id
+
+  div class="field"
+    = f.label :description
+    = f.text_field :description
 
   div class="actions"
     = f.submit

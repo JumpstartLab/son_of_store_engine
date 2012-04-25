@@ -1,4 +1,5 @@
 module UserHelper
+
   def fill_product_form
     product = Fabricate.build(:product)
 

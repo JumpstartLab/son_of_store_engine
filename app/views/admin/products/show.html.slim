@@ -23,4 +23,4 @@ div class="container"
                                                     :category_id => category.id))
       h3 Categories Associated with Product
       - @product.categories.each do |category|
-        p = link_to category.name, category_path(category)
+        p = link_to category.name, category_path(@store, category)

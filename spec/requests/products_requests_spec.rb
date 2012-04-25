@@ -1,19 +1,20 @@
 require 'spec_helper'
 
 describe Product do
+  let!(:store) { Fabricate(:store) }
   let!(:products) do
     [
-      Fabricate(:product),
-      Fabricate(:product),
-      Fabricate(:product)
+      Fabricate(:product, :store => store),
+      Fabricate(:product, :store => store),
+      Fabricate(:product, :store => store)
     ]
   end
-  let(:product) { Fabricate(:product) }
-  let(:category) { Fabricate(:category) }
+  let(:product) { Fabricate(:product, :store => store) }
+  let(:category) { Fabricate(:category, :store => store) }
 
   context "index" do
     before(:each) do
-      visit products_path
+      visit products_path(store)
     end
 
     it "shows all of the product titles" do
@@ -38,7 +39,7 @@ describe Product do
   context "show" do
     before(:each) do
       product.add_category(category)
-      visit product_path(product)
+      visit product_path(store, product)
     end
 
     it "adds a product to the cart when 'add to cart' is clicked" do

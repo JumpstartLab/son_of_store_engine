@@ -2,5 +2,18 @@ h3 Welcome to Son of Store Engine!
 
 - if current_user
   = link_to 'Create A Store', new_store_path
+
+  hr
+  h3 Pending Stores
+  ul
+  - @pending_stores.each do |store|
+    li = link_to store.name, products_path(store)
+
+  hr
+  h3 Approved Stores
+  ul
+  - @stores.each do |store|
+    li = link_to store.name, products_path(store)
+
 - else
   h4 Must be logged in to create a store

@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   has_one :cart
   has_one :address
   has_many :orders
+  has_many :stores
 
   validates_presence_of :name, :email
   validates_presence_of :password, :on => :create

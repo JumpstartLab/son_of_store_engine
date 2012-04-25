@@ -3,5 +3,5 @@ h1 = @category.name
 table
   - @products.each do |product|
     tr
-      td = link_to product.title, product_path(product)
+      td = link_to product.title, product_path(@store, product)
       td = product.price

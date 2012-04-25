@@ -7,11 +7,11 @@ table
   - @products.each do |product|
     tr id="product_#{product.id}"
       td.product_title
-        = link_to product.title, admin_product_path(product)
+        = link_to product.title, admin_product_path(@store, product)
       td = number_to_currency(product.price)
-      td = link_to "Edit", edit_admin_product_path(product)
+      td = link_to "Edit", edit_admin_product_path(@store, product)
       td
         - if product.retired?
           = 'Retired'
         - else
-          = link_to "Retire", admin_product_retire_path(product)
+          = link_to "Retire", admin_product_retire_path(@store, product)
