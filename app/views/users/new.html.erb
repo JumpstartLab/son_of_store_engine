@@ -4,19 +4,19 @@
 
 <%= form_for @user, :url => users_path(:last_page => session[:last_page]) do |f| %>
 
-  <%= render 'errors', :object => @user, :field => :email %>
+  <%= render 'shared/errors', :object => @user, :field => :email %>
   <%= f.text_field :email, :placeholder => "E-mail Address" %>
   <br />
-  <%= render 'errors', :object => @user, :field => :name %>
+  <%= render 'shared/errors', :object => @user, :field => :name %>
   <%= f.text_field :name, :placeholder => "Name" %>
   <br />
-  <%= render 'errors', :object => @user, :field => :display_name %>
+  <%= render 'shared/errors', :object => @user, :field => :display_name %>
   <%= f.text_field :display_name, :placeholder => "Display Name" %>  
   <br />
-  <%= render 'errors', :object => @user, :field => :password %>
+  <%= render 'shared/errors', :object => @user, :field => :password %>
   <%= f.password_field :password, :placeholder => "Password" %>
   <br />
-  <%= render 'errors', :object => @user, :field => :password_confirmation %>
+  <%= render 'shared/errors', :object => @user, :field => :password_confirmation %>
   <%= f.password_field :password_confirmation, :placeholder => "Confirm Password" %>
   <br />
 

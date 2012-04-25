@@ -22,6 +22,6 @@
     <% end %>
   </div>
   <div class="span6 offset3">
-    <h4 id="sign_up"> Don't have an account? <%= link_to "Sign up!", signup_path %></h4>
+    <h4 id="sign_up"> Don't have an account?<br> <%= link_to "Sign up!", signup_path %><br> <%= link_to "Checkout as Guest", new_guest_path unless current_cart.empty?%></h4>
   </div>
 </div>
