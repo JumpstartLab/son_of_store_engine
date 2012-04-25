@@ -15,7 +15,10 @@
         <%= check_box_tag :remember_me, 1, params[:remember_me] %>
         <%= label_tag :remember_me %>
       </div>
-      <div class="actions"><%= submit_tag "Log in", :id => "go_log_in" %></div>
+      <div class="actions">
+        <%= submit_tag "Log in", :id => "go_log_in", :class => "btn" %>
+        <%= link_to "Register", signup_path, :class => "btn" %>
+      </div>
     <% end %>
   </div>
   <div class="span6 offset3">
