@@ -147,5 +147,6 @@ describe "User" do
       click_on "Create User"
       find_link("Edit User Settings").visible?.should == true
     end
+    end
   end
 end
