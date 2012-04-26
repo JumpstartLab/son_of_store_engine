@@ -1,7 +1,7 @@
 #
 class OrdersController < ApplicationController
   before_filter :lookup_order, :only => [:show, :edit, :update]
-  before_filter :require_order_user, only: [:show, :lookup]
+  before_filter :require_order_user, only: [:show]
 
   def index
     if params[:status] == "all"
