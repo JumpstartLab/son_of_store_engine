@@ -35,9 +35,32 @@ describe Product do
     product.price.should == 0
   end
 
-  it "must have a URL photo" do
-    product.photo = "awesome"
-    product.should_not be_valid
+  describe "saves with the default image" do
+    let(:unsaved_product) { Fabricate.build(:product) }
+
+    it "by calling default_image when created" do
+      product.should_receive :default_photo
+      product.save
+    end
+
+    it "when created with a blank photo" do
+      unsaved_product.photo = ''
+      unsaved_product.save
+      unsaved_product.photo.should == DEFAULT_PHOTO
+    end
+
+    it "when created with a nil photo" do
+      unsaved_product.photo = nil
+      unsaved_product.save
+      unsaved_product.photo.should == DEFAULT_PHOTO
+    end
+
+    it "when modified after creation" do
+      unsaved_product.photo = 'test_photo.jpg'
+      unsaved_product.save
+      unsaved_product.update_attributes(:photo => '')
+      unsaved_product.photo.should == DEFAULT_PHOTO
+    end
   end
 
   it "rounds correctly" do

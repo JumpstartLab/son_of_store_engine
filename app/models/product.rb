@@ -25,12 +25,8 @@ class Product < ActiveRecord::Base
             :presence => true
   validates :description, :presence => true
   validates :price, :presence => true
-  validates :photo,
-            :allow_blank => true,
-            :format => {
-              :with => URI::regexp(%w(http https)),
-              :message => "must be URL"
-            }
+
+  after_save :default_photo
 
   def self.retired
     where(:retired => true)
@@ -63,5 +59,9 @@ class Product < ActiveRecord::Base
 
   def retired?
     self.retired
+  end
+
+  def default_photo
+    update_attributes(:photo => DEFAULT_PHOTO) if photo.blank? || photo.nil?
   end
 end

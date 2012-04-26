@@ -52,6 +52,14 @@ describe User, :user_request => :user do
         find(".product_title").text.should == "Stuff"
       end
 
+      it "modify a product with a blank photo, displaying default image" do
+        click_link "Edit"
+        fill_in "Photo", :with => ''
+        click_button "Update Product"
+        click_link "#{product.title}"
+        page.should have_xpath("//img[@src=\"#{DEFAULT_PHOTO}\"]")
+      end
+
       it "view" do
         click_link "#{product.title}"
         page.should have_content "#{product.description}"

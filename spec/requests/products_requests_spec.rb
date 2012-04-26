@@ -50,5 +50,12 @@ describe Product do
     it "lists all the product's categories" do
       page.should have_content(category.name)
     end
+
+    it "displays the default image for a product with a blank photo" do
+      product.update_attributes(:photo => '')
+      visit product_path(store, product)
+      page.should have_xpath("//img[@src=\"#{DEFAULT_PHOTO}\"]")
+    end
+
   end
 end
