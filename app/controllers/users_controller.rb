@@ -22,6 +22,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    #raise "BOOM"
+    #raise current_user.inspect
+    #@user = User.find(current_user[:id])
     @orders = current_user.recent_orders.desc
   end
 
