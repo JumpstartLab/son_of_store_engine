@@ -6,7 +6,7 @@ StoreEngine::Application.routes.draw do
   post 'sessions/create', :as => 'login'
   delete 'sessions/destroy', :as => 'logout'
 
-  match '/code' => redirect('http://github.com/athal7/store_engine')
+  match '/code' => redirect('http://github.com/athal7/son_of_store_engine')
 
   match '/profile' => "users#profile"
 
