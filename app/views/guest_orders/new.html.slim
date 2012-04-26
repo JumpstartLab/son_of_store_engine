@@ -1,0 +1,44 @@
+h1 Order Details
+
+javascript:
+  jQuery(function(){
+    order = new Order('#new_guest_user');
+    order.setupForm();
+  })
+
+= form_for user, :url => guest_orders_path(store_slug) do |u|
+  = u.text_field :name, :placeholder => "Name"
+  = u.text_field :email, :placeholder => "E-mail Address"
+  = fields_for @credit_card do |c|
+    = c.hidden_field :stripe_card_token
+    .field
+      = label_tag :card_number, "Credit Card Number"
+      = text_field_tag :card_number, "424242424242424242", name: nil
+    .field
+      = label_tag :card_code, "Security Code on Card (CVV)"
+      = text_field_tag :card_code, "123", name: nil
+    .field
+      = label_tag :card_month, "Card Expiration"
+      = select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}
+      = select_year 2014, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}
+    #stripe_error
+      noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
+  = fields_for @shipping_detail do |s|
+    .field
+      = label_tag :ship_to_name, "Name"
+      = s.text_field :ship_to_name
+    .field
+      = label_tag :ship_to_address_1, "Address"
+      = s.text_field :ship_to_address_1
+      br/
+      = s.text_field :ship_to_address_2
+    .field
+      = label_tag :ship_to_city, "City"
+      = s.text_field :ship_to_city
+    .field
+      = label_tag :ship_to_state, "State"
+      = s.select :ship_to_state, options_for_select(SHIPPING_STATES)
+    .field
+      = label_tag :ship_to_zip, "Zipcode"
+      = s.text_field :ship_to_zip
+  = u.submit

@@ -2,16 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-jQuery ->
-  Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
-  order.setupForm()
+class Order
+  constructor: (@form) ->
 
-order =
   setupForm: ->
-    $('#new_credit_card').submit ->
+    Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
+
+    $(@form).submit =>
       $('input[type=submit]').attr('disabled', true)
       if $('#card_number').length
-        order.processCard()
+        this.processCard()
         false
       else
         true
@@ -22,12 +22,14 @@ order =
       cvc: $('#card_code').val()
       expMonth: $('#card_month').val()
       expYear: $('#card_year').val()
-    Stripe.createToken(card, order.handleStripeResponse)
+    Stripe.createToken(card, @handleStripeResponse.bind(this))
   
   handleStripeResponse: (status, response) ->
     if status == 200
       $('#credit_card_stripe_card_token').val(response.id)
-      $('#new_credit_card')[0].submit()
+      $(@form)[0].submit()
     else
       $('#stripe_error').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)
+
+window.Order = Order

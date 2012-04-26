@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120426043258) do
+ActiveRecord::Schema.define(:version => 20120426185521) do
 
   create_table "cart_products", :force => true do |t|
     t.integer  "cart_id"
@@ -76,13 +76,6 @@ ActiveRecord::Schema.define(:version => 20120426043258) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "order_shipping_details", :force => true do |t|
-    t.integer  "order_id"
-    t.integer  "shipping_detail_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
   create_table "order_statuses", :force => true do |t|
     t.string   "status",     :default => "pending"
     t.datetime "created_at",                        :null => false
@@ -92,10 +85,11 @@ ActiveRecord::Schema.define(:version => 20120426043258) do
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.integer  "credit_card_id"
     t.integer  "store_id"
+    t.integer  "shipping_detail_id"
   end
 
   add_index "orders", ["store_id", "id"], :name => "index_orders_on_store_id_and_id"
@@ -170,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20120426043258) do
     t.datetime "remember_me_token_expires_at"
     t.boolean  "admin",                        :default => false
     t.boolean  "site_admin",                   :default => false
+    t.string   "type"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

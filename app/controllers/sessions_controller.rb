@@ -4,6 +4,8 @@ class SessionsController < ApplicationController
   end
 
   def create
+    #This needs to be fixed... login happens at root everytime now.
+
     cart_before_login = current_cart
     if user = login(params[:email], params[:password], params[:remember_me])
       successful_login(cart_before_login, user)

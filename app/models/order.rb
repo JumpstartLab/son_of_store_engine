@@ -4,13 +4,12 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :credit_card
   belongs_to :store
+  belongs_to :shipping_detail
 
   has_many :order_products, :dependent => :destroy
   has_many :products, :through => :order_products
   has_one :order_status, :dependent => :destroy
   
-  has_one :order_shipping_detail
-  has_one :shipping_detail, :through => :order_shipping_detail
   validates_presence_of :user_id
   validates_presence_of :order_products
 
@@ -18,29 +17,30 @@ class Order < ActiveRecord::Base
 
   scope :desc, order("id DESC")
 
-  class << self
-
-    def orders_by_status(status_filter=nil)
-      if status_filter.nil?
-        Order.all
-      else
-        Order.joins(:order_status).
-          where('order_statuses.status = ?', status_filter)
-      end
+  def self.orders_by_status(status_filter=nil)
+    if status_filter.nil?
+      Order.all
+    else
+      Order.joins(:order_status).
+        where('order_statuses.status = ?', status_filter)
     end
+  end
 
-    def user_by_order_id(id)
-      order = Order.find_by_id(id)
-      order.user if order
-    end
+  def self.user_by_order_id(id)
+    order = Order.find_by_id(id)
+    order.user if order
+  end
 
-    def create_for(user, cart, attributes)
-      order = new(user_id: user.id)
-      order.build_order_from_cart(cart)
-      order.shipping_detail = user.shipping_details.find(attributes[:shipping_detail_id])
-      order.save
-      order
-    end
+  def self.create_for(user, cart)
+    order = user.orders.build
+    order.build_order_from_cart(cart)
+    order.save
+    order
+  end
+
+  def add_shipping_detail_for(user, attributes)
+    self.shipping_detail = user.shipping_details.find(attributes[:shipping_detail_id])
+    save
   end
 
   def make_new_order_status

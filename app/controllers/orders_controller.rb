@@ -1,14 +1,11 @@
 class OrdersController < ApplicationController
 
-  before_filter :is_logged_in?
-  before_filter :belongs_to_current_user?, only: [:show]
+  before_filter :is_logged_in?, :only => [:new]
 
   def new
     if current_user.credit_cards.empty?
       redirect_to new_credit_card_path(current_store.slug) and return
-    end
-
-    if current_user.shipping_details.empty?
+    elsif current_user.shipping_details.empty?
       redirect_to new_shipping_detail_path(current_store.slug) and return
     end
 
@@ -22,7 +19,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create_for(current_user, current_cart, params[:order])
+    @order = Order.create_for(current_user, current_cart)
+    @order.add_shipping_detail(params[:order])
 
     if @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
       redirect_to order_path(current_store.slug, @order.id),
@@ -33,14 +31,19 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = current_user.orders.find_by_id(params[:id])
-    @shipping_detail = @order.shipping_detail
-    redirect_to root_path, :notice => "Order not found." if @order.nil?
+    @order = Order.find_by_id(params[:id])
+    guard_order(@order) do
+      @shipping_detail = @order.shipping_detail
+      redirect_to root_path, :notice => "Order not found." if @order.nil?
+    end
   end
 
 private
-  def belongs_to_current_user?
-    unless Order.user_by_order_id(params[:id]) == current_user
+
+  def guard_order(order, &block)
+    if order.user.guest? || order.user == current_user
+      block.call()
+    else
       redirect_to root_path
     end
   end
