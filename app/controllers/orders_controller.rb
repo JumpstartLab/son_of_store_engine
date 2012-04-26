@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
   def update
     order = Order.find(params[:id])
     order.update_with_addresses_and_card(params)
-    OrderMailer.confirmation_email(order).deliver
+    OrderMailer.confirmation_email(order).deliver if current_user
     redirect_to order_path(@store, order), :notice => "Order placed. Thank you!"
   end
 end
