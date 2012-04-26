@@ -1,0 +1,2 @@
+module Superadmin::StoresHelper
+end
