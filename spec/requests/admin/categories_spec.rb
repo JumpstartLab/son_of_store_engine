@@ -1,28 +1,31 @@
 require 'spec_helper'
 
 describe "As an admin updating categories" do
-  def set_host(sub)
-    Capybara.default_host = "#{sub}.example.com" #for Rack::Test
-    Capybara.app_host = "http://#{sub}.127localhost.com:6543"
-  end
+  #def set_host(sub)
+    #Capybara.default_host = "#{sub}.example.com" #for Rack::Test
+    #Capybara.app_host = "http://#{sub}.127localhost.com:6543"
+  #end
 
   let!(:user) { FactoryGirl.create(:user, :admin => true) }
+  let!(:store) { Store.first}
 
   before(:each) do
-    login_user_post(user.email, "foobar")
+    set_host("best-sunglasses")
+    visit "/sessions/new"
+    fill_in "email", with: user.email
+    fill_in "password", with: "foobar"
+    click_link_or_button('Log in')
   end
 
   context "when I'm creating a new category" do
 
     let(:category) { FactoryGirl.build(:category) }
     before(:each) do
-      set_host("best-sunglasses")
       visit new_admin_category_path
     end
 
     context "and I enter invalid information" do
       it "prevents me from making a new category" do
-        save_and_open_page
         expect {click_link_or_button('Create Category')}.to_not change(Category, :count).by(1)
       end
 

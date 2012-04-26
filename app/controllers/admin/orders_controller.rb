@@ -1,6 +1,4 @@
-class Admin::OrdersController < ApplicationController
-  before_filter :require_login
-  before_filter :is_admin?
+class Admin::OrdersController < Admin::ApplicationController
 
   def index
     @orders = Order.all

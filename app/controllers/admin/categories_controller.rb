@@ -1,21 +1,25 @@
-class Admin::CategoriesController < ApplicationController
+class Admin::CategoriesController < Admin::ApplicationController
   before_filter :require_login
   before_filter :is_admin?
 
   def new
-    @category = Category.new
+    @category = store.categories.new
+  end
+
+  def index
+    @categories = store.categories
   end
 
   def show
-    @category = Category.find(params[:id])
+    @category = store.categories.find(params[:id])
     @products = @category.products
   end
 
   def create
-    @category = Category.create(params[:category])
+    @category = store.categories.create(params[:category])
 
     if @category.save
-      redirect_to admin_products_path,
+      redirect_to admin_categories_path(store),
       notice: 'Category was successfully created.'
     else
       @category.errors.full_messages.each do |msg|
@@ -34,7 +38,7 @@ class Admin::CategoriesController < ApplicationController
     @category.update_attributes(params[:category])
 
     if @category.save
-      redirect_to admin_products_path,
+      redirect_to admin_categories_path(store),
       notice: 'Category was successfully updated.'
     else
       @category.errors.full_messages.each do |msg|

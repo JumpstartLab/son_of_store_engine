@@ -18,7 +18,7 @@ feature "Adding Products To The Cart From Multiple Sources" do
   
   context "When I have previously purchased a product" do
     before(:each) do
-      visit root_path
+      visit products_path
       click_link_or_button("#{Category.first.name}")
     end
     
@@ -55,7 +55,7 @@ feature "Adding Products To The Cart From Multiple Sources" do
         context "When I am adding a product to cart" do
           #Given I am viewing the product from a category page
           before do 
-            visit root_path
+            visit products_path
             click_link_or_button("#{Category.first.name}")
           end
 

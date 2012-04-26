@@ -13,7 +13,23 @@ require 'capybara/rspec'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    FactoryGirl.create(:store,
+     :name => "Best Sunglasses",
+     :url_name => "best-sunglasses",
+     :description => "errday im testin",
+     :approved => true,
+     :enabled => true)
+    
+    FactoryGirl.create(:store,
+     :name => "Test Store",
+     :url_name => "test-store",
+     :description => "errday im testin",
+     :approved => true,
+     :enabled => true)
+  end
 
+  config.after(:suite) { Store.destroy_all }
   #stop tests when one fails
   # config.fail_fast = true 
 
@@ -40,7 +56,8 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-
+  config.include SetHostHelper
+  config.include LoginUser
   config.include Rails.application.routes.url_helpers
   config.include ExampleData::Projects
   config.include Sorcery::TestHelpers::Rails
@@ -57,5 +74,12 @@ module Sorcery
     end
   end
 end
+
+#module SetHostHelper
+  #def set_host(sub)
+    #Capybara.default_host = "#{sub}.example.com" #for Rack::Test
+    #Capybara.app_host = "http://#{sub}.127localhost.com:6543"
+  #end
+#end
 
 Capybara.server_port = 6543

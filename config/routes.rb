@@ -25,6 +25,8 @@ StoreEngine::Application.routes.draw do
 
   scope "", constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     match '', :to => 'stores#show', as: :store
+    match '/admin/dashboard', :to => 'admin/dashboard#show', as: "admin_dashboard"
+
 
     resources :products, only: [:index, :show] do
       resource :retirement, only: [:create, :update]
@@ -41,6 +43,7 @@ StoreEngine::Application.routes.draw do
     namespace :admin do
       resources :products
       resources :categories
+      resource :dashboards, only: [:show]
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
       end
