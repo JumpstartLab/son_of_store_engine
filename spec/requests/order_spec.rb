@@ -63,7 +63,7 @@ describe Order do
     end
     it 'navigates to the special url without auth' do
       visit "/orders/track?id=#{orders.first.unique_url}"
-      page.should have_link(orders.first.unique_url)
+      page.should have_content "Order details"
     end
     it 'track fails with invalid url' do
       visit "/orders/track?id=mike-is-awesome"

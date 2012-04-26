@@ -1,7 +1,7 @@
 # Allows restful actions for orders + charging orders
 class OrdersController < ApplicationController
   before_filter :require_guest_login, :only => [:new]
-  before_filter :require_login, :except => [:track, :charge]
+  before_filter :require_login, :except => [:new, :track, :charge]
   before_filter :is_owner_or_admin, :only => [:show]
 
   def show

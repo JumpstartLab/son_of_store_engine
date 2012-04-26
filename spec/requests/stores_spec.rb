@@ -36,7 +36,7 @@ describe "Stores" do
           fill_in 'store[description]', :with => ""
           fill_in 'store[url]', :with => ''
           click_on 'Create Store'
-          page.should have_content "ERROR"
+          page.should have_content "There was an error while creating your store."
         end
       end
       context "updates a store" do
@@ -57,7 +57,7 @@ describe "Stores" do
           fill_in 'store[description]', :with => ""
           fill_in 'store[url]', :with => ''
           click_on 'Update Store'
-          page.should have_content "ERROR"
+          page.should have_content "There was an error while updating your store."
         end
       end      
       it "Store created should not be live" do
@@ -69,7 +69,7 @@ describe "Stores" do
         let!(:store2) { FactoryGirl.create(:store, :active => 1, :enabled => false, :users => [user]) }
         let!(:store3) { FactoryGirl.create(:store, :active => 2, :enabled => false, :users => [user]) }
         let!(:store4) { FactoryGirl.create(:store, :active => 2, :enabled => true, :users => [user]) }
-        let!(:store5) { FactoryGirl.create(:store, :active => 2, :enabled => false, :users => [user]) }        
+        let!(:store5) { FactoryGirl.create(:store, :active => 2, :enabled => true, :users => [user]) }        
         before(:each) do
           visit '/logout'
           login(admin)

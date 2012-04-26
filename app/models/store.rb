@@ -15,11 +15,21 @@ class Store < ActiveRecord::Base
   def declined?
     active == 0
   end
+
   def pending?
     active == 1
   end
+
   def approved?
     active == 2
+  end
+
+  def enabled?
+    enabled == true
+  end
+
+  def disabled?
+    enabled == false
   end
 
   def self.find_active_store(url)
@@ -33,5 +43,27 @@ class Store < ActiveRecord::Base
     s = Store.new(params)
     s.users << user
     s
+  end
+
+  def approve
+    self.active = 2
+    self.enabled = true
+    self.save
+  end
+
+  def decline
+    self.active = 0
+    self.enabled = false
+    self.save
+  end
+
+  def enable
+    self.enabled = true
+    self.save
+  end
+
+  def disable
+    self.enabled = false
+    self.save
   end
 end
