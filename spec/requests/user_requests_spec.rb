@@ -44,6 +44,18 @@ describe User, :user_request => :user do
   end
 
   context "after signing up" do
+    let(:user) { User.new(name: Faker::Name.first_name,
+                          email: Faker::Internet.email,
+                          username: Faker::Name.first_name,
+                          password: Faker::Lorem.words(1).first
+                          )}
+    it "user sees a confirmation flash message with a link to change their account" do
+      visit new_user_path
+      complete_user_form(user)
+      click_button "Sign up"
+      page.should have_content("Change your account")
+    end
+
     it "user receives confirmation email" do
       expect { create_user(user) }.to change(ActionMailer::Base.deliveries,:size).by(1)
     end
