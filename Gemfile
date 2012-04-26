@@ -7,6 +7,7 @@ gem 'cancan'
 gem 'bcrypt-ruby'
 gem 'slim'
 gem 'find_by_param'
+gem 'fabrication'
 
 # Gems used only for assets and not required
 # in production environments by default.
