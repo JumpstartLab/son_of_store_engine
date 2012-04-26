@@ -65,7 +65,7 @@ products << Product.create(title: 'Toe Clips', description: 'perfect for commuti
 #ORDERS
 orders = []
 2.times do
-  ["pending", "paid", "shipped", "cancelled", "returned"].each do |status|
+  ["paid", "shipped", "cancelled", "returned"].each do |status|
     orders << Order.create(status: status, user_id: User.all.sample.id, store_id: store.id)
   end
 end
@@ -119,3 +119,20 @@ products << Product.create(title: 'Heart Rate Pro'.reverse, description: 'none s
 products << Product.create(title: 'Sunglasses'.reverse, description: 'blocks all UV light', price: "80", photo_url: 'http://www.vpcam.com/members/1402226/uploaded/10882.jpg', category_ids: [Category.find_by_name('Accessories'.reverse).id.to_s], store_id: store2.id)
 products << Product.create(title: 'Clipless Pedals'.reverse, description: 'for racers', price: "75", photo_url: 'http://www.cyclesportandfitness.com/images/WPD-95B.jpg', category_ids: [Category.find_by_name('Accessories'.reverse).id.to_s, Category.find_by_name('Bikes'.reverse).id.to_s ], store_id: store2.id)
 products << Product.create(title: 'Toe Clips'.reverse, description: 'perfect for commuting', price: "30", photo_url: 'http://www.bikegallery.com/blog/wp-content/uploads/2010/08/toeclip.jpg', category_ids: [Category.find_by_name('Accessories'.reverse).id.to_s, Category.find_by_name('Bikes'.reverse).id.to_s ], store_id: store2.id)
+
+#ORDERS
+orders = []
+2.times do
+  ["paid", "shipped", "cancelled", "returned"].each do |status|
+    orders << Order.create(status: status, user_id: User.all.sample.id, store_id: store2.id)
+  end
+end
+
+#LineItems
+
+orders.each do
+  ((rand*5+1).to_i).times do
+    prod = products.sample
+    LineItem.create(order_id: orders.sample.id, price: prod.price, product_id: prod.id, quantity: (1..5).to_a.sample)
+  end
+end
