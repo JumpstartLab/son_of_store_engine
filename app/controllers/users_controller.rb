@@ -2,11 +2,8 @@
 class UsersController < ApplicationController
   before_filter :require_admin, :only => [:index,:destroy]
   before_filter :require_not_logged_in, :only => [:new, :create]
-
-  def index
-    @users = User.all
-  end
-
+  before_filter :require_login, :only => [:edit, :update]
+  
   def new
     @user = User.new
   end

@@ -15,8 +15,10 @@
   end
 
   factory :store do
-    name "test"
-    active 1
+    sequence(:name) { |n| "store#{n}" }
+    sequence(:url) { |n| "url#{n}" }
+    active 2
+    enabled true
   end
 
   factory :status do
@@ -36,8 +38,6 @@
     rating 4
   end
   factory :order_product do
-    # order_product.association(:product)
-    # order
     quantity 1
   end
 

@@ -5,7 +5,7 @@ describe "Test Category Auth" do
     FactoryGirl.create(:store)
   end
   before(:each) do
-    Capybara.app_host = "http://#{store.id}.son.test"
+    Capybara.app_host = "http://#{store.url}.son.test"
   end
   let(:category) do
     FactoryGirl.create(:category, :store => store) 
