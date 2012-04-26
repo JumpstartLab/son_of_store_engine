@@ -16,8 +16,8 @@ def user(values)
   u
 end
 
-@new_store = Store.create(name: "First Store", active: 2, enabled: true, url: "first-store")
-@new_store_2 = Store.create(:name => "Second Store", :active => true, enabled: true, active: 2, url:"second-store")
+@new_store = Store.create(name: "Cool Sunglasses", active: 2, enabled: true, url: "cool-sunglasses")
+@new_store_2 = Store.create(:name => "Best Sunglasses", :active => true, enabled: true, active: 2, url:"best-sunglasses")
 
 def product(values, store=@new_store)
   p =           Product.create(
