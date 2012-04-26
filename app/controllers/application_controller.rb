@@ -71,12 +71,15 @@ private
 
   def verify_store_status
     if current_store && current_store.status == "pending"
-     redirect_to stores_path, :notice => "That store is pending approval."
+      redirect_to stores_path, :notice => "That store is pending approval."
+    elsif current_store && current_store.status == "disabled"
+      redirect_to stores_path, :notice => "That store has been disabled."
     end
   end
 
   def verify_site_admin
-    #redirect_to store_path('mittenberry') unless current_user && current_user.site_admin == true
+    redirect_to root_path, :notice => "You are not a site admin." unless
+      current_user && current_user.site_admin == true
   end
 
 end

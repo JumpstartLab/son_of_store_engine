@@ -21,6 +21,9 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :shipping_details
 
+  has_many :store_users
+  has_many :stores, :through => :store_users
+
   def add_order(order)
     orders << order
   end

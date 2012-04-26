@@ -8,10 +8,14 @@ class StoresController < ApplicationController
 
   def create
     @store = Store.new(params[:store])
-    if @store.save 
-      if current_user.admin == true
+
+    if @store.save
+      @store.users << current_user
+      if current_user.site_admin == true
         redirect_to store_path(@store.slug), :notice => "Creation."
       else
+        store_admin = @store.users.first
+        store_admin.update_attribute(:admin, true)
         redirect_to stores_path, :notice => "Store waiting approval."
       end
     else
