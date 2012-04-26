@@ -6,7 +6,7 @@ header.navbar.navbar-fixed-top
         ul.nav.pull-right
           li#cart-menu
           - if current_user
-            li= link_to "Stores", admin_stores_path if current_user.admin?
+            li= link_to "Stores", admin_stores_path if current_user.site_admin?
             /XXX This blows.
             li= link_to (store_slug ? current_user : "#") do
                 i.icon-user.icon-white

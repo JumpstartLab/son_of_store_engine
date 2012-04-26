@@ -14,28 +14,27 @@ describe "Index" do
   end
 
   context "as a logged in user" do
-    let!(:user) { Factory(:user) }
+    let(:user) { Factory(:user) }
 
-    before (:each) do
-      # visit signin_path("mittenberry")
-      # fill_in "email",        with: user.email
-      # fill_in "password",     with: user.password
-      # click_button "Log in"
-      # visit stores_path
-      # click_link 'Add new store'
+    before(:each) do
+      visit signin_path
+      fill_in "email",        with: user.email
+      fill_in "password",     with: user.password_confirmation
+      click_button "Log in"
+      visit stores_path
+      click_link 'Add new store'
     end
 
     it "lets me create a new store for admin view only" do
-      pending
       fill_in 'store_name', :with => 'Lingenberry'
       fill_in 'store_description', :with => 'Best berries ever.'
       fill_in 'store_slug', :with => 'lingenberry'
       click_button("Create")
       page.should_not have_content("Lingenberry")
+      page.should have_content("Store waiting approval.")
     end
 
     it "won't allow me to duplicate stores" do
-      pending
       fill_in 'store_name', :with => "Testberry"
       fill_in 'store_description', :with => "Berriest test of them all!"
       fill_in 'store_slug', :with => "testberry"
