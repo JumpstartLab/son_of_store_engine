@@ -44,7 +44,7 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
   config.include ExampleData::Projects
   config.include Sorcery::TestHelpers::Rails
-  
+  config.include StoreSetup
   ActiveSupport::Deprecation.silenced = true
 end
 
@@ -57,3 +57,5 @@ module Sorcery
     end
   end
 end
+
+Capybara.server_port = 6543
