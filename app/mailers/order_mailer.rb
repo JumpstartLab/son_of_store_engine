@@ -7,5 +7,4 @@ class OrderMailer < ActionMailer::Base
     @products = order.products  
     mail(:to => "#{@user.name} #{@user.email}", :subject => "Your Recent Mittenberry Purchase")  
   end
-
 end

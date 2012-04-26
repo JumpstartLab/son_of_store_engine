@@ -1,20 +1,23 @@
 class SessionsController < ApplicationController
 
   def new
-    if params[:checkout] == "true"
-      render 'checkout_new' and return
-    elsif current_store.nil?
-      render 'new_global' and return
+    if current_store.nil?
+      @path = sessions_path
+    else
+      render 'checkout_new' if params[:checkout]
+      @path = store_sessions_path(current_store.slug)
     end
   end
 
   def create
-    #This needs to be fixed... login happens at root everytime now.
-
     cart_before_login = current_cart
     if user = login(params[:email], params[:password], params[:remember_me])
-      successful_login(cart_before_login, user)
-      redirect_to new_order_path(current_store.slug)
+      if current_store
+        successful_login(cart_before_login, user)
+        redirect_to new_order_path(current_store.slug)
+      else
+        redirect_to root_path
+      end
     else
       invalid_email
     end

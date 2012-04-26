@@ -4,8 +4,8 @@ class Seeder
     build_users
     build_shipping_detail
     build_categories
-    build_products(20)
-    build_orders
+    build_products(50)
+    build_orders(100)
   end
 
   def self.at_least_two(max)
@@ -21,7 +21,7 @@ class Seeder
       store = Store.create(:name => name)
       store.slug = name.downcase
       store.status = "approved"
-      store.description= "Berry berry berry berry berry berry berry berry berry berry berry berry berry!"
+      store.description = Faker::Lorem.paragraph(3)
       store.save
     end
 
@@ -44,9 +44,9 @@ class Seeder
     end
   end
 
-  def self.build_orders
+  def self.build_orders(quantity)
     [ 'pending', 'paid', 'shipped', 'cancelled' ].each do |status_i|
-      Seeder.at_least_two(4).times do
+      quantity.times do
         order = Seeder.generate_order
         order.order_status.update_attribute(:status, status_i)
       end
@@ -58,8 +58,9 @@ class Seeder
     order.user = User.first(:offset => rand( User.count ))
     order.store = Store.first(:offset => rand( Store.count ))
     Seeder.generate_order_products(order)
-    order.save
     Seeder.generate_shipping_details(order)
+    order.save
+    order
   end
 
   def self.generate_shipping_details(order)
