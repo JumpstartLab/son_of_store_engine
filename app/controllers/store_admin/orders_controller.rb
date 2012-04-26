@@ -1,5 +1,5 @@
 #
-class Admin::OrdersController < ApplicationController
+class StoreAdmin::OrdersController < ApplicationController
   before_filter :require_admin
   before_filter :lookup_order, :only => [:show, :edit, :destroy, :update]
 

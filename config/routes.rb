@@ -30,7 +30,7 @@ StoreEngine::Application.routes.draw do
     resources :categories, only: [:index, :show]
     resources :orders, except: [:new, :create, :destroy]
     resources :line_items, except: [:new]
-    namespace :admin do
+    namespace :admin, module: "store_admin" do
       resources :orders
       resources :products do
         member  do

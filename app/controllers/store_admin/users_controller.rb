@@ -1,5 +1,5 @@
 #
-class Admin::UsersController < ApplicationController
+class StoreAdmin::UsersController < ApplicationController
   before_filter :require_admin
   before_filter :lookup_user, only: :show
 

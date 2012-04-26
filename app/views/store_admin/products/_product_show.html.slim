@@ -11,11 +11,10 @@ div#product.span8
         h2 Retired
     p = render partial: "category", collection: product.categories
     p = product.description
-  - if admin_view?
-    p#product-id id: #{product.id}
-    p created at: #{product.created_at.to_date}
+  p#product-id id: #{product.id}
+  p created at: #{product.created_at.to_date}
 
-    .span7
-      = render partial: "shared/admin_buttons", locals: {product: product}
+  .span7
+    = render partial: "shared/admin_buttons", locals: {product: product}
 br/
 p = render partial: "similar", locals: {product: product}
