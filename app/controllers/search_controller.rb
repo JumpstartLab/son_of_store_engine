@@ -7,20 +7,20 @@ class SearchController < ApplicationController
     search(query)
   end
 
-  def new
-    @search = AdvancedSearch.new
-  end
+  # def new
+  #   @search = AdvancedSearch.new
+  # end
 
-  def create
-    search = AdvancedSearch.new(params[:advanced_search])
-    search.save()
-    redirect_to "/search/#{search.id}"
-  end
+  # def create
+  #   search = AdvancedSearch.new(params[:advanced_search])
+  #   search.save()
+  #   redirect_to "/search/#{search.id}"
+  # end
 
-  def show
-    search = AdvancedSearch.find(params[:id])
-    @orders = search.find_orders()
-  end
+  # def show
+  #   search = AdvancedSearch.find(params[:id])
+  #   @orders = search.find_orders()
+  # end
 
 private
 
