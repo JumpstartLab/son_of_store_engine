@@ -21,6 +21,7 @@ gem 'aws-sdk'
 gem 'newrelic_rpm'
 gem 'acts_as_tenant'
 gem 'resque'
+gem 'redis'
 
 # Gems used only for assets and not required
 # in production environments by default.
