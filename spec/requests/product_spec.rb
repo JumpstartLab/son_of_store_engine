@@ -8,14 +8,18 @@ describe "Viewing products" do
                                    :approved => true,
                                    :enabled => true) }
   let(:product) { FactoryGirl.create(:product) }
-
+  let!(:user) { FactoryGirl.create(:user, admin: true) }
   before(:each) do
-    visit store_path(store)
+    set_host("best-sunglasses")
+    visit "/sessions/new"
+    fill_in "email", with: user.email
+    fill_in "password", with: "foobar"
+    click_link_or_button('Log in')
+    visit products_path
   end
 
   context "and I'm not logged in" do
     context "and I visit the products index page" do
-      before(:each) { visit products_path(store) }
 
       it "lets me view the products index" do
         page.should have_content('Browse')
@@ -23,7 +27,6 @@ describe "Viewing products" do
 
       context "and a category has been created" do
         let!(:category) { FactoryGirl.create(:category, :store_id => store.id) }
-        before(:each) { visit products_path(store) }
 
         it "lists the category on the product index" do
           page.should have_content(category.name)
@@ -33,7 +36,7 @@ describe "Viewing products" do
           before(:each) { product.add_category_by_id(category.id) }
 
           context "and I visit a listed product's page" do
-            before(:each) { visit product_path(store, product) }
+            before(:each) { visit product_path(product) }
 
             it "lets me view the products details" do
               page.should have_content(product.name)
@@ -50,7 +53,7 @@ describe "Viewing products" do
           end
 
           context "and I visit the category's path" do
-            before(:each) { visit category_path(store, category) }
+            before(:each) { visit category_path(category) }
 
             it "lists the products assigned to the category" do
               page.should have_content(product.name)
@@ -62,11 +65,6 @@ describe "Viewing products" do
   end
 
   context "and I log in as a non-admin" do
-    let!(:user) { FactoryGirl.create(:user) }
-
-    before(:each) do
-      login_user_post(user.email, "foobar")
-    end
 
     context "and I visit the products index page" do
       before(:each) { visit products_path(store) }
