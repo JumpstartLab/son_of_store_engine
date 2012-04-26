@@ -95,9 +95,9 @@ class Order < ActiveRecord::Base
 
   def notify_charge
     Resque.enqueue(NewOrderEmailer, self.user.id, self.id)
-    self.user.text("Your order has been placed!
-       You bought: #{self.products.map(&:name).join(', ')} -
-       Total: #{self.total_price_in_dollars}")
+    # self.user.text("Your order has been placed!
+    #    You bought: #{self.products.map(&:name).join(', ')} -
+    #    Total: #{self.total_price_in_dollars}")
   end
 
   def generate_unique_url
