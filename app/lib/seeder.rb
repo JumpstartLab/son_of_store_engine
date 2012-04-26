@@ -21,6 +21,7 @@ class Seeder
       store = Store.create(:name => name)
       store.slug = name.downcase
       store.status = "approved"
+      store.description= "Berry berry berry berry berry berry berry berry berry berry berry berry berry!"
       store.save
     end
 

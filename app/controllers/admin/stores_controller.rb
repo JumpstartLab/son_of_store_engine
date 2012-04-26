@@ -9,5 +9,4 @@ class Admin::StoresController < ApplicationController
     Store.find(params[:id]).update_attributes(params[:store])
     redirect_to :back
   end
-
 end

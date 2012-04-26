@@ -18,7 +18,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_cart
-    @cart ||= get_cart_from_session || get_cart_from_user_if_logged_in || create_new_cart
+    if current_store
+      @cart ||= get_cart_from_session || get_cart_from_user_if_logged_in || create_new_cart
+    end
   end
 
   def cart_storage
@@ -68,9 +70,9 @@ private
   end
 
   def verify_store_status
-    #if current_store && current_store.status == "pending"
-    #  redirect_to stores_path, :notice => "That store is pending approval."
-    #end
+    if current_store && current_store.status == "pending"
+     redirect_to stores_path, :notice => "That store is pending approval."
+    end
   end
 
   def verify_site_admin

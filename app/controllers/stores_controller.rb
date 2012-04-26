@@ -7,7 +7,7 @@ class StoresController < ApplicationController
   end
 
   def create
-    @store = Store.build(params[:store])
+    @store = Store.new(params[:store])
     if @store.save 
       if current_user.admin == true
         redirect_to store_path(@store.slug), :notice => "Creation."
