@@ -72,8 +72,8 @@ StoreEngine::Application.configure do
   ActionMailer::Base.smtp_settings = {
     :address  => "smtp.mailgun.org",
     :port  => 25,
-    :user_name  => "postmaster@app4079835.mailgun.org",
-    :password  => "00okho-v10h5",
+    :user_name  => "postmaster@app4236527.mailgun.org",
+    :password  => "6pdqgiwcyfq2",
     :authentication  => :login
   }
 end
