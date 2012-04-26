@@ -10,7 +10,7 @@ describe "shopper" do
     context "homepage layout" do
       context "header" do
         it "has the proper header" do
-          page.should have_content "The Urban Cyclist"
+          page.should have_content store.name
           page.should have_content "Categories"
           page.should have_content "Sign-In"
           page.should have_content "Sign-Up"
