@@ -29,7 +29,7 @@ module AuthenticationHelpers
     unless @cart.guest? || current_user
       msg = "You must login first or"
       flash[:link] = ["Continue as Guest", guest_cart_path, :post]
-      not_authenticated(msg)
+      require_login
     end
   end
 end
