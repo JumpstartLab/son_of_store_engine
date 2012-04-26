@@ -70,7 +70,7 @@ describe "sorting by categories" do
 
     it "prevents edits for bad categories" do
       login(admin_user)
-      visit(edit_edit_category_path(category.store, category))
+      visit(edit_store_category_path(category.store, category))
       fill_in "category[title]", :with => ""
       click_on "Update Category"
       page.should have_content("can't")
@@ -86,7 +86,7 @@ describe "sorting by categories" do
     end
 
     it "loads one category for the category" do
-      visit category_path(category)
+      visit store_category_path(category.store, category)
       page.should have_content("Products by #{category.title}")
     end
   end

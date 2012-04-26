@@ -66,7 +66,8 @@
 <br />
 <%= link_to "Add product", new_store_product_path(@store), 
     :class => "btn btn-large" %>
-<%= link_to "Add category", new_category_path, :class => "btn btn-large" %>
+<%= link_to "Add category", new_store_category_path(@store), 
+    :class => "btn btn-large" %>
 <br />
 <br />
 <div class="page-header">
@@ -79,8 +80,9 @@
   </thead>
   <tbody>
     <% @categories.each do |category| %><tr>
-      <td><%= link_to category.title, category_path(category) %></td>
-      <td><%= link_to "Edit", edit_category_path(category), :class => "btn btn-mini" %></td>
+      <td><%= link_to category.title, store_category_path(@store) %></td>
+      <td><%= link_to "Edit", edit_store_category_path(@store, category), 
+              :class => "btn btn-mini" %></td>
     </tr><% end %>
   </tbody> 
 </table>
