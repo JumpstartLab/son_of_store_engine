@@ -9,7 +9,12 @@ StoreEngine::Application.routes.draw do
     get "dashboard" => "dashboard#index"
     resources :categories, :products, :sales, :exclude => [:show]
     resources :users, :only => [:index, :destroy]
-    resources :stores
+    resources :stores do
+      member do
+        put "approve"
+        put "decline"
+      end
+    end
     resources :orders,:exclude => [:show] do
       member do
         get 'status'
