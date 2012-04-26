@@ -1,23 +1,31 @@
 module Admin
   class StoresController < Controller
+    skip_before_filter :require_store_admin
+    before_filter :lookup_store, :only => [
+                                            :show, :edit, :update, 
+                                            :destroy, :approve, :decline, 
+                                            :enable, :disable
+
+                                          ]
+    before_filter :verify_store_admin, :except => [:new, :create]                                          
+    before_filter :require_admin, :only => [:index]
+
     def index
-      @stores = Store.all
+      @stores = Store.where('active <> 0')
     end
 
     def show
-      @store = Store.find(params[:id])
+    end
+
+    def edit
     end
 
     def new
       @store = Store.new
     end
 
-    def edit
-      @store = Store.find(params[:id])
-    end
-
     def create
-      @store = Store.new(params[:store])
+      @store = Store.create_store(params[:store], current_user)
       if @store.save
         redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
       else
@@ -26,7 +34,6 @@ module Admin
     end
     
     def update
-      @store = Store.find(params[:id])  
       if @store.update_attributes(params[:store])
         redirect_to admin_store_path(@store), notice: 'Store was successfully updated.'
       else  
@@ -35,21 +42,41 @@ module Admin
     end
 
     def destroy
-      @store = Store.find(params[:id])
       @store.destroy
     end
 
     def approve
-      @store = Store.find(params[:id])
-      @store.update_attribute(:status, "approved")
+      @store.update_attribute(:active, 2)
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Approved"
     end
 
     def decline
-      @store = Store.find(params[:id])
-      @store.update_attribute(:status, "declined")
+      @store.update_attribute(:active, 0)
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Declined"
     end
 
+    def enable
+      @store.update_attribute(:enabled, true)
+      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Enabled"
+    end
+
+    def disable
+      @store.update_attribute(:enabled, false)
+      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Disabled"
+    end
+
+    private 
+
+    def lookup_store
+      @store = Store.find(params[:id])
+    end
+
+    def verify_store_admin
+      unless current_user.admin? || @store.editable?(current_user)
+        flash[:alert] = "Must be an administrator"
+        redirect_to root_url
+      end
+    end
+    
   end
 end

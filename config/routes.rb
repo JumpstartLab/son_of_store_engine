@@ -2,9 +2,10 @@ StoreEngine::Application.routes.draw do
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
-  resources :sessions, :pages, :stores
+  resources :sessions, :pages
   resources :users, :exclude => [:index]
-
+  
+  # Admin Routes
   namespace "admin" do
     get "dashboard" => "dashboard#index"
     resources :categories, :products, :sales, :exclude => [:show]
@@ -13,6 +14,8 @@ StoreEngine::Application.routes.draw do
       member do
         put "approve"
         put "decline"
+        put 'enable'
+        put 'disable'
       end
     end
     resources :orders,:exclude => [:show] do
@@ -22,6 +25,7 @@ StoreEngine::Application.routes.draw do
     end
   end
 
+  # Subdomain Routes
   scope '', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     resources :search, :categories
     resources :sales, :only => [:show, :index]

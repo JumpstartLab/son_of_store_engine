@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 private
 
   def find_store
-    if !request.subdomain.empty?
+    unless request.subdomain.empty?
       current_store = Store.find_active_store(request.subdomain)
       redirect_to "/404" if current_store.nil?
       set_current_tenant(current_store)

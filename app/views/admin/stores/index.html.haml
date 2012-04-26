@@ -1,30 +1,33 @@
 %h1 Listing stores
-- @stores.each do |store|
-  %table
-    %tr
-      %th Name
-      %th Description
-      %th Status
-      - if store.status == "pending"
-        %th Request Approval
-      - elsif store.status == "approved"
-        %th Active
-        %th Enabled
-      %th Actions
-
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Description
+    %th Status
+    %th Actions
+    %th{:colspan => 3}
+  - @stores.each do |store|
     %tr
       %td= store.name
       %td= store.description
-      %td= store.status
-      - if store.status == "pending"
-        %td= "#{link_to "Approve", approve_admin_store_path(store), method: :put}".html_safe + " or" + " #{link_to "Decline", decline_admin_store_path(store), method: :put}".html_safe
-      - elsif store.status == "approved"
-        %td= store.active
-        %td= store.enabled
+      - if store.pending?
+        %td
+          = link_to "Approve", approve_admin_store_path(store), method: :put
+          |
+          = link_to "Decline", decline_admin_store_path(store), method: :put
+        %td
+      - elsif store.approved?
+        %td= store.status_name
+        %td
+          = link_to "Enable", enable_admin_store_path(store), method: :put
+          |
+          = link_to "Disable", disable_admin_store_path(store), method: :put
+      - else
+        %td
+        %td
       %td= link_to 'Show', admin_store_path(store)
       %td= link_to 'Edit', edit_admin_store_path(store)
       %td= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete
-
 %br
 
 = link_to 'New Store', new_admin_store_path
