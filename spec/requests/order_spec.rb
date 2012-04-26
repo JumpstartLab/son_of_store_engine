@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe "When I want to place an order" do
-  #before(:each) { visit new_order_path }
   let!(:user) { FactoryGirl.create(:user) }
   let(:product) { FactoryGirl.create(:product) }
 
@@ -68,8 +67,10 @@ describe "When I want to place an order" do
 
   context "as a logged-in user" do
     before(:each) do
-      #raise sessions_url.inspect
-      login_user_post(user.email, "foobar")
+      visit "/sessions/new"
+      fill_in "email", with: user.email
+      fill_in "password", with: "foobar"
+      click_link_or_button('Log in')
     end
 
     context "and I visit a product's page" do
