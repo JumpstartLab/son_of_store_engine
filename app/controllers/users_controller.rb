@@ -1,8 +1,8 @@
 #
 class UsersController < ApplicationController
   before_filter :lookup_user,
-                :only => [:show, :edit, :destroy, :update, :view_as_admin,
-                          :view_as_normal]
+    :only => [:show, :edit, :destroy, :update, :view_as_admin,
+              :view_as_normal]
   before_filter :require_user, :only => [:edit, :update, :show]
   before_filter :prevent_guest, only: :profile
 
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    session[:return_to] = request.referrer
   end
 
   def create
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        format.html { redirect_to root_url, notice: @notice }
+        format.html { redirect_to session[:return_to] }
       else
         format.html { render action: "new" }
       end
