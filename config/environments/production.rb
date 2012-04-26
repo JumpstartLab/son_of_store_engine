@@ -25,14 +25,14 @@ StoreEngine::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.gmail.com',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => 'hungry.store.engine@gmail.com',
-    :password       => 'paulgraham',
-    :domain         => 'gmail.com'
-  }
-  ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   :address        => 'smtp.gmail.com',
+  #   :port           => '587',
+  #   :authentication => :plain,
+  #   :user_name      => 'hungry.store.engine@gmail.com',
+  #   :password       => 'paulgraham',
+  #   :domain         => 'gmail.com'
+  # }
+  # ActionMailer::Base.delivery_method = :smtp
 end
 
