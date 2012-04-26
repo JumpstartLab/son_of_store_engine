@@ -36,8 +36,11 @@ StoreEngine::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.action_mailer.default_url_options = {
-    :host => '127.0.0.1',
-    :port => 3000
+  ActionMailer::Base.smtp_settings = {
+    :address  => "smtp.mailgun.org",
+    :port  => 25,
+    :user_name  => "postmaster@app4079835.mailgun.org",
+    :password  => "00okho-v10h5",
+    :authentication  => :login
   }
 end
