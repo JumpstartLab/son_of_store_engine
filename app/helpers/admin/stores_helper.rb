@@ -20,14 +20,13 @@ module Admin::StoresHelper
         admin_store_path(id: id, :store => {approved: false}), method: :put)
   end
 
-
   def disable_link(id)
     link_to("Disable this store",
         admin_store_path(id: id, :store => {enabled: false}), method: :put)
   end
 
   def enable_link(id)
-    link_to("Disable this store",
+    link_to("Enable this store",
         admin_store_path(id: id, :store => {enabled: true}), method: :put)
   end
 
