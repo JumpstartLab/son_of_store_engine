@@ -38,14 +38,14 @@ describe "store admin for products", store_admin: true do
     end
 
     it "can switch to user view" do
-      click_link_or_button "The Urban Cyclist"
+      find("#brand").click
       ["Edit", "Retire", "Destroy"].each do |button|
         page.should_not have_content button
       end
     end
 
     it "can switch back to admin view" do
-      click_link_or_button "The Urban Cyclist"
+      find("#brand").click
       admin_nav_go_to("products")
       ["Edit", "Retire", "Destroy"].each do |button|
         page.should have_content button
@@ -115,7 +115,7 @@ describe "store admin for products", store_admin: true do
 
     it "can retire a product" do
       click_link_or_button "Retire"
-      click_link_or_button "The Urban Cyclist"
+      find("#brand").click
       page.should_not have_content product.title
     end
 

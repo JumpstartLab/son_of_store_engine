@@ -5,8 +5,7 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      = link_to image_tag("/icon.png", class: "logo"), root_url
-      = link_to "The Urban Cyclist", products_path(@store), class: "brand"
+      = link_to @current_store.name, products_path(@current_store), class: "brand", id: "brand"
       .nav-collapse
         ul.nav.nav-pills
           li#menu1.dropdown
