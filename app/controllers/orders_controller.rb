@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
   end
 
   def check_out
-    link = "<a href=\"#{url_for(@order.to_s)}\">View Details</a>"
+    link = "<a href=\"#{order_path(@current_store, @order)}\">View Details</a>"
     notice = "Thank you for purchasing an email confirmation is on the way. #{link}".html_safe
     OrderMailer.order_confirmation_email(@order).deliver
     session[:previous_order_id] = session[:order_id] if !logged_in?
