@@ -6,7 +6,7 @@ describe "Cart" do
     FactoryGirl.create(:store)
   end
   before(:each) do
-    Capybara.app_host = "http://#{store.id}.son.test"
+    Capybara.app_host = "http://#{store.url}.son.test"
   end
   let!(:real_address) do
     FactoryGirl.create(:address)
@@ -32,7 +32,6 @@ describe "Cart" do
     before(:each) do
       [p1,p2].each do |p|
         visit product_path(p)
-        #save_and_open_page
         click_on "Add To Cart"
       end
     end

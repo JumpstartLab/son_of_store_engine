@@ -5,7 +5,7 @@ describe "Sale", :focus => true do
     FactoryGirl.create(:store)
   end
   before(:each) do
-    Capybara.app_host = "http://#{store.id}.son.test"
+    Capybara.app_host = "http://#{store.url}.son.test"
   end
   let!(:user) { FactoryGirl.create(:admin, :password => "mike")}
   let!(:sale) { FactoryGirl.create(:sale, :percent_off => 50, :store => store) }
@@ -47,6 +47,11 @@ describe "Sale", :focus => true do
       click_on "Save Sale"
       page.should have_content "Sale updated."      
     end
+    it "Fails" do  
+      fill_in "sale[percent_off]", :with => 332
+      click_on "Save Sale"
+      page.should have_content "Invalid sale parameters"
+    end    
   end
   context "Can delete a sale" do
     it "deletes a sale" do

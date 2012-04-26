@@ -5,7 +5,7 @@ describe "User" do
     FactoryGirl.create(:store)
   end
   before(:each) do
-    Capybara.app_host = "http://#{store.id}.son.test"
+    Capybara.app_host = "http://#{store.url}.son.test"
   end  
   let!(:user) do 
     FactoryGirl.create(:admin, :password => "mike")
@@ -25,15 +25,11 @@ describe "User" do
   context "Edit User" do 
     it "needs to login before editing" do
       visit edit_user_path(user2)
-      page.should have_content "Please login"
+      page.should have_content "You must login first"
     end
     context "After login" do
       before(:each) do
         login(user)
-      end
-      it "can only edit themselves" do
-        visit edit_user_path(user2)
-        page.should have_content "You can only edit yourself"
       end
       it "can edit themselves" do
         visit edit_user_path(user)
