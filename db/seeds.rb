@@ -84,7 +84,7 @@ end
 
 ### STORE 2 ###
 
-store2 = Store.create(name: 'Test Store'.reverse, domain: 'store-test', creating_user_id: 1, description: 'This store sucks. Honestly, it was the worst shopping experience I have ever had. Monkeys run a tighter ship.')
+store2 = Store.create(name: 'Test Store'.reverse, domain: 'store-test', description: 'This store sucks. Honestly, it was the worst shopping experience I have ever had. Monkeys run a tighter ship.')
 store2.update_attribute(:approval_status, "approved")
 store2.update_attribute(:enabled, true)
 store2.creating_user_id = 1
