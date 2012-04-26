@@ -5,7 +5,7 @@ describe "Product Rating", :focus => true do
     FactoryGirl.create(:store)
   end
   before(:each) do
-    Capybara.app_host = "http://#{store.id}.son.test"
+    Capybara.app_host = "http://#{store.url}.son.test"
   end  
   let!(:product) { FactoryGirl.create(:product, :store => store)}   
   let!(:user) { FactoryGirl.create(:user, :password => "mike")}

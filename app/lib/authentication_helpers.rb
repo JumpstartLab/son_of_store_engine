@@ -1,10 +1,16 @@
 module AuthenticationHelpers
-  def require_admin
-    if current_user && !current_user.admin?
+
+  def require_store_admin
+    unless current_user.admin? || current_tenant.editable?(current_user)
       flash[:alert] = "Must be an administrator"
       redirect_to root_url
-    elsif current_user.nil?
-      not_authenticated
+    end
+  end
+
+  def require_admin
+    unless current_user.admin?
+      flash[:alert] = "Must be site administrator"
+      redirect_to root_url
     end
   end
 

@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe "Search" do   
+  let!(:store) do
+    FactoryGirl.create(:store)
+  end
+  before(:each) do
+    Capybara.app_host = "http://#{store.url}.son.test"
+  end
   let!(:user) do 
     FactoryGirl.create(:admin, :password => "mike")
   end
 
   let!(:products) do
-    [FactoryGirl.create(:product, :name => 'First Product'), FactoryGirl.create(:product, :name => 'Second Product'),
-     FactoryGirl.create(:product), FactoryGirl.create(:product)]
+    [FactoryGirl.create(:product, :name => 'First Product', :store => store), FactoryGirl.create(:product, :name => 'Second Product', :store => store),
+     FactoryGirl.create(:product, :store => store), FactoryGirl.create(:product, :store => store)]
   end
 
   let!(:statuses) do
@@ -19,8 +25,8 @@ describe "Search" do
   end
 
   let!(:orders) do
-    [FactoryGirl.create(:order, :user => user, :products => products, :status => statuses.last), 
-      FactoryGirl.create(:order, :user => user, :products => [products.first], :status => statuses[1])]
+    [FactoryGirl.create(:order, :user => user, :products => products, :status => statuses.last, :store => store), 
+      FactoryGirl.create(:order, :user => user, :products => [products.first], :status => statuses[1], :store => store)]
   end
 
   context 'search products' do

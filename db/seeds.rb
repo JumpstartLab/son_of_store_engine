@@ -8,24 +8,21 @@
 
 def user(values)
   u =     User.create(
-           :name  => values[0], :password => values[1], 
-           :email => values[2], :display_name => values[3]
-          )
+                       :name  => values[0], :password => values[1],
+                       :email => values[2], :display_name => values[3]
+                     )
   u.permission = values[4] if values[4]
   u.save
   u
 end
 
-@new_store = Store.new(:name => "First Store", :active => true)
-@new_store.save
-
-@new_store_2 = Store.new(:name => "Second Store", :active => true)
-@new_store_2.save
+@new_store = Store.create(name: "First Store", active: 2, enabled: true, url: "first-store")
+@new_store_2 = Store.create(:name => "Second Store", :active => true, enabled: true, active: 2, url:"second-store")
 
 def product(values, store=@new_store)
   p =           Product.create(
                   :name => values[0], :description => values[1],
-                  :price => values[2], :avatar_from_url => values[3], :store => store 
+                  :price => values[2], :avatar_from_url => values[3], :store => store
                 )
   p.categories = values[4] if values[4]
   p.save
@@ -43,6 +40,7 @@ u3 = user(["Elise Worthy", "elise", "elise.worthy@gmail.com", "elise", 9])
 user(["Matt Yoho", "hungry", "demoXX+matt@jumpstartlab.com", ""])
 user(["Jeff", "hungry", "demoXX+jeff@jumpstartlab.com", "j3"])
 user(["Chad Fowler", "hungry", "demoXX+chad@jumpstartlab.com", "SaxPlayer", 9])
+user(["Michael Verdi", "hungry", "m@gmail.com", "Veggie Man", 9])
 
 s1 = Status.create(   :name => "shipped"  )
 s2 = Status.create(   :name => "pending"  )
@@ -50,8 +48,8 @@ s3 = Status.create(   :name => "cancelled")
 s4 = Status.create(   :name => "paid"     )
 s5 = Status.create(   :name => "returned" )
 
-c1 = Category.create( :name => "Music", :store => @new_store    )
-c2 = Category.create( :name => "Toys"  , :store => @new_store   )
+c1 = Category.create( :name => "Music", :store => @new_store)
+c2 = Category.create( :name => "Toys"     )
 c3 = Category.create( :name => "Electronics")
 c4 = Category.create( :name => "Relaxation")
 c5 = Category.create( :name => "Water")
@@ -91,3 +89,4 @@ Sale.create(:percent_off => 90, :end_at => 30.days.from_now, :products => [p1,p2
 o1 = order([u1, s1, [p1, p2]])
 o2 = order([u1, s2, [p1, p3]])
 o2 = order([u2, s4, [p1, p3]])
+

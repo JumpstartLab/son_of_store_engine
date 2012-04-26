@@ -4,12 +4,20 @@ StoreEngine::Application.routes.draw do
 
   resources :sessions, :pages
   resources :users, :exclude => [:index]
-
+  
+  # Admin Routes
   namespace "admin" do
     get "dashboard" => "dashboard#index"
     resources :categories, :products, :sales, :exclude => [:show]
     resources :users, :only => [:index, :destroy]
-    resources :stores
+    resources :stores do
+      member do
+        put "approve"
+        put "decline"
+        put 'enable'
+        put 'disable'
+      end
+    end
     resources :orders,:exclude => [:show] do
       member do
         get 'status'
@@ -17,6 +25,7 @@ StoreEngine::Application.routes.draw do
     end
   end
 
+  # Subdomain Routes
   scope '', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     resources :search, :categories
     resources :sales, :only => [:show, :index]
@@ -42,6 +51,8 @@ StoreEngine::Application.routes.draw do
     end
     root :to => "products#index"
   end
+  get '/profile', :to => "users#edit"
+
   root :to => "pages#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.

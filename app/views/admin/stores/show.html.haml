@@ -1,12 +1,9 @@
-%p#notice= notice
-
 %p
   %b Name:
   = @store.name
 %p
   %b Active:
-  = @store.active
-
-= link_to 'Edit', edit_admin_store_path(@store)
-\|
-= link_to 'Back', admin_stores_path
+  = @store.status_name
+%p
+  %b URL:
+  = @store.url

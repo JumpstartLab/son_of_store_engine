@@ -5,7 +5,7 @@ describe "Indivdiaul Order" do
     FactoryGirl.create(:store)
   end
   before(:each) do
-    Capybara.app_host = "http://#{store.id}.son.test"
+    Capybara.app_host = "http://#{store.url}.son.test"
   end  
   let!(:user) { FactoryGirl.create(:admin, :password => "mike") }
   let!(:non_admin_user) do
@@ -44,6 +44,10 @@ describe "Indivdiaul Order" do
     visit "/orders/track?id=#{orders.first.unique_url}"
     page.should have_link(orders.first.unique_url)
   end
+  it 'track fails with invalid url' do
+    visit "/orders/track?id=mike-is-awesome"
+    page.should have_content "Invalid Order tracking code"
+  end  
   context "Order Edit Page" do 
     before(:each) do
       login(user)
@@ -68,12 +72,10 @@ describe "Indivdiaul Order" do
       login(user)
       visit "/orders/#{orders.first.id}"
     end
-
     it 'my orders' do
       visit my_orders_orders_path
       page.should have_content(orders.last.total_price)
     end
-
     it "displays when returned timestamp" do
       visit "/orders/#{orders[1].id}"
       click_on '[mark as shipped]'

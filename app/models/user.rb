@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   validates_length_of :display_name, :within => 2..32, :allow_blank => true, :unless => :guest
 
   has_many :orders
+  has_many :store_roles
+  has_many :stores, :through => :store_roles
   has_many :products, :through => :orders
   has_many :product_ratings
   has_one :cart
