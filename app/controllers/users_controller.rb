@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def new
+    session[:previous_page] = request.referer
     @user = User.new
   end
 
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
       if checking_out?
         redirect_to new_order_path, notice: "Thank you for signing up!"
       else 
-        redirect_to root_path, notice: "Thank you for signing up!"
+        redirect_to session[:previous_page], notice: "Thank you for signing up!"
       end 
     else
       render "new"

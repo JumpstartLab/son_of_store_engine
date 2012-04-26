@@ -123,4 +123,18 @@ describe "User" do
     end
   end
 
+  context "when signing up", :requests => :signup do
+    let (:product) { FactoryGirl.create(:product) }
+
+    it "returns user to previous page" do
+      visit product_path(product)
+      click_link "Sign Up"
+      fill_in "user[full_name]", :with => "Luke Skysauce"
+      fill_in "user[email]", :with => "sky@walker.com"
+      fill_in "user[password]", :with => "foobar"
+      fill_in "user[password_confirmation]", :with => "foobar"
+      click_on "Create User"
+      page.current_path.should == product_path(product)
+    end
+  end
 end
