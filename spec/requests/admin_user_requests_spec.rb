@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User, :user_request => :user do
+describe User do
   let! (:user) { Fabricate(:user) }
   let! (:store) { Fabricate(:store, :user => user) }
   let! (:product) { Fabricate(:product, :store => store) }

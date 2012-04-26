@@ -6,5 +6,10 @@ ActionMailer::Base.smtp_settings = {
   :password       => ENV['SENDGRID_PASSWORD'],
   :domain         => 'heroku.com'
 }
-ActionMailer::Base.delivery_method = :smtp
+delivery_method = if Rails.env.production?
+                    :smtp
+                  else
+                    :test
+                  end
+ActionMailer::Base.delivery_method = delivery_method
 ActionMailer::Base.default_url_options[:host] = 'sonofstoreengine.com'
