@@ -1,6 +1,10 @@
 StoreEngine::Application.routes.draw do
   devise_for :users
 
+  devise_scope :user do
+    get "users/new" => "devise/registrations#new", :as => :new_user 
+  end
+
   match 'profile' => 'stores#new'
   get "tracking/:slug" => "trackings#show", :as => "tracking"
 

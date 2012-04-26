@@ -34,6 +34,15 @@ describe User, :user_request => :user do
     page.should have_content("Signed out successfully.")
   end
 
+  context "when a new user visits the sign up link" do
+    it "should be directed to the top-level url http://sonofstoreengine.com/users/new" do
+      visit 'root'
+      click_link 'Sign up'
+      uri = URI.parse(current_url)
+      uri.path.should == "/users/new"
+    end
+  end
+
   context "after signing up" do
     it "user receives confirmation email" do
       expect { create_user(user) }.to change(ActionMailer::Base.deliveries,:size).by(1)
