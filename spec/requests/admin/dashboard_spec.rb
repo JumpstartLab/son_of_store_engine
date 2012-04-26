@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe "As an admin visiting the dashboard" do
-  let!(:store) { FactoryGirl.create(:store,
-   :name => "Test Store",
-   :url_name => "test-store",
-   :description => "errday im testin",
-   :approved => true,
-   :enabled => true) }
+  let!(:store) { Store.first }
   let!(:user) { FactoryGirl.create(:user, :admin => true) }
   context "and I'm not logged in" do
     before(:each) { visit admin_dashboard_path(store) }
