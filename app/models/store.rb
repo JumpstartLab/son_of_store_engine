@@ -12,6 +12,8 @@ class Store < ActiveRecord::Base
   has_many :orders, :extend => FindByStatusExtension
   has_many :products
   has_many :shipping_details
+  has_many :store_users
+  has_many :users, :through => :store_users
 
   def self.approved
     where(:status => "approved")

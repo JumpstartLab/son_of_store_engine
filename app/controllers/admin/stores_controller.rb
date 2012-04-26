@@ -3,6 +3,7 @@ class Admin::StoresController < ApplicationController
   def index
     @approved_stores  = Store.where(:status => "approved")
     @pending_stores   = Store.where(:status => "pending")
+    @disabled_stores  = Store.where(:status => "disabled")
   end
 
   def update
