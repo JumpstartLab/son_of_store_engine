@@ -30,7 +30,7 @@
 </div>
 <% end %>
 <ul class="nav nav-pills">
-  <li><%= link_to "All Products", products_path %></li>
+  <li><%= link_to "All Products", store_products_path %></li>
   <% Category.all.each do |c| %>
   <li><%= link_to c.title, category_path(c) %></li>
   

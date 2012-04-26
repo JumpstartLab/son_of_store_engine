@@ -1,6 +1,6 @@
 <h2>Edit <%=@product.title %></h2>
 
-<%= form_for(@product) do |p| %>
+<%= form_for([@product.store, @product]) do |p| %>
   <p>
     <%= p.label :title %> <br />
     <%= p.text_field :title %>

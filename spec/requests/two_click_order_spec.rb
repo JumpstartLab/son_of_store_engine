@@ -13,7 +13,7 @@ describe "ordering with two clicks", :requests => :twoclick do
       (1..5).map { FactoryGirl.create(:address) }
     end
     
-    before(:each) { visit product_path(product) }
+    before(:each) { visit store_product_path(product.store, product) }
     context "when I'm not logged in and click buy instantly" do
       it "should redirect an unlogged user to the login page" do
         click_link_or_button "Buy instantly"
@@ -24,7 +24,7 @@ describe "ordering with two clicks", :requests => :twoclick do
     context "when I'm logged in" do
       before(:each) do 
         login(user)
-        visit product_path(product)
+        visit store_product_path(product.store, product)
       end
       it "should redirect me to cart without a saved credit cart" do
         click_link_or_button "Buy instantly"
@@ -43,7 +43,7 @@ describe "ordering with two clicks", :requests => :twoclick do
 
       before(:each) do
         login(card_user)
-        visit product_path(product)
+        visit store_product_path(product.store, product)
         card   = valid_card_data
         charge = Stripe::Charge.create amount:      (product.price * 100).to_i,
                                    card:        card,
@@ -66,7 +66,7 @@ describe "ordering with two clicks", :requests => :twoclick do
   describe "when I'm not logged in and i click buy instantly" do
     let(:product) { FactoryGirl.create(:product) }
     it "directs me to home" do
-      visit product_path(product)
+      visit store_product_path(product.store, product)
       click_link_or_button "Buy instantly"
       login(user)
       page.should have_content "You need to be logged in to instant purchase."

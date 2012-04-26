@@ -8,7 +8,6 @@ StoreEngine::Application.routes.draw do
   resources :cart_items
   resources :categories, :except => [:index]
   resource :two_click_orders
-  resource :dashboard, :controller => 'dashboard'
   resource :checkout, :controller => 'checkout'
 
   get "logout" => "sessions#destroy", :as => "logout"
@@ -25,11 +24,13 @@ StoreEngine::Application.routes.draw do
   end
   match "/code" => redirect("http://github.com/chrismanderson/store_engine")
   match "/profile" => "users#profile", as: "profile"
+  match "/dashboards" => "dashboard#index", as: "dashboards"
 
   root :to => 'stores#index'
 
   resources :stores do
     resources :products
+    resource :dashboard, :controller => 'dashboard'
   end
   
 end

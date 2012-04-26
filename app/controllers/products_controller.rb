@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
 
   before_filter :admin_authorize,
                 only: [:destroy, :edit, :update, :create, :new]
+  before_filter :find_store, only: [:new, :create]
 
   def index
     if params[:search] && params[:search].length > 0
@@ -18,9 +19,9 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(params[:product])
+    @product = @store.products.new(params[:product])
     if @product.save
-      redirect_to product_path(@product), :notice => "Product created."
+      redirect_to store_product_path(@product.store, @product), :notice => "Product created."
     else
       render 'new'
     end
@@ -37,7 +38,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(params[:product])
-      redirect_to product_path(@product), :notice => "Product updated."
+      redirect_to store_product_path(@product.store, @product), :notice => "Product updated."
     else
       render 'edit'
     end
@@ -56,5 +57,9 @@ class ProductsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @products }
     end
+  end
+
+  def find_store
+    @store = Store.find_by_slug(params[:store_id])
   end
 end

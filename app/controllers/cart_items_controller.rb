@@ -4,7 +4,7 @@ class CartItemsController < ApplicationController
     if product.activity == true
       increment
     else
-      redirect_to product_path(product),
+      redirect_to store_product_path(product.store, product),
       :alert => "Sorry, this product is retired."
     end
   end

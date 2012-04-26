@@ -30,7 +30,7 @@ class Admin::StoresController < ApplicationController
   end
 
   def find_store
-    @store = Store.find(params[:id])
+    @store = Store.find_by_slug(params[:id])
   end
 
 end

@@ -18,7 +18,7 @@ describe "Dashboard" do
   
   describe "admin access" do
     it "requires admin login" do
-      visit "/dashboard"
+      visit dashboards_path
       page.should have_content "Not an admin"
     end
   end
@@ -26,27 +26,29 @@ describe "Dashboard" do
   describe "GET /dashboard" do
     it "requires admin for logged in users" do
       login(user)
-      visit "/dashboard"
+      visit dashboards_path
       page.should have_content "Not an admin"
     end
 
     it "successfully logs in an admin" do
       login(admin)
-      visit "/dashboard"
+      visit dashboards_path
       page.should have_content "Dashboard"
     end
   end
 
   describe "while admin is logged in" do
+    let!(:store) { FactoryGirl.create(:store) }
     before(:each) { login(admin) }
-    before(:each) { visit "/dashboard" }
+    before(:each) { order.update_attribute(:store_id, store.id)}
+    before(:each) { visit store_dashboard_path(store) }
 
     it "displays the list of all orders" do
-      find('#order_count').should have_content(Order.all.count)
+      find('#order_count').should have_content(store.orders.count)
     end
 
     it "displays the user name for each order" do
-      page.should have_content(user.full_name)
+      page.should have_content(order.user.full_name)
     end
 
     it "displays the total price for each order" do
@@ -55,10 +57,6 @@ describe "Dashboard" do
 
     it "displays the order status for each order" do
       page.should have_content(order.current_status)
-    end
-
-    it "displays the timestamp for when an order was updated" do
-      page.should have_content(order.updated_at)
     end
   end
 end

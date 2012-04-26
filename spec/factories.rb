@@ -4,6 +4,9 @@ FactoryGirl.define do
     sequence(:title)  { |n| "New Product ##{n}" } 
     description Faker::Lorem.paragraph(sentence_count = 3)
     price 500 
+    after_create do |product|
+      product.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
   factory :category do
@@ -54,8 +57,8 @@ FactoryGirl.define do
   end
 
   factory :store do
-    name "Top Funky"
-    slug "top_funky"
+    sequence(:name)  { |n| "Store ##{n}" }
+    sequence(:slug)  { |s| "slug_#{s}" }
     owner_id 1
     after_create do |store|
       user = FactoryGirl.create(:user)
