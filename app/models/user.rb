@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   validates_length_of :username, :within => 2..32,
                       :too_long => "pick a shorter name",
                       :too_short => "pick a longer name",
-                      :allow_nil => true
+                      :allow_blank => true
 
   after_create :send_welcome_email
 
