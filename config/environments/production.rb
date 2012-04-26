@@ -26,13 +26,12 @@ StoreEngine::Application.configure do
   config.active_support.deprecation = :notify
 
   ActionMailer::Base.smtp_settings = {
-    :address => 'smtp.gmail.com',
-    :port => 587,
-    :domain => 'gmail.com',
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
     :authentication => :plain,
-    :user_name => 'hungry.store.engine@gmail.com',
-    :password => 'paulgraham',
-    :enable_starttls_auto => true
+    :user_name      => 'app4252907@heroku.com',
+    :password       => 'ggltqwv7',
+    :domain         => 'heroku.com'
   }
   ActionMailer::Base.delivery_method = :smtp
 end
