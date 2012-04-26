@@ -1,4 +1,4 @@
-<%= form_for(@cart_item) do |ci| %>
+<%= form_for([current_store, @cart_item]) do |ci| %>
 <p><%= ci.label :quantity %> <br />
    <%= ci.text_field :quantity %>
 </p>

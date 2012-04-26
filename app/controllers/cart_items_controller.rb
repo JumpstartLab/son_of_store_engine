@@ -26,7 +26,7 @@ class CartItemsController < ApplicationController
     @cart_item = @cart.cart_items.find(params[:id])
     @cart_item.update_attributes(params[:cart_item])
     delete_on_zero
-    redirect_to cart_path
+    redirect_to store_cart_path(current_store)
   end
 
   def delete_on_zero
@@ -38,6 +38,6 @@ class CartItemsController < ApplicationController
   def destroy
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
-    redirect_to cart_path
+    redirect_to store_cart_path(current_store)
   end
 end

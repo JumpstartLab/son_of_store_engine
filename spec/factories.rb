@@ -49,6 +49,9 @@ FactoryGirl.define do
 
 
   factory :cart do
+    after_create do |cart|
+      cart.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
   factory :address do

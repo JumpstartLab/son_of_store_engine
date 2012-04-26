@@ -30,7 +30,8 @@ describe 'using the shopping cart' do
         end
 
         it "should list only one copy of the item" do
-          page.should_not have_selector('a', :href => store_product_path(product.store, product), :count => 2)
+          page.should_not have_selector('a', :href => 
+            store_product_path(product.store, product), :count => 2)
         end
       end 
     end
@@ -45,6 +46,7 @@ describe 'using the shopping cart' do
       visit store_product_path(product.store, product)
       click_link_or_button "Add to Cart"
       login(user)
+      visit store_product_path(product.store, product)
       click_on "Cart"
       page.should have_content "2 items"
     end

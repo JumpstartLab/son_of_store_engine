@@ -8,7 +8,9 @@ class CheckoutController < ApplicationController
 
   private
 
+  #TODO: Factor this checkout_store_id out
   def set_checking_out
-    session[:checking_out] = true    
+    session[:checking_out] = true
+    session[:checkout_store_id] = @cart.products.first.store.id rescue nil
   end
 end

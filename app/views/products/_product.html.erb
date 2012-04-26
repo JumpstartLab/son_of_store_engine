@@ -10,7 +10,8 @@
         store_product_path(product.store, product) %></h3>
         <h4><%= number_to_currency(product.price) %></h4>
         <br />
-        <%= link_to "Add to Cart", cart_items_path(:product_id => product), 
+        <%= link_to "Add to Cart", 
+          store_cart_items_path(current_store, :product_id => product), 
           :method => :post, :remote => true, :id => "product_#{product.id}",
           :class => "btn btn-small btn-info" %>
           <br />
