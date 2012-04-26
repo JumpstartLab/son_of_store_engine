@@ -28,7 +28,7 @@ StoreEngine::Application.configure do
   ActionMailer::Base.smtp_settings = {
     :address => 'smtp.gmail.com',
     :port => 587,
-    :domain => 'http://daughterofstoreengine.herokuapp.com/',
+    :domain => 'gmail.com',
     :authentication => :plain,
     :user_name => 'hungry.store.engine@gmail.com',
     :password => 'paulgraham'
