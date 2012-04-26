@@ -1,9 +1,9 @@
 class NewUserEmailer
   @queue = :emailer
 
-  def self.perform(user)
-    @email  = user[:email]
-    @name   = user[:name]
+  def self.perform(email, name)
+    @email  = email
+    @name   = name
     Notification.sign_up_confirmation(@email,@name).deliver
   end
 end
