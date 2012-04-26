@@ -40,7 +40,7 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-
+  config.include SetHostHelper
   config.include Rails.application.routes.url_helpers
   config.include ExampleData::Projects
   config.include Sorcery::TestHelpers::Rails
@@ -57,5 +57,12 @@ module Sorcery
     end
   end
 end
+
+#module SetHostHelper
+  #def set_host(sub)
+    #Capybara.default_host = "#{sub}.example.com" #for Rack::Test
+    #Capybara.app_host = "http://#{sub}.127localhost.com:6543"
+  #end
+#end
 
 Capybara.server_port = 6543
