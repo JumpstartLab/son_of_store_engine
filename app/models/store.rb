@@ -1,5 +1,5 @@
 class Store < ActiveRecord::Base
-  attr_accessible :description, :name, :url_name
+  attr_accessible :description, :name, :url_name, :approved, :enabled, :owner_id
 
   has_many :products
   has_many :categories
@@ -10,4 +10,10 @@ class Store < ActiveRecord::Base
   def to_param
     url_name
   end
+
+  # # def update_status(status)
+  # #   case status
+  # #   when ""
+
+  # end
 end

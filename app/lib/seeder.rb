@@ -1,8 +1,8 @@
 class Seeder
 
   def self.build_db
-    build_stores
     build_users
+    build_stores
     build_shipping_detail
     build_categories
     build_products(20, 1)
@@ -90,11 +90,11 @@ class Seeder
 
   def self.build_stores
     Store.create( name: "Best Sunglasses", url_name: "best-sunglasses",
-      description: "Buy our sunglasses!")
+      description: "Buy our sunglasses!", owner_id: 1)
     Store.create( name: "Worace's Workshop", url_name: "woraces-workshop",
-      description: "Wonderful wares whenever Worace wants!")
+      description: "Wonderful wares whenever Worace wants!", owner_id: 2)
     Store.create( name: "Matt's Mumus", url_name: "matts-mumus",
-      description: "They sure are comfortable!")
+      description: "They sure are comfortable!", owner_id: 3)
   end
 
   def self.build_users

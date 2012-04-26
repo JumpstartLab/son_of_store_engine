@@ -19,6 +19,10 @@ StoreEngine::Application.routes.draw do
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
 
+  namespace :admin do
+    resources :stores, only: [ :index, :update ]
+  end
+
   scope "", constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     match '', :to => 'stores#show', as: :store
     match '/admin/dashboard', :to => 'admin/dashboard#show', as: "admin_dashboard"
@@ -44,10 +48,10 @@ StoreEngine::Application.routes.draw do
         resource :status, only: :update
       end
       resources :users, only: [:show]
-      resources :stores
+      resource :dashboards, only: [:show]
     end
     #root to: "products#index"
-  end 
+  end
 
   #match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
   #root :to => "products#index"

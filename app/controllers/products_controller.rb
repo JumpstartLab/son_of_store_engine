@@ -20,6 +20,6 @@ class ProductsController < ApplicationController
 
   def is_store_approved?
     redirect_to stores_path, 
-      notice: "Store not found! Browse some others!" unless store.approved?
+      notice: "Store not found! Browse some others!" unless store.approved? && store.enabled?
   end
 end
