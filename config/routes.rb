@@ -4,13 +4,12 @@ StoreEngine::Application.routes.draw do
   resources :visitor_orders
   resources :sessions
   resources :unique_orders, :only => :show
-  resources :cart_items
-  resource :checkout, :controller => 'checkout'
+  
 
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
 
-  resource :cart, :only => [:show, :update]
+  
   namespace "admin" do
     resources :stores do
       put "enable", on: :member
@@ -31,6 +30,9 @@ StoreEngine::Application.routes.draw do
     resource :two_click_orders
     resources :categories, :except => [:index]
     resources :orders
+    resource :checkout, :controller => 'checkout'
+    resource :cart, :only => [:show, :update]
+    resources :cart_items
   end
   
 end

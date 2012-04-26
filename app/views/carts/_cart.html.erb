@@ -23,9 +23,11 @@
         <td><%= number_to_currency(item.individual_price) %></td>
         <td><%= item.quantity %></td>
         <td><%= number_to_currency(item.price) %></td>
-        <td><%= link_to "Edit Quantity", edit_cart_item_path(item), 
+        <td><%= link_to "Edit Quantity", 
+                edit_store_cart_item_path(current_store, item), 
                 :class => 'btn btn-mini' %></td>
-        <td><%= link_to "Remove item", cart_item_path(item), 
+        <td><%= link_to "Remove item", 
+                store_cart_item_path(current_store, item), 
                 :method => :delete, :class => 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
@@ -38,7 +40,7 @@
   <% if cart.cart_items.empty? %>
 <% else %>
   <div id="checkout" class="button">
-    <%= link_to "Checkout", new_checkout_path, 
+    <%= link_to "Checkout", new_store_checkout_path(current_store), 
         :class => "btn btn-primary btn-large" %>
   </div>
 <% end %>

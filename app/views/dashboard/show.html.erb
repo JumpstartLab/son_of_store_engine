@@ -12,19 +12,19 @@
   <table id="status_numbers">
     <tbody>
       <td style="width: 110px"><%= link_to "Pending:", 
-          orders_path(:status_search => "pending") %> 
+          store_orders_path(current_store, :status_search => "pending") %> 
           <%= @orders.pending.count %></td>
       <td style="width: 120px"><%= link_to "Cancelled:", 
-          orders_path(:status_search => "cancelled") %> 
+          store_orders_path(current_store, :status_search => "cancelled") %> 
           <%= @orders.cancelled.count %></td>
       <td style="width: 90px"><%= link_to "Paid:", 
-          orders_path(:status_search => "paid") %>
+          store_orders_path(current_store, :status_search => "paid") %>
           <%= @orders.paid.count %></td>
       <td style="width: 120px"><%= link_to "Shipped:", 
-          orders_path(:status_search => "shipped") %>
+          store_orders_path(current_store, :status_search => "shipped") %>
           <%= @orders.shipped.count %></td>
       <td style="width: 120px"><%= link_to "Returned:", 
-          orders_path(:status_search => "returned") %> 
+          store_orders_path(current_store, :status_search => "returned") %> 
           <%= @orders.returned.count %></td>
     </tbody>
   </table>

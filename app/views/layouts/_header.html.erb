@@ -12,10 +12,10 @@
         <span class="icon-bar"></span>
       </a>
         <a class="brand" href="/">StoreEngine</a>
-
+        <% if current_store %>
         <ul class="nav">
           <li>
-            <%= link_to("Cart", cart_path) %>
+            <%= link_to("Cart", store_cart_path(current_store)) %>
           </li>
           <li>
             <% if @cart.quantity == 0 %>
@@ -29,6 +29,7 @@
             <% end %>
           </li>
         </ul>
+        <% end %>
         <form class="navbar-search pull-right">
           <%= text_field_tag :search, nil, :class => "search-query", 
           :placeholder => "Search..." %>
@@ -56,8 +57,9 @@
                       dashboards_path if current_user.admin? %></li>
               <li><%= link_to "Log Out", 
                       logout_path %></li>
+              <% if current_store %>
               <li><%= link_to "Orders", 
-                      store_orders_path(@store) %></li>
+                      store_orders_path(current_store) %></li><% end %>
             </ul>
           </li>
 

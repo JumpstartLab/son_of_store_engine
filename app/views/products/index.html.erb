@@ -14,8 +14,10 @@
       <p><%=  p.description %></p>
       <div id="info">
       <p id="price"><%= number_to_currency(p.price) %>
-      <%= link_to "Add to Cart", cart_items_path(:product_id => p), 
-          :method => :post, :remote => true, :id => "product_#{p.id}", :class => "btn" %>
+      <%= link_to "Add to Cart", store_cart_items_path(current_store, 
+                                                       :product_id => p), 
+          :method => :post, :remote => true, 
+          :id => "product_#{p.id}", :class => "btn" %>
         </div>
     </div>
     <div class="span5">

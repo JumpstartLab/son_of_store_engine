@@ -25,7 +25,8 @@
   <%= link_to "Edit", edit_store_product_path(@product.store, @product), 
       :class => "btn btn-mini" %>
 <% end %> 
-<%= link_to "Add to Cart", cart_items_path(:product_id => @product), 
+<%= link_to "Add to Cart", store_cart_items_path(current_store, 
+                                                  :product_id => @product), 
     :method => :post, :class => "btn btn-small btn-warning" %> 
 <%= link_to "Buy instantly", 
     store_two_click_orders_path(@product.store, :product_id => @product), 
