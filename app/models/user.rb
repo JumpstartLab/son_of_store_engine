@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def verify_user(input)
-    add_email(input[:email])
+    add_email(input[:email]) if input[:email]
     update_address(input)
   end
 
