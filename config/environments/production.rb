@@ -34,4 +34,6 @@ StoreEngine::Application.configure do
     :password => 'paulgraham',
     :enable_starttls_auto => true
   }
+  ActionMailer::Base.delivery_method = :smtp
 end
+
