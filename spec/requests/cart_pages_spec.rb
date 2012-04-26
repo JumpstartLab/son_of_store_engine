@@ -213,7 +213,7 @@ describe "Using the shopping cart" do
 
       context "when I try to update the quantity of a product" do
         before(:each) do
-          fill_in "quantity_product_#{product.id}",         with: "10"
+          fill_in "quantity_product_#{product.id}", with: "10"
           click_button("update")
         end
 
