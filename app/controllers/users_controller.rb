@@ -11,8 +11,8 @@ class UsersController < ApplicationController
     @user = User.new(user_info)
     if @user.save
       cart = current_cart
-      if user = login(user_info[:email], user_info[:password])
-        successful_login(cart, user)
+      if @user = login(user_info[:email], user_info[:password])
+        successful_login(cart, @user)
       end
     else
       render :new
@@ -29,9 +29,15 @@ private
     redirect_to_last_page unless User.find_by_id(params[:id]) == current_user
   end
 
-  def successful_login(cart, user)
-    cart.assign_cart_to_user(user)
-    redirect_to_last_page("Welcome! Thanks for signing up!")
+  def successful_login(cart_before_login, user)
+    if cart_before_login.has_products?
+      existing_cart = user.carts.where(:store_id => current_store.id).first
+      existing_cart.destroy if existing_cart
+      user.carts << cart_before_login
+    else
+      cart_before_login.destroy
+    end
+    redirect_to store_path(current_store.slug)
   end
 
 end

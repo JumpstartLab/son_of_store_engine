@@ -1,6 +1,6 @@
 h1 Sign in
 .row
-  .span6.offset3
+  .span6
     = form_tag store_sessions_path(store_slug) do
       .field
         = label_tag :email
@@ -13,3 +13,7 @@ h1 Sign in
         = label_tag :remember_me
       .actions= submit_tag "Log in", :id => "go_log_in"
     /! <p>New user? <haml:loud> link_to &amp;quot;Sign up now!&amp;quot;, signup_path </haml:loud></p>
+  .span6
+    = link_to 'Continue to checkout as guest', new_guest_order_path(store_slug)
+    br/
+    = link_to 'Register an account', store_signup_path

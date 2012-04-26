@@ -16,6 +16,13 @@ StoreEngine::Application.routes.draw do
   scope ':store_slug' do
     match '/', :to => 'products#index', :as => :store
 
+    match '/signup',  :to => 'users#new', :as => :store_signup
+    match '/signin',  :to => 'sessions#new', :as => :store_signin
+    match '/signout', :to => 'sessions#destroy', :as => :store_signout
+
+    resources :sessions, :as => :store_sessions
+    resources :users, :as => :store_users
+
     #resources :sessions  #XXX support login/logout from store
     resource  :cart, only: [:show, :update]
     resources :cart_products, only: [:new, :update, :destroy]

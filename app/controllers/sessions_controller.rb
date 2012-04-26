@@ -1,6 +1,11 @@
 class SessionsController < ApplicationController
 
   def new
+    if params[:checkout] == "true"
+      render 'checkout_new' and return
+    elsif current_store.nil?
+      render 'new_global' and return
+    end
   end
 
   def create
@@ -9,6 +14,7 @@ class SessionsController < ApplicationController
     cart_before_login = current_cart
     if user = login(params[:email], params[:password], params[:remember_me])
       successful_login(cart_before_login, user)
+      redirect_to store_path(params[:slug]) and return
     else
       invalid_email
     end
@@ -16,17 +22,16 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to root_url, :notice => "Logged out."
+    if current_store
+      redirect_to store_path(current_store.slug)
+    else
+      redirect_to root_url, :notice => "Logged out."
+    end
   end
 
 private
 
   def successful_login(cart_before_login, user)
-    unless current_store
-      redirect_to root_path
-      return
-    end
-
     if cart_before_login.has_products?
       existing_cart = user.carts.where(:store_id => current_store.id).first
       existing_cart.destroy if existing_cart
@@ -34,8 +39,6 @@ private
     else
       cart_before_login.destroy
     end
-
-    redirect_to store_path(current_store.slug)
   end
 
   def invalid_email

@@ -1,7 +1,7 @@
 h1 Sign in
 .row
   .span6.offset3
-    = form_tag store_sessions_path(store_slug) do
+    = form_tag sessions_path do
       .field
         = label_tag :email
         = text_field_tag :email, params[:email]
