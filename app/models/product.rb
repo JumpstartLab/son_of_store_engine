@@ -21,27 +21,33 @@ class Product < ActiveRecord::Base
   end
 
   def self.top_grossing
-    Product.active.sort do |prod_a, prod_b|
-      prod_a.revenue <=> prod_b.revenue
-    end.last
+    product_sort(:revenue)
+  end
+
+  def revenue
+    revenue = counter(:price)
   end
 
   def sales
-    sales = order_items.inject(0) { |sum, oi| sum + oi.quantity }
+    sales = counter(:quantity)
+  end
+
+  def self.product_sort(param)
+    Product.active.sort do |prod_a, prod_b|
+      prod_a.send(param) <=> prod_b.send(param)
+    end.last
+  end
+
+  def counter(param)
+    order_items.inject(0) { |sum, oi| sum + oi.send(param) }
   end
 
   def self.top_selling
-    Product.active.sort do |prod_a, prod_b|
-      prod_a.sales <=> prod_b.sales
-    end.last
+    product_sort(:sales)
   end
 
   def self.active
     Product.where(:activity => true)
-  end
-
-  def revenue
-    revenue = order_items.inject(0) { |sum, oi| sum + oi.price }
   end
 
   def status?
