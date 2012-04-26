@@ -1,10 +1,12 @@
 doctype html
 html
   head
-    title StoreEngine
+    title SonOfStoreEngine
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
+
+  =yield :head
 
   body
     div class="navbar navbar-fixed-top"
@@ -17,7 +19,7 @@ html
               - if @store
                 li.nav = link_to("My Orders", orders_path(@store))
               li.nav id="right"
-                = "Logged in as #{current_user.email}. "
+                = "#{current_user.name} | " 
                 = link_to("Log out",
                           destroy_user_session_path(:store_unique_id => nil),
                           :method => :delete)
@@ -25,7 +27,7 @@ html
               li.nav id="right"
                 = link_to("Sign up", new_user_registration_path)
                 = " or "
-                = link_to("log in", new_user_session_path)
+                = link_to("Sign in", new_user_session_path)
             - if @store and not @store.name.blank?
               li.nav class="brand" = @store.name.titlecase
             - else
@@ -42,7 +44,7 @@ html
       div class="navbar-inner"
         div class="container"
           ul
-            li.nav id="right_big" = link_to "π", "http://www.jibjab.com/view/VAfMsYFRakU6mXaP?mt=1", :target=> "blank"
-            li.nav id="right"
-              = "Do not click me --> "
+            /li.nav id="right_big" = link_to "π", "http://www.jibjab.com/view/VAfMsYFRakU6mXaP?mt=1", :target=> "blank"
+            /li.nav id="right"
+              /= "Do not click me --> "
     = yield
