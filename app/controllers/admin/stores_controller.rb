@@ -1,4 +1,5 @@
 class Admin::StoresController < ApplicationController
+  before_filter :verify_site_admin
 
   def index
     @approved_stores  = Store.where(:status => "approved")

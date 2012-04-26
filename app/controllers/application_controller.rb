@@ -78,7 +78,8 @@ private
   end
 
   def verify_site_admin
-    #redirect_to store_path('mittenberry') unless current_user && current_user.site_admin == true
+    redirect_to root_path, :notice => "You are not a site admin." unless
+      current_user && current_user.site_admin == true
   end
 
 end
