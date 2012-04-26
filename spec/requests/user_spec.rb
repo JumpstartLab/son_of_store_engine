@@ -66,7 +66,11 @@ describe "User" do
   end
 
   context "creating new users" do
-    before(:each) { visit new_user_path }
+    before(:each) do
+      visit root_path
+      visit new_user_path 
+    end
+
     it "does not requires login" do
       page.should have_css('h1', :text => 'Sign Up')
     end
@@ -123,7 +127,7 @@ describe "User" do
     end
   end
 
-  context "when signing up", :requests => :signup do
+  context "when signing up" do
     let (:product) { FactoryGirl.create(:product) }
 
     it "returns user to previous page" do
@@ -147,6 +151,16 @@ describe "User" do
       click_on "Create User"
       find_link("Edit User Settings").visible?.should == true
     end
+
+    it "redirects to root if previous page was signup" , :requests => :signup do
+      visit new_user_path
+      click_link "Sign Up"
+      fill_in "user[full_name]", :with => "Luke Skysauce"
+      fill_in "user[email]", :with => "sky@walker.com"
+      fill_in "user[password]", :with => "foobar"
+      fill_in "user[password_confirmation]", :with => "foobar"
+      click_on "Create User"
+      page.current_path.should == root_path
     end
   end
 end

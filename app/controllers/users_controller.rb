@@ -39,7 +39,9 @@ class UsersController < ApplicationController
       notice = "Thank you for signing up!  #{link}".html_safe 
       if checking_out?
         redirect_to new_order_path, notice: notice
-      else 
+      elsif session[:previous_page] == new_user_url
+        redirect_to root_path, notice: notice
+      else
         redirect_to session[:previous_page], notice: notice
       end 
     else
