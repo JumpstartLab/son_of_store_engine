@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
     if user = login(params[:email], params[:password], params[:remember_me])
       successful_login(cart_before_login, user)
     else
-      session[:cart_id] = cart.id
       invalid_email
     end
   end
@@ -21,6 +20,11 @@ class SessionsController < ApplicationController
 private
 
   def successful_login(cart_before_login, user)
+    unless current_store
+      redirect_to root_path
+      return
+    end
+
     if cart_before_login.has_products?
       existing_cart = user.carts.where(:store_id => current_store.id).first
       existing_cart.destroy if existing_cart
@@ -28,7 +32,8 @@ private
     else
       cart_before_login.destroy
     end
-    #redirect_to store_path(current_store.slug)
+
+    redirect_to store_path(current_store.slug)
   end
 
   def invalid_email

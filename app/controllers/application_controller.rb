@@ -18,7 +18,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_cart
-    @cart ||= get_cart_from_session || get_cart_from_user_if_logged_in || create_new_cart
+    if current_store
+      @cart ||= get_cart_from_session || get_cart_from_user_if_logged_in || create_new_cart
+    end
   end
 
   def cart_storage
