@@ -16,4 +16,9 @@ class Store < ActiveRecord::Base
   def self.approved
     where(:status => "approved")
   end
+
+  def self.pending 
+    where(:status => "pending")
+  end
+
 end

@@ -28,7 +28,7 @@ private
     else
       cart_before_login.destroy
     end
-    redirect_to store_path(current_store.slug)
+    #redirect_to store_path(current_store.slug)
   end
 
   def invalid_email

@@ -1,0 +1,13 @@
+header.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      = link_to "SonOfAStoreEngine", stores_path, id: "logo"
+      nav
+        ul.nav.pull-right
+          li#cart-menu
+          - if current_user
+            li= link_to "Stores", admin_stores_path if current_user.admin?
+            li= link_to current_user do
+                i.icon-user.icon-white
+                | &nbsp;&nbsp;#{current_user.name}
+            li= link_to "Sign out", signout_path, method: "delete"

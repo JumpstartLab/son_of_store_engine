@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :verify_store_status
   before_filter :get_last_page
   after_filter :set_last_page
 
@@ -34,11 +35,11 @@ class ApplicationController < ActionController::Base
   # end
 
   def redirect_to_login(message=nil)
-    redirect_to signin_path
+    #redirect_to signin_path
   end
 
   def is_admin?
-    redirect_to_last_page unless current_user.admin
+    #redirect_to_last_page unless current_user.admin
   end
 
 private
@@ -67,10 +68,13 @@ private
   end
 
   def verify_store_status
-    if current_store.status == "pending"
-      redirect_to stores_path, :notice => "That store is pending approval."
-    end
+    #if current_store && current_store.status == "pending"
+    #  redirect_to stores_path, :notice => "That store is pending approval."
+    #end
   end
 
+  def verify_site_admin
+    #redirect_to store_path('mittenberry') unless current_user && current_user.site_admin == true
+  end
 
 end

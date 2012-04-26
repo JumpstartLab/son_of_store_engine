@@ -12,6 +12,7 @@ gem 'faker'
 gem 'rake'
 gem 'twilio-ruby'
 gem 'slim'
+gem 'decent_exposure'
 
 group :production do
   gem 'pg'
