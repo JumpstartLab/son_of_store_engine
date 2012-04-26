@@ -5,7 +5,7 @@ class OrderMailer < ActionMailer::Base
     @order = order
     @email = order.find_shipping.email_address
     #@url  = order_path(@order.store, @order.id)
-    @url = link_to( :controller => "orders", :action => "lookup#show", :id => @order.id)
+    @url = "/#{@order.store.to_param}/orders/#{@order.special_url}"
     mail(to: @email, subject: "Thank you for your order!")
   end
 end
