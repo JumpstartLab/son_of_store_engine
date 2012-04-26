@@ -84,7 +84,7 @@ class Order < ActiveRecord::Base
     order_items
   end
 
-  def update_with_addresses_and_card(billing_data)
+  def update_with_billing_information(billing_data)
     update_attributes(billing_data[:order])
 
     Address.create_multiple([
