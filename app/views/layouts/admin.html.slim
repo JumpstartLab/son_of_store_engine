@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title StoreEngine
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+  body
+    div class="navbar navbar-fixed-top"
+      div class="navbar-inner"
+        div class="container"
+          ul id="nav"
+            li.nav class="brand" = "Konami Coders Inc."
+    
+    div.container
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}", :class => 'alert alert-info'
+
+      = yield

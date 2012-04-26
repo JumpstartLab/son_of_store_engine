@@ -11,7 +11,7 @@ html
       div class="navbar-inner"
         div class="container"
           ul id="nav"
-            - if @store && (can? :manage, @store)
+            - if @store and can? :manage, @store
               li.nav = link_to("Admin", admin_dashboard_path)
             - if current_user
               - if @store
@@ -19,7 +19,7 @@ html
               li.nav id="right"
                 = "Logged in as #{current_user.email}. "
                 = link_to("Log out",
-                          destroy_user_session_path,
+                          destroy_user_session_path(:store_unique_id => nil),
                           :method => :delete)
             - else
               li.nav id="right"

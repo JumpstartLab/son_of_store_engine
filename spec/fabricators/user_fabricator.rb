@@ -26,3 +26,10 @@ Fabricator(:user) do
   username "peter"
   password "derpina"
 end
+
+# Fabricator(:unique_user) do
+#   name "#{Faker::Name.first_name} #{Faker::Name.last_name}"
+#   email Faker::Internet.email
+#   username Faker::Internet.user_name
+#   password Faker::Lorem.words(1).first
+# end

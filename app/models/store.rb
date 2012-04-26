@@ -35,6 +35,10 @@ class Store < ActiveRecord::Base
     status == 'pending'
   end
 
+  def declined?
+    status == 'declined'
+  end
+
   def active?
     status == 'active'
   end
@@ -43,8 +47,17 @@ class Store < ActiveRecord::Base
     where(:status => 'pending')
   end
 
+  def set_status!(s)
+    self.status = s
+    self.save()
+  end
+
   def self.active
     where(:status => 'active')
+  end
+
+  def self.not_declined
+    where("status != 'declined'")
   end
 
   def active_products

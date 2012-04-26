@@ -1,7 +1,10 @@
 h3 Welcome to Son of Store Engine!
 
+- if can? :manage, :all
+  div= link_to 'Administer Stores', superadmin_stores_path
+  
 - if current_user
-  = link_to 'Create A Store', new_store_path
+  div= link_to 'Create A Store', new_store_path
 
   hr
   h3 Pending Stores
