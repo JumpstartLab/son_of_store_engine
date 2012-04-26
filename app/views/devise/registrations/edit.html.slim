@@ -8,18 +8,16 @@ h2
     = f.email_field :email
 
   div
-    = f.label :password
-    i (leave blank if you don't want to change it)
+    = f.label :current_password 
+    = f.password_field :current_password
+
+  div
+    = f.label :password, "New Password"
     = f.password_field :password, :autocomplete => "off"
 
   div
     = f.label :password_confirmation
     = f.password_field :password_confirmation
-
-  div
-    = f.label :current_password 
-    i (we need your current password to confirm your changes)
-    = f.password_field :current_password
 
   div class="user-edit-actions"
   = f.submit "Update My Account", :class => 'btn btn-primary'
