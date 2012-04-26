@@ -17,5 +17,5 @@ class Store < ActiveRecord::Base
   def self.find_active_store(id)
     Store.where('id = ? AND active = ? AND enabled = ?', id, true, true).first
   end
-
+  
 end

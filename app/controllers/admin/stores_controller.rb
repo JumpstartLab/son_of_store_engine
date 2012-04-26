@@ -1,5 +1,4 @@
 module Admin
-  class StoresController < Controller  
     def index
       @stores = Store.all
     end
@@ -31,13 +30,24 @@ module Admin
         redirect_to admin_store_path(@store), notice: 'Store was successfully updated.'
       else  
         render action: "edit"
-      end
     end
 
     def destroy
       @store = Store.find(params[:id])
       @store.destroy
-      redirect_to admin_stores_path
     end
+
+    def approve
+      @store = Store.find(params[:id])
+      @store.update_attribute(:status, "approved")
+      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Approved"
+    end
+
+    def decline
+      @store = Store.find(params[:id])
+      @store.update_attribute(:status, "declined")
+      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Declined"
+    end
+
   end
 end

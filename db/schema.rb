@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20120426025615) do
+=======
+ActiveRecord::Schema.define(:version => 20120426012111) do
+>>>>>>> new_store_approval
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -141,11 +145,15 @@ ActiveRecord::Schema.define(:version => 20120426025615) do
   create_table "stores", :force => true do |t|
     t.string   "name"
     t.boolean  "active",      :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.boolean  "enabled"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "enabled",     :default => false
     t.text     "description"
+<<<<<<< HEAD
     t.string   "url"
+=======
+    t.string   "status",      :default => "pending"
+>>>>>>> new_store_approval
   end
 
   create_table "users", :force => true do |t|
