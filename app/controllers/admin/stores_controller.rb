@@ -1,4 +1,5 @@
 module Admin
+  class StoresController < Controller
     def index
       @stores = Store.all
     end
@@ -30,6 +31,7 @@ module Admin
         redirect_to admin_store_path(@store), notice: 'Store was successfully updated.'
       else  
         render action: "edit"
+      end
     end
 
     def destroy
