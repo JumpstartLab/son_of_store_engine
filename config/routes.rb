@@ -23,13 +23,10 @@ StoreEngine::Application.routes.draw do
 
   scope "/:domain" do
     match "/" => "products#index"
+    match "orders/lookup" => "orders#lookup"
     resources :products, only: [:index, :show]
     resources :categories, only: [:index, :show]
-    resources :orders, except: [:new, :create, :destroy] do
-      member do
-        get :lookup
-      end
-    end
+    resources :orders, except: [:new, :create, :destroy]
     resources :line_items, except: [:new]
     namespace :admin do
       resources :orders
