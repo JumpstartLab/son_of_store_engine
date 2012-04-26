@@ -4,7 +4,11 @@ StoreEngine::Application.routes.draw do
 
   resources :users, only: [:show, :create, :new, :update]
   resources :stores, :only => [:index, :create, :new]
-  
+
+  match '/signup',  :to => 'users#new'
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+
   scope ':store_slug' do
     match '/', :to => 'products#index', :as => :store
 
@@ -45,12 +49,6 @@ StoreEngine::Application.routes.draw do
     resource :dashboards, only: [:show]
   end
 
-
-  match '/signup',  :to => 'users#new'
-  match '/signin',  :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
-  
-  # root :to => "static_pages#home"
   root :to => "stores#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
