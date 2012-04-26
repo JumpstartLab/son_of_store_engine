@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
   before_filter :admin_authorize, only: [:new, :create, :update, :edit]
-  before_filter :find_store
 
   def show
     @category = Category.find_by_id(params[:id])
@@ -12,7 +11,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = @store.categories.new(params[:category])
+    @category = current_store.categories.new(params[:category])
     if @category.save
       redirect_to store_category_path(@category.store, @category),
       notice: "Categories all the way down!"
@@ -36,9 +35,5 @@ class CategoriesController < ApplicationController
   end
 
   private
-
-  def find_store
-    @store = Store.find_by_slug(params[:store_id])
-  end
 
 end

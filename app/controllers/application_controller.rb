@@ -67,7 +67,16 @@ class ApplicationController < ActionController::Base
   def checking_out?
     session[:checking_out] || false
   end
+
+  def current_store
+    if params[:store_id]
+      Store.find_by_slug(params[:store_id])
+    else
+      nil
+    end
+  end
   
+  helper_method :current_store
   helper_method :lookup_cart
   helper_method :admin_authorize
   helper_method :current_user

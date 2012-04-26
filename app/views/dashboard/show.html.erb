@@ -3,7 +3,7 @@
 </div>
 <br />
 <div class="well">
-  <h2>Total revenue: <%= number_to_currency(Order.revenue(@store)) %></h2>
+  <h2>Total revenue: <%= number_to_currency(Order.revenue(current_store)) %></h2>
   <h2>Total Orders: <%= @orders.count %></h2>
 </div>
 <div id= "order_count">
@@ -64,9 +64,9 @@
   </tbody>
 </table>
 <br />
-<%= link_to "Add product", new_store_product_path(@store), 
+<%= link_to "Add product", new_store_product_path(current_store), 
     :class => "btn btn-large" %>
-<%= link_to "Add category", new_store_category_path(@store), 
+<%= link_to "Add category", new_store_category_path(current_store), 
     :class => "btn btn-large" %>
 <br />
 <br />
@@ -80,8 +80,8 @@
   </thead>
   <tbody>
     <% @categories.each do |category| %><tr>
-      <td><%= link_to category.title, store_category_path(@store) %></td>
-      <td><%= link_to "Edit", edit_store_category_path(@store, category), 
+      <td><%= link_to category.title, store_category_path(current_store) %></td>
+      <td><%= link_to "Edit", edit_store_category_path(current_store, category), 
               :class => "btn btn-mini" %></td>
     </tr><% end %>
   </tbody> 

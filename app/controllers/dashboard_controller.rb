@@ -1,11 +1,9 @@
 class DashboardController < ApplicationController
   before_filter :admin_authorize
-  before_filter :find_store, except: :index
-
   def show
-    @orders = @store.orders
-    @categories = @store.categories
-    @products = @store.products
+    @orders = current_store.orders
+    @categories = current_store.categories
+    @products = current_store.products
   end
 
   def index
@@ -13,7 +11,4 @@ class DashboardController < ApplicationController
   end
 
   private
-  def find_store
-    @store = Store.find_by_slug(params[:store_id])
-  end
 end

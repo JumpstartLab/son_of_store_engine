@@ -6,11 +6,11 @@ class StoresController < ApplicationController
   end
 
   def create
-    @store = Store.create(params[:store].merge(owner_id: current_user.id))
-    if @store.save
+    current_store = Store.create(params[:store].merge(owner_id: current_user.id))
+    if current_store.save
       return redirect_to profile_path, notice: "Store Created!"
     else
-      flash[:error] = @store.errors.full_messages.join(", ")
+      flash[:error] = current_store.errors.full_messages.join(", ")
       return redirect_to :back
     end
   end
