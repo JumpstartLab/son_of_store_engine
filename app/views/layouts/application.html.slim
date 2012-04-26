@@ -23,7 +23,7 @@ html
                           :method => :delete)
             - else
               li.nav id="right"
-                = link_to("Sign up", new_user_registration_path)
+                = link_to("Sign up", new_user_path)
                 = " or "
                 = link_to("log in", new_user_session_path)
             - if @store and not @store.name.blank?
