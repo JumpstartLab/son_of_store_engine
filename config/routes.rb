@@ -1,6 +1,5 @@
 StoreEngine::Application.routes.draw do
 
-  resources :orders
   resources :users
   resources :visitor_orders
   resources :sessions
@@ -31,6 +30,7 @@ StoreEngine::Application.routes.draw do
     resource :dashboard, :controller => 'dashboard'
     resource :two_click_orders
     resources :categories, :except => [:index]
+    resources :orders
   end
   
 end
