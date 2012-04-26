@@ -4,14 +4,14 @@ describe "Viewing products" do
   let!(:store) { Store.first }
   let!(:category) { FactoryGirl.create(:category, :store_id => store.id) }
   let!(:product) { FactoryGirl.create(:product, store_id: store.id) } 
-  let!(:pruduct_category)do
+  let!(:product_category)do
     p = ProductCategory.new
     p.update_attribute(:product, product)
     p.update_attribute(:category, category)
   end
   let!(:user) { FactoryGirl.create(:user, admin: true) }
   before(:each) do
-    set_host("woraces-workshop")
+    set_host("#{store.url_name}")
     visit "/sessions/new"
     fill_in "email", with: user.email
     fill_in "password", with: "foobar"
