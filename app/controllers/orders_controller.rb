@@ -1,20 +1,20 @@
 class OrdersController < ApplicationController
 
-  before_filter :require_login
+  before_filter :is_logged_in?
   before_filter :belongs_to_current_user?, only: [:show]
 
   def new
     if current_user.credit_cards.empty?
-      redirect_to new_credit_card_path(store_slug) and return
+      redirect_to new_credit_card_path(current_store.slug) and return
     end
 
     if current_user.shipping_details.empty?
-      redirect_to new_shipping_detail_path(store_slug) and return
+      redirect_to new_shipping_detail_path(current_store.slug) and return
     end
 
-    @credit_card = current_user.credit_cards.last
-    @shipping_detail = current_user.shipping_details.last
-    @order = Order.new
+    @order = Order.new()
+    @order.credit_card = current_user.credit_cards.last
+    @order.shipping_detail = current_user.shipping_details.last
   end
 
   def index
@@ -22,8 +22,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_user.orders.create
-    build_order_from_cart(params)
+    @order = Order.create_for(current_user, current_cart, params[:order])
 
     if @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
       redirect_to order_path(current_store.slug, @order.id),
@@ -46,11 +45,8 @@ private
     end
   end
 
-  def build_order_from_cart(params)
-    @order.build_order_from_cart(current_cart)
-    address_id = params[:order][:shipping_detail_id]
-    @order.shipping_detail = current_user.shipping_details.find(address_id)
-    @order.save
+  def is_logged_in?
+    redirect_to new_guest_order_path unless current_user
   end
 
 end

@@ -19,6 +19,7 @@ class Order < ActiveRecord::Base
   scope :desc, order("id DESC")
 
   class << self
+
     def orders_by_status(status_filter=nil)
       if status_filter.nil?
         Order.all
@@ -31,6 +32,13 @@ class Order < ActiveRecord::Base
     def user_by_order_id(id)
       order = Order.find_by_id(id)
       order.user if order
+    end
+
+    def create_for(user, cart, attributes)
+      order = new(attributes)
+      order.build_order_from_cart(cart)
+      order.shipping_detail = user.shipping_details.find(attributes[:shipping_details_id])
+      order.save
     end
   end
 

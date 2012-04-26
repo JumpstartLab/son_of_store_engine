@@ -4,18 +4,18 @@ h1 Order Details
     .span3 style="background-color: #eee; padding: 10px"
       h2 Your Credit Cards
       ul.unstyled
-        = f.hidden_field :customer_token, :value => @credit_card.stripe_customer_token
+        = f.hidden_field :customer_token, :value => @order.credit_card.stripe_customer_token
         li
-          b= @credit_card.credit_card_type
-        li= @credit_card.formatted_last_four
+          b= @order.credit_card.credit_card_type
+        li= @order.credit_card.formatted_last_four
         li
-          | Expires on: #{@credit_card.formatted_exp_date}
+          | Expires on: #{@order.credit_card.formatted_exp_date}
         li= link_to "Add a new credit card", new_credit_card_path(store_slug)
     .span3 style="background-color: #eee; padding: 10px"
       h2 Your Shipping Address
       ul.unstyled
-        = f.hidden_field :shipping_detail_id, :value => @shipping_detail.id
-        li= raw(formatted_shipping_address(@shipping_detail))
+        = f.hidden_field :shipping_detail_id, :value => @order.shipping_detail.id
+        li= raw(formatted_shipping_address(@order.shipping_detail))
         li= link_to "Add a new shipping address", new_shipping_detail_path(store_slug)
   br/
   .row

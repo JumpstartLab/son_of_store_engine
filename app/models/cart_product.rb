@@ -23,7 +23,7 @@ class CartProduct < ActiveRecord::Base
   end
 
   def update_quantity(quantity)
-    if quantity == "0"
+    if quantity.to_i <= 0
       destroy
     else
       update_attribute(:quantity, quantity)
