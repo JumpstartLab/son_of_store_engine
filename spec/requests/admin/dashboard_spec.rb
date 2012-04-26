@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe "As an admin visiting the dashboard" do
   context "and I'm not logged in" do
-    before(:each) { visit admin_dashboard_path }
+    let(:store) { Factory(:store) }
+
+    before(:each) do
+      visit admin_dashboard_path(store.slug)
+    end
     
     it "redirects me to the signin page" do
       page.should have_content("Sign in")

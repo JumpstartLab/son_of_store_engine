@@ -16,7 +16,8 @@ class StoresController < ApplicationController
       else
         store_admin = @store.users.first
         store_admin.update_attribute(:admin, true)
-        redirect_to stores_path, :notice => "Store waiting approval."
+        redirect_to root_path, :notice => "#{@store.name} at www.store-engine.com/#{@store.slug} is waiting approval."
+        StoreMailer.store_creation_alert(@store).deliver
       end
     else
       render :new

@@ -2,10 +2,14 @@ require 'spec_helper'
 
 describe "Viewing products" do
   let(:product) { FactoryGirl.create(:product) }
+  let(:store) { FactoryGirl.create(:store) }
 
   context "and I'm not logged in" do
     context "and I visit the products index page" do
-      before(:each) { visit products_path }
+      before(:each) do
+        visit store_path(store)
+        save_and_open_page
+      end
 
       it "lets me view the products index" do
         page.should have_content('Browse')
