@@ -5,7 +5,7 @@ class Admin::CategoriesController < ApplicationController
 
 
     def index
-      @categories = Category.all
+      @categories = store_categories.all
     end
 
     def show
@@ -17,6 +17,7 @@ class Admin::CategoriesController < ApplicationController
 
     def create
       category = Category.new(params[:category])
+      category.store = @current_store
       category.save
       redirect_to admin_category_path(@current_store, category)
     end
@@ -37,8 +38,12 @@ class Admin::CategoriesController < ApplicationController
     private
 
     def lookup_category
-      @category = Category.find(params[:id])
+      @category = store_categories.where(id: params[:id]).first
       @products = @category.products
+    end
+    
+    def store_categories
+      Category.where(store_id: @current_store.id)
     end
 end
 

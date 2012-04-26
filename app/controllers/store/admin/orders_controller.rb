@@ -5,11 +5,11 @@ class Admin::OrdersController < ApplicationController
 
   def index
     if params[:status] == "all"
-      @orders = Order.all
+      @orders = store_orders.all
     elsif params[:status]
       @orders = Order.where(:status => params[:status])
     else
-      @orders = Order.all
+      @orders = store_orders.all
     end
   end
 
@@ -38,7 +38,7 @@ class Admin::OrdersController < ApplicationController
   private
 
   def lookup_order
-    @order = Order.find(params[:id])
+    @order = store_orders.where(id: params[:id]).first
   end
 
   def cancel_order
@@ -51,6 +51,10 @@ class Admin::OrdersController < ApplicationController
     session[:return_to] = request.url
     notice = "Transition successful"
     redirect_to session[:return_to], notice: notice
+  end
+
+  def store_orders
+    Order.where(store_id: @current_store.id)
   end
 
 end
