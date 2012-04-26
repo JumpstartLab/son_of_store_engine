@@ -13,6 +13,7 @@ gem 'rake'
 gem 'twilio-ruby'
 gem 'slim'
 gem 'decent_exposure'
+gem 'resque'
 
 group :production do
   gem 'pg'

@@ -71,7 +71,9 @@ private
 
   def verify_store_status
     if current_store && current_store.status == "pending"
-     redirect_to stores_path, :notice => "That store is pending approval."
+      redirect_to stores_path, :notice => "That store is pending approval."
+    elsif current_store && current_store.status == "disabled"
+      redirect_to stores_path, :notice => "That store has been disabled."
     end
   end
 

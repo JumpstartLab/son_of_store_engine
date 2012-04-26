@@ -12,7 +12,7 @@ table.table.table-bordered.table-striped
         = store.name
       td= truncate(store.description, :length => 32)
       td= link_to store.slug, store_path(store.slug)
-      td Enable or Disable
+      td= link_to "Disable", admin_store_path(store, :store => { :status => "disabled" }), :method => :put
 h3 Pending Stores
 br
 table.table.table-bordered.table-striped
@@ -29,3 +29,18 @@ table.table.table-bordered.table-striped
         = link_to "Approve", admin_store_path(store, :store => { :status => "approved" }), :method => :put
         |&nbsp;&nbsp;&nbsp;&nbsp;
         = link_to "Decline", admin_store_path(store, :store => { :status => "declined" }), :method => :put
+h3 Disabled Stores
+br
+table.table.table-bordered.table-striped
+  tr
+    th Store Name
+    th Description
+    th Path
+    th Actions
+  - @disabled_stores.each do |store|
+    tr
+      td
+        = store.name
+      td= truncate(store.description, :length => 32)
+      td= link_to store.slug, store_path(store.slug)
+      td= link_to "Enable", admin_store_path(store, :store => { :status => "approved" }), :method => :put
