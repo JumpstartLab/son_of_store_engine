@@ -20,6 +20,7 @@ gem 'aws-s3', :require => 'aws/s3'
 gem 'aws-sdk'
 gem 'newrelic_rpm'
 gem 'acts_as_tenant'
+gem 'resque'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -45,7 +46,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'debugger'
-  gem 'simplecov'  
+  gem 'simplecov'
   gem 'guard-spork'
   gem 'ripper_ruby_parser'
   gem 'reek', :git => "git://github.com/mvz/reek.git", :branch => "ripper_ruby_parser-2"

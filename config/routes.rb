@@ -1,10 +1,12 @@
 StoreEngine::Application.routes.draw do
+
+  mount Resque::Server.new, :at => "/resque"
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
   resources :sessions, :pages
   resources :users, :exclude => [:index]
-  
+
   # Admin Routes
   namespace "admin" do
     get "dashboard" => "dashboard#index"
