@@ -5,6 +5,9 @@
   %b Active:
   = @store.status
 %p
+  %b URL:
+  = @store.url
+%p
   %b Users: 
   - @store.users.each do |user|
     = "#{user.name}"
