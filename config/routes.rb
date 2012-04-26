@@ -18,6 +18,7 @@ StoreEngine::Application.routes.draw do
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
+  match '/admin/stores', :to => 'admin/stores#index'
 
   namespace :admin do
     resources :stores, only: [ :index, :update ]
@@ -50,7 +51,6 @@ StoreEngine::Application.routes.draw do
       resources :users, only: [:show]
       resource :dashboards, only: [:show]
     end
-    #root to: "products#index"
   end
 
   #match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code

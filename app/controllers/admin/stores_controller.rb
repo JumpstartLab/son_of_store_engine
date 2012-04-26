@@ -13,7 +13,7 @@ class Admin::StoresController < ApplicationController
     if params[:store][:approved => true]
       StoreMailer.store_approval_confirmation(@store).deliver
     end
-    redirect_to :back, 
+    redirect_to :back,
       :notice => "#{@store.name} was updated!"
   end
 
