@@ -20,6 +20,8 @@ StoreEngine::Application.routes.draw do
 
   scope "/:url_name" do
     match '', :to => 'stores#show', as: :store
+    match '/admin/dashboard', :to => 'admin/dashboard#show', as: "admin_dashboard"
+
 
     resources :products, only: [:index, :show] do
       resource :retirement, only: [:create, :update]
@@ -36,11 +38,11 @@ StoreEngine::Application.routes.draw do
     namespace :admin do
       resources :products
       resources :categories
+      resource :dashboards, only: [:show]
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
       end
       resources :users, only: [:show]
-      resource :dashboards, only: [:show]
       resources :stores
     end
   end 

@@ -2,15 +2,22 @@ require 'spec_helper'
 
 describe "As an admin updating categories" do
   let!(:user) { FactoryGirl.create(:user, :admin => true) }
+  let!(:store) { FactoryGirl.create(:store,
+                                   :name => "Test Store",
+                                   :url_name => "test-store",
+                                   :description => "errday im testin",
+                                   :approved => true,
+                                   :enabled => true) }
 
   before(:each) do
     login_user_post(user.email, "foobar")
+    visit store_path(store)
   end
 
   context "when I'm creating a new category" do
 
     let(:category) { FactoryGirl.build(:category) }
-    before(:each) {visit new_admin_category_path}
+    before(:each) {visit new_admin_category_path(store)}
 
     context "and I enter invalid information" do
       it "prevents me from making a new category" do
@@ -36,7 +43,7 @@ describe "As an admin updating categories" do
 
   context "when I'm updating a category" do
     let(:category) { FactoryGirl.create(:category) }
-    before(:each) {visit edit_admin_category_path(category)}
+    before(:each) {visit edit_admin_category_path(store, category)}
 
     context "when I pass valid attributes" do
       it "updates the category" do

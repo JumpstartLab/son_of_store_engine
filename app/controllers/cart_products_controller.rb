@@ -5,7 +5,7 @@ class CartProductsController < ApplicationController
       redirect_to :back, 
         :notice => "Product added to cart!"
     else
-      redirect_to cart_path(store, current_cart), 
+      redirect_to cart_path(store, current_cart),
         :notice => "This product has been retired."
     end
   end
