@@ -8,9 +8,10 @@ class Notification < ActionMailer::Base
     mail(:to => user.email, :subject => "Order Placed - ##{order.id}")
   end
 
-  def sign_up_confirmation(user)
-    @user = user
-    mail(:to => user.email, :subject => "Welcome #{user.name}")
+  def sign_up_confirmation(name, email)
+    @name = name
+    @email = email
+    mail(:to => email, :subject => "Welcome #{name}")
   end
 
   def new_store_approval(store)
