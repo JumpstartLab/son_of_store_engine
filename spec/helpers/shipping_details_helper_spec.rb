@@ -8,4 +8,3 @@ require 'spec_helper'
       # formatted_shipping_address(@)
     end
   end
-end
