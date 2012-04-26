@@ -41,6 +41,7 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
   config.include SetHostHelper
+  config.include LoginUser
   config.include Rails.application.routes.url_helpers
   config.include ExampleData::Projects
   config.include Sorcery::TestHelpers::Rails

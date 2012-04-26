@@ -16,7 +16,7 @@ describe "As an admin updating categories" do
 
   before(:each) do
     set_host("best-sunglasses")
-    page.driver.post(sessions_url, { email: user, password: "foobar", remember_me: false})
+    #page.driver.post(sessions_url, { email: user, password: "foobar", remember_me: false})
     #login_user_post(user.email, "foobar")
   end
 
@@ -24,6 +24,11 @@ describe "As an admin updating categories" do
 
     let(:category) { FactoryGirl.build(:category) }
     before(:each) do
+      visit "http://example.com/signin"
+      fill_in "email", with: user.email
+      fill_in "password", with: "foobar"
+      click_link_or_button('Log in')
+      save_and_open_page
       visit new_admin_category_path
     end
 
