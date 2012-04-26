@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe "Using the shopping cart" do
-  #let!(:store) { FactoryGirl.create(:store,
-                                   #:name => "Test Store",
-                                   #:url_name => "test-store",
-                                   #:description => "errday im testin",
-                                   #:approved => true,
-                                   #:enabled => true) }
+
   let!(:store)  { Store.find_by_url_name("best-sunglasses") }
   let(:product) { FactoryGirl.create(:product, :store_id => store.id) }
 

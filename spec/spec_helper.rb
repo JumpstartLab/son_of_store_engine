@@ -13,7 +13,22 @@ require 'capybara/rspec'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    FactoryGirl.create(:store,
+                                   :name => "Test Store",
+                                   :url_name => "test-store",
+                                   :description => "errday im testin",
+                                   :approved => true,
+                                   :enabled => true)
+    FactoryGirl.create(:store,
+                                   :name => "Best Sunglasses",
+                                   :url_name => "best-sunglasses",
+                                   :description => "errday im testin",
+                                   :approved => true,
+                                   :enabled => true)
+  end
 
+  config.after(:suite) { Store.destroy_all }
   #stop tests when one fails
   # config.fail_fast = true 
 

@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe "Viewing products" do
-  let!(:store) { FactoryGirl.create(:store,
-                                   :name => "Test Store",
-                                   :url_name => "test-store",
-                                   :description => "errday im testin",
-                                   :approved => true,
-                                   :enabled => true) }
-  let(:product) { FactoryGirl.create(:product) }
+  let!(:store) { Store.first }
+  let!(:category) { FactoryGirl.create(:category, :store_id => store.id) }
+  let!(:product) { FactoryGirl.create(:product, store_id: store.id) } 
+  let!(:pruduct_category)do
+    p = ProductCategory.new
+    p.update_attribute(:product, product)
+    p.update_attribute(:category, category)
+  end
   let!(:user) { FactoryGirl.create(:user, admin: true) }
   before(:each) do
     set_host("woraces-workshop")
@@ -26,7 +27,6 @@ describe "Viewing products" do
       end
 
       context "and a category has been created" do
-        let!(:category) { FactoryGirl.create(:category, :store_id => store.id) }
 
         it "lists the category on the product index" do
           page.should have_content(category.name)

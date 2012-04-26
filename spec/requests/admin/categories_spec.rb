@@ -7,12 +7,7 @@ describe "As an admin updating categories" do
   #end
 
   let!(:user) { FactoryGirl.create(:user, :admin => true) }
-  let!(:store) { FactoryGirl.create(:store,
-                                   :name => "Test Store",
-                                   :url_name => "test-store",
-                                   :description => "errday im testin",
-                                   :approved => true,
-                                   :enabled => true) }
+  let!(:store) { Store.first}
 
   before(:each) do
     set_host("best-sunglasses")
