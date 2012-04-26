@@ -97,4 +97,18 @@ describe Product do
       prod.active?.should == false
     end
   end
-end
+end# == Schema Information
+#
+# Table name: products
+#
+#  id          :integer         not null, primary key
+#  title       :string(255)
+#  description :string(255)
+#  price       :integer
+#  photo_url   :string(255)
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#  retired     :boolean         default(FALSE)
+#  store_id    :integer
+#
+

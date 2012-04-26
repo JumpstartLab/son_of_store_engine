@@ -4,6 +4,8 @@ describe "super admin" do
   let!(:store1) { Fabricate(:store, approval_status: "pending") }
   let!(:store2) { Fabricate(:store, approval_status: "approved", enabled: true) }
   let!(:store3) { Fabricate(:store, approval_status: "approved", enabled: false) }
+  let!(:store4) { Fabricate(:store, approval_status: "pending") }
+  let!(:user) { Fabricate(:user, id: 1) }
 
   context "stores dashboard" do
     before(:each) do
@@ -49,7 +51,7 @@ describe "super admin" do
         end
       end
       context "the store is enabled" do
-        it "has links to enable or disable the store" do
+        it "has a link to disable the store" do
           within "##{dom_id(store2)}" do
             page.should_not have_link "Enable"
             page.should have_link "Disable"
@@ -57,11 +59,49 @@ describe "super admin" do
         end
       end
       context "the store is disabled" do
-        it "has links to enable or disable the store" do
+        it "has a link to enable the store" do
           within "##{dom_id(store3)}" do
             page.should have_link "Enable"
             page.should_not have_link "Disable"
           end
+        end
+      end
+    end
+    
+    context "approving a new store" do
+      before(:each) do
+        within "##{dom_id(store1)}" do
+          click_link "Approve"
+        end
+      end
+      context "clicking the 'Approve' link" do
+        it "sets the store approval status to approved" do
+          within "##{dom_id(store1)}" do
+            page.should have_content "approved"
+          end
+        end
+        it "returns the admin to the dashboard with a flash approval message" do
+          current_path.should == admin_stores_path
+          page.should have_content "has been approved."
+        end
+      end
+    end
+    
+    context "declining a new store" do
+      before(:each) do
+        within "##{dom_id(store1)}" do
+          click_link "Decline"
+        end
+      end
+      context "clicking the 'Decline' link" do
+        it "sets the store approval status to declined" do
+          within "##{dom_id(store1)}" do
+            page.should have_content "declined"
+          end
+        end
+        it "returns the admin to the dashboard with a flash decline message" do
+          current_path.should == admin_stores_path
+          page.should have_content "has been declined."
         end
       end
     end

@@ -32,3 +32,16 @@ class LineItem < ActiveRecord::Base
     product.title
   end
 end
+# == Schema Information
+#
+# Table name: line_items
+#
+#  id         :integer         not null, primary key
+#  order_id   :integer
+#  product_id :integer
+#  quantity   :integer
+#  price      :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

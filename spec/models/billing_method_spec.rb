@@ -18,3 +18,22 @@ describe BillingMethod do
     end
   end
 end
+# == Schema Information
+#
+# Table name: billing_methods
+#
+#  id                 :integer         not null, primary key
+#  credit_card_number :string(255)
+#  street             :string(255)
+#  city               :string(255)
+#  state              :string(255)
+#  zipcode            :string(255)
+#  name               :string(255)
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  user_id            :integer
+#  card_type          :string(255)
+#  month              :integer
+#  year               :integer
+#
+

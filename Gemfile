@@ -37,4 +37,5 @@ group :development, :test do
   "ripper_ruby_parser-2"
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'sqlite3'
+	gem 'annotate'
 end

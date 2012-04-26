@@ -18,7 +18,7 @@ StoreEngine::Application.routes.draw do
     resources :stores
   end
 
-  resources :stores, only: [:index, :new, :create]
+  resources :stores, only: [:index, :new, :create, :update]
 
 
   scope "/:domain" do
