@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
 
   def update
     order = Order.find(params[:id])
+    params[:order][:email] = current_user.email unless params[:order][:email]
     order.update_with_billing_information(params)
     OrderMailer.confirmation_email(order).deliver
     redirect_to order_path(@store, order), :notice => "Order placed. Thank you!"
