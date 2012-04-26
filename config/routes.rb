@@ -1,4 +1,6 @@
 StoreEngine::Application.routes.draw do
+  require 'resque/server'
+  mount Resque::Server.new, at: "/resque"
   root to: "stores#index"
 
   get 'sessions/new', :as => 'login_page'

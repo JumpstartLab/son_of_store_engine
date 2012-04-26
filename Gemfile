@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'resque'
+gem 'resque_mailer'
 gem 'rails', '3.2.3'
 gem 'jquery-rails'
 gem 'slim'
@@ -37,5 +39,5 @@ group :development, :test do
   "ripper_ruby_parser-2"
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'sqlite3'
-	gem 'annotate'
+  gem 'annotate'
 end
