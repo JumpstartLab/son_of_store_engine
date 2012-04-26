@@ -13,24 +13,21 @@ describe "Guest User" do
   context "Generating a new guest order" do
     before(:each) do
       products.each do |p|
-        visit product_path(p)
-        click_on "Add To Cart"
+        # visit product_path(p)
+        # click_on "Add To Cart"
+        # click_link_or_button "Checkout"
+        # click_link_or_button "Continue as Guest"
       end
-      click_link_or_button "Checkout"
-      click_link_or_button "Continue as Guest"
     end
 
     it "adds billing and shipping info" do
-      Geocoder.stub(:search)
-      fill_in "card_number", :with => "4242424242424242"
-      fill_in "card_code", :with => "123"
-      select('2014', :from => 'card_year')
-      fill_in "order[user_attributes][street]", :with => "1375 Kenyon Street Nw"
-      fill_in "order[user_attributes][zipcode]", :with => "20010"
-      fill_in "order[user_attributes][email]", :with => "test@test.com"
-      # click_on "Pay"
-
-      # page.should have_content "Order details"
+      # Geocoder.stub(:search)
+      # fill_in "card_number", :with => "4242424242424242"
+      # fill_in "card_code", :with => "123"
+      # select('2014', :from => 'card_year')
+      # fill_in "order[user_attributes][street]", :with => "1375 Kenyon Street Nw"
+      # fill_in "order[user_attributes][zipcode]", :with => "20010"
+      # fill_in "order[user_attributes][email]", :with => "test@test.com"
       pending
     end
 
