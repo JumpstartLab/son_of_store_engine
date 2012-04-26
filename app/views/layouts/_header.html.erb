@@ -7,7 +7,7 @@
           <li><%= link_to "Stores", stores_path %></li>
           <li id="cart-menu">
             <% if store %>
-              <%= link_to store_cart_path(store, current_cart) do %>
+              <%= link_to store_cart_path(current_cart) do %>
               <i class='icon-shopping-cart icon-white'></i>&nbsp;&nbsp;<%= "Cart (#{get_cart_count})" %>
               <% end %>
             <% else %>

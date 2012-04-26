@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 private
 
   def store
-    @store ||= Store.where(:url_name => request.subdomain).first
+    @store ||= Store.find_all_by_url_name(request.subdomain).first
   end
 
   def find_or_create_cart
