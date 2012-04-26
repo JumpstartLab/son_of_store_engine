@@ -1,3 +1,5 @@
 require 'spec_helper'
 
-describe OrderStatus
+describe OrderStatus do
+  
+end
