@@ -1,4 +1,10 @@
 class StoresController < ApplicationController
+
+  def index
+    @stores = Store.where(:enabled => true)
+  end
+
+
   def new
     @store = Store.new
   end

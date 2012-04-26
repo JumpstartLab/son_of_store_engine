@@ -10,4 +10,9 @@ class Store < ActiveRecord::Base
   def to_param
     domain
   end
+
+  # will have store image eventually
+  def image
+    "icon.png"
+  end
 end
