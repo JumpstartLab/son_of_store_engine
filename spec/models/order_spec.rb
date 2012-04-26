@@ -114,4 +114,14 @@ describe Order do
       Order.last.unique_url.should_not == nil
     end
   end
+
+  describe "after order creation" do
+    it "calls BackgroundJob.order_email" do
+      order = Order.new
+      user = double("user")
+      order.stub(:order_user).and_return(user)
+      BackgroundJob.should_receive(:order_email).with(user, order)
+      order.save
+    end
+  end
 end
