@@ -9,7 +9,7 @@ html
     = csrf_meta_tags
     meta content="width=(device-width,)initial-scale=1.0" name="viewport"
   body
-    - if params[:domain]
+    - if @current_store && @current_store.enabled
       = render partial: "shared/store_header"
     - else
       = render partial: "shared/header"

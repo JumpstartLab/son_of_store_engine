@@ -33,7 +33,7 @@ describe Store do
 
         it "returns a not found error when visit the store show page" do
           visit "/#{@store.to_param}"
-          page.should have_content "store does not exist"
+          page.should have_content "page cannot be found"
         end
       end
 

@@ -25,7 +25,7 @@ class StoresController < ApplicationController
       redirect_to root_path, notice: "Store Not Found"
     end
   end
-  
+
   def update
     store = Store.find_by_domain(params[:id])
     store.update_attributes(params[:store])

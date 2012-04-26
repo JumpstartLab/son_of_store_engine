@@ -38,7 +38,8 @@ class ProductsController < ApplicationController
 
   def store_enabled
     if @current_store.nil? || !@current_store.enabled
-      redirect_to root_path, notice: "This store does not exist" 
+      render "errors/404", :status => 404, :domain => nil
+      #redirect_to root_path, notice: "This store does not exist"
     end
   end
 end
