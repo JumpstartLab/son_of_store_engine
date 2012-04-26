@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
   end
 
   def lookup
-    order = Order.find_by_special_url(params[:id])
+    order = Order.find_by_special_url(params[:sid])
     redirect_to order_path(@current_store, order)
   end
 
