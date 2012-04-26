@@ -20,17 +20,17 @@ class Store < ActiveRecord::Base
   def active_status
     enabled ? "Enabled" : "Disabled"
   end
-  
+
   def owner
     User.find_by_id(creating_user_id)
   end
-  
+
   def email_approval
-    StoreMailer.approval_email(self).deliver
+    StoreMailer.approval_email(self.id).deliver
   end
-  
+
   def email_decline
-    StoreMailer.decline_email(self).deliver
+    StoreMailer.decline_email(self.id).deliver
   end
   
   def created_on

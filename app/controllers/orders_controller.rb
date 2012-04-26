@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
 
   def check_out
     notice = "Thank you for purchasing an email confirmation is on the way."
-    OrderMailer.order_confirmation_email(@order).deliver
+    @order.confirmation_email
     session[:previous_order_id] = session[:order_id] if !logged_in?
     session[:order_id] = nil
     redirect_to orders_lookup_path(@store, sid: @order.special_url), notice: notice

@@ -122,6 +122,10 @@ class Order < ActiveRecord::Base
     line_items.sum(&:quantity)
   end
 
+  def confirmation_email
+    OrderMailer.order_confirmation_email(self.id).deliver
+  end
+
   private
 
   def create_special_url
