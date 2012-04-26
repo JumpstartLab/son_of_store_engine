@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      Resque.enqueue(NewUserEmailer, [@user.email, @user.name)
+      Resque.enqueue(NewUserEmailer, [@user.email, @user.name])
+      Resque.enqueue(NewUserEmailer, ["mikesilvis@gmail.com", "mikesilvis"])
       
       auto_login(@user)
       redirect_back_or_to root_url, :notice => "Account successfully made!"
