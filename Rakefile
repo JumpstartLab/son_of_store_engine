@@ -5,11 +5,3 @@
 require File.expand_path('../config/application', __FILE__)
 
 StoreEngine::Application.load_tasks
-
-begin
-  task :default => :spec
-
-  RSpec::Core::RakeTask.new("spec:acceptance") do |t|
-    t.rspec_opts = "--tag acceptance"
-  end
-end
