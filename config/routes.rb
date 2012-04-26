@@ -6,7 +6,6 @@ StoreEngine::Application.routes.draw do
   resources :sessions
   resources :unique_orders, :only => :show
   resources :cart_items
-  resources :categories, :except => [:index]
   resource :checkout, :controller => 'checkout'
 
   get "logout" => "sessions#destroy", :as => "logout"
@@ -31,6 +30,7 @@ StoreEngine::Application.routes.draw do
     resources :products
     resource :dashboard, :controller => 'dashboard'
     resource :two_click_orders
+    resources :categories, :except => [:index]
   end
   
 end

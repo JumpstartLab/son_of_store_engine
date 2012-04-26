@@ -10,7 +10,10 @@ FactoryGirl.define do
   end
 
   factory :category do
-    title "New Category"
+    sequence(:title) { |c| "New Category ##{c}" }
+    after_create do |category|
+      category.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
   factory :cart_item do

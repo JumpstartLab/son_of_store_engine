@@ -21,7 +21,8 @@ class ProductsController < ApplicationController
   def create
     @product = @store.products.new(params[:product])
     if @product.save
-      redirect_to store_product_path(@product.store, @product), :notice => "Product created."
+      redirect_to store_product_path(@product.store, @product), 
+      :notice => "Product created."
     else
       render 'new'
     end
@@ -38,7 +39,8 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(params[:product])
-      redirect_to store_product_path(@product.store, @product), :notice => "Product updated."
+      redirect_to store_product_path(@product.store, @product), 
+      :notice => "Product updated."
     else
       render 'edit'
     end

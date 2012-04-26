@@ -26,7 +26,7 @@
   </p>
 
   <p>
-    <% for category in Category.find(:all) %>
+    <% for category in @store.category.find(:all) %>
       <div>
        <%= check_box_tag "product[category_ids][]", 
                           category.id, 
@@ -35,7 +35,7 @@
       </div>
     <% end %>
   </p>
-  <p><%= link_to 'New Category', new_category_path %></p>
+  <p><%= link_to 'New Category', new_store_category_path %></p>
 
   <p>
     <%= p.submit %> 
