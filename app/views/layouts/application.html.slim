@@ -1,7 +1,7 @@
 doctype
 html
   head
-    title The Urban Cyclist
+    title = @current_store && @current_store.enabled ? @current_store.name : "The Urban Cyclist"
     /![if lt IE 9]
       | <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     = stylesheet_link_tag    "application", :media => "all"
