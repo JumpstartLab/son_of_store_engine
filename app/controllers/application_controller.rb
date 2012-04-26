@@ -11,9 +11,8 @@ class ApplicationController < ActionController::Base
 
   def find_store
     if not params[:store_unique_id].blank?
-      @store = Store
-        .where(:store_unique_id => params[:store_unique_id])
-        .where(:status => 'active').first
+      @store = Store.find_by_store_unique_id(params[:store_unique_id])
+                    .where(:status => 'active').first
       not_found if not @store
     end
 
