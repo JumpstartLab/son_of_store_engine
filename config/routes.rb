@@ -16,7 +16,6 @@ StoreEngine::Application.routes.draw do
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
-  root :to => "static_pages#home"
 
   scope "", constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     match '', :to => 'stores#show', as: :store

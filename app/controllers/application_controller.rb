@@ -1,4 +1,19 @@
 class ApplicationController < ActionController::Base
+module UrlHelper
+  def with_subdomain(subdomain)
+    subdomain = (subdomain || "")
+    subdomain += "." unless subdomain.empty?
+    [subdomain, request.domain, request.port_string].join
+  end
+  
+  def url_for(options = nil)
+    if options.kind_of?(Hash) && options.has_key?(:subdomain)
+      options[:host] = with_subdomain(options.delete(:subdomain))
+    end
+    super
+  end
+end
+  include UrlHelper
   protect_from_forgery
 
   before_filter :find_or_create_cart
@@ -36,7 +51,7 @@ class ApplicationController < ActionController::Base
 private
 
   def store
-    @store ||= Store.where(:url_name => request.subdomain).first
+    @store ||= Store.find_all_by_url_name(request.subdomain).first
   end
 
   def find_or_create_cart

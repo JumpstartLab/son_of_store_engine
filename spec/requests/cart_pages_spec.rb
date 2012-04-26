@@ -7,16 +7,18 @@ describe "Using the shopping cart" do
                                    :description => "errday im testin",
                                    :approved => true,
                                    :enabled => true) }
-  let(:product) { FactoryGirl.create(:product) }
+  let(:product) { FactoryGirl.create(:product, :store_id => store.id) }
 
   before(:each) do
-    visit store_path(store)
+    Capybara.app_host = "http://#{store.id}.myapp.test"
+    visit store_path
   end
   context "when I'm on the cart page" do
 
     context "and I haven't added any products" do
       it "should notify customer that there is nothing in the cart" do
         visit cart_path
+        save_and_open_page
         within("#cart") do
           page.should have_content("no items")
         end
@@ -25,13 +27,13 @@ describe "Using the shopping cart" do
   end
 
   context "when I'm on a product page" do
-    before(:each) { visit product_path(store, product) }
+    before(:each) { visit product_path(product) }
 
     context "and I click 'add to cart'" do
       before(:each) { click_link("Add to cart") }
 
       it "redirects me back to the previous page" do
-        current_path.should == product_path(store, product)
+        current_path.should == product_path(product)
       end
 
       context "and I view the cart" do
@@ -127,7 +129,7 @@ describe "Using the shopping cart" do
 
   context "when I have products in my cart" do
     before(:each) do
-      visit product_path(store, product)
+      visit product_path(product)
       click_link("Add to cart")
     end
 
