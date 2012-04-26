@@ -5,7 +5,6 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
 gem 'bcrypt-ruby'
-gem 'heroku'
 gem 'slim'
 gem 'find_by_param'
 
