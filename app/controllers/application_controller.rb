@@ -68,9 +68,9 @@ private
   end
 
   def verify_store_status
-    #if current_store && current_store.status == "pending"
-    #  redirect_to stores_path, :notice => "That store is pending approval."
-    #end
+    if current_store && current_store.status == "pending"
+     redirect_to stores_path, :notice => "That store is pending approval."
+    end
   end
 
   def verify_site_admin

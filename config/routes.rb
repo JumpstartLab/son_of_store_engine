@@ -1,5 +1,7 @@
 StoreEngine::Application.routes.draw do
 
+  get "info/home"
+
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
 
   resources :users, only: [:show, :create, :new, :update]
@@ -40,7 +42,7 @@ StoreEngine::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :stores, only: [:index]
+    resources :stores, only: [:index, :update]
     resources :products
     resources :categories
     resources :orders, only: [:index, :show, :update] do
@@ -49,7 +51,7 @@ StoreEngine::Application.routes.draw do
     resource :dashboards, only: [:show]
   end
 
-  root :to => "stores#index"
+  root :to => "info#home"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
