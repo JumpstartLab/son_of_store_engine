@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     if @user.save
       Notification.sign_up_confirmation(@user).deliver
       auto_login(@user)
-      redirect_to root_url, :notice => "Account successfully made!"
+      redirect_back_or_to root_url, :notice => "Account successfully made!"
     else
       render 'new'
     end
