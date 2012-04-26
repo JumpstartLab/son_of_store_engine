@@ -3,7 +3,7 @@ class Store < ActiveRecord::Base
   has_many :orders
   has_many :categories
 
-  attr_accessible :name, :domain, :description, :approval_status
+  attr_accessible :name, :domain, :description, :approval_status, :enabled
   validates :name, uniqueness: true
   validates :domain, uniqueness: true
   validates :creating_user_id, presence: true
@@ -31,6 +31,10 @@ class Store < ActiveRecord::Base
   
   def email_decline
     StoreMailer.decline_email(self).deliver
+  end
+  
+  def created_on
+    created_at.strftime("%B %d at %l:%M %p")
   end
 end
 # == Schema Information
