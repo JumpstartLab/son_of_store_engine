@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     cart_before_login = current_cart
     if user = login(params[:email], params[:password], params[:remember_me])
       successful_login(cart_before_login, user)
-      redirect_to store_path(params[:slug]) and return
+      redirect_to new_order_path(current_store.slug)
     else
       invalid_email
     end

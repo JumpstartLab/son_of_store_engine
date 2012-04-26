@@ -14,6 +14,7 @@ class GuestOrdersController < ApplicationController
     if @order.save
       redirect_to order_path(current_store.slug, @order.id),
         :notice => "Thank you for placing an order." if @order.charge(current_cart)
+      OrderMailer.order_confirmation(@order).deliver
     else
       render :new
     end

@@ -4,6 +4,10 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+
+    if current_store.nil?
+      render 'new_global' and return
+    end
   end
 
   def create
@@ -30,14 +34,19 @@ private
   end
 
   def successful_login(cart_before_login, user)
-    if cart_before_login.has_products?
-      existing_cart = user.carts.where(:store_id => current_store.id).first
-      existing_cart.destroy if existing_cart
-      user.carts << cart_before_login
+    if current_store
+      if cart_before_login.has_products?
+        existing_cart = user.carts.where(:store_id => current_store.id).first
+        existing_cart.destroy if existing_cart
+        user.carts << cart_before_login
+      else
+        cart_before_login.destroy
+      end
+      redirect_to store_path(current_store.slug)
     else
-      cart_before_login.destroy
+      redirect_to root_path
     end
-    redirect_to store_path(current_store.slug)
+
   end
 
 end
