@@ -13,7 +13,7 @@ html
       = render partial: "shared/store_header"
     - else
       = render partial: "shared/header"
-    .container data-pjax-container=""
+    .container
       .row
         - unless notice.nil?
           .span8#notice = notice
