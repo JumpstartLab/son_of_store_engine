@@ -16,6 +16,10 @@ describe "As an admin updating categories" do
 
   before(:each) do
     set_host("best-sunglasses")
+    visit "/sessions/new"
+    fill_in "email", with: user.email
+    fill_in "password", with: "foobar"
+    click_link_or_button('Log in')
     #page.driver.post(sessions_url, { email: user, password: "foobar", remember_me: false})
     #login_user_post(user.email, "foobar")
   end
@@ -24,12 +28,7 @@ describe "As an admin updating categories" do
 
     let(:category) { FactoryGirl.build(:category) }
     before(:each) do
-      visit "http://example.com/signin"
-      fill_in "email", with: user.email
-      fill_in "password", with: "foobar"
-      click_link_or_button('Log in')
       visit new_admin_category_path
-      save_and_open_page
     end
 
     context "and I enter invalid information" do
@@ -56,7 +55,7 @@ describe "As an admin updating categories" do
 
   context "when I'm updating a category" do
     let(:category) { FactoryGirl.create(:category) }
-    before(:each) {visit edit_admin_category_path(store, category)}
+    before(:each) {visit edit_admin_category_path(category)}
 
     context "when I pass valid attributes" do
       it "updates the category" do
