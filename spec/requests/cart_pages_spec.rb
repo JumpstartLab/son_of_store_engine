@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 describe "Using the shopping cart" do
-  let!(:store) { FactoryGirl.create(:store,
-                                   :name => "Test Store",
-                                   :url_name => "test-store",
-                                   :description => "errday im testin",
-                                   :approved => true,
-                                   :enabled => true) }
+  #let!(:store) { FactoryGirl.create(:store,
+                                   #:name => "Test Store",
+                                   #:url_name => "test-store",
+                                   #:description => "errday im testin",
+                                   #:approved => true,
+                                   #:enabled => true) }
+  let!(:store)  { Store.find_by_url_name("best-sunglasses") }
   let(:product) { FactoryGirl.create(:product, :store_id => store.id) }
 
   before(:each) do
-    Capybara.app_host = "http://#{store.id}.myapp.test"
+    set_host("best-sunglasses")
     visit store_path
   end
   context "when I'm on the cart page" do
@@ -18,7 +19,6 @@ describe "Using the shopping cart" do
     context "and I haven't added any products" do
       it "should notify customer that there is nothing in the cart" do
         visit cart_path
-        save_and_open_page
         within("#cart") do
           page.should have_content("no items")
         end
@@ -81,10 +81,9 @@ describe "Using the shopping cart" do
           click_link_or_button("Add to cart" )
         end
 
-        it "shows an increased product quantity" do
-          within("#cart") do
-            page.should have_selector("input#quantity_product_#{product.id}", :value => 2)
-          end
+        it "keeps me on the product page and shows an increased product quantity" do
+          current_path.should == product_path(product)
+          page.should have_content("Cart (2)")
         end
 
         it "updates the cart count in the header" do
@@ -92,17 +91,11 @@ describe "Using the shopping cart" do
             page.should have_content("2")
           end
         end
-
-        it "shows the original price" do
-          within("#cart") do
-            page.should have_content("")
-          end
-        end
       end
 
       context "when I remove items from my cart" do
         before(:each) do
-          visit cart_path(store)
+          visit cart_path
           click_link_or_button("Remove from cart")
         end
 
