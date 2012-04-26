@@ -1,5 +1,12 @@
 h1 Order Details
-= form_for @user, :url => guest_orders_path(store_slug) do |u|
+
+javascript:
+  jQuery(function(){
+    order = new Order('#new_guest_user');
+    order.setupForm();
+  })
+
+= form_for user, :url => guest_orders_path(store_slug) do |u|
   = u.text_field :name, :placeholder => "Name"
   = u.text_field :email, :placeholder => "E-mail Address"
   = fields_for @credit_card do |c|

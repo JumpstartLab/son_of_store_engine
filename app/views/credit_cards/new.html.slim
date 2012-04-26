@@ -1,4 +1,11 @@
 h1 Add a Credit Card
+
+javascript:
+  jQuery(function(){
+    order = new Order('#new_credit_card');
+    order.setupForm();
+  })
+  
 = form_for(@credit_card) do |f|
   = f.hidden_field :stripe_card_token
   .field

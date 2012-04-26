@@ -7,15 +7,29 @@ class CreditCard < ActiveRecord::Base
   belongs_to :user
   belongs_to :store
 
+  def self.build_from_stripe_for(user, params)
+    credit_card = user.credit_cards.build
+    stripe_customer_token = credit_card.stripe_get_customer_token(params[:stripe_card_token])
+    credit_card.parse_stripe_customer_token(stripe_customer_token)
+    credit_card
+  end
+
+  def parse_stripe_customer_token(customer_token)
+    self.stripe_customer_token = customer_token["id"]
+    save_card_details(customer_token["active_card"])
+    save
+  end
+
+
   def set_to_default
     user = User.find(self.user_id)
     self.default_card = true unless user.credit_cards.find_by_default_card(true)
   end
 
-  def add_details_from_stripe_card_token(stripe_card_token)
-    stripe_customer_token = stripe_get_customer_token(stripe_card_token)
-    credit_card = parse_stripe_customer_token(stripe_customer_token)
-  end
+  # def add_details_from_stripe_card_token(stripe_card_token)
+  #   stripe_customer_token = stripe_get_customer_token(stripe_card_token)
+  #   credit_card = parse_stripe_customer_token(stripe_customer_token)
+  # end
 
   def stripe_get_customer_token(stripe_card_token)
     Stripe::Customer.create( description: "Mittenberry Customer
@@ -43,12 +57,6 @@ class CreditCard < ActiveRecord::Base
   end
 
 private
-
-  def parse_stripe_customer_token(customer_token)
-    self.stripe_customer_token = customer_token["id"]
-    save_card_details(customer_token["active_card"])
-    save
-  end
 
   def send_charge_error(e)
     logger.error "Stripe error while charging customer: #{e.message}"

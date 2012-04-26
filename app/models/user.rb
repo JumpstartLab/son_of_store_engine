@@ -8,18 +8,18 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_presence_of :name
 
-  with_options :unless => :is_guest_user? do |user|
+  with_options :unless => :guest? do |user|
     user.validates_uniqueness_of :email
     user.validates_confirmation_of :password
     user.validates :password, length: { minimum: 6, maximum: 20 }
     user.validates :display_name, length: { minimum: 2, maximum: 32 },
       :unless => "display_name.blank?"
   end
-
-  has_many :orders
-  has_many :credit_cards
-  has_many :shipping_details
+  
   has_many :carts, :autosave => true
+  has_many :credit_cards, :autosave => true
+  has_many :orders
+  has_many :shipping_details
 
   def add_order(order)
     orders << order
@@ -29,9 +29,7 @@ class User < ActiveRecord::Base
     orders.limit(5)
   end
 
-private
-
-  def is_guest_user?
+  def guest?
     type == "GuestUser"
   end
 
