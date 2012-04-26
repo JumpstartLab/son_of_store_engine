@@ -29,27 +29,39 @@ describe "Stores" do
         page.should have_content "page you were looking"
       end
       context "approve store as admin" do
+        let!(:store1) { FactoryGirl.create(:store, :active => 1, :enabled => false, :users => [user]) }
+        let!(:store2) { FactoryGirl.create(:store, :active => 1, :enabled => false, :users => [user]) }
+        let!(:store3) { FactoryGirl.create(:store, :active => 2, :enabled => false, :users => [user]) }
+        let!(:store4) { FactoryGirl.create(:store, :active => 2, :enabled => true, :users => [user]) }
+        let!(:store5) { FactoryGirl.create(:store, :active => 2, :enabled => false, :users => [user]) }        
         before(:each) do
+          visit '/logout'
           login(admin)
           visit admin_stores_path
         end
         context "Enabling" do
           it "should be able to approve a store" do
-            click_on "Approve"
-            page.should have_content "#{store.name} Successfully Approved"
+            within("#store_#{store1.id}") do
+              click_on "Approve"
+            end
+            page.should have_content "#{store1.name} Successfully Approved"
           end
-          it "and then enable a store" do      
-             click_on "Enable"
-             page.should have_content "#{store.name} Successfully Enabled"
+          it "and then enable a store" do   
+             within("#store_#{store3.id}") do
+               click_on "Enable"
+             end
+             page.should have_content "#{store3.name} Successfully Enabled"
           end
           it "should now be able to see the store" do
-            visit "http://my-test-store.son.test"
-            page.should have_content "Products" 
+            visit "http://#{store4.url}.son.test"
+            page.should have_content "Products"
           end
         end
         context "Disabling" do
           it "disables a store" do
-            click_on "Disable"
+            within("#store_#{store5.id}") do
+              click_on "Disable"
+            end
             page.should have_content "Successfully Disabled"
           end
           it "and then the store is no longer showed" do
@@ -58,12 +70,11 @@ describe "Stores" do
           end
         end
         context "Disapprove a store" do
-          let!(:store2) { FactoryGirl.create(:store, :active => 1, :enabled => false) }
           it "declines a store" do
-            within("store_#{store2.id}") do
+            within("#store_#{store2.id}") do
               click_on "Decline"
             end
-            page.should_not have_content (store2.name)
+            page.should have_content ("Successfully Declined")
           end
         end
       end

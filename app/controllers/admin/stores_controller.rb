@@ -7,7 +7,7 @@ module Admin
                                             :enable, :disable
 
                                           ]
-    before_filter :verify_store_admin, :except => [:new, :create]
+    before_filter :verify_store_admin, :except => [:new, :create, :index]
     before_filter :require_admin, :only => [:index]
 
     def index
