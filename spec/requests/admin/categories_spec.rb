@@ -28,8 +28,8 @@ describe "As an admin updating categories" do
       fill_in "email", with: user.email
       fill_in "password", with: "foobar"
       click_link_or_button('Log in')
-      save_and_open_page
       visit new_admin_category_path
+      save_and_open_page
     end
 
     context "and I enter invalid information" do
