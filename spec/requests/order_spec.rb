@@ -125,13 +125,18 @@ describe 'checking out' do
       page.current_path.should == new_session_path
     end
 
-    it "signs user up & takes you to new order page", :request => :fail do
+    it "signs user up & takes you to new order page" do
       click_on "Sign Up?"
       fill_in "user[full_name]", :with => "Luke Skysauce"
       fill_in "user[email]", :with => "sky@walker.com"
       fill_in "user[password]", :with => "foobar"
       fill_in "user[password_confirmation]", :with => "foobar"
       click_on "Create User"
+      page.current_path.should == new_order_path
+    end
+
+    it "logs in user & takes you to new order page", :request => :fail do
+      login(user2)
       page.current_path.should == new_order_path
     end
 
