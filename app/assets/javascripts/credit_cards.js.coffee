@@ -4,11 +4,11 @@
 
 jQuery ->
   Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
-  order.setupForm()
+  order("#credit_card_form").setupForm()
 
-order =
+order = (form) ->
   setupForm: ->
-    $('#new_credit_card').submit ->
+    $(form).submit ->
       $('input[type=submit]').attr('disabled', true)
       if $('#card_number').length
         order.processCard()
@@ -27,7 +27,7 @@ order =
   handleStripeResponse: (status, response) ->
     if status == 200
       $('#credit_card_stripe_card_token').val(response.id)
-      $('#new_credit_card')[0].submit()
+      $(form)[0].submit()
     else
       $('#stripe_error').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)
