@@ -17,7 +17,10 @@ describe "super admin" do
         page.should have_content store.name
         page.should have_content store.domain
         page.should have_content store.approval_status
-        page.should have_content store.active_status
+        within "#store_#{store.id}" do
+          enable_state = store.enabled ? "Yes" : "No"
+          find(".enabled").text.should have_content enable_state
+        end
       end
     end
 
