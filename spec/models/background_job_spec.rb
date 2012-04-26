@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "Background Job" do
-  context ".order_emailer", :model => :bj do
+  context ".order_emailer" do
     it "queues the order emailer in resque" do
       order = double("order")
       user = double("user")
