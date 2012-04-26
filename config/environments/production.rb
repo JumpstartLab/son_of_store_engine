@@ -31,6 +31,7 @@ StoreEngine::Application.configure do
     :domain => 'gmail.com',
     :authentication => :plain,
     :user_name => 'hungry.store.engine@gmail.com',
-    :password => 'paulgraham'
+    :password => 'paulgraham',
+    :enable_starttls_auto => true
   }
 end
