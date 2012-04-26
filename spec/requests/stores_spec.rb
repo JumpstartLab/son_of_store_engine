@@ -9,21 +9,57 @@ describe "Stores" do
   end
   let!(:admin) do 
     FactoryGirl.create(:admin, :password => "mike")
-  end  
+  end 
   describe "User Owns Store" do
     context "Create Store as user" do
       before(:each) do
         login(user)
       end
-      it "creates a new store" do
-        visit new_admin_store_path
-        fill_in 'store[name]', :with => "my test store"
-        fill_in 'store[description]', :with => "My AWESOME store"
-        fill_in 'store[description]', :with => "My AWESOME store"
-        fill_in 'store[url]', :with => 'my-test-store'
-        click_on 'Create Store'
-        page.should have_content "Store was successfully created."
+      it "can't visit admin path" do
+        visit admin_stores_path
+        page.should have_content "Must be site administrator"
       end
+      context "create a store" do
+        it "Passes" do
+          visit new_admin_store_path
+          fill_in 'store[name]', :with => "my test store"
+          fill_in 'store[description]', :with => "My AWESOME store"
+          fill_in 'store[description]', :with => "My AWESOME store"
+          fill_in 'store[url]', :with => 'my-test-store'
+          click_on 'Create Store'
+          page.should have_content "Store was successfully created."
+        end
+        it "fails" do
+          visit new_admin_store_path
+          fill_in 'store[name]', :with => ""
+          fill_in 'store[description]', :with => ""
+          fill_in 'store[description]', :with => ""
+          fill_in 'store[url]', :with => ''
+          click_on 'Create Store'
+          page.should have_content "ERROR"
+        end
+      end
+      context "updates a store" do
+        let!(:update_store) { FactoryGirl.create(:store, :users => [user]) }
+        it "Passes" do
+          visit edit_admin_store_path(update_store)
+          fill_in 'store[name]', :with => "my test store"
+          fill_in 'store[description]', :with => "My AWESOME store"
+          fill_in 'store[description]', :with => "My AWESOME store"
+          fill_in 'store[url]', :with => 'my-test-store'
+          click_on 'Update Store'
+          page.should have_content "Store was successfully updated."
+        end
+        it "fails" do
+          visit edit_admin_store_path(update_store)
+          fill_in 'store[name]', :with => ""
+          fill_in 'store[description]', :with => ""
+          fill_in 'store[description]', :with => ""
+          fill_in 'store[url]', :with => ''
+          click_on 'Update Store'
+          page.should have_content "ERROR"
+        end
+      end      
       it "Store created should not be live" do
         visit "http://my-test-store.son.test"
         page.should have_content "page you were looking"

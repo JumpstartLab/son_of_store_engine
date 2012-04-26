@@ -31,6 +31,10 @@ describe "User" do
       before(:each) do
         login(user)
       end
+      it "can't resign up" do
+        visit new_user_path
+        page.should have_content("Must not be logged in")
+      end      
       it "can edit themselves" do
         visit edit_user_path(user)
         page.should have_content("Edit User")

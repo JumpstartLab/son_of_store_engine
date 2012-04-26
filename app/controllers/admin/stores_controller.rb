@@ -3,7 +3,7 @@ module Admin
     skip_before_filter :require_store_admin
     before_filter :lookup_store, :only => [
                                             :show, :edit, :update,
-                                            :destroy, :approve, :decline,
+                                            :approve, :decline,
                                             :enable, :disable
 
                                           ]
@@ -30,6 +30,7 @@ module Admin
         Notification.new_store_request(@store).deliver
         redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
       else
+        flash[:alert] = "ERROR"
         render action: "new"
       end
     end
@@ -38,12 +39,9 @@ module Admin
       if @store.update_attributes(params[:store])
         redirect_to admin_store_path(@store), notice: 'Store was successfully updated.'
       else
+        flash[:alert] = "ERROR"
         render action: "edit"
       end
-    end
-
-    def destroy
-      @store.destroy
     end
 
     def approve
