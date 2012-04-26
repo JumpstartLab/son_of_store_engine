@@ -38,8 +38,6 @@
     rating 4
   end
   factory :order_product do
-    # order_product.association(:product)
-    # order
     quantity 1
   end
 
