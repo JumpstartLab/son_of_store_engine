@@ -25,13 +25,12 @@ StoreEngine::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  actionmailer::base.smtp_settings = {
+  ActionMailer::Base.smtp_settings = {
     :address => 'smtp.gmail.com',
     :port => 587,
     :domain => 'http://daughterofstoreengine.herokuapp.com/',
     :authentication => :plain,
     :user_name => 'hungry.store.engine@gmail.com',
-    :password => 'paulgraham',
-    :enable_starttls_auto => true
+    :password => 'paulgraham'
   }
 end
