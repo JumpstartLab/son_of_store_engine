@@ -132,7 +132,7 @@ describe 'checking out' do
       fill_in "user[password]", :with => "foobar"
       fill_in "user[password_confirmation]", :with => "foobar"
       click_on "Create User"
-      page.current_path.should == new_store_order_path(test_products.first.store)
+      page.current_path.should == new_store_order_path(product.store)
     end
 
     it "create an order as a guest" do

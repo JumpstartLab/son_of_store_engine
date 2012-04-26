@@ -45,6 +45,9 @@ FactoryGirl.define do
         FactoryGirl.create_list(:order, evaluator.order_item_count, order: order)
       end
     end
+    after_create do |order|
+      order.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
 
