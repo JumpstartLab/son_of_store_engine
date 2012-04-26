@@ -8,7 +8,7 @@
 
 def user(values)
   u =     User.create(
-                       :name  => values[0], :password => values[1], 
+                       :name  => values[0], :password => values[1],
                        :email => values[2], :display_name => values[3]
                      )
   u.permission = values[4] if values[4]
@@ -22,7 +22,7 @@ end
 def product(values, store=@new_store)
   p =           Product.create(
                   :name => values[0], :description => values[1],
-                  :price => values[2], :avatar_from_url => values[3], :store => store 
+                  :price => values[2], :avatar_from_url => values[3], :store => store
                 )
   p.categories = values[4] if values[4]
   p.save
@@ -39,6 +39,7 @@ u2 = user(["Nisarg Shah", "nisarg", "nisargshah100@gmail.com", "nisarg", 9])
 user(["Matt Yoho", "hungry", "demoXX+matt@jumpstartlab.com", ""])
 user(["Jeff", "hungry", "demoXX+jeff@jumpstartlab.com", "j3"])
 user(["Chad Fowler", "hungry", "demoXX+chad@jumpstartlab.com", "SaxPlayer", 9])
+user(["Michael Verdi", "hungry", "m@gmail.com", "Veggie Man", 9])
 
 s1 = Status.create(   :name => "shipped"  )
 s2 = Status.create(   :name => "pending"  )
