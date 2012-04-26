@@ -35,10 +35,11 @@ class Order < ActiveRecord::Base
     end
 
     def create_for(user, cart, attributes)
-      order = new(attributes)
+      order = new(user_id: user.id)
       order.build_order_from_cart(cart)
-      order.shipping_detail = user.shipping_details.find(attributes[:shipping_details_id])
+      order.shipping_detail = user.shipping_details.find(attributes[:shipping_detail_id])
       order.save
+      order
     end
   end
 

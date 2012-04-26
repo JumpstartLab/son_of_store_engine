@@ -14,16 +14,12 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create
-    @categories = current_store.categories
-
     if product.save
       product.update_categories(params[:categories][1..-1])
-      redirect_to admin_product_path(current_store.slug, product),
+      redirect_to admin_product_path(current_store.slug, product.id),
         notice: 'Product was successfully created.'
     else
-      product.errors.full_messages.each do |msg|
-        flash.now[:error] = msg
-      end
+      flash.now[:error] = product.errors.full_messages.join("\n")
       render 'new'
     end
   end
@@ -42,7 +38,7 @@ class Admin::ProductsController < ApplicationController
 
     if product.save
       product.update_categories(params[:categories][1..-1])
-      redirect_to admin_product_path(current_store.slug, product),
+      redirect_to admin_product_path(current_store.slug, product.id),
         notice: 'Product was successfully updated.'
     else
       product.errors.full_messages.each do |msg|
@@ -54,12 +50,10 @@ class Admin::ProductsController < ApplicationController
 
 private
   def product
-    if [ 'show', 'edit', 'update'].include?(action_name)
-      @product ||= current_store.products.where(id: params[:id]).first
-    elsif [ 'create' ].include?(action_name)
-      @product = current_store.products.build(params[:product])
-    elsif [ 'new' ].include?(action_name)
-      @product = current_store.products.build
+    if params[:product_id] || params[:id]
+      @product ||= current_store.products.where(id: params[:product_id] || params[:id]).first
+    else
+      @product ||=current_store.products.build(params[:product])
     end
   end
 
