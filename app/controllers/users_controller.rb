@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        format.html { redirect_to session[:return_to] }
+        format.html { redirect_to session[:return_to], :notice => @notice }
       else
         format.html { render action: "new" }
       end

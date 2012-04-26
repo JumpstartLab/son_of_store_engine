@@ -158,7 +158,7 @@ describe "shopper checkout", :shopper => true do
         page.should have_selector ".new_user"
         sign_up({full_name: "Test User", email: "test@test.com",
          password: "test", display_name: "Test"})
-        current_path.should == "/"
+        current_path.should == "/#{store.to_param}"
         page.should have_content "Welcome"
         page.should have_content "My Account"
       end
