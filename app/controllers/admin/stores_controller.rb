@@ -2,12 +2,12 @@ module Admin
   class StoresController < Controller
     skip_before_filter :require_store_admin
     before_filter :lookup_store, :only => [
-                                            :show, :edit, :update, 
-                                            :destroy, :approve, :decline, 
+                                            :show, :edit, :update,
+                                            :destroy, :approve, :decline,
                                             :enable, :disable
 
                                           ]
-    before_filter :verify_store_admin, :except => [:new, :create]                                          
+    before_filter :verify_store_admin, :except => [:new, :create]
     before_filter :require_admin, :only => [:index]
 
     def index
@@ -27,16 +27,17 @@ module Admin
     def create
       @store = Store.create_store(params[:store], current_user)
       if @store.save
+        Notification.new_store_request(@store).deliver
         redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
       else
         render action: "new"
       end
     end
-    
+
     def update
       if @store.update_attributes(params[:store])
         redirect_to admin_store_path(@store), notice: 'Store was successfully updated.'
-      else  
+      else
         render action: "edit"
       end
     end
@@ -47,11 +48,13 @@ module Admin
 
     def approve
       @store.update_attribute(:active, 2)
+      Notification.new_store_approval(@store).deliver
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Approved"
     end
 
     def decline
       @store.update_attribute(:active, 0)
+      Notification.new_store_approval(@store).deliver
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Declined"
     end
 
@@ -65,7 +68,7 @@ module Admin
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Disabled"
     end
 
-    private 
+    private
 
     def lookup_store
       @store = Store.find(params[:id])
@@ -77,6 +80,6 @@ module Admin
         redirect_to root_url
       end
     end
-    
+
   end
 end
