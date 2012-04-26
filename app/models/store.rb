@@ -11,6 +11,10 @@ class Store < ActiveRecord::Base
     url_name
   end
 
+  def disabled
+    !self.enabled
+  end
+
   # # def update_status(status)
   # #   case status
   # #   when ""

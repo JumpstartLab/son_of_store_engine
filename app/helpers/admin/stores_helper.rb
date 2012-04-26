@@ -3,8 +3,10 @@ module Admin::StoresHelper
   def store_actions_by_status(store)
     if store.approved.nil?
       approve_link(store.id) + " | " + decline_link(store.id)
-    elsif store.approved
-
+    elsif store.approved && store.enabled
+      disable_link(store.id)
+    elsif store.approved && store.disabled
+      enable_link(store.id)
     end
   end
 
@@ -18,10 +20,14 @@ module Admin::StoresHelper
         admin_store_path(id: id, :store => {approved: false}), method: :put)
   end
 
-  def cancelled_link(id)
-    link_to("Mark as cancelled",
-        admin_order_status_path(order_id: id, new_status: 'cancelled'),
-        method: :put)
+  def disable_link(id)
+    link_to("Disable this store",
+        admin_store_path(id: id, :store => {enabled: false}), method: :put)
+  end
+
+  def enable_link(id)
+    link_to("Enable this store",
+        admin_store_path(id: id, :store => {enabled: true}), method: :put)
   end
 
 end
