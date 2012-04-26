@@ -129,3 +129,19 @@ class Order < ActiveRecord::Base
   end
 
 end
+# == Schema Information
+#
+# Table name: orders
+#
+#  id                  :integer         not null, primary key
+#  user_id             :integer
+#  billing_method_id   :integer
+#  created_at          :datetime        not null
+#  updated_at          :datetime        not null
+#  status              :string(255)     default("pending")
+#  shipping_address_id :integer
+#  action_time         :string(255)
+#  store_id            :integer
+#  special_url         :string(255)
+#
+

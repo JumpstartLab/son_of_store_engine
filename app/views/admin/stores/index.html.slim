@@ -1,0 +1,18 @@
+- @stores.each do |store|
+	div id==dom_id(store)
+		= store.name
+		br/
+		= store.domain
+		br/
+		= store.description[0..31] if store.description
+		br/
+		= store.approval_status
+		br/
+		= store.active_status
+		br/
+		- if store.approval_status == "pending"
+			= link_to "Approve", store_path(store, store: { approval_status: "approved"}), method: :put
+			= link_to "Decline", store_path(store, store: { approval_status: "declined"}), method: :put
+		- else
+			= link_to "Enable", root_path if store.enabled == false
+			= link_to "Disable", root_path if store.enabled == true

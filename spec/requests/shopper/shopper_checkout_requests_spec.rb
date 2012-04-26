@@ -3,14 +3,14 @@ require 'spec_helper'
 describe "shopper checkout", :shopper => true do
   let!(:store) { Fabricate(:store) }
   let!(:product) { Fabricate(:product, store_id: store.id) }
-  
+
   before(:each) do
     visit "/#{store.to_param}"
   end
-  
+
   context "checking out" do
     before(:each) { click_link_or_button "Add to Cart" }
-    
+
     it "can add an item to the cart" do
       within "#cart-aside" do
         page.should have_content product.title
@@ -78,7 +78,8 @@ describe "shopper checkout", :shopper => true do
             page.should have_content "Two-Click Check Out"
             click_link_or_button "Two-Click Check Out"
           end
-          current_path.should == "/#{store.to_param}/products"
+          current_path.should == "/#{store.to_param}/orders/lookup"
+          page.should have_content Order.last.amount
           page.should have_content "Thank you"
         end
       end
@@ -113,7 +114,7 @@ describe "shopper checkout", :shopper => true do
           email_address: "test@test.com"}
           add_non_user_shipping(shipping)
         end
-        
+
         it "can check out" do
           billing = Fabricate(:billing_method)
           shipping = Fabricate(:shipping_address)
@@ -122,10 +123,11 @@ describe "shopper checkout", :shopper => true do
             page.should have_content "Check Out"
             click_link_or_button "Check Out"
           end
-          current_path.should == "/#{store.to_param}/products"
+          current_path.should == "/#{store.to_param}/orders/lookup"
+          page.should have_content Order.last.amount
           page.should have_content "Thank you"
         end
-        
+
         it "does not checkout without valid billing" do
           shipping = Fabricate(:shipping_address)
           Order.last.update_attribute(:shipping_address_id, shipping.id)
@@ -136,7 +138,7 @@ describe "shopper checkout", :shopper => true do
           current_path.should have_content "orders"
           page.should have_content "Please input valid billing and shipping"
         end
-        
+
         it "does not checkout without valid shipping" do
           billing = Fabricate(:billing_method)
           Order.last.update_attribute(:billing_method_id, billing.id)
@@ -149,7 +151,7 @@ describe "shopper checkout", :shopper => true do
         end
       end
     end
-    
+
     context "signing up" do
       it "can sign up" do
         click_link_or_button "Sign-Up"
@@ -160,7 +162,7 @@ describe "shopper checkout", :shopper => true do
         page.should have_content "Welcome"
         page.should have_content "My Account"
       end
-      
+
       it "can sign up and maintain its cart" do
         click_link_or_button "Add to Cart"
         click_link_or_button "Sign-Up"
@@ -172,10 +174,10 @@ describe "shopper checkout", :shopper => true do
         end
       end
     end
-    
+
     context "signing in" do
       let(:user) { Fabricate(:user) }
-      
+
       it "creates a new session with this user" do
         click_link_or_button "Sign-In"
         login({email: user.email_address, password: user.password})
@@ -183,7 +185,7 @@ describe "shopper checkout", :shopper => true do
         page.should have_content "Welcome"
         page.should have_content "My Account"
       end
-      
+
       it "can sign in and maintain its cart" do
         click_link_or_button "Add to Cart"
         click_link_or_button "Sign-In"

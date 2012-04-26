@@ -6,7 +6,7 @@ StoreEngine::Application.routes.draw do
   post 'sessions/create', :as => 'login'
   delete 'sessions/destroy', :as => 'logout'
 
-  match '/code' => redirect('http://github.com/athal7/store_engine')
+  match '/code' => redirect('http://github.com/athal7/son_of_store_engine')
 
   match '/profile' => "users#profile"
 
@@ -18,18 +18,15 @@ StoreEngine::Application.routes.draw do
     resources :stores
   end
 
-  resources :stores, only: [:index, :new, :create]
+  resources :stores, only: [:index, :new, :create, :update]
 
 
   scope "/:domain" do
     match "/" => "products#index"
+    match "orders/lookup" => "orders#lookup"
     resources :products, only: [:index, :show]
     resources :categories, only: [:index, :show]
-    resources :orders, except: [:new, :create, :destroy] do
-      member do
-        get :lookup
-      end
-    end
+    resources :orders, except: [:new, :create, :destroy]
     resources :line_items, except: [:new]
     namespace :admin do
       resources :orders

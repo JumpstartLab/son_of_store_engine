@@ -4,7 +4,7 @@ class Admin::ProductsController < ApplicationController
   before_filter :require_admin
 
   def index
-    @products = Product.all
+    @products = store_products
   end
 
   def show
@@ -54,6 +54,10 @@ class Admin::ProductsController < ApplicationController
   private
 
   def lookup_product
-    @product = Product.find(params[:id])
+    @product = store_products.where(id: params[:id]).first
+  end
+  
+  def store_products
+    Product.where(store_id: @current_store.id)
   end
 end

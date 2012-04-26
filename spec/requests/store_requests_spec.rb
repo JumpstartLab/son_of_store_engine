@@ -27,8 +27,8 @@ describe Store do
           current_path.should == admin_store_path(@store)
           find("#store_name").text.should have_content @store.name
           find("#store_domain").text.should have_content @store.domain
-          find("#store_status").text.should have_content "pending"
-          find("#store_enabled").text.should have_content "Disabled"
+          find("#store_approval_status").text.should have_content "pending"
+          find("#store_active_status").text.should have_content "Disabled"
         end
 
         it "returns a not found error when visit the store show page" do

@@ -20,3 +20,19 @@ class ShippingAddress < ActiveRecord::Base
     self.find(Order.find(order_id).shipping_address_id)
   end
 end
+# == Schema Information
+#
+# Table name: shipping_addresses
+#
+#  id            :integer         not null, primary key
+#  street        :string(255)
+#  state         :string(255)
+#  zipcode       :string(255)
+#  city          :string(255)
+#  name          :string(255)
+#  email_address :string(255)
+#  created_at    :datetime        not null
+#  updated_at    :datetime        not null
+#  user_id       :integer
+#
+

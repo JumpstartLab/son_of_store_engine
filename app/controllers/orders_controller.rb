@@ -29,23 +29,25 @@ class OrdersController < ApplicationController
   end
 
   def lookup
-    order = Order.find_by_special_url(params[:sid])
-    redirect_to order_path(@current_store, order)
+    @order = store_orders.where(special_url: params[:sid]).first
+    render "show"
   end
 
   private
 
   def lookup_order
-    @order = store_orders.where(id: params[:id]).first
+    if params[:id]
+      @order = store_orders.where(id: params[:id]).first
+    end
+
   end
 
   def check_out
-    link = "<a href=\"#{url_for(@order.to_s)}\">View Details</a>"
-    notice = "Thank you for purchasing an email confirmation is on the way. #{link}".html_safe
+    notice = "Thank you for purchasing an email confirmation is on the way."
     OrderMailer.order_confirmation_email(@order).deliver
     session[:previous_order_id] = session[:order_id] if !logged_in?
     session[:order_id] = nil
-    redirect_to products_path(@store), notice: notice
+    redirect_to orders_lookup_path(@store, sid: @order.special_url), notice: notice
   end
 
   def store_orders
