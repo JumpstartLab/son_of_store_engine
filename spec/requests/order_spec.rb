@@ -127,5 +127,27 @@ describe "When I want to place an order" do
       #it "takes me to the order confirmation page"
       # need to figure out some way to test without making an inline API call
     end
+
+    context "user already has shipping and credit information loaded" do
+
+      describe "user checks out a cart with content" do
+        # let!(:shipping_detail) { FactoryGirl.create(:shipping_detail, user_id: user.id) }
+        # let!(:credit_card) { FactoryGirl.create(:credit_card, user_id: user.id) }
+
+        # before(:each) do
+        #   visit product_path(product)
+        #   click_link_or_button('Add to cart')
+        #   click_link_or_button('Checkout')
+        #   click_link_or_button('Create Order')
+        # end
+
+        it "sends a confirmation email" do
+          pending "Need to fix orders_controller create method as per todo comment there"
+          ActionMailer::Base.deliveries.last.to.should == [User.last.email]
+          ActionMailer::Base.deliveries.last.subject.should == "Order Confirmation"
+        end
+      end
+
+    end
   end
 end
