@@ -14,7 +14,7 @@ header.navbar.navbar-fixed-top
               = link_to current_user do
                 i.icon-user.icon-white
                 | &nbsp;&nbsp;#{current_user.name}
-            li= link_to "Sign out", signout_path, method: "delete"
+            li= link_to "Sign out", signout_path
           - else
             li= link_to "Sign in", signin_path
             li= link_to "Register", signup_path

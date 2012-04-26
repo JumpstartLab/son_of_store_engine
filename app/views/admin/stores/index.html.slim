@@ -1,0 +1,11 @@
+h1 Approved Stores
+ul
+  - @approved_stores.each do |store|
+    li= link_to store.name, store_path(store.slug)
+
+h1 Pending Stores
+ul
+  - @pending_stores.each do |store|
+    li.stores#show = link_to store.name, store_path(store.slug)
+    li.stores#show = link_to "Approve", admin_stores_path(store.slug, :status => { :status => "approved" }), :method => :put
+    li.stores#show = link_to "Decline", admin_stores_path(store.slug, :status => { :status => "declined" }), :method => :put

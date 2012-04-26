@@ -1,5 +1,6 @@
 class StoresController < ApplicationController
   skip_before_filter :verify_store_status
+  before_filter :verify_site_admin, :only => :index
   
   def new
     @store = Store.new
@@ -7,8 +8,12 @@ class StoresController < ApplicationController
 
   def create
     @store = Store.create(params[:store])
-    if @store.save
-      redirect_to stores_path, :notice => "Store waiting approval."
+    if @store.save 
+      if current_user.admin == true
+        redirect_to store_path(@store), :notice => "Creation."
+      else
+        redirect_to stores_path, :notice => "Store waiting approval."
+      end
     else
       render :new
     end
@@ -16,6 +21,5 @@ class StoresController < ApplicationController
 
   def index
     @stores = Store.approved
-    # @stores = Store.all
   end
 end
