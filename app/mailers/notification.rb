@@ -3,25 +3,18 @@ class Notification < ActionMailer::Base
   default :from => "noreply@ehipster.herokuapp.com"
 
   def order_email(user, order)
-    @user = user
-    @order = order
-    mail(:to => user.email, :subject => "Order Placed - ##{order.id}")
+    Resque.enqueue(NewOrderEmailer, user.id, order.id)
   end
 
   def sign_up_confirmation(user)
-    @user = user
-    mail(:to => user.email, :subject => "Welcome #{user.name}")
+    Resque.enqueue(NewUserEmailer, user.id)
   end
 
   def new_store_approval(store)
-    @store = store
-    @admin_user = store.users.first
-    mail(:to => @admin_user.email, :subject => "New Store: #{store.name} was #{store.status}")
+    Resque.enqueue(NewStoreApprovalEmailer, store.id)
   end
 
   def new_store_request(store)
-    @store = store
-    @admin_user = store.users.first
-    mail(:to => @admin_user.email, :subject => "New Store Requested")
+    Resque.enqueue(NewStoreRequestEmailer, store.id)
   end
 end
