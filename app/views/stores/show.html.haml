@@ -1,0 +1,12 @@
+%p
+  %b Name:
+  = @store.name
+%p
+  %b Active:
+  = @store.status
+%p
+  %b Users: 
+  - @store.users.each do |user|
+    = "#{user.name}"
+
+= link_to 'Edit', edit_store_path(@store)

@@ -2,7 +2,7 @@ StoreEngine::Application.routes.draw do
   get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
 
-  resources :sessions, :pages
+  resources :sessions, :pages, :stores
   resources :users, :exclude => [:index]
 
   namespace "admin" do
@@ -42,6 +42,8 @@ StoreEngine::Application.routes.draw do
     end
     root :to => "products#index"
   end
+  get '/profile', :to => "users#edit"
+
   root :to => "pages#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.

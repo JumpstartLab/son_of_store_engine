@@ -8,9 +8,9 @@
 
 def user(values)
   u =     User.create(
-           :name  => values[0], :password => values[1], 
-           :email => values[2], :display_name => values[3]
-          )
+                       :name  => values[0], :password => values[1], 
+                       :email => values[2], :display_name => values[3]
+                     )
   u.permission = values[4] if values[4]
   u.save
   u
@@ -49,8 +49,8 @@ s3 = Status.create(   :name => "cancelled")
 s4 = Status.create(   :name => "paid"     )
 s5 = Status.create(   :name => "returned" )
 
-c1 = Category.create( :name => "Music", :store => @new_store    )
-c2 = Category.create( :name => "Toys"  , :store => @new_store   )
+c1 = Category.create( :name => "Music", :store => @new_store)
+c2 = Category.create( :name => "Toys"     )
 c3 = Category.create( :name => "Electronics")
 c4 = Category.create( :name => "Relaxation")
 c5 = Category.create( :name => "Water")
@@ -90,3 +90,4 @@ Sale.create(:percent_off => 90, :end_at => 30.days.from_now, :products => [p1,p2
 o1 = order([u1, s1, [p1, p2]])
 o2 = order([u1, s2, [p1, p3]])
 o2 = order([u2, s4, [p1, p3]])
+
