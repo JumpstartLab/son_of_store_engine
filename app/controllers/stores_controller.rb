@@ -5,7 +5,6 @@ class StoresController < ApplicationController
 
   def new
     @new_store = Store.new
-    #raise store
   end
 
   def show
@@ -13,9 +12,7 @@ class StoresController < ApplicationController
   end
 
   def create
-
     @new_store = Store.create(params[:store])
-
     if @new_store.save
       redirect_to store_path(@new_store)
     else
