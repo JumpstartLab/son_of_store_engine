@@ -136,5 +136,16 @@ describe "User" do
       click_on "Create User"
       page.current_path.should == product_path(product)
     end
+
+    it "shows flash with link to edit settings" do
+      visit root_path
+      click_link "Sign Up"
+      fill_in "user[full_name]", :with => "Luke Skysauce"
+      fill_in "user[email]", :with => "sky@walker.com"
+      fill_in "user[password]", :with => "foobar"
+      fill_in "user[password_confirmation]", :with => "foobar"
+      click_on "Create User"
+      find_link("Edit User Settings").visible?.should == true
+    end
   end
 end
