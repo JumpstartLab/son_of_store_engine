@@ -1,7 +1,7 @@
 require 'fabrication'
 
 10.times { |n| Fabricate(:store, :name => "Store #{n}", :store_unique_id => "store-#{n}") }
-100.times { Fabricate(:product, :photo => 'http://1337807.com/images/megaman.gif', :store => Store.all.sample) }
+100.times { Fabricate(:product, :photo => '', :store => Store.all.sample) }
 10.times { Fabricate(:category) }
 
 Product.all.each do |product|
