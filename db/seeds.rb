@@ -23,7 +23,7 @@ chad = User.create(full_name: 'Chad Fowler',
  display_name: 'SaxPlayer', password: 'hungry')
 chad.update_attribute(:admin, true)
 
-store = Store.create(name: 'Test Store', domain: 'test-store', description: 'This is a moderately description for a store that I love. It is the best place in the world.')
+store = Store.create(name: 'Test Store', domain: 'test-store', creating_user_id: 1, description: 'This is a moderately description for a store that I love. It is the best place in the world.')
 store.update_attribute(:approval_status, "pending")
 store.update_attribute(:enabled, false)
 
@@ -82,7 +82,7 @@ end
 
 ### STORE 2 ###
 
-store2 = Store.create(name: 'Test Store'.reverse, domain: 'store-test', description: 'This store sucks. Honestly, it was the worst shopping experience I have ever had. Monkeys run a tighter ship.')
+store2 = Store.create(name: 'Test Store'.reverse, domain: 'store-test', creating_user_id: 1, description: 'This store sucks. Honestly, it was the worst shopping experience I have ever had. Monkeys run a tighter ship.')
 store2.update_attribute(:approval_status, "approved")
 store2.update_attribute(:enabled, true)
 
