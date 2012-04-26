@@ -20,8 +20,6 @@ describe "As an admin updating categories" do
     fill_in "email", with: user.email
     fill_in "password", with: "foobar"
     click_link_or_button('Log in')
-    #page.driver.post(sessions_url, { email: user, password: "foobar", remember_me: false})
-    #login_user_post(user.email, "foobar")
   end
 
   context "when I'm creating a new category" do

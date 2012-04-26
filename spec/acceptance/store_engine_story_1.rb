@@ -17,7 +17,7 @@ feature "Checking Out While Logged Out" do
   
   context "When I view the home page" do
     before(:each) do
-      visit root_path
+      visit products_path
     end
     
     it "then I should see a list of products" do
