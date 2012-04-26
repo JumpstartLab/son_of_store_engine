@@ -10,6 +10,7 @@ describe "When I want to place an order" do
       before(:each) do
         visit product_path(product)
         click_link_or_button("Add to cart")
+        visit cart_path
       end
       context "and I try to checkout" do
         before(:each) do
