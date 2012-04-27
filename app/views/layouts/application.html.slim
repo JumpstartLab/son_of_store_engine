@@ -27,7 +27,7 @@ html
               li.nav id="right"
                 = link_to("Sign up", new_user_registration_path)
                 = " or "
-                = link_to("Log in", new_user_session_path)
+                = link_to("Log In", new_user_session_path)
             - if @store and not @store.name.blank?
               li.nav class="brand" = @store.name.titlecase
 
@@ -44,8 +44,4 @@ html
     div class="navbar navbar-fixed-bottom"
       div class="navbar-inner"
         div class="container"
-          ul
-            /li.nav id="right_big" = link_to "π", "http://www.jibjab.com/view/VAfMsYFRakU6mXaP?mt=1", :target=> "blank"
-            /li.nav id="right"
-              /= "Do not click me --> "
     = yield
