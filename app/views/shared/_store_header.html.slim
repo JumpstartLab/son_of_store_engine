@@ -2,10 +2,9 @@
   .navbar-inner
     .container
       a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
       = link_to @current_store.name, products_path(@current_store), class: "brand", id: "brand"
+      a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
+      = link_to "A DOSE Store", root_url, class: "brand", id: "dose-store"
       .nav-collapse
         ul.nav.nav-pills
           li#menu1.dropdown
