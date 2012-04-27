@@ -110,7 +110,7 @@ describe 'checking out' do
     it "lets you checkout as visitor" do
       fill_in "guest_email", :with => "foobarbar@bar.net"
       click_link_or_button "Checkout as Guest"
-      page.current_path.should == new_visitor_order_path
+      page.current_path.should == new_store_visitor_order_path(product.store)
     end
 
     it "doesn't let you checkout with existing user email" do
@@ -152,7 +152,7 @@ describe 'checking out' do
       fill_in "order[address_attributes][state]", with: "DC" 
       fill_in "order[address_attributes][zip_code]", with: "24242" 
       click_on "Place order"
-      page.current_path.should == visitor_order_path(Order.last.unique_url)
+      page.current_path.should == store_visitor_order_path(product.store, Order.last.unique_url)
     end
 
     it "displays the unique order url" do
@@ -160,7 +160,7 @@ describe 'checking out' do
       test_user = FactoryGirl.create(:visitor_user)
       order =  FactoryGirl.create(:order,
                                   :visitor_user => test_user, :address => address) 
-      visit visitor_order_path(order.unique_url)
+      visit store_visitor_order_path(order.store, order.unique_url)
       page.should have_content(order.unique_url)
     end
   end

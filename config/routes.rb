@@ -1,11 +1,8 @@
 StoreEngine::Application.routes.draw do
 
   resources :users
-  resources :visitor_orders
   resources :sessions
-  resources :unique_orders, :only => :show
   
-
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
 
@@ -35,6 +32,8 @@ StoreEngine::Application.routes.draw do
     resource :checkout, :controller => 'checkout'
     resource :cart, :only => [:show, :update]
     resources :cart_items
+    resources :unique_orders, :only => :show
+    resources :visitor_orders
   end
 
 

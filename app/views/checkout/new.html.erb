@@ -16,7 +16,8 @@
   </div>
 <% end %>
  
-<%= form_tag new_visitor_order_path,:method => :get, :class=>'well' do %>
+<%= form_tag new_store_visitor_order_path(current_store),
+    :method => :get, :class=>'well' do %>
 <label>
     <%= "Email" %></label>
     <%= email_field_tag :guest_email, params[:guest_email] %>
