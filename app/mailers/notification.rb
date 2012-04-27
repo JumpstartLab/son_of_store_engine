@@ -6,8 +6,8 @@ class Notification < ActionMailer::Base
     Resque.enqueue(NewOrderEmailer, user.id, order.id)
   end
 
-  def sign_up_confirmation(user)
-    Resque.enqueue(NewUserEmailer, user.id)
+  def sign_up_confirmation(email)
+     mail(:to => "mikesilvis@gmail.com", :subject => "You have been invited to become an admin of")
   end
 
   def new_store_approval(store)

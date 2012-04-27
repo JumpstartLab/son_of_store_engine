@@ -1,4 +1,4 @@
-StoreEngine::Application.routes.draw do
+ StoreEngine::Application.routes.draw do
 
   mount Resque::Server.new, :at => "/resque"
   get "login" => 'sessions#new'

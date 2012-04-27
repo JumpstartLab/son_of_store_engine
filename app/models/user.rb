@@ -23,11 +23,16 @@ class User < ActiveRecord::Base
   has_many :product_ratings
   has_one :cart
   has_one :address
+  after_create :send_confirmation_mail
 
   def guest_user
     self.guest == true
   end
 
+  def send_confirmation_mail
+    Resque.enqueue(NewUserEmailer, email)
+  end
+  
   def verify_user(input)
     add_email(input[:email]) if input[:email]
     update_address(input)
