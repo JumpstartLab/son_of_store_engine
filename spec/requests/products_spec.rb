@@ -100,8 +100,8 @@ describe "Products" do
   context "searching products" do
     it "searches given a valid param" do
       visit store_products_path(products.first.store)
-      fill_in "search", :with => products.first.title
-      page.find('.search_button').click
+      fill_in "_search", :with => products.first.title
+      page.find('.search-button').click
       page.should have_content products.first.title
     end
   end
