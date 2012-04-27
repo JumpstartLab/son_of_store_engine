@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_filter :authorize, except: "index"
+  before_filter :authorize, except: [:index, :show]
 
   def new
     @store = Store.new
@@ -17,5 +17,9 @@ class StoresController < ApplicationController
 
   def index
     @stores = Store.where status: "enabled"
+  end
+
+  def show
+    return redirect_to store_products_path(current_store)
   end
 end

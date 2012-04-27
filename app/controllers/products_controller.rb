@@ -2,19 +2,20 @@ class ProductsController < ApplicationController
 
   before_filter :admin_authorize,
                 only: [:destroy, :edit, :update, :create, :new]
+  before_filter :validate_store_path
 
   def index
     if params[:search] && params[:search].length > 0
-      @products = Product.active.find_by(params[:search])
+      @products = current_store.products.active.find_by(params[:search])
       json_responder
     else
-      @products = Product.active
+      @products = current_store.products.active
       json_responder
     end
   end
 
   def new
-    @product = Product.new
+    @product = current_store.products.new
   end
 
   def create
@@ -28,15 +29,15 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = current_store.products.find(params[:id])
   end
 
   def edit
-    @product = Product.find(params[:id])
+    @product = current_store.products.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
+    @product = current_store.products.find(params[:id])
     if @product.update_attributes(params[:product])
       redirect_to store_product_path(@product.store, @product), 
       :notice => "Product updated."
@@ -46,7 +47,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
+    @product = current_store.products.find(params[:id])
     @product.destroy
     redirect_to products_path, :alert => "Product deleted."
   end
@@ -55,8 +56,14 @@ class ProductsController < ApplicationController
 
   def json_responder
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @products }
+    end
+  end
+
+  def validate_store_path
+    unless current_store
+      redirect_to root_path, notice: "Could not find the store you were looking for. Try one of these!"
     end
   end
 end

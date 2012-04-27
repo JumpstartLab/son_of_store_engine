@@ -18,7 +18,7 @@
 <h3><%= number_to_currency(@product.price) %></h3>
 <br />
 <p>Categories: <% @product.categories.each do |c| %>
-      <%= link_to c.title, category_path(c) %>,
+      <%= link_to c.title, store_category_path(c.store, c) %>,
       <% end %></p>
 
 <% if admin? %>

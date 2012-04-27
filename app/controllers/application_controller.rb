@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
         merge_cart(session[:cart_id]) if !session[:cart_id].blank?
       end
     else
-      new_cart
+      @cart = new_cart
     end
+    
   end
 
   def new_cart
@@ -23,6 +24,7 @@ class ApplicationController < ActionController::Base
     else
       @cart ||= Cart.create
       session[:cart_id] = @cart.id
+      @cart
     end
   end
 

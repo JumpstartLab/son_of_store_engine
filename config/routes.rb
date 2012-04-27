@@ -22,9 +22,11 @@ StoreEngine::Application.routes.draw do
   match "/profile" => "users#profile", as: "profile"
   match "/dashboards" => "dashboard#index", as: "dashboards"
 
-  root :to => 'stores#index'
+  match "/new" => "stores#new"
+  match "/create" => "stores#create"
 
-  resources :stores do
+  match "/:store_id" => "stores#show"
+  resources :stores, path: '' do
     resources :products
     resource :dashboard, :controller => 'dashboard'
     resource :two_click_orders
@@ -34,5 +36,7 @@ StoreEngine::Application.routes.draw do
     resource :cart, :only => [:show, :update]
     resources :cart_items
   end
-  
+
+
+  root :to => "stores#index"
 end
