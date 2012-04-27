@@ -10,7 +10,7 @@ describe 'Checkout',:request => :anon do
 
     context "user not logged in" do
       it 'offers checkout as a guest' do
-        visit cart_path
+        visit store_cart_path(test_cart.store)
         click_link_or_button "Checkout"
         find_button("Checkout as Guest").visible?.should == true
       end
@@ -18,9 +18,9 @@ describe 'Checkout',:request => :anon do
 
     it "allows you to enter order information" do
       login(FactoryGirl.create(:user))
-      visit cart_path
+      visit store_cart_path(test_cart.store)
       click_link_or_button "Checkout"
-      page.current_path.should == new_order_path
+      page.current_path.should == new_store_order_path(test_cart.store)
     end
   end
 
@@ -28,7 +28,7 @@ describe 'Checkout',:request => :anon do
     let!(:test_cart) { FactoryGirl.create(:cart)}
 
     it "takes you to the root" do
-      visit new_checkout_path
+      visit new_store_checkout_path(test_cart.store)
       page.current_path.should == root_path
     end
   end

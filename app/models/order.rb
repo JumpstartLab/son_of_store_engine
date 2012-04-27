@@ -32,8 +32,13 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
-  def self.revenue
-    Order.all.inject(0) do |result, order|
+  def self.revenue(store = nil)
+    if store
+      @orders = store.orders
+    else
+      @orders = Order.all
+    end
+    @orders.inject(0) do |result, order|
       result += order.total_price
     end
   end

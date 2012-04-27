@@ -4,28 +4,41 @@
     <div class="navbar-inner">
       <div class="container">
 
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <a class="btn btn-navbar" 
+           data-toggle="collapse" 
+           data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
         <a class="brand" href="/">StoreEngine</a>
-
+        <% if current_store %>
         <ul class="nav">
           <li>
-            <%= link_to("Cart", cart_path) %>
+            <%= link_to("Cart", store_cart_path(current_store)) %>
           </li>
           <li>
             <% if @cart.quantity == 0 %>
-            <a><div id="badger"><span class="badge badge" id="cart_count"><%= @cart.quantity %></span></div></a>
+            <a><div id="badger">
+              <span class="badge badge" id="cart_count">
+              <%= @cart.quantity %></span></div></a>
             <% else %>
-            <a><div id="badger"><span class="badge badge-success" id="cart_count"><%= @cart.quantity %></span></div></a>
+            <a><div id="badger">
+              <span class="badge badge-success" id="cart_count">
+              <%= @cart.quantity %></span></div></a>
             <% end %>
           </li>
         </ul>
+        <% end %>
         <form class="navbar-search pull-right">
-          <%= text_field_tag :search, nil, :class => "search-query", :placeholder => "Search..." %>
-          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" class="search_button">
+          <%= text_field_tag :search, nil, :class => "search-query", 
+          :placeholder => "Search..." %>
+          <input type="submit" 
+            style="position: absolute; 
+                       left: -9999px; 
+                      width: 1px; 
+                     height: 1px;
+                  " class="search_button">
         </form>
                    
                     
@@ -36,13 +49,18 @@
           <% if current_user %>
             <ul class="nav pull-right">
             <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account</a>
+            <a href="#" class="dropdown-toggle" 
+                  data-toggle="dropdown">Account</a>
             <ul class="dropdown-menu">
               <li><%= current_user.full_name %></li>
               <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-              <li><%= link_to "Dashboard", dashboard_path if current_user.admin? %></li>
-              <li><%= link_to "Log Out", logout_path %></li>
-              <li><%= link_to "Orders", orders_path %></li>
+              <li><%= link_to "Dashboard", 
+                      dashboards_path if current_user.admin? %></li>
+              <li><%= link_to "Log Out", 
+                      logout_path %></li>
+              <% if current_store %>
+              <li><%= link_to "Orders", 
+                      store_orders_path(current_store) %></li><% end %>
             </ul>
           </li>
 

@@ -1,19 +1,25 @@
 class CategoriesController < ApplicationController
   before_filter :admin_authorize, only: [:new, :create, :update, :edit]
+  before_filter :store_required
 
   def show
-    @category = Category.find_by_id(params[:id])
-    @products = @category.products
+    @category = current_store.categories.find_by_id(params[:id])
+    if @category
+      @products = @category.products
+    else
+      return redirect_to store_products_path(current_store), 
+             alert: "This store does not have that category."
+    end
   end
 
   def new
-    @category = Category.new
+    @category = current_store.categories.new
   end
 
   def create
-    @category = Category.new(params[:category])
+    @category = current_store.categories.new(params[:category])
     if @category.save
-      redirect_to category_path(@category),
+      redirect_to store_category_path(@category.store, @category),
       notice: "Categories all the way down!"
     else
       render 'new'
@@ -21,16 +27,19 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @category = Category.find(params[:id])
+    @category = current_store.categories.find(params[:id])
   end
 
   def update
-    @category = Category.find(params[:id])
+    @category = current_store.categories.find(params[:id])
     if @category.update_attributes(params[:category])
-      redirect_to category_path(@category), :notice => "Category updated."
+      redirect_to store_category_path(@category.store, @category), 
+      :notice => "Category updated."
     else
       render 'edit'
     end
   end
+
+  private
 
 end

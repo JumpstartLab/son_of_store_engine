@@ -5,10 +5,15 @@ class Store < ActiveRecord::Base
   has_many :privileges
   has_many :carts
   has_many :orders
+  has_many :categories
 
   validates_presence_of :owner_id
   validates_uniqueness_of :name
   validates_uniqueness_of :slug
+
+  def to_param
+    slug
+  end
 
   def owner
     User.find(owner_id)

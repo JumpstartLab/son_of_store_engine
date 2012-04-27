@@ -4,7 +4,7 @@ include ActionView::Helpers::NumberHelper
 describe 'viewing all orders' do
   describe 'when user is not logged in' do
     it "it redirects to login page" do
-      visit "/orders"
+      visit store_orders_path(FactoryGirl.create(:store))
       page.should have_content "You need to log in first."
     end
   end
@@ -24,7 +24,7 @@ describe 'viewing all orders' do
     
     it "shows the user's orders" do
       login(test_user)
-      visit "/orders"
+      visit store_orders_path(test_products.first.store)
       page.should have_content test_products.first.title
     end
   end
@@ -34,14 +34,14 @@ describe 'checking out' do
   let(:user) { FactoryGirl.create(:user) }
 
   it "redirects to login if the user is not logged in" do
-    visit "/orders/new"
+    visit new_store_order_path(FactoryGirl.create(:store))
     page.should have_content "You need to log in first."
   end
 
   context "when user is logged in" do
     before(:each) { login(user) }
     it "prevents user from checking out with no items in cart" do
-      visit "/orders/new"
+      visit new_store_order_path(FactoryGirl.create(:store))
       page.should have_content "You can't order something"
     end
 
@@ -86,12 +86,12 @@ describe 'checking out' do
         fill_in "order[address_attributes][state]", with: "DC" 
         fill_in "order[address_attributes][zip_code]", with: "24242" 
         click_on "Place order"
-        find("#cart_count").text.should == "0"
+        find("#cart_count").text.include?("0").should be_true
       end
     end
   end
 
-  context " when I dont have an account", :request => :cartz do
+  context "when I dont have an account", :request => :cartz do
     let(:test_cart) { FactoryGirl.create(:cart)}
     let(:product) { FactoryGirl.create(:product) }
     let!(:user2) { FactoryGirl.create(:user, :email => "foo@bar.net") }
@@ -99,7 +99,7 @@ describe 'checking out' do
 
 
     before(:each) do 
-      load_cart_with_products([product]) 
+      load_cart_with_products([product])
       click_link_or_button "Checkout"
     end
 
@@ -132,12 +132,12 @@ describe 'checking out' do
       fill_in "user[password]", :with => "foobar"
       fill_in "user[password_confirmation]", :with => "foobar"
       click_on "Create User"
-      page.current_path.should == new_order_path
+      page.current_path.should == new_store_order_path(product.store)
     end
 
     it "logs in user & takes you to new order page", :request => :fail do
       login(user2)
-      page.current_path.should == new_order_path
+      page.current_path.should == new_store_order_path(product.store)
     end
 
     it "create an order as a guest" do
@@ -181,7 +181,7 @@ describe 'checking out' do
 
     it "lets me edit the order" do
       login(admin_user)
-      visit edit_order_path(order)
+      visit edit_store_order_path(order.store, order)
       page.should have_content "Order Status"
     end
 

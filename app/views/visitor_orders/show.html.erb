@@ -17,7 +17,7 @@ Unique Order Link: <%= link_to visitor_order_url(@order.unique_url),  visitor_or
   </thead>
   <tbody>
     <% @order.order_items.each do |oo| %><tr>
-      <td><%= link_to oo.product.title, product_path(oo.product) %></td>
+      <td><%= link_to oo.product.title, store_product_path(oo.product.store, oo.product) %></td>
       <td><%= oo.product.description %></td>
       <td><%= number_to_currency(oo.unit_price) %></td>
       <td><%= oo.quantity %></td>

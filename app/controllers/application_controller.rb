@@ -10,11 +10,12 @@ class ApplicationController < ActionController::Base
       current_user.cart = Cart.create if current_user.cart.nil?
       @cart = current_user.cart
       if @cart.id != session[:cart_id]
-        merge_cart(session[:cart_id]) if !session[:cart_id].blank?
+        merge_cart(session[:cart_id]) unless session[:cart_id].blank?
       end
     else
-      new_cart
+      @cart = new_cart
     end
+    
   end
 
   def new_cart
@@ -23,6 +24,7 @@ class ApplicationController < ActionController::Base
     else
       @cart ||= Cart.create
       session[:cart_id] = @cart.id
+      @cart
     end
   end
 
@@ -67,7 +69,22 @@ class ApplicationController < ActionController::Base
   def checking_out?
     session[:checking_out] || false
   end
+
+  def current_store
+    if params[:store_id]
+      Store.find_by_slug(params[:store_id])
+    else
+      nil
+    end
+  end
   
+  def store_required
+    unless current_store
+      redirect_to root_path, notice: "Could not find the store you were looking for. Try one of these!"
+    end
+  end
+  
+  helper_method :current_store
   helper_method :lookup_cart
   helper_method :admin_authorize
   helper_method :current_user

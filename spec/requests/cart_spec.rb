@@ -6,7 +6,7 @@ describe 'using the shopping cart' do
   let(:product) { FactoryGirl.create(:product) }
   context "When I'm on a product page" do
     
-    before(:each) { visit product_path(product) }
+    before(:each) { visit store_product_path(product.store, product) }
 
     context "and I click add to cart" do
       before(:each) { click_link_or_button "Add to Cart" }
@@ -22,7 +22,7 @@ describe 'using the shopping cart' do
       end
       
       context "when I already have that item in a cart" do
-        before(:each) { visit product_path(product) }
+        before(:each) { visit store_product_path(product.store, product) }
         before(:each) { click_link_or_button "Add to Cart" }
 
         it "increases the quantity for an existing item" do
@@ -30,7 +30,8 @@ describe 'using the shopping cart' do
         end
 
         it "should list only one copy of the item" do
-          page.should_not have_selector('a', :href => product_path(product), :count => 2)
+          page.should_not have_selector('a', :href => 
+            store_product_path(product.store, product), :count => 2)
         end
       end 
     end
@@ -39,12 +40,13 @@ describe 'using the shopping cart' do
   context "when I have a cart" do
     it "combines carts" do
       login(user)
-      visit product_path(product)
+      visit store_product_path(product.store, product)
       click_link_or_button "Add to Cart"
       click_on "Log Out"
-      visit product_path(product)
+      visit store_product_path(product.store, product)
       click_link_or_button "Add to Cart"
       login(user)
+      visit store_product_path(product.store, product)
       click_on "Cart"
       page.should have_content "2 items"
     end
@@ -53,7 +55,7 @@ describe 'using the shopping cart' do
   context "when I'm on a product page" do
     let(:product) { FactoryGirl.create(:product, :activity => false) }
     it "prevents me from adding a retired product to cart" do
-      visit product_path(product)
+      visit store_product_path(product.store, product)
       click_on "Add to Cart"
       page.should have_content("Sorry, this product is retired.")
     end

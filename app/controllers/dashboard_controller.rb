@@ -1,9 +1,14 @@
 class DashboardController < ApplicationController
   before_filter :admin_authorize
-
   def show
-    @orders = Order.all
-    @categories = Category.all
-    @products = Product.all
+    @orders = current_store.orders
+    @categories = current_store.categories
+    @products = current_store.products
   end
+
+  def index
+    @stores = Store.all
+  end
+
+  private
 end

@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
       @order.build_address
     end
 
-    @path = orders_path
+    @path = store_orders_path(current_store)
   end
 
   def edit
@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @order.update_status(params[:order][:status])
-    redirect_to order_path(@order)
+    redirect_to store_order_path(current_store, @order)
   end
 
   def create
@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
     if @order.save_with_payment
       @cart.destroy
       session[:cart_id] = Cart.create.id
-      redirect_to @order, :notice => "Transaction Complete"
+      redirect_to [current_store, @order], :notice => "Transaction Complete"
     else
       render :new
     end

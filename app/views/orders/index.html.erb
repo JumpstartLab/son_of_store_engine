@@ -10,14 +10,14 @@
   </thead>
   <tbody>
       <% @orders.each do |order| %><tr>
-      <td><%= link_to order.id, order_path(order) %></td>
+      <td><%= link_to order.id, store_order_path(current_store, order) %></td>
       <td><%= order.created_at.strftime("%m/%d/%Y  %I:%M%p") %></td>
       <td><% order.products.each do |t| %>
             <%= t.title %>,
           <% end %></td>
       <td><%= number_to_currency(order.total_price) %></td>
-      <td><%= link_to "View", order_path(order), :class => "btn btn-mini" %></td>
+      <td><%= link_to "View", store_order_path(current_store, order), 
+              :class => "btn btn-mini" %></td>
       </tr><% end %>
   </tbody>
 </table>
-<%= link_to "Back to Shopping!", products_path, :class => "btn btn-large" %>

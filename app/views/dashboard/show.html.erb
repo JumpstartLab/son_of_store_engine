@@ -3,7 +3,7 @@
 </div>
 <br />
 <div class="well">
-  <h2>Total revenue: <%= number_to_currency(Order.revenue) %></h2>
+  <h2>Total revenue: <%= number_to_currency(Order.revenue(current_store)) %></h2>
   <h2>Total Orders: <%= @orders.count %></h2>
 </div>
 <div id= "order_count">
@@ -11,16 +11,21 @@
   
   <table id="status_numbers">
     <tbody>
-      <td style="width: 110px"><%= link_to "Pending:", orders_path(:status_search => "pending") %> 
-          <%= Order.pending.count %></td>
-      <td style="width: 120px"><%= link_to "Cancelled:", orders_path(:status_search => "cancelled") %> 
-          <%= Order.cancelled.count %></td>
-      <td style="width: 90px"><%= link_to "Paid:", orders_path(:status_search => "paid") %>
-          <%= Order.paid.count %></td>
-      <td style="width: 120px"><%= link_to "Shipped:", orders_path(:status_search => "shipped") %>
-          <%= Order.shipped.count %></td>
-      <td style="width: 120px"><%= link_to "Returned:", orders_path(:status_search => "returned") %> 
-          <%= Order.returned.count %></td>
+      <td style="width: 110px"><%= link_to "Pending:", 
+          store_orders_path(current_store, :status_search => "pending") %> 
+          <%= @orders.pending.count %></td>
+      <td style="width: 120px"><%= link_to "Cancelled:", 
+          store_orders_path(current_store, :status_search => "cancelled") %> 
+          <%= @orders.cancelled.count %></td>
+      <td style="width: 90px"><%= link_to "Paid:", 
+          store_orders_path(current_store, :status_search => "paid") %>
+          <%= @orders.paid.count %></td>
+      <td style="width: 120px"><%= link_to "Shipped:", 
+          store_orders_path(current_store, :status_search => "shipped") %>
+          <%= @orders.shipped.count %></td>
+      <td style="width: 120px"><%= link_to "Returned:", 
+          store_orders_path(current_store, :status_search => "returned") %> 
+          <%= @orders.returned.count %></td>
     </tbody>
   </table>
   
@@ -46,7 +51,7 @@
   </thead>
   <tbody id="orders">
     <% @orders.each do |order| %><tr>
-        <td><%= link_to order.id, order_path(order) %></td>
+        <td><%= link_to order.id, store_order_path(current_store, order) %></td>
             <td><%= order.created_at.strftime("%m/%d/%Y  %I:%M%p") %></td>
             <td><%= order.user.full_name %></td>
             <td><% order.products.each do |t| %>
@@ -59,8 +64,10 @@
   </tbody>
 </table>
 <br />
-<%= link_to "Add product", new_product_path, :class => "btn btn-large" %>
-<%= link_to "Add category", new_category_path, :class => "btn btn-large" %>
+<%= link_to "Add product", new_store_product_path(current_store), 
+    :class => "btn btn-large" %>
+<%= link_to "Add category", new_store_category_path(current_store), 
+    :class => "btn btn-large" %>
 <br />
 <br />
 <div class="page-header">
@@ -73,8 +80,9 @@
   </thead>
   <tbody>
     <% @categories.each do |category| %><tr>
-      <td><%= link_to category.title, category_path(category) %></td>
-      <td><%= link_to "Edit", edit_category_path(category), :class => "btn btn-mini" %></td>
+      <td><%= link_to category.title, store_category_path(current_store) %></td>
+      <td><%= link_to "Edit", edit_store_category_path(current_store, category), 
+              :class => "btn btn-mini" %></td>
     </tr><% end %>
   </tbody> 
 </table>
@@ -95,13 +103,15 @@
   </thead>
   <tbody>
     <% @products.each do |product| %><tr>
-      <td><%= link_to product.title, product_path(product) %></td>
+      <td><%= link_to product.title, 
+              store_product_path(product.store, product) %></td>
       <td><%= if product.activity then "Active" else "Retired" end%></td>
       <td><%= number_to_currency(product.price) %></td>
       <td><%= number_to_currency(product.revenue) %></td>
       <td><%= product.sales %></td>
       <td><%= product.categories.map! { |k| "#{k.title}" }.join(", ") %></td>
-      <td><%= link_to "Edit", edit_product_path(product), :class => "btn btn-mini" %></td>
+      <td><%= link_to "Edit", edit_store_product_path(product.store, product), 
+              :class => "btn btn-mini" %></td>
     </tr><% end %>
   </tbody> 
 </table>

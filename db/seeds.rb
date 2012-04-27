@@ -5,15 +5,24 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+first_store_owner = User.create(  full_name: "Mark T",
+              password: "hungry",
+              password_confirmation: "hungry",
+              email: "mark.tabler@livingsocial.com",
+              username: "capncurry" )
 
-male_category = Category.create( title: "Male")
-female_category = Category.create( title: "Female")
-casual_category = Category.create( title: "Casual")
-dress_category = Category.create( title: "Dress")
-wtf_category = Category.create( title: "WTF")
-boot_category = Category.create( title: "Boot")
+first_store = Store.new(name: "Shoe Shop", slug:"shoe_shop", description: "Buy some shoes!!!!")
+first_store.update_attribute(:owner_id, first_store_owner.id)
+first_store.save!
 
-products = Product.create([{ title: 'Moccasin', 
+male_category = first_store.categories.create( title: "Male")
+female_category = first_store.categories.create( title: "Female")
+casual_category = first_store.categories.create( title: "Casual")
+dress_category = first_store.categories.create( title: "Dress")
+wtf_category = first_store.categories.create( title: "WTF")
+boot_category = first_store.categories.create( title: "Boot")
+
+products = first_store.products.create([{ title: 'Moccasin', 
                        description: 'For that Pokahontas look.', 
                              price: 125.00, 
                         image_link: "http://dl.dropbox.com/u/71404227/100896-p-2x.png",
@@ -138,12 +147,6 @@ User.create(  full_name: "Jeff",
               password_confirmation: "hungry",
               email: "demoXX+jeff@jumpstartlab.com",
               username: "j3" )
-
-User.create(  full_name: "Mark T",
-              password: "hungry",
-              password_confirmation: "hungry",
-              email: "mark.tabler@livingsocial.com",
-              username: "capncurry" )
 
 Address.create(  street_1: "10 Street",
                   city: "Washington",

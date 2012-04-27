@@ -2,41 +2,40 @@
 
 <% "Search" %>
 
-
-
-
 <div class="hero-unit">
-  <div class="row-fluid">
-    <div class="span7">
-      <% p = Product.top_selling %>
-      <% if !p.nil? %>
-      <h1><%=  p.title %></h1>
-      <p><%=  p.description %></p>
-      <div id="info">
-      <p id="price"><%= number_to_currency(p.price) %>
-      <%= link_to "Add to Cart", cart_items_path(:product_id => p), 
-          :method => :post, :remote => true, :id => "product_#{p.id}", :class => "btn" %>
+  <div class="row-fluid"> 
+    <% if @top_selling %>
+      <div class="span7">
+        <h1><%=  @top_selling.title %></h1>
+        <p><%=  @top_selling.description %></p>
+        <div id="info">
+          <p id="price"><%= number_to_currency(@top_selling.price) %>
+          <%= link_to "Add to Cart", store_cart_items_path(current_store, 
+                                                       :product_id => @top_selling), 
+          :method => :post, :remote => true, 
+          :id => "product_#{@top_selling.id}", :class => "btn" %>
         </div>
-    </div>
-    <div class="span5">
-      <%= image_tag(p.image_link) %>
+      </div>
+      <div class="span5">
+        <%= image_tag(@top_selling.image_link) %>
       
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
 <div class="page-header">
   <h1>Products</h1>
 </div>
-<% end %>
-<ul class="nav nav-pills">
-  <li><%= link_to "All Products", products_path %></li>
-  <% Category.all.each do |c| %>
-  <li><%= link_to c.title, category_path(c) %></li>
-  
-<% end %>
 
+
+<ul class="nav nav-pills">
+  <li><%= link_to "All Products", store_products_path(current_store) %></li>
+  <% @categories.all.each do |c| %>
+    <li><%= link_to c.title, store_category_path(c.store, c) %></li>
+  <% end %>
 </ul>
+
 <ul class="thumbnails">
 <% @products.each_slice(2) do |items_for_row| %>
 <li class="span6">

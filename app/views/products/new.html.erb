@@ -1,6 +1,6 @@
 <h2>New Product</h2>
 
-<%= form_for(@product) do |p| %>
+<%= form_for([current_store, @product]) do |p| %>
   <p>
     <%= p.label :title %> <br />
     <%= p.text_field :title %>

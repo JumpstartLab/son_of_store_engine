@@ -1,4 +1,4 @@
-<%= form_for(@order) do |o| %>
+<%= form_for([@order.store, @order]) do |o| %>
 <p>
   Order Status: <%= select('order', 'status', %w(pending cancelled shipped paid returned)) %>
 </p>

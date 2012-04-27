@@ -4,7 +4,7 @@ class CartItemsController < ApplicationController
     if product.activity == true
       increment
     else
-      redirect_to product_path(product),
+      redirect_to store_product_path(product.store, product),
       :alert => "Sorry, this product is retired."
     end
   end
@@ -12,7 +12,8 @@ class CartItemsController < ApplicationController
   def increment
     @cart.add_or_increment_by_product(params[:product_id])
       respond_to do |format|
-        format.html { redirect_to cart_path, notice: 'Added to cart.' }
+        format.html { redirect_to store_cart_path(current_store), 
+                      notice: 'Added to cart.' }
         format.js
       end
   end
@@ -25,7 +26,7 @@ class CartItemsController < ApplicationController
     @cart_item = @cart.cart_items.find(params[:id])
     @cart_item.update_attributes(params[:cart_item])
     delete_on_zero
-    redirect_to cart_path
+    redirect_to store_cart_path(current_store)
   end
 
   def delete_on_zero
@@ -37,6 +38,6 @@ class CartItemsController < ApplicationController
   def destroy
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
-    redirect_to cart_path
+    redirect_to store_cart_path(current_store)
   end
 end

@@ -1,26 +1,15 @@
 StoreEngine::Application.routes.draw do
 
-  resources :stores
-
-  resources :searches
-  resources :products
-  resources :orders
   resources :users
   resources :visitor_orders
   resources :sessions
   resources :unique_orders, :only => :show
-  resources :cart_items
-  resource :edit
-  resources :categories, :except => [:index]
-  resource :two_click_orders
-  resource :search
-  resource :dashboard, :controller => 'dashboard'
-  resource :checkout, :controller => 'checkout'
+  
 
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
 
-  resource :cart, :only => [:show, :update]
+  
   namespace "admin" do
     resources :stores do
       put "enable", on: :member
@@ -31,62 +20,23 @@ StoreEngine::Application.routes.draw do
   end
   match "/code" => redirect("http://github.com/chrismanderson/store_engine")
   match "/profile" => "users#profile", as: "profile"
+  match "/dashboards" => "dashboard#index", as: "dashboards"
 
-  root :to => 'products#index'
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+  match "/new" => "stores#new"
+  match "/create" => "stores#create"
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
+  match "/:store_id" => "stores#show"
+  resources :stores, path: '' do
+    resources :products
+    resource :dashboard, :controller => 'dashboard'
+    resource :two_click_orders
+    resources :categories, :except => [:index]
+    resources :orders
+    resource :checkout, :controller => 'checkout'
+    resource :cart, :only => [:show, :update]
+    resources :cart_items
+  end
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+  root :to => "stores#index"
 end

@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <% @order.order_items.each do |oo| %><tr>
-      <td><%= link_to oo.product.title, product_path(oo.product) %></td>
+      <td><%= link_to oo.product.title, store_product_path(oo.product.store, oo.product) %></td>
       <td><%= oo.product.description %></td>
       <td><%= number_to_currency(oo.unit_price) %></td>
       <td><%= oo.quantity %></td>
@@ -33,10 +33,14 @@
 <h2 align="right">Total Price: <%= number_to_currency(@order.total_price) %></h2>
 
 <% if admin? %>
-  <%= link_to "Edit", edit_order_path(@order), :class => "btn btn-mini" %>
-  <%= link_to "Your Orders", orders_path, :class => "btn btn-mini" %>
-  <%= link_to "Dashboard", dashboard_path, :class => "btn btn-mini" %>
+  <%= link_to "Edit", edit_store_order_path(current_store, @order), 
+      :class => "btn btn-mini" %>
+  <%= link_to "Your Orders", store_orders_path(current_store), 
+      :class => "btn btn-mini" %>
+  <%= link_to "Dashboard", store_dashboard_path(current_store), 
+      :class => "btn btn-mini" %>
    
 <% else %>
-  <%= link_to "Back to Your Orders", orders_path, :class => "btn btn-large" %>
+  <%= link_to "Back to Your Orders", store_orders_path(current_store), 
+      :class => "btn btn-large" %>
 <% end %>

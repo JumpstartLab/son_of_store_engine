@@ -4,10 +4,16 @@ FactoryGirl.define do
     sequence(:title)  { |n| "New Product ##{n}" } 
     description Faker::Lorem.paragraph(sentence_count = 3)
     price 500 
+    after_create do |product|
+      product.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
   factory :category do
-    title "New Category"
+    sequence(:title) { |c| "New Category ##{c}" }
+    after_create do |category|
+      category.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
   factory :cart_item do
@@ -39,10 +45,16 @@ FactoryGirl.define do
         FactoryGirl.create_list(:order, evaluator.order_item_count, order: order)
       end
     end
+    after_create do |order|
+      order.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
 
   factory :cart do
+    after_create do |cart|
+      cart.update_attribute(:store_id, FactoryGirl.create(:store).id)
+    end
   end
 
   factory :address do
@@ -54,8 +66,8 @@ FactoryGirl.define do
   end
 
   factory :store do
-    name "Top Funky"
-    slug "top_funky"
+    sequence(:name)  { |n| "Store ##{n}" }
+    sequence(:slug)  { |s| "slug_#{s}" }
     owner_id 1
     after_create do |store|
       user = FactoryGirl.create(:user)

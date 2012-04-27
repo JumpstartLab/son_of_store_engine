@@ -131,14 +131,14 @@ describe "User" do
     let (:product) { FactoryGirl.create(:product) }
 
     it "returns user to previous page" do
-      visit product_path(product)
+      visit store_product_path(product.store, product)
       click_link "Sign Up"
       fill_in "user[full_name]", :with => "Luke Skysauce"
       fill_in "user[email]", :with => "sky@walker.com"
       fill_in "user[password]", :with => "foobar"
       fill_in "user[password_confirmation]", :with => "foobar"
       click_on "Create User"
-      page.current_path.should == product_path(product)
+      page.current_path.should == store_product_path(product.store, product)
     end
 
     it "shows flash with link to edit settings" do

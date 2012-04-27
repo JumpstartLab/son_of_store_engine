@@ -1,6 +1,6 @@
 <h2>Edit <%=@product.title %></h2>
 
-<%= form_for(@product) do |p| %>
+<%= form_for([@product.store, @product]) do |p| %>
   <p>
     <%= p.label :title %> <br />
     <%= p.text_field :title %>
@@ -26,7 +26,7 @@
   </p>
 
   <p>
-    <% for category in Category.find(:all) %>
+    <% current_store.categories.each do |category| %>
       <div>
        <%= check_box_tag "product[category_ids][]", 
                           category.id, 
@@ -35,7 +35,7 @@
       </div>
     <% end %>
   </p>
-  <p><%= link_to 'New Category', new_category_path %></p>
+  <p><%= link_to 'New Category', new_store_category_path %></p>
 
   <p>
     <%= p.submit %> 

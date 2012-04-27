@@ -1,5 +1,6 @@
 <h1>Category Title</h1>
-<%= simple_form_for @category do |f| %>
+
+<%= simple_form_for([current_store, @category]) do |f| %>
     <%= f.input :title, :label => false %>
     <%= f.button :submit %>
 <% end %>
