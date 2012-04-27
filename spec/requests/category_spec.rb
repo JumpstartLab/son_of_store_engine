@@ -78,7 +78,7 @@ describe "sorting by categories" do
   end
 
   context "viewing categories" do
-    let(:category) { FactoryGirl.create(:category) }
+    let(:category) { FactoryGirl.create(:category, store: products.first.store) }
     it "appears on the homepage" do
       visit store_products_path(products.first.store)
       click_on category.title

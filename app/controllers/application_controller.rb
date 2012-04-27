@@ -78,6 +78,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def store_required
+    unless current_store
+      redirect_to root_path, notice: "Could not find the store you were looking for. Try one of these!"
+    end
+  end
+  
   helper_method :current_store
   helper_method :lookup_cart
   helper_method :admin_authorize

@@ -2,16 +2,16 @@ class ProductsController < ApplicationController
 
   before_filter :admin_authorize,
                 only: [:destroy, :edit, :update, :create, :new]
-  before_filter :validate_store_path
+  before_filter :store_required
 
   def index
     if params[:search] && params[:search].length > 0
       @products = current_store.products.active.find_by(params[:search])
-      json_responder
     else
       @products = current_store.products.active
-      json_responder
     end
+    @top_selling = current_store.products.top_selling
+    @categories = current_store.categories
   end
 
   def new
@@ -54,16 +54,4 @@ class ProductsController < ApplicationController
 
   private
 
-  def json_responder
-    respond_to do |format|
-      format.html
-      format.json { render json: @products }
-    end
-  end
-
-  def validate_store_path
-    unless current_store
-      redirect_to root_path, notice: "Could not find the store you were looking for. Try one of these!"
-    end
-  end
 end
