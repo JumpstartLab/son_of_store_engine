@@ -15,7 +15,9 @@ table.table.table-bordered
 
 h4 Add New Administrator
 
-= form_tag store_path(@store, :method => :put) do
+- raise params.inspect
+
+/ = form_tag edit_store_path do
 / = form_tag user_registration_path(@users) do
 
   div.field

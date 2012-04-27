@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Store" do
   let!(:user) { Fabricate(:user) }
-  let!(:pending_store) { Fabricate(:store, :status => 'pending', :user => user) }
+  let!(:pending_store) { Fabricate(:store, :status => 'pending', :users => [user]) }
   let!(:store) { Fabricate(:store, :name => 'Some 1000', :store_unique_id => 'some-1000') }
   let!(:store_second) { Fabricate(:store, :name => "Some 2000", :store_unique_id => 'some-2000') }
   let!(:product_store_1) { Fabricate(:product, :store => store) }

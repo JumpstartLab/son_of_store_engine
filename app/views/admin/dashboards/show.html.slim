@@ -23,9 +23,9 @@ h3 List of All Orders
 div#orders
   ul
     li.dashboard#show = "Show: "
-    li.dashboard#show = link_to "all", admin_orders_path(@store)
+    li.dashboard#show = link_to "all", admin_dashboard_path(@store)
     - @statuses.each do |status|
-      li.dashboard#show = link_to status, admin_orders_path(@store, :status => status)
+      li.dashboard#show = link_to status, admin_dashboard_path(@store, :status => status)
 
 br
 

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Cart do
-  let!(:store) { Fabricate(:store, :user => user) }
+  let(:user) { Fabricate(:user) }
+  let!(:store) { Fabricate(:store, :users => [user]) }
   let(:product) { Fabricate(:product, :store => store) }
   let(:cart) { Fabricate(:cart, :store => store) }
   let(:category) { Fabricate(:category, :store => store) }
-  let(:user) { Fabricate(:user) }
   let(:unsaved_user) { Fabricate.build(:user) }
 
   context "as an unauthenticated user" do
