@@ -5,7 +5,13 @@ StoreEngine::Application.routes.draw do
   get "logout" => 'sessions#destroy', :as => "logout"
 
   resources :sessions, :pages
-  resources :users, :exclude => [:index]
+  resources :users, :exclude => [:index] do
+    collection do
+      # Not yet needed
+      # get 'signup_as_store_admin'
+      # put 'create_store_admin'
+    end
+  end
 
   # Admin Routes
   namespace "admin" do
@@ -19,6 +25,10 @@ StoreEngine::Application.routes.draw do
         put 'enable'
         put 'disable'
       end
+      collection do
+        get 'users'
+        put 'add_user'
+      end
     end
     resources :orders,:exclude => [:show] do
       member do
@@ -31,6 +41,7 @@ StoreEngine::Application.routes.draw do
   scope '', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     resources :search, :categories
     resources :sales, :only => [:show, :index]
+    get 'admin' => "admin::stores#manage"
 
     resources :products, :only => [:show, :index] do
       resources :product_ratings, :only => [:create, :edit, :update]

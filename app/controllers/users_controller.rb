@@ -18,6 +18,20 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+  
+  # Not yet needed
+  # def signup_as_store_admin
+  #   u = User.find_by_email(params[:email])
+  # end
+
+  # def create_store_admin
+  #   u = User.find_by_email(params[:email])
+  #   u.password = params[:user][:password]
+  #   u.name = params[:user][:name]
+  #   u.guest = false
+  #   u.save
+  #   redirect_to root_url notice: "Account made."
+  # end
 
   def edit
     @user = current_user

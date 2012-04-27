@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Hello
+    %p
+      You recently have been invited to become a store admin of #{@store.name} Unfortantely you do not have an account yet. Please 
+      = link_to "create one now!", new_user_path

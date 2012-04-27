@@ -20,6 +20,21 @@ module Admin
     def edit
     end
 
+    def manage
+      @store = current_tenant
+      render "admin/stores/show"
+    end
+
+    def users
+      @store = current_tenant
+    end
+
+    def add_user
+      @store = current_tenant
+      @store.add_admin(params[:store][:user])
+      redirect_to '/admin', notice: "Admin added."
+    end
+
     def new
       @store = Store.new
     end

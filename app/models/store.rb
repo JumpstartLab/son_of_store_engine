@@ -20,6 +20,13 @@ class Store < ActiveRecord::Base
     active == 1
   end
 
+  def user
+    
+  end
+  def user_permission
+    
+  end
+
   def approved?
     active == 2
   end
@@ -65,5 +72,18 @@ class Store < ActiveRecord::Base
   def disable
     self.enabled = false
     self.save
+  end
+
+  def add_admin(email)
+    u = User.find_by_email(email)
+    if u
+      users << u
+      self.save
+      Notification.new_store_admin(u, self).deliver
+    else
+      # Guest ignores certain crudentials
+      #users << User.create(:email => email, :guest => true)
+      Notification.new_user_and_store_admin(email, self).deliver
+    end
   end
 end
