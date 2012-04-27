@@ -47,3 +47,4 @@ group :test do
 end
 
 gem "mocha", :group => :test
+gem "resque"

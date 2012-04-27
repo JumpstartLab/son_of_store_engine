@@ -25,6 +25,7 @@ class Order < ActiveRecord::Base
 
   after_create :set_default_status
   after_create :generate_unique_url
+  after_create :send_confirmation_email
 
   def set_default_status
     update_attribute(:status, "pending")
@@ -61,9 +62,9 @@ class Order < ActiveRecord::Base
         :currency => "usd",
         :customer => order_user.stripe_id,
         :description => "order##{id}" )
-
       is_paid!
-      UserMailer.order_confirmation(order_user, self).deliver
+      #Resque.enqueue(Emailer, order_user, "Sample Subject", "Email being sent from Resque")
+      ##UserMailer.order_confirmation(order_user, self).deliver
       save!
     end
     rescue Stripe::InvalidRequestError => error
@@ -112,7 +113,6 @@ class Order < ActiveRecord::Base
   end
 
 
-
   private
 
   def order_user
@@ -126,5 +126,9 @@ class Order < ActiveRecord::Base
   def generate_unique_url
     self.unique_url = Digest::SHA1.hexdigest("store-order-url-#{id}")
     save
+  end
+
+  def send_confirmation_email
+    BackgroundJob.order_email(order_user, self)
   end
 end
