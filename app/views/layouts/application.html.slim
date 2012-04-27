@@ -27,15 +27,16 @@ html
               li.nav id="right"
                 = link_to("Sign up", new_user_registration_path)
                 = " or "
-                = link_to("Sign in", new_user_session_path)
+                = link_to("Log in", new_user_session_path)
             - if @store and not @store.name.blank?
               li.nav class="brand" = @store.name.titlecase
-            - else
-              li.nav class="brand" = "Konami Coders Inc."
+
             - if @store
               li.nav = link_to "Home", products_path(@store)
-              li.nav = link_to "Browse by Category", categories_path(@store)      
+              li.nav = link_to "Browse by Category", categories_path(@store)  
               li.nav = link_to "View Cart", cart_path(@store)
+            - else
+              li.nav class="brand" = "Konami Coders Inc."
       
     - flash.each do |name, msg|
       = content_tag :div, msg, :id => "flash_#{name}"
