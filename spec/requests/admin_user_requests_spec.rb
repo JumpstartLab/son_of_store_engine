@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   let! (:user) { Fabricate(:user) }
-  let! (:store) { Fabricate(:store, :user => user) }
+  let! (:store) { Fabricate(:store, :users => user) }
   let! (:product) { Fabricate(:product, :store => store) }
   let! (:cart) { Fabricate(:cart, :store => store) }
 
