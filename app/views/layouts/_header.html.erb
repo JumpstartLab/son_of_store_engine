@@ -53,6 +53,7 @@
                   data-toggle="dropdown">Account</a>
             <ul class="dropdown-menu">
               <li><%= current_user.full_name %></li>
+              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
               <li><%= link_to "Dashboard", 
                       dashboards_path if current_user.admin? %></li>
               <li><%= link_to "Log Out", 

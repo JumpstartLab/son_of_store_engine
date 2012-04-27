@@ -11,10 +11,11 @@ class SessionsController < ApplicationController
   end
 
   def new_session
-    if session[:request_page].blank?
-      respond_to do |format|
-        format.html { redirect_to root_url, notice: "Logged in!" }
-      end
+    store = Store.find_by_id(session[:checkout_store_id]) rescue nil
+    if session[:request_page].blank? && checking_out? && store
+      redirect_to new_store_order_path(store), notice: "Logged in!"
+    elsif session[:request_page].blank?
+      redirect_to root_url, notice: "Logged in!"
     else
       new_session = session[:request_page]
       session[:request_page] = nil

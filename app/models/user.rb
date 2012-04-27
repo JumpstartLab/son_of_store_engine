@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :privileges
 
-  attr_accessible :full_name, :email,
+  attr_accessible :full_name, :email, :display_name,
                   :username, :password,
                   :password_confirmation
 

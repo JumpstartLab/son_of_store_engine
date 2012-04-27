@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       current_user.cart = Cart.create if current_user.cart.nil?
       @cart = current_user.cart
       if @cart.id != session[:cart_id]
-        merge_cart(session[:cart_id]) if !session[:cart_id].blank?
+        merge_cart(session[:cart_id]) unless session[:cart_id].blank?
       end
     else
       @cart = new_cart
