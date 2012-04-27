@@ -10,7 +10,7 @@ class Ability
     end
 
     can :manage, Store do |store|
-      store.user == user
+      store.users.all.include?(user)
     end
 
     can :read, :all

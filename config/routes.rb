@@ -20,7 +20,9 @@ StoreEngine::Application.routes.draw do
     namespace :admin do
       get '/' => 'dashboards#show'
       resources :orders
+      resources :users
       resources :order_items
+      resources :store_users, only: :create
       resources :products
       resources :categories
       resource :dashboard

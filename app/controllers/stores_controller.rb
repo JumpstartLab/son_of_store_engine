@@ -22,12 +22,17 @@ class StoresController < ApplicationController
 
   def create
     @store_new = Store.new(params[:store])
-    @store_new.user = current_user
+    @store_new.users << current_user
     if @store_new.save
       redirect_to root_url,
         :notice => 'Your store needs to be approved before accessing.'
     else
       render 'new'
     end
+  end
+
+  def update
+    @store = Store.find(params[:store])
+    @store.users << params[:user]
   end
 end

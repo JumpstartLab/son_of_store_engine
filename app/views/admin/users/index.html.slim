@@ -1,0 +1,26 @@
+h3 Store Administrators
+hr
+table.table.table-bordered
+  tr
+    th Name
+    th Username
+    th Email
+    th Admin Status
+  - @users.each do |user|
+    tr
+      td = user.name 
+      td = user.username
+      td = user.email
+      td = "Admin"
+
+h4 Add New Administrator
+
+= form_tag store_path(@store, :method => :put) do
+/ = form_tag user_registration_path(@users) do
+
+  div.field
+    = label_tag :email
+    = text_field_tag :email, params[:email]
+
+  div.actions
+    = submit_tag "Add Admin"

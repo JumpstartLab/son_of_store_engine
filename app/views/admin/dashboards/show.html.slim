@@ -4,6 +4,7 @@ ul
   li = link_to "New Product", new_admin_product_path(@store)
   li = link_to "New Category", new_admin_category_path(@store)
   li = link_to "Browse Products", admin_products_path(@store)
+  li = link_to "Manage Users", admin_users_path(@store)
 
 br
 h3 Breakdown of Orders
@@ -22,9 +23,9 @@ h3 List of All Orders
 div#orders
   ul
     li.dashboard#show = "Show: "
-    li.dashboard#show = link_to "all", admin_dashboard_path(@store)
+    li.dashboard#show = link_to "all", admin_orders_path(@store)
     - @statuses.each do |status|
-      li.dashboard#show = link_to status, admin_dashboard_path(@store, :status => status)
+      li.dashboard#show = link_to status, admin_orders_path(@store, :status => status)
 
 br
 

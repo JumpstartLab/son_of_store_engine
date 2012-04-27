@@ -28,6 +28,34 @@ describe User do
       login_as(user)
     end
 
+    describe "the admin dashboard" do
+      it "provides a button to add a new admin user" do
+        visit admin_dashboard_path(store)
+        page.should have_link "Manage Users"
+      end
+
+      context "the add admin page" do
+        let!(:new_admin) { Fabricate(:user) }
+
+        it "provides a user the ability to pass in a new user's e-mail address" do
+          click_button "Manage Users"
+          page.should have_content("New admin e-mail address:")
+        end
+
+        it "validates the new admin's e-mail address as a valid sonofstoreengine user" do
+          fill_in "New admin e-mail address:", :with => "bogusemailaddress@email123.com"
+          click_button "Add Admin"
+          page.should have_content "Invalid SonOfStoreEngine user"
+        end
+
+        it "allows an admin to set another user as an admin for the store" do
+          fill_in "New admin e-mail address:", :with => new_admin.email
+          click_button "Add Admin"
+          page.should have_content "New admin succesfully added"
+        end
+      end
+    end
+
     describe "products" do
       before(:each) do
         user.cart = cart
