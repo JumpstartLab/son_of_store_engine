@@ -44,11 +44,7 @@ describe User, :user_request => :user do
   end
 
   context "after signing up" do
-    let(:user) { User.new(name: Faker::Name.first_name,
-                          email: Faker::Internet.email,
-                          username: Faker::Name.first_name,
-                          password: Faker::Lorem.words(1).first
-                          )}
+    let(:user) { Fabricate.build(:user) }
     it "user sees a confirmation flash message with a link to change their account" do
       visit new_user_path
       complete_user_form(user)
