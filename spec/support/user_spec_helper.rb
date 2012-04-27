@@ -31,7 +31,7 @@ module UserHelper
     fill_in "Email", :with => user.email
     fill_in "Password", :with => Fabricate.attributes_for(:user)[:password]
 
-    click_button "Sign in"
+    click_button "Log In"
   end
 
   def fill_billing_form
