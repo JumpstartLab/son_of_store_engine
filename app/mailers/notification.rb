@@ -17,4 +17,16 @@ class Notification < ActionMailer::Base
   def new_store_request(store)
     Resque.enqueue(NewStoreRequestEmailer, store.id)
   end
+
+  def new_user_and_store_admin(email, store)
+    @email = email
+    @store = store
+    mail(:to => email, :subject => "You have been invited to become an admin of #{store.name}")    
+  end
+
+  def new_store_admin(user, store)
+    @store = store
+    mail(:to => user.email, :subject => "You are now a store admin of #{store.name}")        
+  end
+
 end
