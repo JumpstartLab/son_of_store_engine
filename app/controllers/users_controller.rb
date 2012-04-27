@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_admin, :only => [:index,:destroy]
   before_filter :require_not_logged_in, :only => [:new, :create]
   before_filter :require_login, :only => [:edit, :update]
-  
+
   def new
     @user = User.new
   end
@@ -11,9 +11,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      Resque.enqueue(NewUserEmailer, [@user.email, @user.name])
-      Resque.enqueue(NewUserEmailer, ["mikesilvis@gmail.com", "mikesilvis"])
-      
+      Notification.sign_up_confirmation(@user).deliver
       auto_login(@user)
       redirect_back_or_to root_url, :notice => "Account successfully made!"
     else
