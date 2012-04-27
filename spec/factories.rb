@@ -37,6 +37,7 @@ FactoryGirl.define do
   factory :order do
     user
     status "pending"
+    store { FactoryGirl.create(:store) }
     factory :order_with_items do
       ignore do
         order_item_count 5
@@ -45,16 +46,11 @@ FactoryGirl.define do
         FactoryGirl.create_list(:order, evaluator.order_item_count, order: order)
       end
     end
-    after_create do |order|
-      order.update_attribute(:store_id, FactoryGirl.create(:store).id)
-    end
   end
 
 
   factory :cart do
-    after_create do |cart|
-      cart.update_attribute(:store_id, FactoryGirl.create(:store).id)
-    end
+    store
   end
 
   factory :address do

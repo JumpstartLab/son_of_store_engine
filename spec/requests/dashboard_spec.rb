@@ -56,7 +56,7 @@ describe "Dashboard" do
     end
 
     it "displays the order status for each order" do
-      page.should have_content(order.current_status)
+      page.should have_content(order.current_status.titleize)
     end
   end
 end

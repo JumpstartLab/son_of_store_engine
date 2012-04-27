@@ -38,7 +38,9 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_user.orders.create(params[:order])
+    @order = current_user.orders.new(params[:order])
+    @order.update_attribute(:store, current_store)
+    @order.save
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
       @cart.destroy

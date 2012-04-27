@@ -3,7 +3,9 @@ class VisitorOrdersController < ApplicationController
 
   def create
     visitor = VisitorUser.create(:email => session[:guest_email])
-    @order = visitor.orders.create(params[:order])
+    @order = visitor.orders.new(params[:order])
+    @order.update_attribute(:store, current_store)
+    @order.save
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
       session[:cart_id] = Cart.create.id

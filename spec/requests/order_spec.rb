@@ -84,7 +84,7 @@ describe 'checking out' do
         fill_in "order[address_attributes][street_1]", with: "3 Derby Ln" 
         fill_in "order[address_attributes][city]", with: "Sunnydale"
         fill_in "order[address_attributes][state]", with: "DC" 
-        fill_in "order[address_attributes][zip_code]", with: "24242" 
+        fill_in "order[address_attributes][zip_code]", with: "24242"
         click_on "Place order"
         find("#cart_count").text.include?("0").should be_true
       end
@@ -92,8 +92,8 @@ describe 'checking out' do
   end
 
   context "when I dont have an account", :request => :cartz do
-    let(:test_cart) { FactoryGirl.create(:cart)}
-    let(:product) { FactoryGirl.create(:product) }
+    let!(:test_cart) { FactoryGirl.create(:cart)}
+    let!(:product) { FactoryGirl.create(:product) }
     let!(:user2) { FactoryGirl.create(:user, :email => "foo@bar.net") }
     let!(:user3) { FactoryGirl.create(:visitor_user, :email => "foo1234@bar.net") }
 
