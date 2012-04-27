@@ -1,3 +1,5 @@
+require 'resque'
+
 StoreEngine::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -34,4 +36,6 @@ StoreEngine::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  Resque.redis = 'localhost:6379'
 end
