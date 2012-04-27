@@ -1,10 +1,11 @@
 class ProductsController < ApplicationController
-
+  caches_page :index, :show
   before_filter :admin_authorize,
                 only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required
 
   def index
+    @admin = admin?
     if params[:search] && params[:search].length > 0
       @products = current_store.products.active.find_by(params[:search])
     else

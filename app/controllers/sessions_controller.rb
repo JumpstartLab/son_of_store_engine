@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  def show
+  end
+
   def create
     user = lookup_by_email_or_username(params[:account_name])
     if user && user.authenticate(params[:password])
