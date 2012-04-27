@@ -11,7 +11,6 @@ html
   body
     div class="navbar navbar-fixed-top"
       div class="navbar-inner"
-        div class="container"
           ul id="nav"
             - if @store and not @store.name.blank?
               li.nav class="brand" = link_to "#{@store.name.titlecase}", products_path(@store)
@@ -38,6 +37,9 @@ html
       
     - flash.each do |name, msg|
       = content_tag :div, msg, :id => "flash_#{name}"
+
+    div class="container"
+      span class="12"
 
     div class="navbar navbar-fixed-bottom"
       div class="navbar-inner"
