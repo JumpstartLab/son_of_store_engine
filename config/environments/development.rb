@@ -36,6 +36,4 @@ StoreEngine::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-
-  Resque.redis = 'localhost:6379'
 end
