@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       auto_login(@user)
       redirect_back_or_to root_url, :notice => "Account successfully made!"
     else
-      render 'new'
+      render '/sessions/new'
     end
   end
 
