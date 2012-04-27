@@ -1,52 +1,28 @@
 class SessionsController < ApplicationController
+  include SessionHelpers
 
   def new
-    if current_store.nil?
-      @path = sessions_path
-    else
-      render 'checkout_new' if params[:checkout]
-      @path = store_sessions_path(current_store.slug)
-    end
+    render 'checkout_new' if current_store && params[:checkout]
   end
 
   def create
     cart_before_login = current_cart
     if user = login(params[:email], params[:password], params[:remember_me])
-      if current_store
-        successful_login(cart_before_login, user)
-        redirect_to new_order_path(current_store.slug)
-      else
-        redirect_to root_path
-      end
+      transfer_cart_to_user(cart_before_login, user)
+      redirect_to successful_login_path, :notice => "You have been signed in."
     else
-      invalid_email
+      invalid_login_credentials
+      render :new
     end
   end
 
   def destroy
     logout
-    if current_store
-      redirect_to store_path(current_store.slug)
-    else
-      redirect_to root_url, :notice => "Logged out."
-    end
+    redirect_to successful_logout_path, :notice => "You have been logged out."
   end
 
 private
-
-  def successful_login(cart_before_login, user)
-    if cart_before_login.has_products?
-      existing_cart = user.carts.where(:store_id => current_store.id).first
-      existing_cart.destroy if existing_cart
-      user.carts << cart_before_login
-    else
-      cart_before_login.destroy
-    end
-  end
-
-  def invalid_email
+  def invalid_login_credentials
     flash.now.alert = "Email or password was invalid."
-    render :new
   end
-
 end

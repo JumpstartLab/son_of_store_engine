@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-
   before_filter :is_current_user?, only: [ :show ]
+  include SessionHelpers
 
   def new
     @user = User.new
@@ -11,13 +11,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    user_info = params[:user]
-    @user = User.new(user_info)
+    cart_before_login = current_cart
+
+    @user = User.new(params[:user])
     if @user.save
-      cart = current_cart
-      if @user = login(user_info[:email], user_info[:password])
-        successful_login(cart, @user)
-      end
+      auto_login(@user)
+      transfer_cart_to_user(cart_before_login, @user)
+      raise successful_login_path.inspect
+      redirect_to successful_login_path, :notice => "You have been signed in."
     else
       render :new
     end
@@ -32,21 +33,4 @@ private
   def is_current_user?
     redirect_to_last_page unless User.find_by_id(params[:id]) == current_user
   end
-
-  def successful_login(cart_before_login, user)
-    if current_store
-      if cart_before_login.has_products?
-        existing_cart = user.carts.where(:store_id => current_store.id).first
-        existing_cart.destroy if existing_cart
-        user.carts << cart_before_login
-      else
-        cart_before_login.destroy
-      end
-      redirect_to store_path(current_store.slug)
-    else
-      redirect_to root_path
-    end
-
-  end
-
 end
