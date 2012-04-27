@@ -35,7 +35,12 @@ class StoresController < ApplicationController
     elsif params[:store][:approval_status] && store.approval_status == "declined"
       store.email_decline
       flash[:notice] = "#{store.name} has been declined."
+    elsif params[:store][:enabled] && store.enabled
+      flash[:notice] = "#{store.name} has been enabled."
+    elsif params[:store][:enabled] && !store.enabled
+      store.email_decline
+      flash[:notice] = "#{store.name} has been disabled."
     end
-    redirect_to admin_stores_path
+    redirect_to admin_store_path(store)
   end
 end

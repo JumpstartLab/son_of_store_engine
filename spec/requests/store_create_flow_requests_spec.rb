@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Store do
+describe "create new store flow" do
   context "when the user is authenticated" do
     let!(:user)   { Fabricate(:user) }
     before(:each) do
@@ -19,6 +19,7 @@ describe Store do
         before(:each) do
           fill_in "Name", :with => "Test Store"
           fill_in "Domain", :with => "test-store"
+          fill_in "Description", :with => "Asdf asdf asdf asdf"
           click_button "Create Store"
           @store = Store.last
         end
@@ -27,8 +28,9 @@ describe Store do
           current_path.should == admin_store_path(@store)
           find("#store_name").text.should have_content @store.name
           find("#store_domain").text.should have_content @store.domain
-          find("#store_approval_status").text.should have_content "pending"
-          find("#store_active_status").text.should have_content "Disabled"
+          find("#store_description").text.should have_content @store.description
+          find("#store_approval_status").text.should have_content "PENDING"
+          find("#store_active_status").text.should have_content "DISABLED"
         end
 
         it "returns a not found error when visit the store show page" do

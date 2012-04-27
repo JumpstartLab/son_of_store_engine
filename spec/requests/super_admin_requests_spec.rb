@@ -79,12 +79,12 @@ describe "super admin" do
       end
       context "clicking the 'Approve' link" do
         it "sets the store approval status to approved" do
-          within "##{dom_id(store1)}" do
-            page.should have_content "approved"
+          within "#store_approval_status" do
+            page.should have_content "APPROVED"
           end
         end
         it "returns the admin to the dashboard with a flash approval message" do
-          current_path.should == admin_stores_path
+          current_path.should == admin_store_path(store1)
           page.should have_content "has been approved."
         end
       end
@@ -98,12 +98,12 @@ describe "super admin" do
       end
       context "clicking the 'Decline' link" do
         it "sets the store approval status to declined" do
-          within "##{dom_id(store1)}" do
-            page.should have_content "declined"
+          within "#store_approval_status" do
+            page.should have_content "DECLINED"
           end
         end
         it "returns the admin to the dashboard with a flash decline message" do
-          current_path.should == admin_stores_path
+          current_path.should == admin_store_path(store1)
           page.should have_content "has been declined."
         end
       end
