@@ -7,7 +7,7 @@ class Notification < ActionMailer::Base
   end
 
   def sign_up_confirmation(email)
-     mail(:to => "mikesilvis@gmail.com", :subject => "You have been invited to become an admin of")
+     mail(:to => email, :subject => "Congrats on signing up!")
   end
 
   def new_store_approval(store)
