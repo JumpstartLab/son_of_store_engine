@@ -1,6 +1,7 @@
-<!-- <h1>Products</h1> -->
-
 <% "Search" %>
+
+
+
 
 <div class="hero-unit">
   <div class="row-fluid"> 
@@ -43,5 +44,9 @@
 </li>
 <% end %>
 </ul>
+
+<% unless searching? %>
+  <%= paginate @products %>
+<% end %>
 
  <%= render :partial => "addresses/address", :collection => @addresses %>

@@ -17,15 +17,23 @@ class VisitorOrdersController < ApplicationController
   end
 
   def new
-    session[:guest_email] = params[:guest_email]
-    if @cart.quantity == 0
-      redirect_to current_store,
-      :alert => "You can't order something with nothing in your cart."
-    else
-      @order = Order.new
-      @order.build_address
+    email = params[:guest_email]
+    session[:guest_email] = email
+    visitor_user = VisitorUser.new(:email => email)
+
+    if visitor_user.save
+      @path = store_visitor_orders_path(current_store)
+      if @cart.quantity == 0
+        redirect_to current_store,
+          :alert => "You can't order something with nothing in your cart."
+      else
+        @order = Order.new
+        @order.build_address
+      end
+    else 
+      redirect_to new_store_checkout_path(current_store), 
+        :alert => "You need a email to checkout as a Guest."
     end
-    @path = store_visitor_orders_path(current_store)
   end
 
   def show
@@ -36,8 +44,7 @@ class VisitorOrdersController < ApplicationController
 private
 
   def valid_email_or_redirect
-    unless User.where(:email => params[:guest_email]).count == 0 &&
-           VisitorUser.where(:email => params[:guest_email]).count == 0
+    unless User.where(:email => params[:guest_email]).count == 0
       redirect_to new_session_path, :alert => "Not a unique email"
     end
   end

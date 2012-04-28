@@ -12,6 +12,8 @@ gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 gem 'bcrypt-ruby'
 gem 'nifty-generators', :group => :development
+gem 'kaminari'
+gem 'faker'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,13 +33,13 @@ group :development, :test do
   gem 'capybara'
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'launchy'
-  gem 'faker'
   gem 'sqlite3'
 end
 
 group :production do
   gem 'pg'
   gem 'thin'
+  gem 'memcache-client'
 end
 
 group :test do

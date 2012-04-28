@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe Store do
-
+describe Store, :model => :store do
   context "changing a store status" do
     let!(:store) { FactoryGirl.create(:store) }
     before { ActionMailer::Base.deliveries = [] }
@@ -17,19 +16,16 @@ describe Store do
       ActionMailer::Base.deliveries.first.subject.include?("declined").should be_true
       ActionMailer::Base.deliveries.first.body.include?("better idea").should be_true
     end
-
-
   end
-
 
   context "starting up a new store" do
     let!(:user) { FactoryGirl.create(:user) }
     it "does not allow a store to be created without an owner" do
       expect do
-        Store.create!(name: "Foo", slug: "www.bar.com")
+        Store.create!(name: "Foo", slug: "www.bar.com", owner_id: nil)
       end.should raise_error
     end
-  
+
     it "allows a store to be created after validating presence of owner" do
       expect do
         Store.create!(name: "Foo", slug: "www.bar.com", owner_id: :user_id)
@@ -38,17 +34,33 @@ describe Store do
 
     it "does not allow creation of a store with already existing name" do
       Store.create!(name: "Foo", slug: "www.bar.com", owner_id: :user_id)
-        expect do
-          Store.create!(name: "Foo", slug: "www.barf.com", owner_id: :user_id)
-        end.should raise_error
+      expect do
+        Store.create!(name: "Foo", slug: "www.barf.com", owner_id: :user_id)
+      end.should raise_error
     end
 
     it "does not allow creation of a store with already existing name" do
       Store.create!(name: "Foo", slug: "www.bar.com", owner_id: :user_id)
-        expect do
-          Store.create!(name: "Fungus", slug: "www.bar.com", owner_id: :user_id)
-        end.should raise_error
-      end
+      expect do
+        Store.create!(name: "Fungus", slug: "www.bar.com", owner_id: :user_id)
+      end.should raise_error
+    end
+
+    it "does not allow creation of a store with already existing name with 
+        whitespace" do
+      Store.create!(name: "Foo", slug: "www.bar.com", owner_id: :user_id)
+      expect do
+        Store.create!(name: "Foo  ", slug: "test.bar.com", owner_id: :user_id)
+      end.should raise_error
+    end
+
+    it "does not allow creation of a slug with already existing slug with 
+        whitespace" do
+      Store.create!(name: "Foo", slug: "www.bar.com", owner_id: :user_id)
+      expect do
+        Store.create!(name: "test ", slug: "www.bar.com  ", owner_id: :user_id)
+      end.should raise_error
+    end
 
     it "accepts the creation of new products" do
       shop = Store.create!(name: "Foo", slug: "www.bar.com", owner_id: :user_id)
@@ -57,6 +69,4 @@ describe Store do
       shop.products.count.should == 1
     end
   end
-
-
 end

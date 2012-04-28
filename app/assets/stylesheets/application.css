@@ -40,5 +40,18 @@ a:hover {
 	font-weight: 700;
 }
 
+.logged_in {
+  display: none;
+}
 
+.logged_in_admin {
+  display: none;
+}
 
+.logged_out {
+  display: none;
+}
+
+.current_store {
+  display: none;
+}

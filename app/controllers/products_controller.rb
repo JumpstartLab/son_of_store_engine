@@ -1,14 +1,16 @@
 class ProductsController < ApplicationController
-
   before_filter :admin_authorize,
                 only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required
 
   def index
+    @admin = admin?
     if params[:search] && params[:search].length > 0
+      session[:search] = true
       @products = current_store.products.active.find_by(params[:search])
     else
-      @products = current_store.products.active
+      session[:search] = false 
+      @products = current_store.products.page(params[:page])
     end
     @top_selling = current_store.products.top_selling
     @categories = current_store.categories
@@ -54,4 +56,8 @@ class ProductsController < ApplicationController
 
   private
 
+  helper_method :searching?
+  def searching?
+    session[:search]
+  end
 end

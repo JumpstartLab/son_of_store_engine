@@ -5,15 +5,33 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+[Store, Product, Order, Cart, User, Address, Category, Privilege, VisitorUser].each do |model|
+  puts "Clearing #{model.to_s}"
+  model.destroy_all
+end
+
 first_store_owner = User.create(  full_name: "Mark T",
               password: "hungry",
               password_confirmation: "hungry",
               email: "mark.tabler@livingsocial.com",
               username: "capncurry" )
 
+second_store_owner = User.create(  full_name: "Tom K",
+              password: "hungry",
+              password_confirmation: "hungry",
+              email: "tom.kiefhaber@livingsocial.com",
+              username: "Git Master" )
+
 first_store = Store.new(name: "Shoe Shop", slug:"shoe_shop", description: "Buy some shoes!!!!")
 first_store.update_attribute(:owner_id, first_store_owner.id)
+first_store.update_attribute(:status, "enabled")
 first_store.save!
+
+second_store = Store.new(name: "Crapola Shop", slug:"crapola_shop", description: "Lorem ipsum crapola sit amet")
+second_store.update_attribute(:owner_id, second_store_owner.id)
+second_store.update_attribute(:status, "enabled")
+second_store.save!
 
 male_category = first_store.categories.create( title: "Male")
 female_category = first_store.categories.create( title: "Female")
@@ -21,6 +39,17 @@ casual_category = first_store.categories.create( title: "Casual")
 dress_category = first_store.categories.create( title: "Dress")
 wtf_category = first_store.categories.create( title: "WTF")
 boot_category = first_store.categories.create( title: "Boot")
+
+def seed_products(store, count)
+  count.times do |i| 
+    puts "Seeding product #{i}"
+    title = Faker::Lorem.words(1).join(" ") 
+    desc = Faker::Lorem.words(1000).join(" ") 
+    link = "http://dl.dropbox.com/u/71404227/100896-p-2x.png"
+    store.products.create(:title => title, :description => desc, 
+                          :price => rand(2000), :image_link => link)
+  end
+end
 
 products = first_store.products.create([{ title: 'Moccasin', 
                        description: 'For that Pokahontas look.', 
@@ -127,6 +156,8 @@ products = first_store.products.create([{ title: 'Moccasin',
                              price: 159.00, 
                         image_link: "http://dl.dropbox.com/u/71404227/1780225-p-2x.png",
                         categories: [female_category, dress_category]}])
+
+seed_products(second_store, 500)
 
 admin_user = User.new(  full_name: "Chad Fowler",
                         password: "hungry",
