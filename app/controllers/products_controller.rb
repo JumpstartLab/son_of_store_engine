@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
     if params[:search] && params[:search].length > 0
       @products = current_store.products.active.find_by(params[:search])
     else
-      @products = current_store.products.active
+      @products = current_store.products.page(params[:page])
     end
     @top_selling = current_store.products.top_selling
     @categories = current_store.categories
