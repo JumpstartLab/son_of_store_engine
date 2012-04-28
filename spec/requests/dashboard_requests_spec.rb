@@ -36,6 +36,7 @@ describe "Dashboard" do
 
   it "filter by status type" do
     visit admin_dashboard_path(store)
+    
     click_link "pending"
     page.should_not have_link("#{paid_order.id}")
   end

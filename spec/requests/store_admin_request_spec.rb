@@ -9,11 +9,11 @@ describe 'Store Admin' do
       Fabricate(:store, 
                 :name => "store #{n}", 
                 :store_unique_id => "store-#{n}", 
-                :user => admin)
+                :users => [admin])
     end
   end
 
-  let!(:pending_store) { Fabricate(:store, :status => 'pending', :user => admin) }
+  let!(:pending_store) { Fabricate(:store, :status => 'pending', :users => [admin]) }
 
   context 'unauthenticated user' do
     it 'redirects to root path' do

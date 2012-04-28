@@ -12,6 +12,7 @@
 #  updated_at      :datetime        not null
 #
 
+
 # Represents a store that is owned by a particular user
 class Store < ActiveRecord::Base
   attr_accessible :name, :user_id, :store_unique_id, :description, :status
@@ -29,7 +30,8 @@ class Store < ActiveRecord::Base
   has_many :products
   has_many :categories
   has_many :orders
-  belongs_to :user
+  has_many :store_users
+  has_many :users, :through => :store_users
 
   def pending?
     status == 'pending'

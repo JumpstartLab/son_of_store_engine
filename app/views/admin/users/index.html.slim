@@ -1,0 +1,28 @@
+h3 Store Administrators
+hr
+table.table.table-bordered
+  tr
+    th Name
+    th Username
+    th Email
+    th Admin Status
+    th Remove Admin
+  - @users.each do |user|
+    tr
+      td = user.name 
+      td = user.username
+      td = user.email
+      td = "Admin"
+      td 
+         = button_to 'Delete Admin', admin_user_path(@store, :user_id => user.id), :method => :delete, :class => 'btn btn-info'
+
+h4 Add New Administrator
+
+= form_tag admin_users_path(@store) do
+
+  div.field
+    = label_tag :email
+    = text_field_tag :email, params[:email]
+
+  div.actions
+    = submit_tag "Add Admin"

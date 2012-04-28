@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe User do
   let! (:user) { Fabricate(:user) }
-  let! (:store) { Fabricate(:store, :user => user) }
+  let! (:second_user) { Fabricate(:user) }
+  let! (:store) { Fabricate(:store, :users => [user]) }
   let! (:product) { Fabricate(:product, :store => store) }
   let! (:cart) { Fabricate(:cart, :store => store) }
 
@@ -24,8 +25,61 @@ describe User do
 
     before(:each) do
       user.set_role('admin')
+      second_user.set_role('admin')
       visit products_path(store)
       login_as(user)
+    end
+
+    describe "the admin dashboard" do
+      it "provides a button to add a new admin user" do
+        visit admin_dashboard_path(store)
+        page.should have_link "Manage Users"
+      end
+
+      context "the manage users page" do
+        let!(:new_admin) { Fabricate(:user) }
+
+        before(:each) do
+          click_link "Admin"
+          click_link "Manage Users"
+        end
+
+        it "allows an admin to make a new admin via a user's email address" do
+          page.should have_content("Add New Administrator")
+        end
+
+        it "validates the new admin's e-mail address as a valid sonofstoreengine user" do
+          fill_in "Email", :with => "bogusemailaddress@email123.com"
+          click_button "Add Admin"
+          page.should have_content "Invalid SonOfStoreEngine user"
+        end
+
+        it "allows an admin to set another user as an admin for the store" do
+          fill_in "Email", :with => new_admin.email
+          expect { click_button "Add Admin" }.to 
+                  change{ store.users.count }.by(1)
+        end
+
+        it "displays an 'new admin successfully added' message when an admin has been added" do
+          fill_in "Email", :with => new_admin.email
+          click_button "Add Admin"
+          page.should have_content "New admin succesfully added"
+        end
+
+        it "allows an admin to delete another admin" do
+          page.should have_content("Remove Admin")
+        end
+
+        it "allows an admin to delete any current store admin" do
+          expect { click_button "Delete Admin" }.to 
+                  change{ store.users.count }.by(1)
+        end
+
+        it "displays an 'admin deleted' message when an admin has been removed" do
+          click_button "Delete Admin"
+          page.should have_content("Admin deleted")
+        end
+      end
     end
 
     describe "products" do
