@@ -22,6 +22,16 @@ dress_category = first_store.categories.create( title: "Dress")
 wtf_category = first_store.categories.create( title: "WTF")
 boot_category = first_store.categories.create( title: "Boot")
 
+def seed_products(store, count)
+  count.times do |i| 
+    title = Faker::Lorem.words(1).join(" ") 
+    desc = Faker::Lorem.words(1000).join(" ") 
+    link = "http://dl.dropbox.com/u/71404227/100896-p-2x.png"
+    store.products.create(:title => title, :description => desc, 
+                          :price => rand(2000), :image_link => link)
+  end
+end
+
 products = first_store.products.create([{ title: 'Moccasin', 
                        description: 'For that Pokahontas look.', 
                              price: 125.00, 
@@ -127,6 +137,10 @@ products = first_store.products.create([{ title: 'Moccasin',
                              price: 159.00, 
                         image_link: "http://dl.dropbox.com/u/71404227/1780225-p-2x.png",
                         categories: [female_category, dress_category]}])
+
+if Rails.env.development?
+  seed_products(first_store, 100)
+end
 
 admin_user = User.new(  full_name: "Chad Fowler",
                         password: "hungry",
