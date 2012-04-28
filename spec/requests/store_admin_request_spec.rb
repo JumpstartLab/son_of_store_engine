@@ -8,7 +8,7 @@ describe 'Store Admin' do
     20.times.map do |n|
       Fabricate(:store, 
                 :name => "store #{n}", 
-                :store_unique_id => "store-#{n}", 
+                :slug => "store-#{n}", 
                 :users => [admin])
     end
   end
@@ -37,7 +37,7 @@ describe 'Store Admin' do
     it 'contains a list of all stores' do
       stores.each do |store|
         page.should have_content(store.name)
-        page.should have_content(store.store_unique_id)
+        page.should have_content(store.slug)
         page.should have_content(store.description[0..28])
         page.should have_link(store.name)
       end

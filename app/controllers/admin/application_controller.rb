@@ -4,7 +4,7 @@ class Admin::ApplicationController < ApplicationController
   before_filter :authenticated_store_user!
 
   def default_url_options(options={})
-    { :store_unique_id => params[:store_unique_id] }
+    { :slug => params[:slug] }
   end
 
   def authenticated_store_user!
