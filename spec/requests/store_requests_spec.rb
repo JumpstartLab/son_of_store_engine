@@ -5,6 +5,7 @@ describe "Store" do
   let!(:pending_store) { Fabricate(:store, :status => 'pending', :users => [user]) }
   let!(:store) { Fabricate(:store, :name => 'Some 1000', :slug => 'some-1000') }
   let!(:store_second) { Fabricate(:store, :name => "Some 2000", :slug => 'some-2000') }
+  let!(:disabled_store) { Fabricate(:store, :name => "Some 3", :slug => 'some-3', :status => 'disabled') }
   let!(:product_store_1) { Fabricate(:product, :store => store) }
   let!(:product_store_2) { Fabricate(:product, :store => store_second) }
 
@@ -58,9 +59,14 @@ describe "Store" do
     expect { visit products_path(pending_store) }.to raise_error(ActionController::RoutingError)
   end
 
-  it 'store is accessible' do
+  it 'is accessible' do
     visit products_path(store)
     page.should have_content(store.name)
+  end
+
+  it 'is down for maintenance' do
+    visit products_path(disabled_store)
+    page.should have_content('Store is down for maintenance')
   end
 
   it 'stores have different products' do

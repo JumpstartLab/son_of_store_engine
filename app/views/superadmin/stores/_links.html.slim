@@ -1,7 +1,7 @@
 - if store.pending?
   = button_to 'approve', superadmin_store_path(store.id, :status => 'active'), :method => :put, :class => 'btn btn-info'
   = button_to 'decline', superadmin_store_path(store.id, :status => 'declined'), :method => :put, :class => 'btn btn-info'
-- elsif store.declined?
-- else
+- elsif store.disabled?
   = button_to 'enable', superadmin_store_path(store.id, :status => 'active'), :method => :put, :class => 'btn btn-info'
+- elsif store.active?
   = button_to 'disable', superadmin_store_path(store.id, :status => 'disabled'), :method => :put, :class => 'btn btn-info'

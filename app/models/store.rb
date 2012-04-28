@@ -40,6 +40,10 @@ class Store < ActiveRecord::Base
     status == 'declined'
   end
 
+  def disabled?
+    status == 'disabled'
+  end
+
   def active?
     status == 'active'
   end
