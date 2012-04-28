@@ -7,6 +7,8 @@ class Store < ActiveRecord::Base
   has_many :orders
   has_many :categories
 
+  validates_presence_of :slug
+  validates_presence_of :name
   validates_presence_of :owner_id
   validates_uniqueness_of :name
   validates_uniqueness_of :slug
