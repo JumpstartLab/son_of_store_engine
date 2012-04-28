@@ -1,3 +1,4 @@
+
 require 'resque'
 
 if Rails.env.production?
