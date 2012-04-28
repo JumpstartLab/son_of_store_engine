@@ -10,7 +10,7 @@ table.table.table-striped
   - @stores.each do |store|
     tr
       td = link_to store.name, products_path(store)
-      td = store.store_unique_id
+      td = store.slug
       td = truncate(store.description, :length => 32)
       td = store.status
       td 

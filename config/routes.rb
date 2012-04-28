@@ -15,7 +15,7 @@ StoreEngine::Application.routes.draw do
     resources :stores
   end
 
-  scope ":store_unique_id" do
+  scope ":slug" do
     get "checkout_prompt" => "carts#prompt", :as => "checkout_prompt"
     get "add_category_to_product" => "admin/categories#add_product", :as => "add_category_to_product"
     namespace :admin do

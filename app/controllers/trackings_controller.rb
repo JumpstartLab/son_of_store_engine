@@ -5,4 +5,9 @@ class TrackingsController < ApplicationController
     @store = @order.store
     render "orders/show"
   end
+
+  private
+
+  def find_store
+  end
 end

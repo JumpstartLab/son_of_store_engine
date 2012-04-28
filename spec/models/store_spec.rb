@@ -2,13 +2,13 @@
 #
 # Table name: stores
 #
-#  id              :integer         not null, primary key
-#  name            :string(255)
-#  store_unique_id :string(255)
-#  description     :string(255)
-#  status          :string(255)     default("pending")
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  slug        :string(255)
+#  description :string(255)
+#  status      :string(255)     default("pending")
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
 #
 
 require 'spec_helper'
@@ -24,13 +24,13 @@ describe Store do
     store.should respond_to(:name)
   end
 
-  it "has a store_unique_id attribute" do
-    store.should respond_to(:store_unique_id)
+  it "has a slug attribute" do
+    store.should respond_to(:slug)
   end
 
-  it 'properly parameterizes store_unique_id' do
-    s = Fabricate(:store, :name => 'first store', :store_unique_id => 'first store')
-    s.store_unique_id.should == 'first-store'
+  it 'properly parameterizes slug' do
+    s = Fabricate(:store, :name => 'first store', :slug => 'first store')
+    s.slug.should == 'first-store'
   end
 
   it "has a description attribute" do
@@ -55,7 +55,7 @@ describe Store do
 
   context "when a store without a name is created" do
     let(:store) { Store.new(name: nil,
-                            store_unique_id: "example-store",
+                            slug: "example-store",
                             description: "example store") }
     it "is not saved as valid" do
       store.save.should be_false
@@ -64,7 +64,7 @@ describe Store do
 
   context "when a store without a unique store id is created" do
     let(:store) { Store.new(name: "Example Store",
-                        store_unique_id: nil,
+                        slug: nil,
                         description: "example store") }
     it "is not saved as valid" do
       store.save.should be_false
@@ -73,7 +73,7 @@ describe Store do
 
   context "when a store without a description is created" do
     let(:store) { Store.new(name: "Example Store",
-                        store_unique_id: "example-store",
+                        slug: "example-store",
                         description: nil) }
     it "is not saved as valid" do
       store.save.should be_false
@@ -82,16 +82,16 @@ describe Store do
 
   context "when a store name already exists in the database" do
     let(:original) { Store.new(name: "Example Store",
-                               store_unique_id: "example-store",
+                               slug: "example-store",
                                description: "example store") }
     let(:new_store_2) { Store.new(name: "Example Store",
-                                  store_unique_id: "the-second-store",
+                                  slug: "the-second-store",
                                   description: "example store") }
     let(:new_store_3) { Store.new(name: "example store",
-                                  store_unique_id: "the-third-store",
+                                  slug: "the-third-store",
                                   description: "example store") }
     let(:new_store_4) { Store.new(name: "EXAMPLE STORE",
-                                  store_unique_id: "the-fourth-store",
+                                  slug: "the-fourth-store",
                                   description: "example store") }
     it "a store with the same name cannot saved" do
       original.save
@@ -101,18 +101,18 @@ describe Store do
     end
   end
 
-  context "when a store_unique_id already exists in the database" do
+  context "when a slug already exists in the database" do
     let(:original) { Store.new(name: "Example Store",
-                               store_unique_id: "example-store",
+                               slug: "example-store",
                                description: "example store") }
     let(:new_store_2) { Store.new(name: "The Second Store",
-                                  store_unique_id: "Example-Store",
+                                  slug: "Example-Store",
                                   description: "example store") }
     let(:new_store_3) { Store.new(name: "The Third Store",
-                                  store_unique_id: "EXAMPLE-STORE",
+                                  slug: "EXAMPLE-STORE",
                                   description: "example store") }
     let(:new_store_4) { Store.new(name: "The Fourth Store",
-                                  store_unique_id: "example-store",
+                                  slug: "example-store",
                                   description: "example store") }
     it "a store with the same name should cannot saved" do
       original.save
@@ -125,7 +125,7 @@ describe Store do
   context "when the store has a status of 'pending'" do
 
     let!(:pending_store) { Store.create(name: "Example Store", 
-                                        store_unique_id: "example-store",
+                                        slug: "example-store",
                                         description: "example store",
                                         status: "pending") }
 
@@ -141,7 +141,7 @@ describe Store do
   context "when the store has a status of 'active'" do
 
     let!(:active_store) { Store.create(name: "Example Store", 
-                                       store_unique_id: "example-store",
+                                       slug: "example-store",
                                        description: "example store",
                                        status: "active") }
 

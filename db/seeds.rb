@@ -1,6 +1,6 @@
 require 'fabrication'
 
-10.times { |n| Fabricate(:store, :name => "Store #{n}", :store_unique_id => "store-#{n}") }
+10.times { |n| Fabricate(:store, :name => "Store #{n}", :slug => "store-#{n}") }
 100.times { Fabricate(:product, :photo => '', :store => Store.all.sample) }
 10.times { Fabricate(:category) }
 
