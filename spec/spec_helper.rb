@@ -47,8 +47,12 @@ RSpec.configure do |config|
 
   end
 
-  config.after(:suite) { Store.destroy_all }
-  config.after(:suite) { User.destroy_all }
+  #config.after(:suite) { Rake::Task['db:test:purge'].invoke }
+  config.after(:suite) do 
+    User.destroy_all 
+    Store.destroy_all
+  end
+
   #stop tests when one fails
   # config.fail_fast = true 
 

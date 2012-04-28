@@ -2,10 +2,11 @@
 
 FactoryGirl.define do
   factory :store do
-    name "Best Sunglasses"
-    url_name "best-sunglasses"
-    description "Buy our sunglasses!"
+    name "Cool Beans"
+    url_name "cool-beans"
+    description "Buy our beans!"
     approved false
     enabled false
+    owner_id 1
   end
 end

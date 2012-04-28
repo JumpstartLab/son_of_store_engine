@@ -18,7 +18,7 @@ describe "Creating stores" do
     end
 
     context "and I click 'Create a store'" do
-      before(:each) { click_link_or_button }
+      before(:each) { click_link_or_button('Create a store') }
 
       it "takes me to the new store creation page" do
         page.should have_content('New store')
