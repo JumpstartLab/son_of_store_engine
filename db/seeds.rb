@@ -13,6 +13,7 @@ first_store_owner = User.create(  full_name: "Mark T",
 
 first_store = Store.new(name: "Shoe Shop", slug:"shoe_shop", description: "Buy some shoes!!!!")
 first_store.update_attribute(:owner_id, first_store_owner.id)
+first_store.update_attribute(:status, "approved")
 first_store.save!
 
 male_category = first_store.categories.create( title: "Male")
