@@ -1,3 +1,4 @@
+<% cache @product do %>
 <div class="hero-unit">
   <div class="row-fluid">
     <div class="span7">
@@ -36,3 +37,4 @@
 <%= link_to "Back to All Products", 
     store_products_path(@product.store), :class => "btn" %>
 </div>
+<% end %>

@@ -162,6 +162,8 @@ GEM
     redis (2.2.2)
     redis-namespace (1.0.3)
       redis (< 3.0.0)
+    redis-store (1.0.0.1)
+      redis (~> 2.2.1)
     resque (1.20.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.0.2)
@@ -271,6 +273,7 @@ DEPENDENCIES
   nifty-generators
   pg
   rails (= 3.2.3)
+  redis-store (~> 1.0.0)
   reek!
   resque
   rspec-rails

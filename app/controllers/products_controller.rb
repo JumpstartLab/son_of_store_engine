@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-  caches_page :index, :show
   before_filter :admin_authorize,
                 only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required

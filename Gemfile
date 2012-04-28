@@ -38,6 +38,7 @@ end
 group :production do
   gem 'pg'
   gem 'thin'
+  gem 'redis-store', '~> 1.0.0'
 end
 
 group :test do
