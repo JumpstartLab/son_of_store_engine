@@ -34,11 +34,14 @@ class User < ActiveRecord::Base
                   :name,
                   :password,
                   :password_confirmation,
-                  :remember_me
+                  :remember_me,
+                  :role
 
-  has_one :cart
   has_one :address
+  has_one :cart
   has_many :orders
+  has_many :user_roles
+  has_many :roles, :through => :user_roles
   has_many :store_users
   has_many :stores, :through => :store_users
 
@@ -55,6 +58,10 @@ class User < ActiveRecord::Base
 
   def admin?
     role == 'admin'
+  end
+
+  def super_admin?
+    roles.map(&:name).include? 'super_admin'
   end
 
   def set_role(role)

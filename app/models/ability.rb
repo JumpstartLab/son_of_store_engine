@@ -9,6 +9,10 @@ class Ability
       can :manage, :all
     end
 
+    if user.super_admin?
+      can :manage, Role
+    end
+
     can :manage, Store do |store|
       store.users.all.include?(user)
     end

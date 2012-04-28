@@ -1,5 +1,5 @@
 StoreEngine::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
 
   devise_scope :user do
     get "users/new" => "devise/registrations#new", :as => :new_user 
@@ -9,6 +9,7 @@ StoreEngine::Application.routes.draw do
   get "tracking/:slug" => "trackings#show", :as => "tracking"
 
   resources :stores
+  resources :roles
 
   namespace :superadmin, :path => "admin" do
     resources :stores
@@ -26,7 +27,7 @@ StoreEngine::Application.routes.draw do
       resources :products
       resources :categories
       resource :dashboard
-      
+
       put "product_retire" => "products#retire_product", :as => "product_retire"
     end
 

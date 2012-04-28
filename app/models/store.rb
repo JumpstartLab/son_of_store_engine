@@ -7,11 +7,9 @@
 #  store_unique_id :string(255)
 #  description     :string(255)
 #  status          :string(255)     default("pending")
-#  user_id         :integer
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #
-
 
 # Represents a store that is owned by a particular user
 class Store < ActiveRecord::Base
