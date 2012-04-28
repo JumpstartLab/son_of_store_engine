@@ -1,6 +1,6 @@
 #
 class StoreAdmin::ProductsController < ApplicationController
-  before_filter :lookup_product, :only => [:show, :edit, :destroy, :update, :retire]
+  before_filter :lookup_product, except: [:index, :new, :create]
   before_filter :require_admin
 
   def index
@@ -56,7 +56,7 @@ class StoreAdmin::ProductsController < ApplicationController
   def lookup_product
     @product = store_products.where(id: params[:id]).first
   end
-  
+
   def store_products
     Product.where(store_id: @current_store.id)
   end

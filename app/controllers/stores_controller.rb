@@ -29,18 +29,32 @@ class StoresController < ApplicationController
   def update
     store = Store.find_by_domain(params[:id])
     store.update_attributes(params[:store])
-    if params[:store][:approval_status] && store.approval_status == "approved"
-      store.email_approval
-      flash[:notice] = "#{store.name} has been approved."
-    elsif params[:store][:approval_status] && store.approval_status == "declined"
-      store.email_decline
-      flash[:notice] = "#{store.name} has been declined."
-    elsif params[:store][:enabled] && store.enabled
+    notify_about_status_change(store)
+    redirect_to admin_store_path(store)
+  end
+
+  private
+
+  def notify_about_status_change(store)
+    if params[:store][:approval_status]
+      notify_about_approval_status(store)
+    elsif params[:store][:enabled]
+      notify_about_enabled_status(store)
+    end
+  end
+
+  def notify_about_approval_status(store)
+    store.email_approval if store.approval_status == "approved"
+    store.email_decline  if store.approval_status == "declined"
+    flash[:notice] = "#{store.name} has been #{store.approval_status}."
+  end
+
+  def notify_about_enabled_status(store)
+    if store.enabled
       flash[:notice] = "#{store.name} has been enabled."
-    elsif params[:store][:enabled] && !store.enabled
+    else
       store.email_decline
       flash[:notice] = "#{store.name} has been disabled."
     end
-    redirect_to admin_store_path(store)
   end
 end

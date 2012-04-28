@@ -56,7 +56,7 @@ class SessionsController < ApplicationController
     elsif session[:order_id]
       add_user_to_order
     end
-    redirect_to session[:return_to], :notice => "Welcome Back, #{user.full_name}"
+    redirect_to session[:return_to], notice: "Welcome Back, #{user.full_name}"
   end
 
   def set_user_session(user)

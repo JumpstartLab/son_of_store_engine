@@ -32,7 +32,7 @@ class Store < ActiveRecord::Base
   def email_decline
     StoreMailer.decline_email(self.id).deliver
   end
-  
+
   def created_on
     created_at.strftime("%B %d at %l:%M %p")
   end

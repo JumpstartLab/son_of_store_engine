@@ -3,7 +3,8 @@ require 'digest/sha1'
 
 class Order < ActiveRecord::Base
   before_create :create_special_url
-  attr_accessible :billing_method_id, :user_id, :status, :shipping_address_id, :store_id, :special_url
+  attr_accessible :billing_method_id, :user_id, :status,
+    :shipping_address_id, :store_id, :special_url
 
   validates_presence_of :status
 
@@ -129,7 +130,8 @@ class Order < ActiveRecord::Base
   private
 
   def create_special_url
-    write_attribute(:special_url, Digest::SHA1.hexdigest(%Q|#{ Time.now.to_i.to_s + rand(10000).to_s }|))
+    hex = Digest::SHA1.hexdigest(%Q|#{ Time.now.to_i.to_s + rand(10000).to_s }|)
+    write_attribute(:special_url, hex)
   end
 
 end
