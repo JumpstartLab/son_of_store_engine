@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
     build_order_from_cart(params)
 
     if @or.set_cc_from_stripe_customer_token(params[:order][:customer_token])
-      OrderMailer.order_confirmation(@or).deliver
+      @or.send_confirmation
       redirect_to @or,
         :notice => "Thank you for placing an order." if @or.charge(current_cart)
       # TODO: Fix where the redirect happens here! It's not hitting render :new right... we need a fail option?

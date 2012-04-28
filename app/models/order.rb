@@ -17,6 +17,9 @@ class Order < ActiveRecord::Base
 
   scope :desc, order("id DESC")
 
+  def send_confirmation
+    Resque.enqueue(Emailer, "order", "confirmation", self)
+  end
 
   def make_new_order_status
     self.build_order_status
@@ -35,8 +38,8 @@ class Order < ActiveRecord::Base
     if cart.has_products?
       cart.cart_products.each do |cart_prod|
         self.order_products.build(:price_cents => cart_prod.price_in_cents,
-                                  :product_id => cart_prod.product_id,
-                                  :quantity => cart_prod.quantity)
+          :product_id => cart_prod.product_id,
+          :quantity => cart_prod.quantity)
       end
     end
   end
@@ -88,7 +91,7 @@ class Order < ActiveRecord::Base
       Order.all
     else
       Order.joins(:order_status).
-        where('order_statuses.status = ?', status_filter)
+      where('order_statuses.status = ?', status_filter)
     end
   end
 
