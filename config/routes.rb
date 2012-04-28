@@ -1,6 +1,6 @@
 StoreEngine::Application.routes.draw do
 
-  match 'profile' => "stores#new"
+  match 'profile' => "users#show"
   resources :users, only: [:show, :create, :new, :update]
   resources :stores, only: [:index, :new, :create]
   get "guest/new" => "guest#new", as: "new_guest"
