@@ -1,11 +1,27 @@
 class ApplicationController < ActionController::Base
+module UrlHelper
+  def with_subdomain(subdomain)
+    subdomain = (subdomain || "")
+    subdomain += "." unless subdomain.empty?
+    [subdomain, request.domain, request.port_string].join
+  end
+  
+  def url_for(options = nil)
+    if options.kind_of?(Hash) && options.has_key?(:subdomain)
+      options[:host] = with_subdomain(options.delete(:subdomain))
+    end
+    super
+  end
+end
+  include UrlHelper
   protect_from_forgery
 
   before_filter :find_or_create_cart
   before_filter :get_last_page
   after_filter :set_last_page
+  #before_filter :store
 
-  helper_method :current_cart
+  helper_method :current_cart, :store
 
   def get_last_page
     @last_page = "Your last page: #{session[:last_page]}"
@@ -33,6 +49,10 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def store
+    @store ||= Store.find_all_by_url_name(request.subdomain).first
+  end
 
   def find_or_create_cart
     if session[:cart_id] && cart = Cart.find_by_id(session[:cart_id])

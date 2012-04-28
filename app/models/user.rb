@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     self.orders << order
   end
 
+  def confirm_signup
+    Resque.enqueue(Emailer, "user", "signup", self.id)
+  end
+
   def recent_orders
     self.orders.limit(5)
   end

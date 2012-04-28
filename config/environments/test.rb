@@ -6,6 +6,7 @@ StoreEngine::Application.configure do
   silence_warnings do
     BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
   end
+  #config.action_controller.session = { :domain => ".[domain].com" }
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

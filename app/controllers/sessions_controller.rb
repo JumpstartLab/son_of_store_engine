@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
+    reset_session
     redirect_to root_url, :notice => "Logged out."
   end
 
@@ -25,7 +26,8 @@ private
     if session[:return_to_url]
       redirect_to session[:return_to_url]
     else
-      redirect_to products_path("Logged in!")
+      redirect_to stores_path, 
+        :notice => "Logged in! Buy things! Capitalism!"
     end
   end
 

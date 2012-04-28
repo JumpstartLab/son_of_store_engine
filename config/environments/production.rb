@@ -1,6 +1,7 @@
  StoreEngine::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
@@ -64,4 +65,20 @@
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  require 'tlsmail'
+      Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+      ActionMailer::Base.delivery_method = :smtp
+      ActionMailer::Base.perform_deliveries = true
+      ActionMailer::Base.raise_delivery_errors = ralse
+      ActionMailer::Base.smtp_settings = {
+          :address => "smtp.gmail.com",
+          :port => "587",
+          :domain => "gmail.com",
+          :enable_starttls_auto => true,
+          :authentication => :login,
+          :user_name => "storeengine2@gmail.com",
+          :password => "derpderp"
+      }
+
 end

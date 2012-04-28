@@ -4,10 +4,16 @@
       <%= link_to "mittenberry", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Products", products_path %></li>
+          <li><%= link_to "Stores", stores_path %></li>
           <li id="cart-menu">
-            <%= link_to cart_path do %>
-            <i class='icon-shopping-cart icon-white'></i>&nbsp;&nbsp;<%= "Cart (#{get_cart_count})" %>
+            <% if store %>
+              <%= link_to store_cart_path(current_cart) do %>
+              <i class='icon-shopping-cart icon-white'></i>&nbsp;&nbsp;<%= "Cart (#{get_cart_count})" %>
+              <% end %>
+            <% else %>
+              <%= link_to cart_path do %>
+              <i class='icon-shopping-cart icon-white'></i>&nbsp;&nbsp;<%= "Cart (#{get_cart_count})" %>
+              <% end %>
             <% end %>
           </li>
           <% if current_user %>

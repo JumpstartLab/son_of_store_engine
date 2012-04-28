@@ -1,7 +1,7 @@
 <% cart_products.each do |cart_product| %>
   <tr>
-    <td><%= link_to cart_product.name, cart_product.product %> 
-      <%= link_to cart_product_path(cart_product.id), :method => :delete do %>
+    <td><%= link_to cart_product.name, product_path(cart_product.product) %> 
+      <%= link_to cart_product_path(cart_product), :method => :delete do %>
       <i class="icon-trash"></i> Remove from cart
       <% end %>
     </td>

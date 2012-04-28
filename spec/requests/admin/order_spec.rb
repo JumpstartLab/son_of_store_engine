@@ -1,16 +1,18 @@
 require 'spec_helper'
 
 describe "As an admin viewing an order's detail page" do
-  
-  let(:user)  { FactoryGirl.create(:user, :email => "a@a.com") }
+  let(:user)  { FactoryGirl.create(:user, :admin => true, :email => "a@a.com") }
   let(:product) { FactoryGirl.create(:product)}
   let(:order_product) { FactoryGirl.create(:order_product, :product => product) }
   let(:order) { FactoryGirl.create(:order, 
                 :user => user, :order_products => [order_product]) }
-  
+
+  before(:each) do
+    set_host("best-sunglasses")
+  end
+
   context "and I'm not logged in" do
     before(:each) { visit admin_order_path(order) }
-    
     it "redirects me to the signin page" do
       page.should have_content("Sign in")
     end
@@ -20,7 +22,10 @@ describe "As an admin viewing an order's detail page" do
     let!(:admin) { FactoryGirl.create(:user, :admin => true) }
 
     before(:each) do
-      login_user_post(admin.email, "foobar")
+      visit "/sessions/new"
+      fill_in "email", with: user.email
+      fill_in "password", with: "foobar"
+      click_link_or_button('Log in')
     end
 
     it "takes me to the order's detail page" do

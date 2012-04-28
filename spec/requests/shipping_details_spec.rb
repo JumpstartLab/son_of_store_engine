@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe "Creating Shipping Detail" do
-  before do
-    visit new_shipping_detail_path
+  before(:each) do
+    set_host("best-sunglasses")
+    visit "/shipping_details/new"
   end
 
   it "should show the new shipping details page" do
@@ -11,14 +12,17 @@ describe "Creating Shipping Detail" do
 
   context "when logged in" do
     let!(:user) { FactoryGirl.create(:user) }
-    before do
-      login_user_post(user.email, "foobar")
+    before(:each) do
+      visit "/sessions/new"
+      fill_in "email", with: user.email
+      fill_in "password", with: "foobar"
+      click_link_or_button('Log in')
     end
 
     context "when information is entered" do
 
       before(:each) do
-        visit new_shipping_detail_path
+        visit "/shipping_details/new"
         fill_in "shipping_detail_ship_to_name", with: "Ed"
         fill_in  "shipping_detail_ship_to_address_1", with: "1445 NH Ave"
         fill_in "shipping_detail_ship_to_city", with: "Washington"
