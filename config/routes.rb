@@ -26,7 +26,7 @@ StoreEngine::Application.routes.draw do
       resources :products
       resources :categories
       resource :dashboard
-
+      
       put "product_retire" => "products#retire_product", :as => "product_retire"
     end
 

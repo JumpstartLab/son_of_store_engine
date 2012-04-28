@@ -30,9 +30,4 @@ class StoresController < ApplicationController
       render 'new'
     end
   end
-
-  def update
-    @store = Store.find(params[:store])
-    @store.users << params[:user]
-  end
 end

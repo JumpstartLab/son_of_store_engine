@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
   let! (:user) { Fabricate(:user) }
+  let! (:second_user) { Fabricate(:user) }
   let! (:store) { Fabricate(:store, :users => [user]) }
   let! (:product) { Fabricate(:product, :store => store) }
   let! (:cart) { Fabricate(:cart, :store => store) }
@@ -24,6 +25,7 @@ describe User do
 
     before(:each) do
       user.set_role('admin')
+      second_user.set_role('admin')
       visit products_path(store)
       login_as(user)
     end
@@ -34,24 +36,37 @@ describe User do
         page.should have_link "Manage Users"
       end
 
-      context "the add admin page" do
+      context "the manage users page" do
         let!(:new_admin) { Fabricate(:user) }
 
-        it "provides a user the ability to pass in a new user's e-mail address" do
-          click_button "Manage Users"
-          page.should have_content("New admin e-mail address:")
+        before(:each) do
+          click_link "Admin"
+          click_link "Manage Users"
+        end
+
+        it "allows an admin to make a new admin via a user's email address" do
+          page.should have_content("Add New Administrator")
         end
 
         it "validates the new admin's e-mail address as a valid sonofstoreengine user" do
-          fill_in "New admin e-mail address:", :with => "bogusemailaddress@email123.com"
+          fill_in "Email", :with => "bogusemailaddress@email123.com"
           click_button "Add Admin"
           page.should have_content "Invalid SonOfStoreEngine user"
         end
 
         it "allows an admin to set another user as an admin for the store" do
-          fill_in "New admin e-mail address:", :with => new_admin.email
+          fill_in "Email", :with => new_admin.email
           click_button "Add Admin"
           page.should have_content "New admin succesfully added"
+        end
+
+        it "allows an admin to delete another admin" do
+          page.should have_content("Remove Admin")
+        end
+
+        it "allows an admin to delete any current store admin" do
+          click_button "Delete Admin"
+          page.should have_content("Admin deleted")
         end
       end
     end
