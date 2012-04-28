@@ -38,7 +38,7 @@ end
 group :production do
   gem 'pg'
   gem 'thin'
-  gem 'redis-store', '~> 1.0.0'
+  gem 'memcache-client'
 end
 
 group :test do

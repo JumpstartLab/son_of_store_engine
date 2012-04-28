@@ -118,6 +118,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcache-client (1.8.5)
     metaclass (0.0.1)
     mime-types (1.18)
     mocha (0.10.5)
@@ -162,8 +163,6 @@ GEM
     redis (2.2.2)
     redis-namespace (1.0.3)
       redis (< 3.0.0)
-    redis-store (1.0.0.1)
-      redis (~> 2.2.1)
     resque (1.20.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.0.2)
@@ -269,11 +268,11 @@ DEPENDENCIES
   guard-spork
   jquery-rails
   launchy
+  memcache-client
   mocha
   nifty-generators
   pg
   rails (= 3.2.3)
-  redis-store (~> 1.0.0)
   reek!
   resque
   rspec-rails
