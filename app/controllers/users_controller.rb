@@ -17,8 +17,8 @@ class UsersController < ApplicationController
     if @user.save
       auto_login(@user)
       transfer_cart_to_user(cart_before_login, @user)
-      raise successful_login_path.inspect
-      redirect_to successful_login_path, :notice => "You have been signed in."
+      link = "<a href=\"#{edit_user_url(@user.id)}\">Update your profile.</a>" 
+      redirect_to successful_login_path, :notice => "You have been registered. #{link}".html_safe
     else
       render :new
     end

@@ -1,18 +1,18 @@
 module SessionHelpers
   private
   def successful_login_path
-    if current_store && params[:checkout]
-      new_order_path(current_store.slug)
-    elsif current_store
-      store_path(current_store.slug)
+    if params[:slug] && params[:checkout]
+      new_order_path(params[:slug])
+    elsif params[:slug]
+      store_path(params[:slug])
     else
       root_path
     end
   end
 
   def successful_logout_path
-    if current_store
-      store_path(current_store.slug)
+    if params[:slug]
+      store_path(params[:slug])
     else
       root_url
     end

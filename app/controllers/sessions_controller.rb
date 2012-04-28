@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   include SessionHelpers
 
   def new
-    render 'checkout_new' if current_store && params[:checkout]
+    render 'checkout_new' if params[:slug] && params[:checkout]
   end
 
   def create
