@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     user_info = params[:user]
     @user = User.new(user_info)
     if @user.save
-      UserMailer.signup_confirmation(@user).deliver
+      @user.confirm_signup
       cart = current_cart
       if user = login(user_info[:email], user_info[:password])
         successful_login(cart, user)
@@ -22,9 +22,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #raise "BOOM"
-    #raise current_user.inspect
-    #@user = User.find(current_user[:id])
     @orders = current_user.recent_orders.desc
   end
 
@@ -38,7 +35,8 @@ private
     if session[:return_to_url]
       redirect_to session[:return_to_url]
     else
-      redirect_to products_path("Thanks for registering!")
+      flash[:message] = "Sign-up complete! You're now logged in!"
+      redirect_to root_path
     end
   end
 
