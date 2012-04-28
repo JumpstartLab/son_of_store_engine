@@ -7,9 +7,13 @@ class Store < ActiveRecord::Base
   has_many :orders
   has_many :categories
 
+  validates :slug,  :presence   => true,
+                    :uniqueness => { :case_sensitive => false }
+  validates :name,  :presence   => true,
+                    :uniqueness => { :case_sensitive => false }
   validates_presence_of :owner_id
-  validates_uniqueness_of :name
-  validates_uniqueness_of :slug
+
+  before_validation :strip_whitespace
 
   def to_param
     slug
@@ -58,4 +62,10 @@ class Store < ActiveRecord::Base
     self.destroy
   end
 
+  private 
+
+  def strip_whitespace
+    self.name.strip!
+    self.slug.strip!
+  end
 end
