@@ -4,16 +4,15 @@ class UserMailer < ActionMailer::Base
   def order_confirmation(user, order)
     @user = user
     @order = order
-    mail(:to => user.email,
-      :subject => "Your ShoeEngine Order #{order.id}")
+    mail(:to => @user.email,
+      :subject => "Your #{order.store.name} Order #{order.id}")
   end
 
   def status_confirmation(user, order)
     @user = user
     @order = order
     mail(:to => @user.email,
-      :subject => "Your ShoeEngine Order #{order.id}
-      is now #{order.current_status}" )
+      :subject => "Your #{order.store.name} Order #{order.id} is now #{order.current_status}" )
   end
 
   def declined_store_notice(store)
