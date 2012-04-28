@@ -11,4 +11,15 @@ class Admin::DashboardsController < Admin::ApplicationController
       @orders = @store.orders.all
     end
   end
+
+  def edit
+  end
+
+  def update
+    if @store.update_attributes(params[:store])
+      redirect_to admin_dashboard_path(@store), :notice => 'Updated Store'
+    else
+      render 'edit'
+    end
+  end
 end

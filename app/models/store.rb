@@ -21,10 +21,9 @@ class Store < ActiveRecord::Base
   validates :description, :presence => true
 
   validates_uniqueness_of :slug,
-                          :case_sensitive => false,
-                          :on => :create
+                          :case_sensitive => false
 
-  validates_uniqueness_of :name, :case_sensitive => false, :on => :create
+  validates_uniqueness_of :name, :case_sensitive => false
 
   has_many :products
   has_many :categories

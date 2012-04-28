@@ -88,4 +88,46 @@ describe 'Store Admin' do
     end
   end
 
+  context 'edit store' do
+    before(:each) do
+      login_as(admin)
+      visit edit_admin_dashboard_path(stores.first)
+    end
+
+    it 'can be accessed' do
+      page.should have_button('Update Store')
+    end
+
+    it 'can update name' do
+      fill_in 'store_name', :with => 'Store 99'
+      click_button 'Update Store'
+      page.should have_content('Store 99')
+      page.should_not have_content(stores.first.name)
+    end
+
+    it 'can update slug' do
+      fill_in 'store_slug', :with => 'Store 99'
+      click_button 'Update Store'
+      current_path.should have_content('store-99')
+    end
+
+    it 'can update description' do
+      fill_in 'store_description', :with => 'Store Description'
+      click_button 'Update Store'
+      page.should have_content('Store Description') 
+    end
+
+    it 'store name must be unique' do
+      fill_in 'store_name', :with => stores.last.name
+      click_button 'Update Store'
+      page.should have_content('Name has already been taken')
+    end
+
+    it 'store slug must be unique' do
+      fill_in 'store_slug', :with => stores.last.slug
+      click_button 'Update Store'
+      page.should have_content('Slug has already been taken')
+    end
+  end
+
 end

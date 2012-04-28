@@ -1,6 +1,8 @@
 h1 Dashboard
+p.well = @store.description
 
 ul
+  li = link_to 'Edit Store', edit_admin_dashboard_path(@store)
   li = link_to "New Product", new_admin_product_path(@store)
   li = link_to "New Category", new_admin_category_path(@store)
   li = link_to "Browse Products", admin_products_path(@store)
