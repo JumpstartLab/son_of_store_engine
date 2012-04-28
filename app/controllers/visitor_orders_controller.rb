@@ -44,8 +44,7 @@ class VisitorOrdersController < ApplicationController
 private
 
   def valid_email_or_redirect
-    unless User.where(:email => params[:guest_email]).count == 0 &&
-           VisitorUser.where(:email => params[:guest_email]).count == 0
+    unless User.where(:email => params[:guest_email]).count == 0
       redirect_to new_session_path, :alert => "Not a unique email"
     end
   end
