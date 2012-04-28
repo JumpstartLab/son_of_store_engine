@@ -11,6 +11,8 @@ class Store < ActiveRecord::Base
   validates_presence_of :name, :url_name, :description
   validates_uniqueness_of :name, :url_name
 
+  after_create :create_store_admin
+
   def to_param
     url_name
   end
@@ -21,5 +23,20 @@ class Store < ActiveRecord::Base
 
   def pending?
     self.approved.nil?
+  end
+
+  def create_store_admin
+    add_admin_by_id(self.owner_id)
+  end
+
+  def add_admin_by_id(id)
+    admin_user = User.find(id)
+    add_admin(admin_user)
+  end
+
+  def add_admin(admin)
+    self.admins ||= [ ]
+    self.admins << admin unless self.admins.include? admin
+    self.admins.uniq
   end
 end
