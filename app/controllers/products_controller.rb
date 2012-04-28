@@ -1,7 +1,5 @@
 class ProductsController < ApplicationController
 
-  before_filter :is_store_approved?, only: [ :show, :index ]
-
   def index
     # @products = Product.active.all
     # @categories = Category.all
@@ -16,10 +14,5 @@ class ProductsController < ApplicationController
     @categories = @product.categories
   end
 
-  private
 
-  def is_store_approved?
-    redirect_to stores_path, 
-      notice: "Store not found! Browse some others!" unless store.approved? && store.enabled?
-  end
 end

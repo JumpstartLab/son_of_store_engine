@@ -1,7 +1,6 @@
 StoreEngine::Application.routes.draw do
 
   match 'profile' => "stores#new"
-  root :to => "static_pages#home"
   resources :users, only: [:show, :create, :new, :update]
   resources :stores, only: [:index, :new, :create]
   get "guest/new" => "guest#new", as: "new_guest"
@@ -53,6 +52,7 @@ StoreEngine::Application.routes.draw do
     end
   end
 
+  root :to => "static_pages#home"
   #match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
   #root :to => "products#index"
 

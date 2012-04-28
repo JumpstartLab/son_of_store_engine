@@ -1,5 +1,7 @@
 class StoresController < ApplicationController
   before_filter :require_login, only: [ :new, :create ]
+  before_filter :is_store_approved?, only: [ :show ]
+  #before_filter :not_found, only: [ :show ]
 
   def index
     @stores = Store.where(:approved => true)
@@ -10,7 +12,7 @@ class StoresController < ApplicationController
   end
 
   def show
-    redirect_to products_path(store)
+    redirect_to products_path
   end
 
   def create
@@ -24,6 +26,16 @@ class StoresController < ApplicationController
       end
       render 'new'
     end
+  end
+
+  private
+
+  def not_found
+    raise ActionController::RoutingError.new('Store not found.')
+  end
+
+  def is_store_approved?
+    not_found unless store.approved? && store.enabled?
   end
 
 end
