@@ -26,7 +26,7 @@ describe Store do
     let!(:user) { FactoryGirl.create(:user) }
     it "does not allow a store to be created without an owner" do
       expect do
-        Store.create!(name: "Foo", slug: "www.bar.com")
+        Store.create!(name: "Foo", slug: "www.bar.com", owner_id: nil)
       end.should raise_error
     end
   
