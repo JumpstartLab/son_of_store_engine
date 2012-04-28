@@ -9,11 +9,11 @@ class Store < ActiveRecord::Base
 
   validates :slug,  :presence   => true,
                     :uniqueness => { :case_sensitive => false }
-
   validates :name,  :presence   => true,
                     :uniqueness => { :case_sensitive => false }
-
   validates_presence_of :owner_id
+
+  before_validation :strip_whitespace
 
   def to_param
     slug
@@ -62,4 +62,10 @@ class Store < ActiveRecord::Base
     self.destroy
   end
 
+  private 
+
+  def strip_whitespace
+    self.name.strip!
+    self.slug.strip!
+  end
 end
