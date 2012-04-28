@@ -11,7 +11,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      Notification.sign_up_confirmation(@user.email).deliver
       auto_login(@user)
       redirect_back_or_to root_url, :notice => "Account successfully made!"
     else
