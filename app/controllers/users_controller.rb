@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :is_current_user?, only: [ :show ]
+  before_filter :is_current_user?, only: [ :show, :edit ]
   include SessionHelpers
 
   def new
@@ -29,8 +29,23 @@ class UsersController < ApplicationController
     @orders = current_user.recent_orders.desc
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    # TODO: ask Charles about this
+    if @user.update_attributes(params[:user])
+      redirect_to user_path(@user.id), :notice => "Your profile has been updated"
+    else
+      render :edit
+    end
+  end
+
 private
   def is_current_user?
-    redirect_to_last_page unless User.find_by_id(params[:id]) == current_user
+    redirect_to root_path unless User.find_by_id(params[:id]) == current_user
   end
 end
