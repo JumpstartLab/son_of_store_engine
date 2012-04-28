@@ -1,25 +1,27 @@
-h2 Sign up
+h2 class="signup" Sign up
+hr
+
+div class="signup-form"
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = devise_error_messages!
   div
     = f.label :name
-    br/
     = f.text_field :name
   div
     = f.label :username
-    br/
     = f.text_field :username
   div
     = f.label :email
-    br/
     = f.email_field :email
   div
     = f.label :password
-    br/
     = f.password_field :password
   div
     = f.label :password_confirmation
-    br/
+
     = f.password_field :password_confirmation
-  div= f.submit "Sign up"
+
+  div class="signup-form-actions"
+  =f.submit "Sign up", :class => 'btn btn-primary'
+
 = render "links"

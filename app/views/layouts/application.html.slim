@@ -1,23 +1,26 @@
 doctype html
 html
   head
-    title StoreEngine
+    title SonOfStoreEngine
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
 
+  =yield :head
+
   body
     div class="navbar navbar-fixed-top"
       div class="navbar-inner"
-        div class="container"
           ul id="nav"
+            - if @store and not @store.name.blank?
+              li.nav class="brand" = link_to "#{@store.name.titlecase}", products_path(@store)
             - if @store and can? :manage, @store
-              li.nav = link_to("Admin", admin_dashboard_path)
+              li.nav = link_to("Admin Dashboard", admin_dashboard_path)
             - if current_user
               - if @store
                 li.nav = link_to("My Orders", orders_path(@store))
               li.nav id="right"
-                = "Logged in as #{current_user.email}. "
+                = "#{current_user.name} | " 
                 = link_to("Log out",
                           destroy_user_session_path(:store_unique_id => nil),
                           :method => :delete)
@@ -26,24 +29,20 @@ html
               li.nav id="right"
                 = link_to("Sign up", new_user_path)
                 = " or "
-                = link_to("log in", new_user_session_path)
-            - if @store and not @store.name.blank?
-              li.nav class="brand" = @store.name.titlecase
+                = link_to("Log In", new_user_session_path)
+            - if @store
+              li.nav = link_to "View Cart", cart_path(@store)
+              li.nav = link_to "Browse by Category", categories_path(@store)  
             - else
               li.nav class="brand" = "Konami Coders Inc."
-            - if @store
-              li.nav = link_to "Home", products_path(@store)
-              li.nav = link_to "Browse by Category", categories_path(@store)      
-              li.nav = link_to "View Cart", cart_path(@store)
       
     - flash.each do |name, msg|
       = content_tag :div, msg.html_safe, :id => "flash_#{name}"
 
+    div class="container"
+      span class="12"
+
     div class="navbar navbar-fixed-bottom"
       div class="navbar-inner"
         div class="container"
-          ul
-            li.nav id="right_big" = link_to "π", "http://www.jibjab.com/view/VAfMsYFRakU6mXaP?mt=1", :target=> "blank"
-            li.nav id="right"
-              = "Do not click me --> "
     = yield

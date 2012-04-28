@@ -31,7 +31,7 @@ describe 'Store Admin' do
     end
 
     it 'is accessible by admin' do
-      page.should have_content('Admin Page')
+      page.should have_content('Admin Store Index')
     end
 
     it 'contains a list of all stores' do

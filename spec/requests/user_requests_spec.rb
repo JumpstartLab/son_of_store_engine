@@ -82,7 +82,7 @@ describe User, :user_request => :user do
   context "an unauthenticated user" do
     it "can't create new products" do
       visit new_admin_product_path(store)
-      page.should have_content("Sign in")
+      page.should have_content("Log In")
       page.should have_content("You need to sign in or sign up")
     end
   end

@@ -1,9 +1,11 @@
 h2 Resend confirmation instructions
 = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
   = devise_error_messages!
-  div
+  
+  div class="resend-conf-form"
     = f.label :email
-    br/
     = f.email_field :email
-  div= f.submit "Resend confirmation instructions"
+
+  div class="resend-conf-actions"
+  = f.submit "Resend confirmation instructions", :class => 'btn btn-primary'
 = render "links"

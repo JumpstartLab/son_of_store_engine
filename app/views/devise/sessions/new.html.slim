@@ -1,16 +1,19 @@
-h2 Sign in
+h2 Log In
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
   div
     = f.label :email
-    br/
     = f.email_field :email
   div
     = f.label :password
-    br/
     = f.password_field :password
+
   - if devise_mapping.rememberable?
-    div
+    div class="remember-me"
+      div id="remember_box"
       = f.check_box :remember_me
-      = f.label :remember_me
-  div= f.submit "Sign in"
+      div id="remember_label"
+      =f.label :remember_me
+      
+  div class="login-form-actions"
+  =f.submit "Log In", :class => 'btn btn-primary'
 = render "links"
