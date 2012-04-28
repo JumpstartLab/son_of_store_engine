@@ -56,6 +56,12 @@ describe User do
 
         it "allows an admin to set another user as an admin for the store" do
           fill_in "Email", :with => new_admin.email
+          expect { click_button "Add Admin" }.to 
+                  change{ store.users.count }.by(1)
+        end
+
+        it "displays an 'new admin successfully added' message when an admin has been added" do
+          fill_in "Email", :with => new_admin.email
           click_button "Add Admin"
           page.should have_content "New admin succesfully added"
         end
@@ -65,6 +71,11 @@ describe User do
         end
 
         it "allows an admin to delete any current store admin" do
+          expect { click_button "Delete Admin" }.to 
+                  change{ store.users.count }.by(1)
+        end
+
+        it "displays an 'admin deleted' message when an admin has been removed" do
           click_button "Delete Admin"
           page.should have_content("Admin deleted")
         end
