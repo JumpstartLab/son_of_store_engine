@@ -12,9 +12,11 @@
 #  updated_at      :datetime        not null
 #
 
+
 # Represents a store that is owned by a particular user
 class Store < ActiveRecord::Base
   attr_accessible :name, :user_id, :store_unique_id, :description, :status
+  before_validation :parameterize_store_unique_id
 
   validates :name, :presence => true
   validates :store_unique_id, :presence => true
@@ -29,7 +31,8 @@ class Store < ActiveRecord::Base
   has_many :products
   has_many :categories
   has_many :orders
-  belongs_to :user
+  has_many :store_users
+  has_many :users, :through => :store_users
 
   def pending?
     status == 'pending'
@@ -70,5 +73,17 @@ class Store < ActiveRecord::Base
 
   def to_param
     store_unique_id
+  end
+
+  def self.find_by_store_unique_id(id)
+    where(:store_unique_id => id.parameterize) unless id.blank?
+  end
+
+  private
+
+  def parameterize_store_unique_id
+    unless self.store_unique_id.blank?
+      self.store_unique_id = self.store_unique_id.parameterize
+    end
   end
 end

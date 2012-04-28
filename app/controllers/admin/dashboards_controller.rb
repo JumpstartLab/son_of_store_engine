@@ -3,7 +3,6 @@ class Admin::DashboardsController < Admin::ApplicationController
   def show
     @statuses = @store.orders.statuses
     @orders_by_status = @store.orders.collect_by_status
-
     status = params[:status]
 
     if status

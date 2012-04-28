@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Cart do
-  let!(:store) { Fabricate(:store, :user => user) }
+  let(:user) { Fabricate(:user) }
+  let!(:store) { Fabricate(:store, :users => [user]) }
   let(:product) { Fabricate(:product, :store => store) }
   let(:cart) { Fabricate(:cart, :store => store) }
   let(:category) { Fabricate(:category, :store => store) }
-  let(:user) { Fabricate(:user) }
   let(:unsaved_user) { Fabricate.build(:user) }
 
   context "as an unauthenticated user" do
@@ -20,8 +20,8 @@ describe Cart do
         page.should have_link("Sign up")
       end
 
-      it "I can sign in to my existing account" do
-        page.should have_link("Log in")
+      it "I can Log In to my existing account" do
+        page.should have_link("Log In")
       end
 
       it "I can checkout as a guest" do
@@ -56,13 +56,13 @@ describe Cart do
         end
       end
 
-      context "when I click 'Sign in'" do
+      context "when I click 'Log In'" do
         before(:each) do
-          click_link "Log in"
+          click_link "Log In"
         end
 
-        it "prompts me to sign in" do
-          find('h2').should have_content("Sign in")
+        it "prompts me to Log In" do
+          find('h2').should have_content("Log In")
         end
 
         describe "when I sign in to my account" do

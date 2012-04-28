@@ -44,6 +44,14 @@ describe User, :user_request => :user do
   end
 
   context "after signing up" do
+    let(:user) { Fabricate.build(:user) }
+    it "user sees a confirmation flash message with a link to change their account" do
+      visit new_user_path
+      complete_user_form(user)
+      click_button "Sign up"
+      page.should have_content("Change your account")
+    end
+
     it "user receives confirmation email" do
       expect { create_user(user) }.to change(ActionMailer::Base.deliveries,:size).by(1)
     end
@@ -74,7 +82,7 @@ describe User, :user_request => :user do
   context "an unauthenticated user" do
     it "can't create new products" do
       visit new_admin_product_path(store)
-      page.should have_content("Sign in")
+      page.should have_content("Log In")
       page.should have_content("You need to sign in or sign up")
     end
   end

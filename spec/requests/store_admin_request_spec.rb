@@ -9,11 +9,11 @@ describe 'Store Admin' do
       Fabricate(:store, 
                 :name => "store #{n}", 
                 :store_unique_id => "store-#{n}", 
-                :user => admin)
+                :users => [admin])
     end
   end
 
-  let!(:pending_store) { Fabricate(:store, :status => 'pending', :user => admin) }
+  let!(:pending_store) { Fabricate(:store, :status => 'pending', :users => [admin]) }
 
   context 'unauthenticated user' do
     it 'redirects to root path' do
@@ -31,7 +31,7 @@ describe 'Store Admin' do
     end
 
     it 'is accessible by admin' do
-      page.should have_content('Admin Page')
+      page.should have_content('Admin Store Index')
     end
 
     it 'contains a list of all stores' do

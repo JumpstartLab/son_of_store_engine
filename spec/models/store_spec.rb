@@ -30,6 +30,11 @@ describe Store do
     store.should respond_to(:store_unique_id)
   end
 
+  it 'properly parameterizes store_unique_id' do
+    s = Fabricate(:store, :name => 'first store', :store_unique_id => 'first store')
+    s.store_unique_id.should == 'first-store'
+  end
+
   it "has a description attribute" do
     store.should respond_to(:description)
   end

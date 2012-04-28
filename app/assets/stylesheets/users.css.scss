@@ -1,3 +1,38 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+h2.signup{ 
+  padding-bottom: 10px;
+} 
+
+.signup-form{ 
+  padding-bottom: 10px;
+}
+
+.signup-form-actions{ 
+  padding-top: 10px;
+}
+
+.remember-me{
+  clear: both;
+  float: none;
+}
+
+#remember_box{ 
+  clear: left;
+  display: inline-block;
+  float: left;
+}
+
+#remember_label{ 
+  clear: right;
+  float: left;
+  display: inline-block;
+  margin-left: 10px;
+  text-align: right;
+}
+
+.user-edit-actions{ 
+  padding-top: 10px;
+}
