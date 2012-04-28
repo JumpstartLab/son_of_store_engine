@@ -1,13 +1,13 @@
 require "spec_helper"
 
 describe OrderMailer do
-  let!(:user){ FactoryGirl.create(:user, id: 1) }
+  let!(:user){ FactoryGirl.create(:user) }
   let!(:order_products) do
     [].tap do |ary|
       4.times { ary << FactoryGirl.create(:order_product) }
     end
   end
-  let!(:order){ FactoryGirl.create(:order, order_products: order_products) }
+  let!(:order){ FactoryGirl.create(:order, order_products: order_products, user_id: user.id) }
   let(:mail){ OrderMailer.order_confirmation(order) }
   describe "#order_confirmation" do
     it "sends an email" do

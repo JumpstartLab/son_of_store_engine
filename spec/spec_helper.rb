@@ -48,6 +48,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) { Store.destroy_all }
+  config.after(:suite) { User.destroy_all }
   #stop tests when one fails
   # config.fail_fast = true 
 

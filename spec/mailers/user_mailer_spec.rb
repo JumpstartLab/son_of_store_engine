@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe UserMailer do
-  let!(:user){ FactoryGirl.create(:user, id: 1) }
+  let!(:user){ FactoryGirl.create(:user) }
 
   let(:mail){ UserMailer.signup_confirmation(user) }
 
