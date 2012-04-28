@@ -55,7 +55,7 @@ input[type="submit"] {
   cursor: pointer;
   -webkit-appearance: button;
 }
-input[type="search"] {
+/*input[type="search"] {
   -webkit-appearance: textfield;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -63,13 +63,13 @@ input[type="search"] {
 }
 input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
-}
+}*/
 textarea {
   overflow: auto;
   vertical-align: top;
 }
 body {
-  margin: 0;
+  margin: 50px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -135,7 +135,7 @@ a:hover {
 .span12, .container {
   width: 940px;
 }
-.offset1 {
+/*.offset1 {
   margin-left: 100px;
 }
 .offset2 {
@@ -167,7 +167,7 @@ a:hover {
 }
 .offset11 {
   margin-left: 900px;
-}
+}*/
 .row-fluid {
   width: 100%;
   *zoom: 1;
