@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def confirm_signup
-    Resque.enqueue(Emailer, "user", "signup", self)
+    Resque.enqueue(Emailer, "user", "signup", self.id)
   end
 
   def recent_orders

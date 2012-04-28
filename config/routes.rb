@@ -53,6 +53,7 @@ StoreEngine::Application.routes.draw do
     #root to: "products#index"
   end
 
+  # mount Resque::Server, :at => "/resque"
   #match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
   #root :to => "products#index"
 

@@ -35,7 +35,8 @@ private
     if session[:return_to_url]
       redirect_to session[:return_to_url]
     else
-      redirect_to products_path("Thanks for registering!")
+      flash[:message] = "Sign-up complete! You're now logged in!"
+      redirect_to root_path
     end
   end
 
