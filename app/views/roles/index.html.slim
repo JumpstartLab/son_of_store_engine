@@ -1,0 +1,5 @@
+h1 Roles
+
+ul
+- @roles.each do |role|
+  li = link_to role.name, edit_role_path(role)

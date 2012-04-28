@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :create_cart, :find_store
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
   def create_cart
     unless session[:cart_id]
       session[:cart_id] = Cart.create.id
