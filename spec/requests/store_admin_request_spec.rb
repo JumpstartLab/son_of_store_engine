@@ -55,17 +55,22 @@ describe 'Store Admin' do
       page.should have_button('decline')
     end
 
+    it 'does not have enable' do
+      page.should_not have_button('enable')
+    end
+
     context 'updates status by clicking on' do
+      it 'disable' do
+        click_button 'disable'
+        page.should have_content('disabled')
+      end
+
       it 'enable' do
+        click_button 'disable'
         click_button 'enable'
         page.should have_content('active')
         click_link 'administer'
         page.should have_content('Dashboard')
-      end
-
-      it 'disable' do
-        click_button 'disable'
-        page.should have_content('disabled')
       end
 
       it 'approve' do
