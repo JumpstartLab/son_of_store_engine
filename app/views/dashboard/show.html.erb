@@ -80,7 +80,8 @@
   </thead>
   <tbody>
     <% @categories.each do |category| %><tr>
-      <td><%= link_to category.title, store_category_path(current_store) %></td>
+        <td><%= link_to category.title, store_category_path(current_store, 
+                                                            category) %></td>
       <td><%= link_to "Edit", edit_store_category_path(current_store, category), 
               :class => "btn btn-mini" %></td>
     </tr><% end %>
