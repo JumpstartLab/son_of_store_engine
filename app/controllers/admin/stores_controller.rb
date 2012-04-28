@@ -1,6 +1,6 @@
 class Admin::StoresController < ApplicationController
   before_filter :require_login
-  before_filter :is_admin?
+  before_filter :is_admin?, only: [ :index, :update ]
   #before_filter :is_super_admin
 
   def index
@@ -15,6 +15,11 @@ class Admin::StoresController < ApplicationController
     end
     redirect_to :back,
       :notice => "#{@store.name} was updated!"
+  end
+
+  def show
+    #raise params.inspect
+    @store = Store.find_by_url_name(params[:id])
   end
 
 end

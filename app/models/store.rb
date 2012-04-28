@@ -15,6 +15,10 @@ class Store < ActiveRecord::Base
     !self.enabled
   end
 
+  def pending?
+    self.approved.nil?
+  end
+
   # # def update_status(status)
   # #   case status
   # #   when ""

@@ -1,7 +1,6 @@
 class StoresController < ApplicationController
   before_filter :require_login, only: [ :new, :create ]
   before_filter :is_store_approved?, only: [ :show ]
-  #before_filter :not_found, only: [ :show ]
 
   def index
     @stores = Store.where(:approved => true)
@@ -18,7 +17,7 @@ class StoresController < ApplicationController
   def create
     @new_store = Store.create(params[:store])
     if @new_store.save
-      redirect_to user_path(current_user),
+      redirect_to admin_store_path(@new_store),
         :notice => "Sweet! #{@new_store.name} was created and is currently pending approval!"
     else
       @new_store.errors.full_messages.each do |msg|
