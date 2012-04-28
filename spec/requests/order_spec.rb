@@ -119,10 +119,9 @@ describe 'checking out' do
       page.current_path.should == new_session_path
     end
 
-    it "doesn't let you checkout with existing visitor email" do
-      fill_in "guest_email", :with => "foo1234@bar.net"
+    it "with a blank email, redirects you to the login page" do
       click_link_or_button "Checkout as Guest"
-      page.current_path.should == new_session_path
+      page.current_path.should == new_store_checkout_path(product.store)
     end
 
     it "signs user up & takes you to new order page" do
