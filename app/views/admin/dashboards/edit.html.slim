@@ -1,0 +1,21 @@
+- if @store.errors.any?
+  div id="error_explanation"
+    ul
+    - @store.errors.full_messages.each do |msg|
+      li = msg
+
+= form_for(@store, :url => admin_dashboard_path) do |f|
+  div class="field"
+    = f.label :name
+    = f.text_field :name
+
+  div class="field"
+    = f.label "Unique Slug"
+    = f.text_field :slug
+
+  div class="field"
+    = f.label :description
+    = f.text_field :description
+
+  div class="actions"
+    = f.submit

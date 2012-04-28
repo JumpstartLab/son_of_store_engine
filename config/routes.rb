@@ -1,4 +1,6 @@
 StoreEngine::Application.routes.draw do
+  get "stores/edit"
+
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   devise_scope :user do
@@ -8,8 +10,8 @@ StoreEngine::Application.routes.draw do
   match 'profile' => 'stores#new'
   get "tracking/:slug" => "trackings#show", :as => "tracking"
 
-  resources :stores
   resources :roles
+  resources :stores
 
   namespace :superadmin, :path => "admin" do
     resources :stores
