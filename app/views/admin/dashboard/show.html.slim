@@ -1,4 +1,9 @@
-h1 Admin Dashboard
+h1 Admin Dashboard for #{@store.name}
+.row
+  .span6 style="margin-bottom:20px"
+    h4
+      = link_to "Edit #{@store.name}", admin_edit_path(id: current_store.id)
+
 .row
   .span6 style="margin-bottom:20px"
     h4

@@ -7,7 +7,12 @@ class Admin::StoresController < ApplicationController
     @disabled_stores  = Store.where(:status => "disabled")
   end
 
+  def edit
+    @store = Store.find(params[:id])
+  end
+
   def update
+    raise "IT'S WORKING"
     @store = Store.find(params[:id])
     @store.update_attributes(params[:store])
     if @store.status == "approved"
@@ -16,7 +21,13 @@ class Admin::StoresController < ApplicationController
     elsif @store.status == "declined"
       flash[:notice] = "Store has been declined. Sent email to #{@store.users.first.email}"
       StoreMailer.store_declined_notification(@store).deliver
+    else
+      redirect_to :back
     end
-    redirect_to :back
   end
+
+  def show
+    @store = Store.find(params[:id])
+  end
+
 end

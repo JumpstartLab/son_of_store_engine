@@ -5,7 +5,7 @@ StoreEngine::Application.routes.draw do
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
 
   resources :users, only: [:show, :create, :new, :update]
-  resources :stores, :only => [:index, :create, :new]
+  resources :stores, :only => [:create, :new]
 
   match '/profile', :to => "stores#index"
 
@@ -35,6 +35,7 @@ StoreEngine::Application.routes.draw do
 
     namespace :admin do
       resources :products
+      #resources :stores, only: [:edit, :update]
       resources :categories
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
@@ -42,8 +43,9 @@ StoreEngine::Application.routes.draw do
       resources :users, only: [:show]
       resource :dashboards, only: [:show]
     end
-
-    match '/admin/dashboard', :to => 'admin/dashboard#show'
+    match '/admin', :to => 'admin/dashboard#show'
+    match '/admin/edit', :to => 'admin/stores#edit'
+    #match '/admin/dashboard', :to => 'admin/dashboard#show'
   end
 
   namespace :admin do

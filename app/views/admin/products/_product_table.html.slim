@@ -8,5 +8,9 @@ tr
       - product.categories.each do |category|
         div id=(dom_id category)
         li= category.name
-  td= link_to 'Add to cart', new_cart_product_path(:store_slug => store_slug, :product_id => product)
-  td= link_to 'Retire', product_retirement_path(store_slug, product), method: :post
+  td= link_to 'Edit', edit_admin_product_path(store_slug, product)
+  /td= link_to 'Add to cart', new_cart_product_path(:store_slug => store_slug, :product_id => product)
+  -if product.active?
+    td= link_to 'Retire', product_retirement_path(store_slug, product), method: :post
+  -else
+    td= link_to 'Unretire', product_retirement_path(store_slug, product), method: :post

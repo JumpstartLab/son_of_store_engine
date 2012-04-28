@@ -5,6 +5,7 @@ class Admin::ProductsController < ApplicationController
   helper_method :product
 
   def index
+    @active_products = current_store.products.active
     @retired_products = current_store.products.retired
     @categories = current_store.categories
   end

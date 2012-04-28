@@ -1,0 +1,12 @@
+h3 Edit Store
+br
+= form_for(@store, :url => { controller: "admin/dashboard", action: :show} ) do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :slug, "Path"
+    = f.text_field :slug
+  .actions
+    br/
+    = f.submit
