@@ -1,7 +1,7 @@
 h1 = "Your Cart#{' is Empty.' if @cart.items.empty?}"
 
 div.cart id="cart"
-  table
+  table.table-striped
     tr 
       th#cart Title
       th#cart Price
@@ -19,12 +19,15 @@ div.cart id="cart"
               / = i.label :quantity
               = i.text_field :quantity
           td.subtotal = item.subtotal
-          td = link_to "Remove", cart_item_path(:item_id => item.id), :method => :delete
+          td = link_to "", cart_item_path(:item_id => item.id), :method => :delete, 
+               :class=> 'i icon-remove', :confirm => "Are you sure, you'd like to remove this item?"
       tr
         td
         td
         td#text Total: 
         td#total = @cart.total
-      = f.submit "Update Cart"
-
-= link_to "Checkout", checkout_prompt_path(@store)
+      = f.submit "Update Cart", :class => 'btn'
+      
+.cart-actions
+= link_to "Checkout", checkout_prompt_path(@store), :class=>'btn btn-primary'
+= link_to "Keep Shopping", store_path(@store), :class => 'btn btn-primary'

@@ -9,3 +9,5 @@ h1 Products
           = link_to product.title, product_path(@store, product)
           #prod-index-price
           = number_to_currency(product.price)
+          #prod-index-cart
+          = link_to "Add to Cart", cart_path(:product_id => product), :method => :put, :class=>'btn btn-mini'

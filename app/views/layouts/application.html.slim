@@ -34,7 +34,8 @@ html
               li.nav = link_to "View Cart", cart_path(@store)
               li.nav = link_to "Browse by Category", categories_path(@store)  
             - else
-              li.nav class="brand" = "Konami Coders Inc."
+              li.nav class="brand" 
+              =link_to "Konami Coders Inc.", root_path
       
     - flash.each do |name, msg|
       = content_tag :div, msg.html_safe, :id => "flash_#{name}"
