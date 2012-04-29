@@ -1,4 +1,4 @@
-class NewOrderEmailer
+class NewStoreEmailer
   @queue = :emailer
 
   def self.perform(order)

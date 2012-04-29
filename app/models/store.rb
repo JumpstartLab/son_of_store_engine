@@ -48,6 +48,7 @@ class Store < ActiveRecord::Base
   end
   def self.create_store(params, user)
     s = Store.new(params)
+    Resque.enqueue(NewStoreEmailer, user.email)
     s.users << user
     s
   end

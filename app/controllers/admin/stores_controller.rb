@@ -42,7 +42,6 @@ module Admin
     def create
       @store = Store.create_store(params[:store], current_user)
       if @store.save
-        Notification.new_store_request(@store).deliver
         redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
       else
         flash[:alert] = "There was an error while creating your store."

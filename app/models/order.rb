@@ -94,7 +94,8 @@ class Order < ActiveRecord::Base
   end
 
   def notify_charge
-    Notification.order_email(self.user, self).deliver
+    Resque.enqueue(NewOrderEmailer, self)
+    #Notification.order_email(self.user, self).deliver
     # self.user.text("Your order has been placed!
     #    You bought: #{self.products.map(&:name).join(', ')} -
     #    Total: #{self.total_price_in_dollars}")
