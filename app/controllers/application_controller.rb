@@ -49,9 +49,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def admin_authorize
-    redirect_to root_url,
-    alert: "Not an admin and totally not cool." unless admin?
+  def admin_required
+    unless admin?
+      redirect_to root_url,
+      alert: "Not an admin and totally not cool."
+    end
+  end
+
+  def user_may_manage
+    return false unless current_user
+    unless (admin? || current_user.may_manage?(current_store))
+      redirect_to store_path(current_store),
+      alert: "You do not have management privileges for #{current_store.name}."
+    end
   end
 
   def current_user
@@ -59,11 +69,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    if current_user
-      current_user.admin
-    else
-      false
-    end
+    current_user && current_user.admin
   end
 
   def checking_out?

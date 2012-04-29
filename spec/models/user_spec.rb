@@ -65,4 +65,37 @@ describe User do
       invalid_username_user.should_not be_valid
     end
   end
- end
+
+  describe "a user with a role" do
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:store) { FactoryGirl.create(:store) }
+
+    it "acknowledges that owners may manage" do
+      store.owner.may_manage?(store).should be_true
+    end
+
+    it "acknowledges that managers may manage" do
+      user.promote(store, :manager)
+      user.may_manage?(store).should be_true
+    end
+
+    it "acknolwedges that stockers may stock" do
+      user.promote(store, :stocker)
+      user.may_stock?(store).should be_true
+    end
+
+    it "indicates that stockers may not manage" do
+      user.promote(store, :stocker)
+      user.may_manage?(store).should be_false
+    end
+
+    it "indicates that unprivileged users may not stock" do
+      user.may_stock?(store).should be_false
+    end
+
+    it "indicates that unprivileged users may not manage" do
+      user.may_manage?(store).should be_false
+    end    
+  end
+
+end

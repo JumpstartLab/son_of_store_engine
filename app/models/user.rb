@@ -23,4 +23,21 @@ class User < ActiveRecord::Base
   def stores
     Store.where(owner_id: id)
   end
+
+  def promote(store, role)
+    privileges.create(store_id: store.id, name: role)
+  end
+
+  def store_privileges(store)
+    privileges.where(store_id: store.id)
+  end
+
+  def may_manage?(store)
+    return true if admin
+    (store.owner == self) || store_privileges(store).map(&:name).include?("manager")
+  end
+
+  def may_stock?(store)
+    may_manage?(store) || store_privileges(store).map(&:name).include?("stocker")
+  end
 end
