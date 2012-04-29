@@ -17,7 +17,6 @@ StoreEngine::Application.routes.draw do
   end
   match "/code" => redirect("http://github.com/chrismanderson/store_engine")
   match "/profile" => "users#profile", as: "profile"
-  match "/dashboards" => "dashboard#index", as: "dashboards"
 
   match "/new" => "stores#new"
   match "/create" => "stores#create"
