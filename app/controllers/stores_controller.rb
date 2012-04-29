@@ -26,6 +26,7 @@ class StoresController < ApplicationController
   end
 
   def show
+    flash.keep
     return redirect_to store_products_path(current_store)
   end
 

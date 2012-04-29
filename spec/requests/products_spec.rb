@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Products" do
+describe "Products", :requests => :products do
   let!(:products) do
     (1..5).map { FactoryGirl.create(:product) }
   end
@@ -27,13 +27,13 @@ describe "Products" do
   context "editing products" do
     it "does not allow non-users to edit products" do
       visit(edit_store_product_path(products.first.store, products.first))
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges for #{products.first.store.name}")
     end
 
     it "doesn't allow non-admins to edit products" do
       login(user)
       visit(edit_store_product_path(products.first.store, products.first))
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges for #{products.first.store.name}")
     end
 
     it "allows admines to edit products" do
@@ -62,13 +62,13 @@ describe "Products" do
   context "creating products" do
     it "does not allow non-users to create products" do
       visit(new_store_product_path(products.first.store))
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges for #{products.first.store.name}")
     end
 
     it "doesn't allow non-admins to create products" do
       login(user)
       visit(new_store_product_path(products.first.store))
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges for #{products.first.store.name}")
     end
 
     it "allows admins to create products" do

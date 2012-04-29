@@ -57,8 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_may_manage
-    return false unless current_user
-    unless (admin? || current_user.may_manage?(current_store))
+    unless current_user && current_user.may_manage?(current_store)
       redirect_to store_path(current_store),
       alert: "You do not have management privileges for #{current_store.name}."
     end
