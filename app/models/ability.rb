@@ -11,6 +11,7 @@ class Ability
 
     if user.super_admin?
       can :manage, Role
+      can :manage, User
     end
 
     can :manage, Store do |store|

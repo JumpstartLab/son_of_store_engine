@@ -30,12 +30,6 @@ h2
   div class="user-edit-actions"
   = f.submit "Update My Account", :class => 'btn btn-primary'
 
-  div class="roles"
-    = f.fields_for :roles do |r|
-      - Role.all.each do |role|
-        = r.label role.name
-        = r.check_box role.id, :id => "role_#{role.id}"
-
 h3 Cancel my account
 p
   | Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete}.

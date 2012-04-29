@@ -70,6 +70,14 @@ class User < ActiveRecord::Base
     self
   end
 
+  def update_roles(role_ids)
+    self.roles = []
+
+    role_ids.each do |role_id|
+      self.roles << Role.find(role_id)
+    end
+  end
+
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
   end
