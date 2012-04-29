@@ -39,7 +39,7 @@ class UserMailer < ActionMailer::Base
 
   def invitation(email, privilege, store)
     @email = email
-    @privilege = privilege["name"]
+    @privilege = privilege
     @store_name = Store.find_by_id(store["id"]).name
     mail(:to => @email,
       :subject => "#{@store_name} wants you to sign up so you can be a #{@privilege}!" )
