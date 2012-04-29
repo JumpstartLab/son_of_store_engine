@@ -63,12 +63,6 @@ describe "the admin stores page", :requests => :admin_store do
         page.should_not have_link "Decline"
         page.should_not have_link "Disable"
       end
-
-      it "allows admin to edit store" do
-        visit admin_stores_path
-        click_link "Edit"
-        page.current_path.should == edit_store_path(store)
-      end
     end
   end  
 

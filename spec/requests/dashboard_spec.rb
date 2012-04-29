@@ -16,28 +16,6 @@ describe "Dashboard" do
     let(:user) { FactoryGirl.create(:user, :full_name => "Darth") }
     let!(:evil_order) { FactoryGirl.create(:order, :user => user) }
   
-  describe "admin access" do
-    it "requires admin login" do
-      visit dashboards_path
-      page.should have_content "Not an admin"
-    end
-  end
-
-  describe "GET /dashboard" do
-    it "disallows unprivileged users" do
-      login(user)
-      visit dashboards_path
-      page.should have_content "Not an admin"
-    end
-
-    it "disallows a user with a manager privilege" do
-      user.promote(order.store, :manager)
-      login(user)
-      visit dashboards_path
-      page.should have_content "Not an admin"
-    end
-  end
-
   describe "while admin is logged in" do
     let!(:store) { FactoryGirl.create(:store) }
     before(:each) { login(admin) }
