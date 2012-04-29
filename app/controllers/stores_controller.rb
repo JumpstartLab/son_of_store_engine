@@ -30,7 +30,6 @@ class StoresController < ApplicationController
   private
 
   def not_found
-    # raise ActionController::RoutingError.new('Store not found.'), render :status => 404
     render :text => "404 Not Found", :status => '404'
   end
 

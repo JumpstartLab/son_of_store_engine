@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :store_admins
   has_many :stores, :through => :store_admins
 
+  after_create :confirm_signup
+
   def add_order(order)
     self.orders << order
   end

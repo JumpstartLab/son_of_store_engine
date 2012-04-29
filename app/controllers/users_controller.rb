@@ -10,7 +10,6 @@ class UsersController < ApplicationController
     user_info = params[:user]
     @user = User.new(user_info)
     if @user.save
-      @user.confirm_signup
       cart = current_cart
       if user = login(user_info[:email], user_info[:password])
         successful_login(cart, user)

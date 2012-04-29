@@ -41,6 +41,7 @@ StoreEngine::Application.routes.draw do
     resources :shipping_details, only: [:new, :create, :index]
 
     namespace :admin do
+      resources :store_admins, only: [:destroy, :create]
       resources :products
       resources :categories
       resource :dashboards, only: [:show]

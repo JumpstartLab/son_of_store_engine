@@ -14,7 +14,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   config.before(:suite) do
-    
     FactoryGirl.create(:user,
       :name => "Horace Worace",
       :email => "horace@foo.com",
@@ -35,7 +34,7 @@ RSpec.configure do |config|
       :description => "errday im testin",
       :approved => true,
       :enabled => true,
-      :owner_id => User.last.id)
+      :owner_id => User.find_by_name("Horace Worace").id)
 
     FactoryGirl.create(:store,
       :name => "Best Sunglasses",
