@@ -7,6 +7,10 @@ class GuestOrdersController < ApplicationController
     @credit_card = CreditCard.new()
   end
 
+  def show
+    @order = Order.find(params[:id])
+  end
+
   def create
     @order = Order.build_for(user, current_cart)
     @order.shipping_detail = user.shipping_details.build(params[:shipping_detail])

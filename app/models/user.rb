@@ -24,9 +24,9 @@ class User < ActiveRecord::Base
   has_many :store_users
   has_many :stores, :through => :store_users
 
-  def email=(email)
-    @email = email.downcase
-  end
+  # def email=(email)
+  #   @email = email.downcase
+  # end
 
   def add_order(order)
     orders << order
