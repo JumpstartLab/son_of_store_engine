@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "As an admin visiting the dashboard" do
   let!(:store) { Store.first }
   let!(:user) { FactoryGirl.create(:user, :admin => true) }
-  let!(:store_admin2) { FactoryGirl.create(:user, :email => "admin2@worace.com", :admin => true) }
+  let!(:store_admin2) { FactoryGirl.create(:user, :name => "store admin 2", :email => "admin2@worace.com", :admin => true) }
   let!(:new_store_admin) { FactoryGirl.create(:user, :name => "Worace the Third", :email => "admin3@worace.com", :admin => true) }
 
   context "and I'm not logged in" do
@@ -20,6 +20,7 @@ describe "As an admin visiting the dashboard" do
     before(:each) do
 
       set_host(store.url_name)
+      store.add_admin(user)
       store.add_admin(store_admin2)
 
       visit "/sessions/new"
