@@ -10,4 +10,4 @@ h1 Products
           #prod-index-price
           = number_to_currency(product.price)
           #prod-index-cart
-          = link_to "Add to Cart", cart_path(:product_id => @product), :method => :put, :class=>'btn btn-mini'
+          = link_to "Add to Cart", cart_path(:product_id => product), :method => :put, :class=>'btn btn-mini'
