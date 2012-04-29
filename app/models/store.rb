@@ -6,6 +6,7 @@ class Store < ActiveRecord::Base
   has_many :carts
   has_many :orders
   has_many :categories
+  belongs_to :owner, class_name: "User", foreign_key: "owner_id"
 
   validates :slug,  :presence   => true,
                     :uniqueness => { :case_sensitive => false }
@@ -17,10 +18,6 @@ class Store < ActiveRecord::Base
 
   def to_param
     slug
-  end
-
-  def owner
-    User.find(owner_id)
   end
 
   def set_privilege(user, level)

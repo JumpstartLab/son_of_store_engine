@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
   has_many :privileges
+  has_many :stores, foreign_key: "owner_id"
 
   attr_accessible :full_name, :email, :display_name,
                   :username, :password,
@@ -19,8 +20,4 @@ class User < ActiveRecord::Base
                       :maximum => 32,
                       :allow_blank => true
 
-                      
-  def stores
-    Store.where(owner_id: id)
-  end
 end
