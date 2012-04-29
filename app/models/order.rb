@@ -54,6 +54,10 @@ class Order < ActiveRecord::Base
     total_price * 100
   end
 
+  def email
+    (user || visitor_user).email
+  end
+
   def save_with_payment
     if valid?
       create_stripe_user(stripe_card_token) unless order_user.stripe_id

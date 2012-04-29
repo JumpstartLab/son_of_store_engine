@@ -29,7 +29,7 @@ Unique Order Link: <%= link_to store_visitor_order_url(current_store, @order.uni
 </table>
 
 <h2>Shipped to:</h2>
-<%= @order.visitor_user.email %>
+<%= @order.email %>
 <%= render @address %>
 
 <h2 align="right">Total Price: 
