@@ -49,7 +49,7 @@ end
 
   def is_store_admin?
     redirect_to_last_page("Nice try, jerk.") unless
-      current_user.stores.map{|s| s.url_name }.include?(params[:id])
+      store.admins.include?(current_user)
   end
 
 private
