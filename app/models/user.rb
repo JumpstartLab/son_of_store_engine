@@ -70,6 +70,11 @@ class User < ActiveRecord::Base
     self
   end
 
+  def add_role(role)
+    roles << role
+    save
+  end
+
   def update_roles(role_ids)
     self.roles = []
 
