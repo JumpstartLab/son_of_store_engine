@@ -6,6 +6,7 @@ end
 Given /^I have added items to my cart$/ do
   product = @store.products.first
   visit new_cart_product_path(store_slug: @store.slug, id: product.id)
+  @cart_products = [product]
 end
 
 When /^I checkout$/ do
@@ -18,10 +19,12 @@ Then /^I can sign up for an account$/ do
 end
 
 Then /^I can sign in to my existing account$/ do
-  find('a', text: "Sign in")
+  find('input', value: "Log in")
 end
 
+# XXX Changed user story. Waiting for Matt's approval.
 Then /^I can provide my email, billing, shipping, and credit card info to purchase directly$/ do
+  click_on("Continue to checkout as guest")
   page.should have_selector("#new_guest_user")
 end
 
@@ -57,4 +60,28 @@ Then /^I receive an email with my order details and the unique URL for later vie
   email.from.should == ["info@berrystore.com"]
   email.to.should == [@email]
   email.subject.to_s.should include "Your Recent Mittenberry Purchase"
+end
+
+Given /^I have a StoreEngine account$/ do
+  @user = create(:user)
+end
+
+When /^I choose to sign in$/ do
+  log_in(@user)
+end
+
+Then /^I should be logged in$/ do
+  flash_text.should include "You have been signed in."
+end
+
+Then /^I am returned to my checkout process$/ do
+  cart_link = find("a", text: /Cart \(\d+\)/)
+  cart_count = cart_link.text[/\d+/].to_i
+
+  cart_count.should == @cart_products.count
+end
+
+Then /^I can make my purchase normally$/ do
+  #page.text.should include "Order Details"
+  #page.should have_selector("h1", text: /Order Details/)
 end

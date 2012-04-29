@@ -7,8 +7,11 @@ javascript:
   })
 
 = form_for user, :url => guest_orders_path(store_slug) do |u|
-  h2 Errors
-  = error_messages_for(user)
+  /- if user.errors.any?
+  /h2 Errors
+  /  ul
+  /  - user.errors.full_messages.each do |msg|
+  /    li= msg
 
   h2 Card
 

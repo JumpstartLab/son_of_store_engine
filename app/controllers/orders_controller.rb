@@ -3,8 +3,10 @@ class OrdersController < ApplicationController
   def new
     guard_new_order do
       if current_user.credit_cards.empty?
+        flash.notice = flash.notice
         redirect_to new_credit_card_path(current_store.slug) and return
       elsif current_user.shipping_details.empty?
+        flash.notice = flash.notice
         redirect_to new_shipping_detail_path(current_store.slug) and return
       end
 
@@ -19,12 +21,13 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create_for(current_user, current_cart)
+    @order = Order.build_for(current_user, current_cart)
     @order.add_shipping_detail_for(current_user, params[:order])
-
-    if @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
+    @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
+    
+    if @order.save && @order.charge(current_cart)
       redirect_to order_path(current_store.slug, @order.id),
-        :notice => "Thank you for placing an order." if @order.charge(current_cart)
+        :notice => "Thank you for placing an order."
       OrderMailer.order_confirmation(@order).deliver
     else
       render :new
