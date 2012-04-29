@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_filter :admin_required,
                 only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required
+  before_filter :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @admin = admin?
@@ -32,18 +33,15 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = current_store.products.find(params[:id])
   end
 
   def edit
-    @product = current_store.products.find(params[:id])
   end
 
   def update
-    @product = current_store.products.find(params[:id])
     if @product.update_attributes(params[:product])
       redirect_to store_dashboard_path(@product.store), 
-      :notice => "Product #{@product.title} updated."
+      :notice => "Product #{@product.title} ."
     else
       flash[:error] = @product.errors.full_messages.join(", ")
       render 'edit'
@@ -51,7 +49,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = current_store.products.find(params[:id])
     @product.destroy
     redirect_to products_path, :alert => "Product deleted."
   end
@@ -61,5 +58,9 @@ class ProductsController < ApplicationController
   helper_method :searching?
   def searching?
     session[:search]
+  end
+
+  def find_product 
+    @product = current_store.products.find(params[:id])
   end
 end
