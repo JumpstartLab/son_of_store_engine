@@ -24,6 +24,18 @@ class User < ActiveRecord::Base
   has_many :store_users
   has_many :stores, :through => :store_users
 
+  ROLES = [ :store_stocker, :store_admin, :site_admin ]
+
+  def role=(role)
+    idx = ROLES.index(role)
+    write_attribute(:role, idx)
+  end
+
+  def role
+    idx = read_attribute(:role)
+    ROLES[idx]
+  end
+
   def add_order(order)
     orders << order
   end
