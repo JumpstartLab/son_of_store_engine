@@ -19,3 +19,6 @@
 
 # Ignore exec
 /exec
+
+# I'm not even sure what this is
+dump.rdb

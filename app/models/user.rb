@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :credit_cards
   has_many :shipping_details
   has_one :cart
+  has_many :store_admins
+  has_many :stores, :through => :store_admins
 
   def add_order(order)
     self.orders << order

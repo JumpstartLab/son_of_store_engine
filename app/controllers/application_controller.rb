@@ -48,6 +48,11 @@ end
     redirect_to_last_page unless current_user.admin
   end
 
+  def is_store_admin?
+    redirect_to_last_page("Nice try, jerk.") unless 
+      current_user.stores.map{|s| s.url_name }.include?(params[:id])
+  end
+
 private
 
   def store

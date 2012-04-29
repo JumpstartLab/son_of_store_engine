@@ -14,22 +14,53 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   config.before(:suite) do
-    FactoryGirl.create(:store,
-     :name => "Best Sunglasses",
-     :url_name => "best-sunglasses",
-     :description => "errday im testin",
-     :approved => true,
-     :enabled => true)
     
+    FactoryGirl.create(:user,
+      :name => "Horace Worace",
+      :email => "horace@foo.com",
+      :display_name => "horace_worace",
+      :password => "foobar",
+      :password_confirmation => "foobar")
+
+    FactoryGirl.create(:user,
+      :name => "Harold",
+      :email => "harold@foo.com",
+      :display_name => "harold_harold",
+      :password => "foobar",
+      :password_confirmation => "foobar")
+
     FactoryGirl.create(:store,
-     :name => "Test Store",
-     :url_name => "test-store",
-     :description => "errday im testin",
-     :approved => true,
-     :enabled => true)
+      :name => "Test Store",
+      :url_name => "test-store",
+      :description => "errday im testin",
+      :approved => true,
+      :enabled => true,
+      :owner_id => User.last.id)
+
+    FactoryGirl.create(:store,
+      :name => "Best Sunglasses",
+      :url_name => "best-sunglasses",
+      :description => "errday im testin",
+      :approved => true,
+      :enabled => true,
+      :owner_id => User.all[-2].id)
+
+    FactoryGirl.create(:store, 
+      :name => "Stupid Store",
+      :url_name => "stupid-store",
+      :description => "errday im testin too",
+      :approved => nil,
+      :enabled => false,
+      :owner_id => User.all[-2].id)
+
   end
 
-  config.after(:suite) { Store.destroy_all }
+  #config.after(:suite) { Rake::Task['db:purge'].invoke }
+  config.after(:suite) do 
+    User.destroy_all 
+    Store.destroy_all
+  end
+
   #stop tests when one fails
   # config.fail_fast = true 
 
