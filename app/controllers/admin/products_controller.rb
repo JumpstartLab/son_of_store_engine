@@ -19,7 +19,7 @@ class Admin::ProductsController < ApplicationController
       redirect_to admin_product_path(current_store.slug, product.id),
         notice: 'Product was successfully created.'
     else
-      flash.now[:error] = product.errors.full_messages.join("\n")
+      flash.now[:error] = current_store.product.errors.full_messages.join("\n")
       render 'new'
     end
   end

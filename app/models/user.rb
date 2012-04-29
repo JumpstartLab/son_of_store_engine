@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name
 
   with_options :unless => :guest? do |user|
-    user.validates_uniqueness_of :email
+    user.validates :email, :uniqueness => true
     user.validates_confirmation_of :password
     user.validates :password, length: { minimum: 6, maximum: 20 }
     user.validates :display_name, length: { minimum: 2, maximum: 32 },
@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
 
   has_many :store_users
   has_many :stores, :through => :store_users
+
+  # def email=(email)
+  #   @email = email.downcase
+  # end
 
   def add_order(order)
     orders << order

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "As an admin updating products" do
-
   let!(:user) { FactoryGirl.create(:user, :admin => true) }
+  let(:store) { Factory(:store, :status => "approved") }
 
   before(:each) do
     login_user_post(user.email, "foobar")
@@ -10,7 +10,9 @@ describe "As an admin updating products" do
   
   context "when I'm on the products index page"
     let(:product) { FactoryGirl.create(:product) }
-    before(:each) { visit admin_products_path }
+    before(:each) do
+      visit admin_products_path(store.slug)
+    end
 
     context "and I click 'New Product'" do
       before(:each) { click_link("New Product")}
@@ -22,6 +24,7 @@ describe "As an admin updating products" do
       context "and I enter invalid information" do
 
         it "does not create a new product" do
+          save_and_open_page
           expect {click_link_or_button('Create Product')}.to_not change(Product, :count).by(1)
         end
 

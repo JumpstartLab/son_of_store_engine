@@ -22,7 +22,7 @@ describe "Index" do
       fill_in "password",     with: user.password_confirmation
       click_button "Log in"
       visit stores_path
-      click_link 'Add new store'
+      click_link 'Create new store'
     end
 
     it "lets me create a new store for admin view only" do
@@ -30,8 +30,7 @@ describe "Index" do
       fill_in 'store_description', :with => 'Best berries ever.'
       fill_in 'store_slug', :with => 'lingenberry'
       click_button("Create")
-      page.should_not have_content("Lingenberry")
-      page.should have_content("Store waiting approval.")
+      page.should have_content("Lingenberry at www.store-engine.com/lingenberry is waiting approval.")
     end
 
     it "won't allow me to duplicate stores" do

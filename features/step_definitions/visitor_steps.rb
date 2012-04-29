@@ -7,6 +7,7 @@ Given /^I have added items to my cart$/ do
   product = @store.products.first
   visit new_cart_product_path(store_slug: @store.slug, id: product.id)
   @cart_products = [product]
+  save_and_open_page
 end
 
 When /^I checkout$/ do
@@ -45,6 +46,7 @@ When /^I provide my info directly:$/ do |table|
   fill_in "shipping_detail_ship_to_zip",       with: table["zipcode"]
 end
 
+# http://127.0.0.1:63391/cool-sunglasses/guest_orders
 When /^I purchase my order$/ do
   click_on "Place Order"
 end

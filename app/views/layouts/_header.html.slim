@@ -11,7 +11,7 @@ header.navbar.navbar-fixed-top
               | &nbsp;&nbsp;Cart (#{get_cart_count})
           - if current_user
             li
-              = link_to current_user do
+              = link_to user_path(current_user.id) do
                 i.icon-user.icon-white
                 | &nbsp;&nbsp;#{current_user.name}
             li= link_to "Sign out", signout_path(slug: store_slug)
