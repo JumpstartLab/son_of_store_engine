@@ -35,7 +35,7 @@ RSpec.configure do |config|
      :description => "errday im testin",
      :approved => true,
      :enabled => true,
-     :owner_id => 1)
+     :owner_id => User.all[-2].id)
     
     FactoryGirl.create(:store,
      :name => "Test Store",
@@ -43,11 +43,11 @@ RSpec.configure do |config|
      :description => "errday im testin",
      :approved => true,
      :enabled => true,
-     :owner_id => 2)
+     :owner_id => User.last.id)
 
   end
 
-  #config.after(:suite) { Rake::Task['db:test:purge'].invoke }
+  #config.after(:suite) { Rake::Task['db:purge'].invoke }
   config.after(:suite) do 
     User.destroy_all 
     Store.destroy_all
