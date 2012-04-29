@@ -48,14 +48,11 @@ end
 
 # http://127.0.0.1:63391/cool-sunglasses/guest_orders
 When /^I purchase my order$/ do
-  sleep 200.0
-
   click_on "Place Order"
 end
 
 # XXX I'm not sure if this qualifies as "hashed": /crackberry/orders/14
 Then /^I am shown a confirmation page with a unique, hashed URL that displays my order details$/ do
-  save_and_open_page
   flash_text.should include "Thank you for placing an order."
 end
 
