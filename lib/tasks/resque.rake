@@ -1,8 +1,8 @@
 require 'resque/tasks'
 
 task "resque:setup" => :environment do
-    ENV['QUEUE'] = 'store_engine_mailer rake environment resque:work'
+    ENV['QUEUE'] = '*'
 end
 
-desc "Alias for resque:work (To run workers on Heroku)"
+desc "store_engine_mailer"
 task "jobs:work" => "resque:work"
