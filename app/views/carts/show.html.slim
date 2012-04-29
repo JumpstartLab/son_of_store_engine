@@ -27,6 +27,7 @@ div.cart id="cart"
         td#text Total: 
         td#total = @cart.total
       = f.submit "Update Cart", :class => 'btn'
+      
 .cart-actions
 = link_to "Checkout", checkout_prompt_path(@store), :class=>'btn btn-primary'
 = link_to "Keep Shopping", store_path(@store), :class => 'btn btn-primary'
