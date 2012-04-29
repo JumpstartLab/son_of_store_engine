@@ -8,7 +8,6 @@ Feature:
     And I have added items to my cart
 
   @javascript
-  @mofo
   Scenario: Visitor checks out without signing up
     When I checkout
     Then I can sign up for an account
