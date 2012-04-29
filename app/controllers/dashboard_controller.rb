@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
-  before_filter :admin_authorize
+  before_filter :user_may_manage, only: :show
+  before_filter :admin_required, only: :index
+
   def show
     store = current_store
     if store.nil?

@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_filter :admin_authorize, only: [:new, :create, :update, :edit]
+  before_filter :admin_required, only: [:new, :create, :update, :edit]
   before_filter :store_required
 
   def show

@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_filter :admin_authorize,
+  before_filter :admin_required,
                 only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required
 

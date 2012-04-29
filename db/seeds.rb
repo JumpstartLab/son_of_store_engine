@@ -185,6 +185,13 @@ Address.create(  street_1: "10 Street",
                      zip_code: "20001",
                   user: admin_user)
 
+#stocker = User.create(  full_name: "Andy G",
+#              password: "hungry",
+#              password_confirmation: "hungry",
+#              email: "demoXX+jeff@jumpstartlab.com",
+#              username: "j3" )
+
+
 
 # orders = Order.create([{ status: "pending", total_price: 5000},
 #                       { status: "shipped", total_price: 10000}])

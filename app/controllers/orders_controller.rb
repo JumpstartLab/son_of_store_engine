@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_filter :authorize
-  before_filter :admin_authorize, only: [:edit, :update]
+  before_filter :admin_required, only: [:edit, :update]
 
   def index
     if params[:status_search] && current_user && current_user.admin?
