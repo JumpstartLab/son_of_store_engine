@@ -42,12 +42,12 @@ describe "Products" do
       page.should have_content(products.first.title)
     end
 
-    it "edits a product when admin" do
+    it "redirects to the admin dashboard" do
       login(admin_user)
       visit(edit_store_product_path(products.first.store, products.first))
       fill_in "product[title]", :with => "Lightsaber"
       click_on "Update Product"
-      page.should have_content("Product updated.")
+      page.current_path.should == store_dashboard_path(products.first.store)
     end
 
     it "doesn't save non-valid product" do
@@ -77,14 +77,14 @@ describe "Products" do
       page.should have_content("New Product")
     end
 
-    it "saves a new product created by an admin" do
+    it "redirects to the dashboard" do
       login(admin_user)
       visit new_store_product_path(products.first.store)
       fill_in "product[title]", :with => "iPhone 5"
       fill_in "product[description]", :with => "Fancy new iphone"
       fill_in "product[price]", :with => "199.00"
       click_on "Create Product"
-      page.should have_content "Product created."
+      page.current_path.should == store_dashboard_path(products.first.store)
     end
 
     it "validation fails" do
