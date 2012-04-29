@@ -21,15 +21,19 @@
 #
 
 Fabricator(:user) do
-  name "Peter Griffin"
+  name { Faker::Name.name }
   email { Faker::Internet.email }
-  username "peter"
-  password "derpina"
+  username { Faker::Internet.user_name }
+  password { Faker::Lorem.words(3).join }
 end
 
-# Fabricator(:unique_user) do
-#   name "#{Faker::Name.first_name} #{Faker::Name.last_name}"
-#   email Faker::Internet.email
-#   username Faker::Internet.user_name
-#   password Faker::Lorem.words(1).first
-# end
+Fabricator(:admin_user, :from => :user) do
+  name { Faker::Name.name }
+  email { Faker::Internet.email }
+  username { Faker::Internet.user_name }
+  password { Faker::Lorem.words(3).join }
+  after_build do |admin_user|
+    role = Fabricate(:role, :name => 'admin')
+    admin_user.roles << role
+  end
+end

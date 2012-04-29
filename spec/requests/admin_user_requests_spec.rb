@@ -6,6 +6,7 @@ describe User do
   let! (:store) { Fabricate(:store, :users => [user]) }
   let! (:product) { Fabricate(:product, :store => store) }
   let! (:cart) { Fabricate(:cart, :store => store) }
+  let (:admin_role) { Fabricate(:role, :name => 'admin') }
 
   after(:all) do
     User.destroy_all
@@ -24,8 +25,8 @@ describe User do
     }
 
     before(:each) do
-      user.set_role('admin')
-      second_user.set_role('admin')
+      user.add_role admin_role
+      second_user.add_role admin_role
       visit products_path(store)
       login_as(user)
     end
@@ -91,14 +92,17 @@ describe User do
                   change{ store.users.count }.by(1)
         end
 
-        it "displays an 'admin deleted' message when an admin has been removed" do
-          click_button "Delete Admin"
-          page.should have_content("Admin deleted")
-        end
-
         context "when a store admin has been deleted" do
+          before(:each) do
+            fill_in "Email", :with => new_admin.email
+            click_button "Add Admin"
+          end
+          it "display an 'Administrator deleted' message" do
+            click_button "delete_admin_#{new_admin.id}"
+            page.should have_content("Administrator deleted")
+          end
           it "notifies the deleted admin that they have been removed via email" do
-            expect {click_button "Delete Admin" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+            expect {click_button "delete_admin_#{new_admin.id}" }.to change(ActionMailer::Base.deliveries, :size).by(1)
           end
         end
       end

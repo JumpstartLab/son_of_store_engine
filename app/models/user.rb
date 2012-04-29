@@ -57,17 +57,16 @@ class User < ActiveRecord::Base
   after_create :send_welcome_email
 
   def admin?
-    role == 'admin'
+    roles.include? 'admin'
   end
 
   def super_admin?
     roles.map(&:name).include? 'super_admin'
   end
 
-  def set_role(role)
-    self.role = role
+  def add_role(role)
+    roles << role
     save
-    self
   end
 
   def update_roles(role_ids)

@@ -90,7 +90,9 @@ describe User, :user_request => :user do
   describe "with role" do
     context "nil" do
       it "cannot visit the new product page" do
-        login_as(user.set_role(nil))
+        user.roles = [nil]
+        user.save
+        login_as(user)
         visit new_admin_product_path(store)
         error = "Access denied. This page is for administrators only."
         page.should have_content(error)
@@ -100,7 +102,9 @@ describe User, :user_request => :user do
 
     context "'blank'" do
       it "cannot visit the new product page" do
-        login_as(user.set_role(''))
+        user.roles = ['']
+        user.save
+        login_as(user)
         visit new_admin_product_path(store)
 
         error = "Access denied. This page is for administrators only."

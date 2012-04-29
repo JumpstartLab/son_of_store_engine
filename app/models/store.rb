@@ -100,8 +100,12 @@ class Store < ActiveRecord::Base
 
   def delete_admin_user(user_id)
     user = User.find(user_id)
-    StoreUser.find_by_user_id(user.id).destroy
-    StoreAdminMailer.delete_admin_email(user, self).deliver
+    if users.length > 1
+      StoreUser.find_by_user_id(user.id).destroy
+      StoreAdminMailer.delete_admin_email(user, self).deliver
+    else
+      false
+    end
   end
 
   private

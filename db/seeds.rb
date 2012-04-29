@@ -37,4 +37,4 @@ User.create(
   :email => 'demo10+chad@jumpstartlab.com',
   :password => 'hungry',
   :username => 'SaxPlayer'
-).set_role('admin')
+).add_role(Role.create(:name => 'admin'))

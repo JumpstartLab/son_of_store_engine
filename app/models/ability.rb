@@ -15,7 +15,7 @@ class Ability
     end
 
     can :manage, Store do |store|
-      store.users.all.include?(user)
+      store.users.all.include?(user) && user.admin?
     end
 
     can :read, :all
