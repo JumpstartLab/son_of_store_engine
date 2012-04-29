@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def may_manage?(store)
+    return true if admin
     (store.owner == self) || store_privileges(store).map(&:name).include?("manager")
   end
 

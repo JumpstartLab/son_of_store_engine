@@ -22,4 +22,11 @@ class StoresController < ApplicationController
   def show
     return redirect_to store_products_path(current_store)
   end
+
+  def edit
+    @store = Store.find_by_slug(params[:id])
+    return redirect_to @store unless current_user.may_manage?(@store)
+  end
+
+
 end

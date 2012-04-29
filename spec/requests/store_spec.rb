@@ -1,7 +1,44 @@
 require 'spec_helper'
 
 describe Store do
-  context "user is managing stores" do
+  context "user is managing an existing store" do
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:store) { FactoryGirl.create(:store) }
+    it "disallows a nonprivileged user from editing a store" do
+      login(user)
+      visit edit_store_path(store)
+      page.current_path.should == store_products_path(store)
+    end
+
+    it "disallows a stocker from editing a store" do
+      stocker = FactoryGirl.create(:user)
+      stocker.promote(store, :stocker)
+      login(stocker)
+      visit edit_store_path(store)
+      page.current_path.should == store_products_path(store)
+    end
+
+    it "disallows a guest from editing a store" do
+      visit edit_store_path(store)
+      page.current_path.should == new_session_path
+    end
+
+    it "allows a manager to edit a store" do
+      manager = FactoryGirl.create(:user)
+      manager.promote(store, :manager)
+      login(manager)
+      visit edit_store_path(store)
+      page.current_path.should == edit_store_path(store)
+    end
+
+    it "allows an admin to edit a store" do
+      user.update_attribute(:admin, true)
+      login(user)
+      visit edit_store_path(store)
+      page.current_path.should == edit_store_path(store)
+    end
+  end
+  context "user is creating stores" do
     let(:user) { FactoryGirl.create(:user) }
     it "allows a user to create a new store" do
       login(user) 

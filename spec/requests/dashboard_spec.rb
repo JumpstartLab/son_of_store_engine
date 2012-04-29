@@ -24,7 +24,14 @@ describe "Dashboard" do
   end
 
   describe "GET /dashboard" do
-    it "requires admin for logged in users" do
+    it "disallows unprivileged users" do
+      login(user)
+      visit dashboards_path
+      page.should have_content "Not an admin"
+    end
+
+    it "disallows a user with a manager privilege" do
+      user.promote(order.store, :manager)
       login(user)
       visit dashboards_path
       page.should have_content "Not an admin"
