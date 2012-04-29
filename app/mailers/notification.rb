@@ -11,6 +11,7 @@ class Notification < ActionMailer::Base
   def sign_up_confirmation(email)
      mail(:to => email, :subject => "Congrats on signing up!")
   end
+  
   def new_store_emailer(store)
     @store = store
     admin_user = store.users.first
