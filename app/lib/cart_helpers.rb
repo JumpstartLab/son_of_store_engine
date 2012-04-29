@@ -1,20 +1,22 @@
 module CartHelpers
   def find_cart
-    current_user ? find_cart_for_user : find_cart_for_guest
+    unless request.subdomain.empty?
+      current_user ? find_cart_for_user : find_cart_for_guest
+    end
   end
 
   def find_cart_for_user
     current_user.cart = Cart.create if current_user.cart.nil?
-    merge_carts(session[:cart_id]) if !session[:cart_id].blank?
+    merge_carts(session["cart_#{request.subdomain}"]) if !session["cart_#{request.subdomain}"].blank?
     @cart = current_user.cart
   end
 
   def find_cart_for_guest
-    if session[:cart_id].blank?
+    if session["cart_#{request.subdomain}"].blank?
       @cart = Cart.create
-      session[:cart_id] = @cart.id
+      session["cart_#{request.subdomain}"] = @cart.id
     else
-      @cart = Cart.find(session[:cart_id])
+      @cart = Cart.find(session["cart_#{request.subdomain}"])
     end
   end
 
@@ -24,15 +26,15 @@ module CartHelpers
   end
 
   def destroy_cart
-    Cart.find(session[:cart_id]).destroy
-    session[:cart_id] = nil
+    Cart.find(session["cart_#{request.subdomain}"]).destroy
+    session["cart_#{request.subdomain}"] = nil
   end
 
   def verify_user
-    @cart.add_user(current_user)
+    @cart.add_user(current_user) unless request.subdomain.empty?
   end
 
   def clear_cart_from_session
-    session[:cart_id] = nil
+    session["cart_#{request.subdomain}"] = nil 
   end
 end

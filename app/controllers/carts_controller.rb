@@ -10,7 +10,7 @@ class CartsController < ApplicationController
     @cart.add_product(params[:product_id])
     if @cart.save
         order = Order.charge_two_click(@cart.id)
-        session[:cart_id] = nil
+        session["cart_#{request.subdomain}"] = nil
         redirect_to order_path(order),
           :notice => "Congrats on giving us your money"
     end

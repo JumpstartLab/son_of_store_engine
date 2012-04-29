@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    cart_id = session[:cart_id]
+    cart_id = session["cart_#{request.subdomain}"]
     user = login(params[:user][:email], params[:user][:password],
             remember_me = false)
     if user.nil?
@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       flash[:error] = "You have entered an incorrect username or password"
       render 'new'
     else
-      session[:cart_id] = cart_id
+      session["cart_#{request.subdomain}"] = cart_id
       redirect_back_or_to(root_path, :notice => 'Login successful.')
     end
   end
