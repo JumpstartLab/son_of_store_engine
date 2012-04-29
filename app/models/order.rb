@@ -50,6 +50,10 @@ class Order < ActiveRecord::Base
     result ? result : ""
   end
 
+  def store_name
+    store.name
+  end
+
   def mark_as_paid
     self.order_status.update_attributes(:status => 'paid')
   end

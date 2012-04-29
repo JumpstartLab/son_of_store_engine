@@ -105,11 +105,11 @@ class Seeder
   end
 
   def self.build_users
-    User.create( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
+    User.create!( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
       password: 'hungry')
-    User.create( name: 'Jeff', display_name: 'j3',
+    User.create!( name: 'Jeff', display_name: 'j3',
       email: 'demo08+jeff@jumpstartlab.com', password: 'hungry')
-    admin = User.create( name: 'Chad Fowler', display_name: 'SaxPlayer',
+    admin = User.create!( name: 'Chad Fowler', display_name: 'SaxPlayer',
       email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
     admin.update_attribute(:site_admin, true)
   end

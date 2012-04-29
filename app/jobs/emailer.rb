@@ -1,9 +1,10 @@
 class Emailer
   @queue = :emails
-  def self.perform(to, subject, body)
+  def self.perform(method, store_id)
     # possibly long-running code to send the email
     #
 
-    $redis.set 'emailer', Store.emailer
+    # TODO: ask Jeff how this line works
+    StoreMailer.send(method.to_sym, store_id).deliver
   end
 end
