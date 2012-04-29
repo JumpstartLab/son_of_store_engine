@@ -44,7 +44,7 @@ describe "Dashboard" do
     end
   end
 
-  describe "while admin is logged in" do
+  describe "while manager is logged in" do
     let!(:store) { FactoryGirl.create(:store) }
     before(:each) { login(admin) }
     before(:each) { order.update_attribute(:store_id, store.id)}
@@ -64,6 +64,34 @@ describe "Dashboard" do
 
     it "displays the order status for each order" do
       page.should have_content(order.current_status.titleize)
+    end
+
+    it "offers me the option to hire an employee" do
+      page.should have_content("Hire an Employee")
+    end
+  end
+
+  context "When hiring an employee" do
+    let!(:store) { FactoryGirl.create(:store) }
+    before(:each) { login(admin) }
+    before(:each) { visit store_dashboard_path(store) }
+    it "adds the user as an employee if the user exists" do
+      new_employee = FactoryGirl.create(:user)
+      click_link "Add employee"
+      fill_in "Email", with: new_employee.email
+      select "stocker", from: "Role"
+      click_button "Save changes"
+      page.should have_content("hired")
+      new_employee.may_stock?(store).should be_true
+      # It should send an email
+    end
+
+    it "sends an invitation to the new employee if the account does not exist" do
+      pending
+      # It should create a temporary account
+      # It should create the privilege
+      # It should send an email
+      # The first time I sign in as the new employee, I should have to change password.
     end
   end
 end

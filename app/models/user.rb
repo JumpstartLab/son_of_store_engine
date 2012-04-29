@@ -25,7 +25,22 @@ class User < ActiveRecord::Base
   end
 
   def promote(store, role)
+    store_privileges(store).destroy_all
     privileges.create(store_id: store.id, name: role)
+    send_notice_of_promotion
+  end
+
+  def terminate!(store)
+    store_privileges(store).destroy_all
+    send_notice_of_termination
+  end
+
+  def send_notice_of_promotion
+    #TODO
+  end
+
+  def send_notice_of_termination
+    #TODO
   end
 
   def store_privileges(store)
