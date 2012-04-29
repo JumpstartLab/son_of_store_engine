@@ -1,6 +1,6 @@
 <h2>New Product</h2>
 
-<%= form_for([current_store, @product]) do |p| %>
+<%= simple_form_for([current_store, @product]) do |p| %>
   <p>
     <%= p.label :title %> <br />
     <%= p.text_field :title %>
@@ -8,11 +8,11 @@
 
    <p>
     <%= p.label :description %> <br />
-    <%= p.text_area :description %>
+    <%= p.text_area :description, :class => "input-xlarge", :size => "20x10" %> 
   </p>
 
   <p>
-    <%= p.label :price %> <br />
+    <%= p.label :price, :required => true %> <br />
     <%= p.text_field :price %>
   </p>
 
