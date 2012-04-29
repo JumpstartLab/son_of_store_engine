@@ -28,4 +28,12 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email,
       :subject => "Your Store Proposal for #{store.name} has been approved" )
   end
+
+  def promotion_notice(permission)
+    @user = User.find(permission["user_id"])
+    @store = Store.find(permission["store_id"])
+    @role = permission["name"]
+    mail(:to => @user.email,
+      :subject => "Your new job, should you choose to accept it is #{@role}." )
+  end
 end

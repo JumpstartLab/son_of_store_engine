@@ -6,4 +6,8 @@ class BackgroundJob
   def self.store_email(store)
     # enqueue store emailer
   end
+
+  def self.promotion_email(permission)
+    Resque.enqueue(PromotionEmailer, permission)
+  end
 end

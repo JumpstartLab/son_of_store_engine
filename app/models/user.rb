@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
 
   def promote(store, role)
     store_privileges(store).destroy_all
-    privileges.create(store_id: store.id, name: role)
-    send_notice_of_promotion
+    new_privilege = privileges.create!(store_id: store.id, name: role)
+    send_notice_of_promotion(new_privilege)
   end
 
   def terminate!(store)
@@ -31,8 +31,8 @@ class User < ActiveRecord::Base
     send_notice_of_termination
   end
 
-  def send_notice_of_promotion
-    #TODO
+  def send_notice_of_promotion(privilege)
+    BackgroundJob.promotion_email(privilege)
   end
 
   def send_notice_of_termination

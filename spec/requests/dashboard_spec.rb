@@ -83,7 +83,7 @@ describe "Dashboard" do
       click_button "Save changes"
       page.should have_content("hired")
       new_employee.may_stock?(store).should be_true
-      # It should send an email
+      ActionMailer::Base.deliveries.last.subject.include?("new job").should be_true
     end
 
     it "sends an invitation to the new employee if the account does not exist" do
