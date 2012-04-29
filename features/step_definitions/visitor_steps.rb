@@ -21,8 +21,9 @@ Then /^I can sign in to my existing account$/ do
   find('input', value: "Log in")
 end
 
+# XXX Changed user story. Waiting for Matt's approval.
 Then /^I can provide my email, billing, shipping, and credit card info to purchase directly$/ do
-  click_on("Continue to checkout as guest")
+  click_on("Continue to checkout as guestg")
   page.should have_selector("#new_guest_user")
 end
 
