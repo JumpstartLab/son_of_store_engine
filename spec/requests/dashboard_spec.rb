@@ -36,12 +36,6 @@ describe "Dashboard" do
       visit dashboards_path
       page.should have_content "Not an admin"
     end
-
-    it "successfully logs in an admin" do
-      login(admin)
-      visit dashboards_path
-      page.should have_content "Dashboard"
-    end
   end
 
   describe "while admin is logged in" do

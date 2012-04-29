@@ -45,7 +45,7 @@
             <ul class="dropdown-menu">
               <li><%= current_user.full_name %></li>
               <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-              <li><%= link_to "Dashboard", dashboards_path %></li>
+              <li><%= link_to "Stores", admin_stores_path %></li>
               <% if current_store %>
                 <li>
                   <%= link_to "Orders", store_orders_path(current_store) %>
