@@ -8,22 +8,22 @@ class Admin::StoresController < ApplicationController
 
   def approve
     @store.approve!
-    redirect_to admin_stores_path, notice: "Approved"
+    redirect_to admin_stores_path, notice: "#{@store.name} Approved"
   end
 
   def decline
     @store.decline!
-    redirect_to admin_stores_path, notice: "Declined"
+    redirect_to admin_stores_path, notice: "#{@store.name} Declined"
   end
 
   def enable
     @store.enable!
-    redirect_to admin_stores_path, notice: "Enabled"
+    redirect_to admin_stores_path, notice: "#{@store.name} Enabled"
   end
 
   def disable
     @store.disable!
-    redirect_to admin_stores_path, notice: "Disabled"
+    redirect_to admin_stores_path, notice: "#{@store.name} Disabled"
   end
 
   def edit

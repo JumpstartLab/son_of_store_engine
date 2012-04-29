@@ -105,4 +105,19 @@ describe "Products", :requests => :products do
       page.should have_content products.first.title
     end
   end
+
+  context "when store is disabled", :requests => :disabled_store do
+    let(:store) { products.first.store }
+
+    before(:each) do
+      store.disable!      
+    end
+
+    context "visiting main store page" do
+      it "shows store under maintenance" do
+        visit store_products_path(store)
+        page.should_not have_content(products.first.title)
+      end
+    end
+  end
 end

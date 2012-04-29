@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_filter :store_disabled
   before_filter :user_may_manage,
                 only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required
@@ -62,5 +63,11 @@ class ProductsController < ApplicationController
 
   def find_product 
     @product = current_store.products.find(params[:id])
+  end
+
+  def store_disabled
+    if current_store.disabled?
+      render "shared/store_disabled"
+    end
   end
 end
