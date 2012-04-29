@@ -148,4 +148,18 @@ describe 'Store Admin' do
       it "by entering unknown email invites that email to join as a stocker"
     end
   end
+
+
+  msg = "Store admin removes stocker
+         https://www.pivotaltracker.com/story/show/28489035"
+  pending msg do
+    context "with a stocker" do
+      it "views a list of stockers on their admin page"
+      it "can remove stockers from their store with a link on the admin page"
+      it "when removing a stocker is prompted to confirm"
+      it "after removing a stocker sees a confirmation flash message"
+      it "after removing a stocker the user is emailed a notification"
+      it "when removing stocker, and confirming, cancels and stocker lives on"
+    end
+  end
 end
