@@ -6,9 +6,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-    cart_before_login = current_cart
+    carts = current_carts
     if user = login(params[:email], params[:password], params[:remember_me])
-      transfer_cart_to_user(cart_before_login, user)
+      carts.each do |cart|
+        transfer_cart_to_user(cart, user)
+      end
       redirect_to successful_login_path, :notice => "You have been signed in."
     else
       invalid_login_credentials
@@ -22,6 +24,7 @@ class SessionsController < ApplicationController
   end
 
 private
+
   def invalid_login_credentials
     flash.now.alert = "Email or password was invalid."
   end
