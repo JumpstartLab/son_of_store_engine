@@ -1,4 +1,6 @@
 class Store < ActiveRecord::Base
+  STATUSES = %w{ approved pending declined disabled }
+
   attr_accessible :name, :slug, :description, :status
 
   validates :name, :presence => true,
@@ -15,12 +17,15 @@ class Store < ActiveRecord::Base
   has_many :store_users
   has_many :users, :through => :store_users
 
-  def self.approved
-    where(:status => "approved")
-  end
+  STATUSES.each do |status|
+    define_method(status+"!") do
+      self.status = status
+    end
 
-  def self.pending 
-    where(:status => "pending")
-  end
+    define_method(status+"?") do
+      self.status == status
+    end
 
+    scope status.to_sym, where(:status => status)
+  end
 end

@@ -1,8 +1,8 @@
 h1 Sign in
 .row
   .span6
-    = form_tag smart_store_sessions_path do
-      =hidden_field_tag :slug, store_slug
+    = form_tag sessions_path(:checkout => "true") do
+      =hidden_field_tag :slug, params[:slug]
       .field
         = label_tag :email
         = text_field_tag :email, params[:email]
@@ -15,6 +15,7 @@ h1 Sign in
       .actions= submit_tag "Log in", :id => "go_log_in"
     p 
       | New user? 
-      = link_to 'Sign up now!', smart_new_user_path
+      = link_to 'Register', new_user_path(:slug => params[:slug])
+      |  for an account.
   .span6
-    = link_to 'Continue to checkout as guest', new_guest_order_path(store_slug)
+    = link_to 'Continue to checkout as guest', new_guest_order_path(params[:slug])

@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 gem 'jquery-rails'
-#gem 'sqlite3'
 gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'sorcery'
@@ -14,6 +13,9 @@ gem 'twilio-ruby'
 gem 'slim'
 gem 'decent_exposure'
 gem 'resque'
+gem 'addressable'
+gem 'dynamic_form'
+gem 'cancan'
 
 group :production do
   gem 'pg'
@@ -32,7 +34,10 @@ group :assets do
 end
 
 group :development, :test do
-  # gem 'fabrication'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'guard-cucumber'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'capybara'

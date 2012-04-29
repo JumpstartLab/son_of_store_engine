@@ -10,6 +10,14 @@ class CartStorage
     carts[store_id]
   end
 
+  def keys
+    get_hash_from_session.keys
+  end
+
+  def values
+    get_hash_from_session.values
+  end
+
   def []=(store_id, cart_id)
     carts = get_hash_from_session
     carts[store_id] = cart_id
@@ -22,7 +30,7 @@ class CartStorage
     if session[:carts].blank?
       {}
     else
-      YAML.load(session[:carts])  
+      YAML.load(session[:carts]) rescue {}
     end
   end
 

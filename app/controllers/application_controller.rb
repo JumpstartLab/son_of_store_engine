@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_carts
+    ids = cart_storage.values
+    ids.map do |id|
+      Cart.where(id: id).first
+    end.compact
+  end
+
   def cart_storage
     @cart_storage ||= CartStorage.new(session)
   end

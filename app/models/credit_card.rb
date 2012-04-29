@@ -16,8 +16,7 @@ class CreditCard < ActiveRecord::Base
 
   def parse_stripe_customer_token(customer_token)
     self.stripe_customer_token = customer_token["id"]
-    save_card_details(customer_token["active_card"])
-    save
+    set_card_details(customer_token["active_card"])
   end
 
 
@@ -70,11 +69,10 @@ private
     false
   end
 
-  def save_card_details(card_details)
+  def set_card_details(card_details)
     self.last_four = card_details["last4"]
     self.credit_card_type = card_details["type"]
     self.exp_month = card_details["exp_month"]
     self.exp_year = card_details["exp_year"]
-    save
   end
 end

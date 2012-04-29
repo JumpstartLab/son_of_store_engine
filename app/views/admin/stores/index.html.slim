@@ -12,7 +12,7 @@ table.table.table-bordered.table-striped
         = store.name
       td= truncate(store.description, :length => 32)
       td= link_to store.slug, store_path(store.slug)
-      td= link_to "Disable", admin_store_path(store, :store => { :status => "disabled" }), :method => :put
+      td= link_to "Disable", admin_store_path(store, :store => { :status => "disabled" }), :method => :put, :id => "#{store.slug}-disable"
 h3 Pending Stores
 br
 table.table.table-bordered.table-striped
@@ -28,9 +28,9 @@ table.table.table-bordered.table-striped
       td= truncate(store.description, :length => 32)
       td= link_to store.slug, store_path(store.slug)
       td 
-        = link_to "Approve", admin_store_path(store, :store => { :status => "approved" }), :method => :put
+        = link_to "Approve", admin_store_path(store, :store => { :status => "approved" }), :method => :put, :id => "#{store.slug}-approve"
         |&nbsp;&nbsp;&nbsp;&nbsp;
-        = link_to "Decline", admin_store_path(store, :store => { :status => "declined" }), :method => :put
+        = link_to "Decline", admin_store_path(store, :store => { :status => "declined" }), :method => :put, :id => "#{store.slug}-decline"
 h3 Disabled Stores
 br
 table.table.table-bordered.table-striped
