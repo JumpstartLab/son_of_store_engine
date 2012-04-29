@@ -15,6 +15,7 @@ h1 Sign in
       .actions= submit_tag "Log in", :id => "go_log_in"
     p 
       | New user? 
-      = link_to 'Sign up now!', new_user_path(:slug => params[:slug])
+      = link_to 'Register', new_user_path(:slug => params[:slug])
+      |  for an account.
   .span6
     = link_to 'Continue to checkout as guest', new_guest_order_path(params[:slug])
