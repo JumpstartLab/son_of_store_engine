@@ -17,7 +17,7 @@
         <td><%= store.slug %></td>
         <td><%= store.status %></td>
         <td>
-          <%= link_to "Edit", edit_admin_store_path(store), method: :put, 
+          <%= link_to "Edit", edit_store_path(store), 
               :class => "btn btn-info" %>
           <% if store.pending? %>
             <%= link_to "Approve", approve_admin_store_path(store), 
