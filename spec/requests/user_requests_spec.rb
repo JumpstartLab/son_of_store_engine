@@ -124,4 +124,29 @@ describe User, :user_request => :user do
       end
     end
   end
+
+  describe "superadmins" do
+    it "can edit users" do
+      login_as_superadmin(user)
+      visit edit_user_registration_path(user)
+      page.should_not have_content "You are not authorized to access this page."
+      page.should have_button "Update My Account"
+    end
+  end
+
+  describe "admins" do
+    it "can't edit users" do
+      login_as_admin(user)
+      visit edit_user_path(user)
+      page.should have_content "You are not authorized to access this page."
+    end
+  end
+
+  describe "unauthenticated users" do
+    it "can't edit users" do
+      login_as(user)
+      visit edit_user_path(user)
+      page.should have_content "You are not authorized to access this page."
+    end
+  end
 end

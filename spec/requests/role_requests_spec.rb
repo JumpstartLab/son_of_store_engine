@@ -5,11 +5,11 @@ describe Role do
   let(:user) { Fabricate(:user) }
   let(:role) { Fabricate(:role) }
 
-  it "can be viewed on a user edit page" do
+  it "can be viewed by a super admin on a user edit page" do
     user.roles << role
-    login_as(user)
-    visit edit_user_registration_path(user)
-    page.should have_content(role.name.capitalize)
+    login_as_superadmin(user)
+    visit edit_user_path(user)
+    page.should have_content(role.name)
   end
 
   describe "superadmins" do
@@ -40,12 +40,11 @@ describe Role do
 
     it "can assign roles to a user when editing that user" do
       role2 = Role.create(:name => 'fancy_pants')
-      visit edit_user_registration_path(store)
-      page.should have_content('Fancy pants')
-      fill_password_to_update(user)
-      check("role_#{role2.id}")
-      click_button('Update My Account')
-      page.should have_content("You updated your account successfully.")
+      visit edit_user_path(user, store)
+      page.should have_content(role2.name)
+      check(role2.name)
+      click_button('Update User')
+      page.should have_content("#{user.name} updated successfully.")
       user.roles.should include role2
     end
 

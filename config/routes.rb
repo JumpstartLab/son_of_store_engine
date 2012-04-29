@@ -1,7 +1,7 @@
 StoreEngine::Application.routes.draw do
   get "stores/edit"
 
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users
 
   devise_scope :user do
     get "users/new" => "devise/registrations#new", :as => :new_user 
@@ -12,6 +12,7 @@ StoreEngine::Application.routes.draw do
 
   resources :roles
   resources :stores
+  resources :users
 
   namespace :superadmin, :path => "admin" do
     resources :stores

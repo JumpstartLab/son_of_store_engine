@@ -24,11 +24,6 @@ module UserHelper
       :with => Fabricate.attributes_for(:user)[:password]
   end
 
-  def fill_password_to_update(user)
-    fill_in "Current password",
-      :with => Fabricate.attributes_for(:user)[:password]
-  end
-
   def login_as(user)
     visit new_user_session_path
 
