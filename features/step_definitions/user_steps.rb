@@ -27,7 +27,6 @@ When /^I enter a store name, store URL identifier, and store description as "([^
 end
 
 When /^I create the store$/ do
-  save_and_open_page
   click_on("Create")
 end
 
