@@ -1,5 +1,11 @@
 class StoresController < ApplicationController
   before_filter :authorize, except: [:index, :show]
+  before_filter :foo
+
+  def foo
+    #raise request.referer
+  end
+
 
   def new
     @store = Store.new
@@ -28,5 +34,13 @@ class StoresController < ApplicationController
     return redirect_to @store unless current_user.may_manage?(@store)
   end
 
-
+  def update
+    @store = Store.find_by_slug(params[:id])
+    return redirect_to @store unless current_user.may_manage?(@store)
+    if @store.update_attributes(params[:store])
+      redirect_to store_dashboard_path(@store), :notice => "Store updated."
+    else
+      render 'edit'
+    end
+  end
 end

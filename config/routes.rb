@@ -22,7 +22,7 @@ StoreEngine::Application.routes.draw do
   match "/new" => "stores#new"
   match "/create" => "stores#create"
 
-  match "/:store_id" => "stores#show"
+  match "/:store_id" => "stores#show", via: :get
   resources :stores, path: '' do
     resources :products
     resource :dashboard, :controller => 'dashboard'
