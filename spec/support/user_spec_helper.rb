@@ -1,5 +1,4 @@
 module UserHelper
-
   def fill_product_form
     product = Fabricate.build(:product)
 
@@ -37,6 +36,18 @@ module UserHelper
     fill_in "Password", :with => Fabricate.attributes_for(:user)[:password]
 
     click_button "Log In"
+  end
+
+  def login_as_admin(user)
+    role = Role.create(:name => 'admin')
+    user.roles << role
+    login_as(user)
+  end
+
+  def login_as_superadmin(user)
+    role = Role.create(:name => 'super_admin')
+    user.roles << role
+    login_as(user)
   end
 
   def fill_billing_form
