@@ -11,7 +11,8 @@ html
       div class="navbar-inner"
         div class="container"
           ul id="nav"
-            li.nav class="brand" = "Konami Coders Inc."
+            li.nav class="brand" 
+              =link_to "Konami Coders Inc.", root_path
     
     div.container
       - flash.each do |name, msg|
