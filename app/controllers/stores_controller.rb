@@ -1,7 +1,11 @@
 class StoresController < ApplicationController
   skip_before_filter :verify_store_status
   before_filter :verify_site_admin, :only => :index
-  
+
+  def show
+    @store = Store.find(params[:id])
+  end
+
   def new
     @store = Store.new
   end
@@ -11,14 +15,8 @@ class StoresController < ApplicationController
 
     if @store.save
       @store.users << current_user
-      if current_user.site_admin == true
-        redirect_to store_path(@store.slug), :notice => "Creation."
-      else
-        store_admin = @store.users.first
-        store_admin.update_attribute(:admin, true)
-        redirect_to root_path, :notice => "#{@store.name} at www.store-engine.com/#{@store.slug} is waiting approval."
-        StoreMailer.store_creation_alert(@store).deliver
-      end
+      redirect_to "/stores/#{@store.id}", :notice => "#{@store.name} at www.store-engine.com/#{@store.slug} is waiting approval."
+      StoreMailer.store_creation_alert(@store).deliver
     else
       render :new
     end

@@ -1,4 +1,3 @@
-@wip
 Feature:
   As a user
   I can create a new store
@@ -6,7 +5,7 @@ Feature:
   Background:
     Given I am a logged in StoreEngine user
     And I visit "http://storeengine.com/profile"
-    Then I should be able to click to create a new store
+    And I click to create a new store
 
   Scenario: Creating with duplicate store name
     Given there is already a store called "Best Sunglasses"
@@ -29,7 +28,8 @@ Feature:
     And I enter a store name, store URL identifier, and store description as "Cool Sunglasses", "cool-sunglasses", and "Buy our cool sunglasses!"
     And I create the store
     Then I should see a confirmation of my store details
-    And I should my new store is pending approval
+    And I should see that my new store is pending approval
 
+  Scenario: Visiting a store that doesn't exist
     When I visit "http://storeengine.com/cool-sunglasses"
     Then I should see a not found error

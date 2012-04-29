@@ -1,7 +1,7 @@
 require "addressable/uri"
 
 Given /^I am a StoreEngine administrator$/ do
-  @user = login_as_site_admin
+  @user = log_in_as_site_admin
 end
 
 Given /^a store "([^"]*)" has been created and is pending approval$/ do |name|

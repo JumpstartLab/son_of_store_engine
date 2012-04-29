@@ -50,7 +50,7 @@ private
   end
 
   def is_logged_in?
-    redirect_to store_signin_path(:checkout => true) unless current_user
+    redirect_to signin_path(:checkout => true) unless current_user
   end
 
 end

@@ -111,7 +111,6 @@ class Seeder
       email: 'demo08+jeff@jumpstartlab.com', password: 'hungry')
     admin = User.create( name: 'Chad Fowler', display_name: 'SaxPlayer',
       email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
-    admin.update_attribute(:admin, true)
     admin.update_attribute(:site_admin, true)
   end
 

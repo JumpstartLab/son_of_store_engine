@@ -1,7 +1,6 @@
 class CartProductsController < ApplicationController
 
   def new
-    # raise current_cart.inspect
     if current_cart.add_product_by_id(params[:id])
       redirect_to cart_path
     else

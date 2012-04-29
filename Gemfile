@@ -14,6 +14,7 @@ gem 'slim'
 gem 'decent_exposure'
 gem 'resque'
 gem 'addressable'
+gem 'dynamic_form'
 
 group :production do
   gem 'pg'

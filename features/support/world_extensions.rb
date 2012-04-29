@@ -1,7 +1,7 @@
 require 'addressable/uri'
 
 module WorldExtensions
-  def login(user)
+  def log_in(user)
     visit('/signin')
     fill_in('Email', with: user.email)
     fill_in('Password', with: user.password)
@@ -10,18 +10,25 @@ module WorldExtensions
     user
   end
 
-  def login_as_site_admin
+  def log_in_as_site_admin
     user = FactoryGirl.create(:site_admin)
-    login(user)
-  end
-
-  def current_store
-    slug = current_path.split("/").first
-    Store.where(slug: slug).first
+    log_in(user)
   end
 
   def slug_for(name)
     Store.where(name: name).first.slug
+  end
+
+  def add_items_to_cart(num = 10)
+    products = Product.where(store_id: current_store.id).limit(num).to_a
+    products = (0..num).map do |n|
+      products[products.count % n+1]
+    end
+
+  end
+
+  def visit_store(name)
+    visit store_path(slug_for(name))
   end
 
   def flash_text
