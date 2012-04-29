@@ -36,4 +36,12 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email,
       :subject => "Your new job, should you choose to accept it is #{@role}." )
   end
+
+  def invitation(email, privilege, store)
+    @email = email
+    @privilege = privilege
+    @store_name = Store.find_by_id(store["id"]).name
+    mail(:to => @email,
+      :subject => "#{@store_name} wants you to sign up so you can be a #{@privilege}!" )
+  end
 end

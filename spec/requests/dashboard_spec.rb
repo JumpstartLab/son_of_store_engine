@@ -87,11 +87,12 @@ describe "Dashboard" do
     end
 
     it "sends an invitation to the new employee if the account does not exist" do
-      pending
-      # It should create a temporary account
-      # It should create the privilege
-      # It should send an email
-      # The first time I sign in as the new employee, I should have to change password.
+      click_link "Add employee"
+      fill_in "Email", with: "cheddar_bay@biscuits.com"
+      select "stocker", from: "Role"
+      click_button "Save changes"
+      page.should have_content("invited")
+      ActionMailer::Base.deliveries.last.subject.include?("sign up").should be_true
     end
   end
 end

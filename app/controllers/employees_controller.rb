@@ -6,7 +6,7 @@ class EmployeesController < ApplicationController
       @user.promote(current_store, params[:role])
       notice = "Employee #{@user.full_name} has been hired!"
     else
-      #invite
+      BackgroundJob.invitation_email(params[:email], params[:privilege], current_store)
       notice = "Employee #{params[:email]} has been invited!"
     end
     redirect_to store_dashboard_path(current_store), notice: notice
