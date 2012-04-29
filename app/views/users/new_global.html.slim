@@ -1,6 +1,8 @@
 .center
   h2 Please enter your details
-  = form_for @user, :url => store_users_path do |f|
+  = form_for @user, :url => users_path do |f|
+    =hidden_field_tag :slug, store_slug
+
     = render 'errors', :object => @user, :field => :email
     = f.text_field :email, :placeholder => "E-mail Address"
     br/

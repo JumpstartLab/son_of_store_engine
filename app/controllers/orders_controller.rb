@@ -20,12 +20,12 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.create_for(current_user, current_cart)
-    @order.add_shipping_detail(params[:order])
+    @order.add_shipping_detail_for(current_user, params[:order])
 
     if @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
       redirect_to order_path(current_store.slug, @order.id),
         :notice => "Thank you for placing an order." if @order.charge(current_cart)
-      OrderMailer.order_confirmation(@or).deliver
+      OrderMailer.order_confirmation(@order).deliver
     else
       render :new
     end
@@ -50,7 +50,7 @@ private
   end
 
   def is_logged_in?
-    redirect_to new_guest_order_path unless current_user
+    redirect_to store_signin_path(:checkout => true) unless current_user
   end
 
 end

@@ -7,6 +7,6 @@ class Category < ActiveRecord::Base
   has_many :product_categories
   has_many :products, :through => :product_categories
 
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :scope => :store_id
   validates_presence_of :name
 end
