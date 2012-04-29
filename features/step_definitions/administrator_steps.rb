@@ -19,19 +19,25 @@ end
 When /^I click "([^"]*)" for "([^"]*)"$/ do |action, store|
   # XXX we'll probably need to be smarter about this
   # after we implement subdomains and/or domains
-  slug      = @store.slug
-  button = "#{slug}-#{action}"
+  @action = action + "d"
+  slug    = @store.slug
+  button  = "#{slug}-#{action}"
 
   click_on(button)
 end
 
 Then /^I should see a confirmation flash message$/ do
-  message = "Store has been approved."
+  message = "Store has been #{@action}."
+
   flash_text.should include message
 end
 
 Then /^I should see the "([^"]*)" in the list of stores$/ do |name|
   text.should include name
+end
+
+Then /^I should not see the "([^"]*)" in the list of stores$/ do |name|
+  text.should_not include name
 end
 
 Then /^I should not see the option to "approve" or "decline" it$/ do
@@ -49,4 +55,12 @@ Then /^the user who requested approval is notified of the acceptance$/ do
   email.from.should == ["info@berrystore.com"]
   email.to.should == [@user.email]
   email.subject.to_s.should include "Your store has been approved"
+end
+
+Then /^the user who requested approval is notified of the decline/ do
+  # XXX use a fixture for the email contents
+  email = ActionMailer::Base.deliveries.first
+  email.from.should == ["info@berrystore.com"]
+  email.to.should == [@user.email]
+  email.subject.to_s.should include "Your store has been declined"
 end

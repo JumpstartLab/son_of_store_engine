@@ -1,4 +1,3 @@
-@wip
 Feature:
   As an admin
   I can  decline a new store
@@ -6,7 +5,7 @@ Feature:
   Background:
     Given I am a StoreEngine administrator
     And a store "Cool Runnings" has been created and is pending approval
-    And I visit "http://storeengine.com/admin/stores";
+    And I visit "http://storeengine.com/admin/stores"
 
   Scenario: StoreEngine admin declines a new store
     When I click "decline" for "Cool Runnings"
