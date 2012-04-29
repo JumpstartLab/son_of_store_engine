@@ -14,7 +14,7 @@ table.table.table-bordered
       td = user.email
       td = "Admin"
       td 
-         = button_to 'Delete Admin', admin_user_path(@store, :user_id => user.id), :method => :delete, :class => 'btn btn-info'
+         = button_to 'Delete Admin', admin_user_path(@store, :user_id => user.id), :method => :delete, :class => 'btn btn-info', :confirm => "Are you sure you want to remove #{user.name} as an admin?"
 
 h4 Add New Administrator
 

@@ -48,10 +48,19 @@ describe User do
           page.should have_content("Add New Administrator")
         end
 
-        it "validates the new admin's e-mail address as a valid sonofstoreengine user" do
-          fill_in "Email", :with => "bogusemailaddress@email123.com"
-          click_button "Add Admin"
-          page.should have_content "Invalid SonOfStoreEngine user"
+        context "when an admin who is not a valid sonofstoreengine user is added" do
+          before(:each) do
+            fill_in "Email", :with => "bogusemailaddress@email123.com"
+          end
+
+          it "validates the new admin's e-mail address as a valid sonofstoreengine user" do
+            click_button "Add Admin"
+            page.should have_content "User with email 'bogusemailaddress@email123.com' does not exist."
+          end
+
+          it "emails the invalid admin asking them to join sonofstoreengine" do
+            expect { click_button "Add Admin" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+          end
         end
 
         it "allows an admin to set another user as an admin for the store" do
@@ -60,10 +69,17 @@ describe User do
                   change{ store.users.count }.by(1)
         end
 
+        context "when a new store admin has been successfully added" do
+          it "emails the new store administrator" do
+            fill_in "Email", :with => new_admin.email
+            expect { click_button "Add Admin" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+          end
+        end
+
         it "displays an 'new admin successfully added' message when an admin has been added" do
           fill_in "Email", :with => new_admin.email
           click_button "Add Admin"
-          page.should have_content "New admin succesfully added"
+          page.should have_content "New admin successfully added."
         end
 
         it "allows an admin to delete another admin" do
@@ -78,6 +94,12 @@ describe User do
         it "displays an 'admin deleted' message when an admin has been removed" do
           click_button "Delete Admin"
           page.should have_content("Admin deleted")
+        end
+
+        context "when a store admin has been deleted" do
+          it "notifies the deleted admin that they have been removed via email" do
+            expect {click_button "Delete Admin" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+          end
         end
       end
     end
