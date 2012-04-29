@@ -1,6 +1,6 @@
 h3 Edit Store
 br
-= form_for(@store, :url => { controller: "admin/dashboard", action: :show} ) do |f|
+= form_for @store, :url => admin_store_path(store_slug) do |f|
   .field
     = f.label :name
     = f.text_field :name

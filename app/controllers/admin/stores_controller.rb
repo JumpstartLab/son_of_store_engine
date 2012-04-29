@@ -12,7 +12,6 @@ class Admin::StoresController < ApplicationController
   end
 
   def update
-    raise "IT'S WORKING"
     @store = Store.find(params[:id])
     @store.update_attributes(params[:store])
     if @store.status == "approved"

@@ -35,13 +35,13 @@ StoreEngine::Application.routes.draw do
 
     namespace :admin do
       resources :products
-      #resources :stores, only: [:edit, :update]
+      resource :store, only: [:edit, :update]
       resources :categories
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
       end
       resources :users, only: [:show]
-      resource :dashboards, only: [:show]
+      resource :dashboard, only: [:show]
     end
     match '/admin', :to => 'admin/dashboard#show'
     match '/admin/edit', :to => 'admin/stores#edit'
