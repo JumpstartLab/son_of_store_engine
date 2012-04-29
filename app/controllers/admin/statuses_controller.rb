@@ -1,6 +1,4 @@
-class Admin::StatusesController < ApplicationController
-  before_filter :require_login
-  before_filter :is_admin?
+class Admin::StatusesController < Admin::ApplicationController
 
   def create
     # raise params.inspect

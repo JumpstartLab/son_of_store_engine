@@ -1,6 +1,4 @@
-class Admin::ProductsController < ApplicationController
-  before_filter :require_login
-  before_filter :is_admin?
+class Admin::ProductsController < Admin::ApplicationController
 
   helper_method :product
 
