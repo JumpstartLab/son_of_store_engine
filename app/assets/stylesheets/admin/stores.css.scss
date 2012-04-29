@@ -1,3 +1,10 @@
 // Place all the styles related to the admin/stores controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+th.store_column {
+  width: 20%;
+}
+th.store_status {
+  width: 10%;
+}

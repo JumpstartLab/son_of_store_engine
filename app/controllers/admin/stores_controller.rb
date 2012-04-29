@@ -1,5 +1,5 @@
 class Admin::StoresController < ApplicationController
-
+  before_filter :admin_required
   before_filter :find_store, only: [:approve, :decline, :enable, :disable, :edit]
 
   def index

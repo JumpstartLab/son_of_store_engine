@@ -18,7 +18,7 @@ describe "Dashboard" do
   
   describe "admin access" do
     it "requires admin login" do
-      visit dashboards_path
+      visit admin_stores_path
       page.should have_content "Not an admin"
     end
   end
@@ -26,21 +26,21 @@ describe "Dashboard" do
   describe "GET /dashboard" do
     it "disallows unprivileged users" do
       login(user)
-      visit dashboards_path
+      visit admin_stores_path
       page.should have_content "Not an admin"
     end
 
     it "disallows a user with a manager privilege" do
       user.promote(order.store, :manager)
       login(user)
-      visit dashboards_path
+      visit admin_stores_path
       page.should have_content "Not an admin"
     end
 
     it "successfully logs in an admin" do
       login(admin)
-      visit dashboards_path
-      page.should have_content "Dashboard"
+      visit admin_stores_path
+      page.should have_content "Administer"
     end
   end
 
@@ -67,7 +67,7 @@ describe "Dashboard" do
     end
 
     it "offers me the option to hire an employee" do
-      page.should have_content("Hire an Employee")
+      page.should have_content("Add employee")
     end
   end
 

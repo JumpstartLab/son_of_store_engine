@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
   has_many :privileges
+  has_many :stores, foreign_key: "owner_id"
 
   attr_accessible :full_name, :email, :display_name,
                   :username, :password,
@@ -18,11 +19,6 @@ class User < ActiveRecord::Base
                       :minimum => 2,
                       :maximum => 32,
                       :allow_blank => true
-
-                      
-  def stores
-    Store.where(owner_id: id)
-  end
 
   def promote(store, role)
     store_privileges(store).destroy_all
@@ -55,4 +51,5 @@ class User < ActiveRecord::Base
   def may_stock?(store)
     may_manage?(store) || store_privileges(store).map(&:name).include?("stocker")
   end
+
 end
