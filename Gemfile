@@ -15,6 +15,7 @@ gem 'decent_exposure'
 gem 'resque'
 gem 'addressable'
 gem 'dynamic_form'
+gem 'cancan'
 
 group :production do
   gem 'pg'

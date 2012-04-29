@@ -1,17 +1,17 @@
 class OrdersController < ApplicationController
 
-  before_filter :is_logged_in?, :only => [:new]
-
   def new
-    if current_user.credit_cards.empty?
-      redirect_to new_credit_card_path(current_store.slug) and return
-    elsif current_user.shipping_details.empty?
-      redirect_to new_shipping_detail_path(current_store.slug) and return
-    end
+    guard_new_order do
+      if current_user.credit_cards.empty?
+        redirect_to new_credit_card_path(current_store.slug) and return
+      elsif current_user.shipping_details.empty?
+        redirect_to new_shipping_detail_path(current_store.slug) and return
+      end
 
-    @order = Order.new()
-    @order.credit_card = current_user.credit_cards.last
-    @order.shipping_detail = current_user.shipping_details.last
+      @order = Order.new()
+      @order.credit_card = current_user.credit_cards.last
+      @order.shipping_detail = current_user.shipping_details.last
+    end
   end
 
   def index
@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by_id(params[:id])
-    guard_order(@order) do
+    guard_show_order(@order) do
       @shipping_detail = @order.shipping_detail
       redirect_to root_path, :notice => "Order not found." if @order.nil?
     end
@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
 
 private
 
-  def guard_order(order, &block)
+  def guard_show_order(order, &block)
     if order.user.guest? || order.user == current_user
       block.call()
     else
@@ -49,8 +49,12 @@ private
     end
   end
 
-  def is_logged_in?
-    redirect_to signin_path(:checkout => true) unless current_user
+  def guard_new_order(&block)
+    if current_user
+      block.call()
+    else
+      redirect_to signin_path(:checkout => true, :slug => current_store.slug)
+    end
   end
 
 end
