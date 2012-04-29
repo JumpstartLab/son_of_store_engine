@@ -1,5 +1,6 @@
 class Admin::StoresController < ApplicationController
   before_filter :verify_site_admin
+  skip_before_filter :verify_store_status
 
   def index
     @approved_stores  = Store.where(:status => "approved")
@@ -12,17 +13,28 @@ class Admin::StoresController < ApplicationController
   end
 
   def update
-    @store = Store.find(params[:id])
+    @store = Store.where(slug: params[:store_slug]).first
     @store.update_attributes(params[:store])
-    if @store.status == "approved"
-      flash[:notice] = "Store has been approved. Sent email to #{@store.users.first.email}"
-      StoreMailer.store_approval_notification(@store).deliver
-    elsif @store.status == "declined"
-      flash[:notice] = "Store has been declined. Sent email to #{@store.users.first.email}"
-      StoreMailer.store_declined_notification(@store).deliver
-    else
-      redirect_to :back
+    if params[:store][:status] == "approved"
+      # XXX This makes me sad inside...
+      message = "Store has been approved."
+      if @store.users.first
+        message += " Sent email to #{@store.users.first.email}"
+        StoreMailer.store_declined_notification(@store).deliver
+      end
+
+      flash.notice = message
+    elsif params[:store][:status] == "declined"
+      message = "Store has been declined."
+      if @store.users.first
+        message += " Sent email to #{@store.users.first.email}"
+        StoreMailer.store_declined_notification(@store).deliver
+      end
+
+      flash.notice = message
     end
+
+    redirect_to :back, :notice => "#{@store.name} has been updated."
   end
 
   def show
