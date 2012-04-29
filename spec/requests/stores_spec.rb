@@ -1,5 +1,37 @@
 require 'spec_helper'
 
+
+describe "Given user is a store administrator" do
+  let!(:admin_user) { FactoryGirl.create(:user, :admin => true) }
+
+  context "admin visits admin page page for store" do
+    before (:each) do
+      visit "/sessions/new"
+      fill_in "email", with: admin_user.email
+      fill_in "password", with: "foobar"
+      click_link_or_button("Log in")
+      visit user_path(admin_user)
+      click_link_or_button('Create a store')
+      name = Faker::Lorem.words(3)
+      url_name = name.join("-")
+      store_description = Faker::Lorem.paragraph(1)
+      fill_in "store_name", with: "Test Store"
+      fill_in "store_url_name", with: "test-store"
+      fill_in "store_description", with: "Test the stores!"
+      click_link_or_button('Create Store')
+      @store_id = Store.all.last.id
+    end
+
+    describe "allows admin to click a link to edit store details" do
+
+      it "has an edit link" do
+        page.should have_content('Edit Store')
+      end
+    end
+  end
+end
+
+
 describe "Creating stores" do
   let!(:super_admin) { FactoryGirl.create(:user, :email => "admin@vom.com", :name => "harold", :admin => true) }
   let!(:merchant)    { FactoryGirl.create(:user, :email => "spraytan@tan.com", :name => "james")}
