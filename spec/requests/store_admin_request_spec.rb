@@ -130,4 +130,13 @@ describe 'Store Admin' do
     end
   end
 
+  msg = "Store administrator works with products as in StoreEngine.
+         https://www.pivotaltracker.com/story/show/28489023"
+  pending msg do
+    context "for a store with products" do
+      it "creates a product, sees a flash message and a list of products"
+      it "edits all attributes of a product, then see a flash and all my products"
+      it "retires a product, then see a flash message and all my products"
+    end
+  end
 end
