@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :validate_store
+  before_filter :validate_store, except: :index
   before_filter :user_may_manage, only: :show
   before_filter :admin_required, only: :index
 
