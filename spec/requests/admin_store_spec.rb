@@ -22,6 +22,12 @@ describe "the admin stores page", :requests => :admin_store do
       page.current_path.should == store_products_path(store)
     end
 
+    it "takes me to a the store dashboard" do
+      visit admin_stores_path
+      click_link "Administer"
+      page.current_path.should == store_dashboard_path(store)
+    end
+
     context "admin manipulating store status" do
       it "allows admin to accept a store request" do
         visit admin_stores_path
