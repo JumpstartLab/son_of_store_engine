@@ -1,6 +1,6 @@
 Feature:
   As an admin
-  I can  decline a new store
+  I can decline a new store
 
   Background:
     Given I am a StoreEngine administrator
