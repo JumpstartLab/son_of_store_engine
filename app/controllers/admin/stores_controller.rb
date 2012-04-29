@@ -60,19 +60,16 @@ module Admin
 
     def approve
       @store.approve
-      Notification.new_store_approval(@store).deliver
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Approved"
     end
 
     def decline
       @store.decline
-      Notification.new_store_approval(@store).deliver
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Declined"
     end
 
     def enable
       @store.enable
-      Notification.new_store_approval(@store).deliver
       redirect_to admin_stores_path, notice: "#{@store.name} Successfully Enabled"
     end
 

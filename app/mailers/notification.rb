@@ -2,10 +2,10 @@
 class Notification < ActionMailer::Base
   default :from => "noreply@ehipster.herokuapp.com"
 
-  def order_email(user, order)
+  def order_email(order)
     @order = order
-    @user = user
-    mail(:to => user.email, :subject => "Order Placed - ##{@order.id}")    
+    @user = order.user
+    mail(:to => @user.email, :subject => "Order Placed - ##{@order.id}")    
   end
 
   def sign_up_confirmation(email)
@@ -24,9 +24,8 @@ class Notification < ActionMailer::Base
     mail(:to => @admin_user.email, :subject => "New Store: #{store.name} was #{store.status_name}")
   end
 
-  def new_store_request(store)
-    admin_user = store.users.first
-    mail(:to => admin_user.email, :subject => "New Store Requested")
+  def new_store_request(user)
+    mail(:to => user.email, :subject => "New Store Requested")
   end
 
   def new_user_and_store_admin(email, store)

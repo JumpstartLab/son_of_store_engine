@@ -1,7 +1,7 @@
 class NewStoreEmailer
   @queue = :emailer
 
-  def self.perform(order)
-    Notification.order_email(order).deliver
+  def self.perform(user)
+    Notification.new_store_emailer(user).deliver
   end
 end
