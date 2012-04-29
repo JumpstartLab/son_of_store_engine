@@ -1,10 +1,38 @@
 <h1>All Stores</h1>
 
-<ul><% @stores.each do |store| %>
-  <li><%= store.name %> |
-      <%= (store.description || "(blank)").truncate(32) %> |
-      <%= store.slug %>
-      <%= store.status %>
-      <%= admin_buttons_for_store(store) %></li>
-<% end %>
-</ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Slug</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody> 
+    <% @stores.each do |store| %>
+      <tr>
+        <td><%= store.name %></td>
+        <td><%= (store.description || "(blank)").truncate(32) %></td>
+        <td><%= store.slug %></td>
+        <td><%= store.status %></td>
+        <td>
+          <%= link_to "Edit", edit_admin_store_path(store), method: :put, 
+              :class => "btn btn-info" %>
+          <% if store.pending? %>
+            <%= link_to "Approve", approve_admin_store_path(store), 
+                method: :put, :class => "btn btn-success" %>
+            <%= link_to "Decline", decline_admin_store_path(store), 
+                method: :put, :class => "btn-small btn-danger" %>
+          <% elsif store.enabled? %>
+            <%= link_to "Disable", disable_admin_store_path(store), 
+                method: :put, :class => "btn-small btn-danger" %>
+          <% elsif store.disabled? %>
+            <%= link_to "Enable", enable_admin_store_path(store),
+                method: :put, :class => "btn btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
