@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   check_authorization
+  
   protect_from_forgery
 
   before_filter :verify_store_status
