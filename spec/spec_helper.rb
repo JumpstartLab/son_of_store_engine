@@ -30,20 +30,28 @@ RSpec.configure do |config|
       :password_confirmation => "foobar")
 
     FactoryGirl.create(:store,
-     :name => "Best Sunglasses",
-     :url_name => "best-sunglasses",
-     :description => "errday im testin",
-     :approved => true,
-     :enabled => true,
-     :owner_id => User.all[-2].id)
-    
+      :name => "Test Store",
+      :url_name => "test-store",
+      :description => "errday im testin",
+      :approved => true,
+      :enabled => true,
+      :owner_id => User.last.id)
+
     FactoryGirl.create(:store,
-     :name => "Test Store",
-     :url_name => "test-store",
-     :description => "errday im testin",
-     :approved => true,
-     :enabled => true,
-     :owner_id => User.last.id)
+      :name => "Best Sunglasses",
+      :url_name => "best-sunglasses",
+      :description => "errday im testin",
+      :approved => true,
+      :enabled => true,
+      :owner_id => User.all[-2].id)
+
+    FactoryGirl.create(:store, 
+      :name => "Stupid Store",
+      :url_name => "stupid-store",
+      :description => "errday im testin too",
+      :approved => nil,
+      :enabled => false,
+      :owner_id => User.all[-2].id)
 
   end
 

@@ -5,8 +5,5 @@ FactoryGirl.define do
     name "Cool Beans"
     url_name "cool-beans"
     description "Buy our beans!"
-    approved false
-    enabled false
-    owner_id 1
   end
 end

@@ -59,6 +59,66 @@ describe "Creating stores" do
           end
         end
       end
+
+      context "and I'm an admin viewing stores" do
+        before(:each) { visit admin_stores_path }
+
+        it "shows me all of the stores in the system" do
+          Store.all.each do |store|
+            page.should have_content(store.name)
+            page.should have_content(store.url_name)
+          end
+        end
+
+        context "and I click to decline a store" do
+          before(:each) { click_link_or_button('Decline this store')}
+
+          it "declines the store" do
+            Store.last.approved.should == false
+          end
+
+          it "emails the store owner of the decline"
+        end
+
+        context "and I click to approve a store" do
+          before(:each) { click_link_or_button('Approve this store')}
+
+          it "approves the store" do
+            Store.last.approved.should == true
+          end
+
+          it "flashes a confirmation message" do
+            page.should have_content("was updated!")
+          end
+
+          it "emails the store owner that the store was approved"
+
+          context "and I want to disable the store" do
+            before(:each) { click_link_or_button('Disable this store') }
+            
+            it "disables the store" do
+              Store.first.disabled.should == true
+            end
+
+            context "and I want to enable the store" do
+              before(:each) { click_link_or_button('Enable this store') }
+
+              it "enables the store" do
+                Store.first.enabled?.should == true
+              end
+
+              context "and I visit the store" do
+                before(:each) { set_host("test-store") }
+
+                it "has a live page for the store" do
+                  visit '/'
+                  page.should have_content('Browse by category')
+                end
+              end
+            end
+          end
+        end
+      end
     end
   end
 end
