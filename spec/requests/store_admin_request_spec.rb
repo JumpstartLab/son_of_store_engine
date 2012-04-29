@@ -139,4 +139,13 @@ describe 'Store Admin' do
       it "retires a product, then see a flash message and all my products"
     end
   end
+
+  msg = "Store administrator adds new stocker.
+         https://www.pivotaltracker.com/story/show/28489031"
+  pending msg do
+    context "adds a stocker" do
+      it "by entering known email adds role of stocker to that user and emails"
+      it "by entering unknown email invites that email to join as a stocker"
+    end
+  end
 end
