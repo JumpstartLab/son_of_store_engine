@@ -16,7 +16,7 @@ class StoreMailer < ActionMailer::Base
   def store_creation_alert(store)
     @store = store
     @store_admin = @store.users.first
-    mail(:to => "#{@store_admin.name} <#{@store_admin.email}>", :subject => "Your store has been declined")
+    mail(:to => "#{@store_admin.name} <#{@store_admin.email}>", :subject => "Your store has been created")
   end
 
 end
