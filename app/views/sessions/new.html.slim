@@ -1,8 +1,8 @@
 h1 Sign in
 .row
   .span6.offset3
-    = form_tag smart_store_sessions_path do
-      =hidden_field_tag :slug, store_slug
+    = form_tag sessions_path do
+      =hidden_field_tag :slug, params[:slug]
       .field
         = label_tag :email
         = text_field_tag :email, params[:email]
@@ -13,4 +13,4 @@ h1 Sign in
         = check_box_tag :remember_me, 1, params[:remember_me]
         = label_tag :remember_me
       .actions= submit_tag "Log in", :id => "go_log_in"
-    = link_to 'Sign up now!', smart_new_user_path
+    = link_to 'Sign up now!', new_user_path

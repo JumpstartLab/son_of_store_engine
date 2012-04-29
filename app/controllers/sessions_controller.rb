@@ -11,7 +11,12 @@ class SessionsController < ApplicationController
       carts.each do |cart|
         transfer_cart_to_user(cart, user)
       end
-      redirect_to successful_login_path, :notice => "You have been signed in."
+
+      if params[:checkout] == "true"
+        redirect_to new_order_path(params[:slug]), :notice => "You have been signed in."
+      else
+        redirect_to successful_login_path, :notice => "You have been signed in."
+      end
     else
       invalid_login_credentials
       render :new
