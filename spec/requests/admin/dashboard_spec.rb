@@ -54,10 +54,16 @@ describe "As an admin visiting the dashboard" do
     it "has a link to remove a non-owner admin" do
       store.admins.each do |admin|
         within("#admin_#{admin.id}") do
-          unless store.owner == admin
+          unless store.owner == admin || admin == user
             page.should have_link("Remove Admin")
           end
         end
+      end
+    end
+
+    it "prevents me from removing myself" do
+      within("#admin_#{user.id}") do
+        page.should_not have_link("Remove Admin")
       end
     end
 

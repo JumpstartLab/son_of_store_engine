@@ -10,4 +10,9 @@ class AdminMailer < ActionMailer::Base
     @store = Store.find(store_id)
     mail(to: email, subject: "Invitation to help run #{@store.name}")
   end
+
+  def admin_removal(email, store_id)
+    @store = Store.find(store_id)
+    mail(to: email, subject: "Your admin privileges for #{@store.name} have been revoked :-(")
+  end
 end

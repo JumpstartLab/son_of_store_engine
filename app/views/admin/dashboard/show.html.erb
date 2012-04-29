@@ -22,8 +22,8 @@
       <% @admins.each do |admin| %>
         <tr id="admin_<%=admin.id%>">
       <td> <%= "#{admin.name} (#{admin.email})" %></td>
-      <% unless admin == store.owner %>
-        <td> <%= link_to "Remove Admin", admin_store_admin_path(admin), :method => "delete" %> </td>
+      <% unless admin == store.owner || admin == current_user %>
+        <td> <%= link_to "Remove Admin", admin_store_admin_path(admin), :confirm => "Really remove #{admin.name} from store admins?", :method => "delete" %> </td>
       <% end %>
     </tr>
       <% end %>

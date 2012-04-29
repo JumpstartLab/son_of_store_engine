@@ -12,12 +12,15 @@ class Emailer
     end
   end
 
-  def self.admin_mailer(action, email, store_id)
+  def self.admin_mailer(action, arg1, arg2)
     case action
     when "request_signup"
-      AdminMailer.request_admin_signup(email, store_id).deliver
+      AdminMailer.request_admin_signup(arg1, arg2).deliver
     when "new_admin_notification"
-      AdminMailer.new_admin_notification(email, store_id).deliver
+      AdminMailer.new_admin_notification(arg1, arg2).deliver
+    when "admin_removal"
+      user = User.find(arg1.to_i)
+      AdminMailer.admin_removal(user.email, arg2).deliver
     end
   end
 
