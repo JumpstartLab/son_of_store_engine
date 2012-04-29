@@ -1,6 +1,5 @@
 class StoresController < ApplicationController
   before_filter :require_login, only: [ :new, :create ]
-
   def index
     @stores = Store.where(:approved => true)
   end

@@ -19,7 +19,6 @@ end
   before_filter :find_or_create_cart
   before_filter :get_last_page
   after_filter :set_last_page
-  #before_filter :store
 
   helper_method :current_cart, :store
 

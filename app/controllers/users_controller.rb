@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_filter :is_current_user?, only: [ :show ]
 
   def new
@@ -25,19 +24,14 @@ class UsersController < ApplicationController
     @orders = current_user.recent_orders.desc
   end
 
-private
+  private
   def is_current_user?
     redirect_to_last_page unless User.find_by_id(params[:id]) == current_user
   end
 
   def successful_login(cart, user)
     cart.assign_cart_to_user(user)
-    if session[:return_to_url]
-      redirect_to session[:return_to_url]
-    else
-      flash[:message] = "Sign-up complete! You're now logged in!"
-      redirect_to root_path
-    end
+    flash[:message] = "Sign-up complete! You're now logged in!"
+    redirect_to session[:last_page] || root_path
   end
-
 end
