@@ -1,1 +1,1 @@
-worker:  bundle exec rake jobs:work QUEUE=*
+worker:  bundle exec rake resque:work QUEUE=*
