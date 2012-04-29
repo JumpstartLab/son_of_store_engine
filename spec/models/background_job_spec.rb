@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Background Job" do
+describe "Background Job", :bj => :emails do
   context ".order_emailer" do
     it "queues the order emailer in resque" do
       user = double("user", :id => 1)
@@ -16,6 +16,14 @@ describe "Background Job" do
       order = double("order", :id => 2)
       Resque.should_receive(:enqueue).with(OrderStatusEmailer, 1, 2, user.class.to_s)
       BackgroundJob.order_status_email(user, order)
+    end
+  end
+
+  context ".store_approved_email" do
+    it "queues the store approved emailer in resque" do
+      store = double("store", :id => 1)
+      Resque.should_receive(:enqueue).with(StoreApprovedEmailer, 1)
+      BackgroundJob.store_approved_email(store)
     end
   end
 end

@@ -43,7 +43,7 @@ class Store < ActiveRecord::Base
 
   def approve!
     update_attribute(:status, "enabled")
-    UserMailer.approved_store_notice(self).deliver
+    BackgroundJob.store_approved_email(self)
   end
 
   def enable!

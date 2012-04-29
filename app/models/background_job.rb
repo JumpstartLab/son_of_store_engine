@@ -7,7 +7,7 @@ class BackgroundJob
     Resque.enqueue(OrderStatusEmailer, user.id, order.id, user.class.to_s)
   end
 
-  def self.store_email(store)
-    # enqueue store emailer
+  def self.store_approved_email(store)
+    Resque.enqueue(StoreApprovedEmailer, store.id)
   end
 end
