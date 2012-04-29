@@ -17,6 +17,6 @@ class StoreMailer < ActionMailer::Base
     @store = store
     @store_admin = @store.users.first
     mail(:to => "#{@store_admin.name} <#{@store_admin.email}>", :subject => "Your store has been declined")
-  end    
+  end
 
 end
