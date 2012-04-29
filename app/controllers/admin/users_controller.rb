@@ -5,20 +5,17 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def create
-    @user = User.find_by_email(params[:email])
-    if @user.nil?
-      redirect_to admin_users_path(@store),
-      :notice => "Invalid SonOfStoreEngine user"
+    if @store.add_admin_user(params[:email])
+      notice = "New admin successfully added."
     else
-      @store.users << @user
-      redirect_to admin_users_path(@store),
-      :notice => "New admin succesfully added"
+      @store.invite_new_user(params[:email])
+      notice = "User with email '#{params[:email]}' does not exist."
     end
+    redirect_to admin_users_path(@store), :notice => notice
   end
 
   def destroy
-    StoreUser.find_by_user_id(params[:user_id]).destroy
-    notice = "Admin deleted"
-    redirect_to admin_users_path(@store), :notice => notice
+    @store.delete_admin_user(params[:user_id])
+    redirect_to admin_users_path(@store), :notice => "Admin deleted"
   end
 end
