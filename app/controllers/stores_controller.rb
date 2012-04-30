@@ -40,6 +40,7 @@ class StoresController < ApplicationController
       notify_about_approval_status(store)
     elsif params[:store][:enabled]
       notify_about_enabled_status(store)
+    else flash[:notice] = "Store has been updated successfully"
     end
   end
 

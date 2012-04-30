@@ -8,5 +8,4 @@
         = link_to "Disable", store_path(@store, store:{enabled: false}), method: :put, class: "btn btn-danger", id: "enable_toggle"
       - else
         = link_to "Enable", store_path(@store, store:{enabled: true}), method: :put, class: "btn btn-success", id: "enable_toggle"
-  - else
-    .span8 No additional actions are available at this time.
+  = link_to "Edit", edit_admin_store_path(@store), class: "btn"

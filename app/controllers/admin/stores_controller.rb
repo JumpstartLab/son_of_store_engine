@@ -1,9 +1,25 @@
 class Admin::StoresController < ApplicationController
+  before_filter :lookup_store, only: [:show, :edit]
+
   def show
-    @store = Store.find_by_domain(params[:id])
   end
 
   def index
     @stores = Store.all
+  end
+
+  def edit
+
+  end
+
+  private
+
+  def lookup_store
+    if params[:domain]
+      store_domain = params[:domain]
+    elsif params[:id]
+      store_domain = params[:id]
+    end
+    @store = Store.find_by_domain(store_domain)
   end
 end
