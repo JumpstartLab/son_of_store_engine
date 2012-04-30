@@ -25,7 +25,7 @@
               li = link_to "Orders", orders_path(:domain)
             li= link_to "My Account", user_url(current_user)
             li= link_to "Logout", logout_path, :method => :delete
-            - if admin?
+            - if admin? || current_user.is_admin_of(@current_store)
               li#admin_nav.dropdown
                 a.dropdown-toggle data-toggle="dropdown" href="#admin_nav"
                   | Admin Dashboards

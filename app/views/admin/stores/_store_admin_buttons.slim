@@ -1,11 +1,13 @@
 br/
 - if store.approval_status == "pending"
-	= link_to "Approve", store_path(store, store: { approval_status: "approved"}), method: :put, class: "btn btn-success"
-	 | 
-	= link_to "Decline", store_path(store, store: { approval_status: "declined"}), method: :put, class: "btn btn-danger"
-	 | 
+  = link_to "Approve", store_path(store, store: { approval_status: "approved"}), method: :put, class: "btn btn-success"
+    |
+  = link_to "Decline", store_path(store, store: { approval_status: "declined"}), method: :put, class: "btn btn-danger"
+    |
 - else
-	- if store.enabled
-		= link_to "Disable", store_path(store, store: { enabled: false }), method: :put, class: "btn btn-danger"
-	- else
-		= link_to "Enable", store_path(store, store: { enabled: true }), method: :put, class: "btn btn-success"
+  - if store.enabled
+    = link_to "Disable", store_path(store, store: { enabled: false }), method: :put, class: "btn btn-danger"
+  - else
+    = link_to "Enable", store_path(store, store: { enabled: true }), method: :put, class: "btn btn-success"
+- if admin?
+  = link_to "Administer", "/#{store.to_param}/admin", class: "btn"
