@@ -66,7 +66,7 @@ class ProductsController < ApplicationController
   end
 
   def store_disabled
-    if current_store.disabled?
+    if current_store && current_store.disabled?
       render "shared/store_disabled"
     end
   end
