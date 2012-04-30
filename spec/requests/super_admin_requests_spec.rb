@@ -5,7 +5,7 @@ describe "super admin" do
   let!(:store2) { Fabricate(:store, approval_status: "approved", enabled: true) }
   let!(:store3) { Fabricate(:store, approval_status: "approved", enabled: false) }
   let!(:store4) { Fabricate(:store, approval_status: "pending") }
-  let!(:user) { Fabricate(:user, id: 1, admin: true) }
+  let!(:user) { Fabricate(:user, admin: true) }
 
   context "stores dashboard" do
     before(:each) do
