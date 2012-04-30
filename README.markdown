@@ -22,3 +22,7 @@ Use POW
   curl get.pow.cx | sh
   cd ~/.pow
   ln -s /path/to/myapp son.dev
+
+Start Redis (For emailers, stripe, geocoder, etc.)
+
+  rake resque:work QUEUE=*
