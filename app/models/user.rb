@@ -5,7 +5,6 @@
 #  id                     :integer         not null, primary key
 #  name                   :string(255)
 #  username               :string(255)
-#  role                   :string(255)
 #  email                  :string(255)     default(""), not null
 #  encrypted_password     :string(255)     default(""), not null
 #  reset_password_token   :string(255)
@@ -20,7 +19,6 @@
 #  updated_at             :datetime        not null
 #
 
-
 # A user is an authenticated visitor
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -34,8 +32,7 @@ class User < ActiveRecord::Base
                   :name,
                   :password,
                   :password_confirmation,
-                  :remember_me,
-                  :role
+                  :remember_me
 
   has_one :address
   has_one :cart
@@ -57,22 +54,15 @@ class User < ActiveRecord::Base
   after_create :send_welcome_email
 
   def admin?
-    role == 'admin'
+    roles.map(&:name).include? 'admin'
   end
 
   def super_admin?
     roles.map(&:name).include? 'super_admin'
   end
 
-  def set_role(role)
-    self.role = role
-    save
-    self
-  end
-
   def add_role(role)
     roles << role
-    save
   end
 
   def update_roles(role_ids)

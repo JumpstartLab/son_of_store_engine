@@ -1,5 +1,7 @@
 # Allows administrators to CRUD items and retire them.
 class Admin::ProductsController < Admin::ApplicationController
+  load_and_authorize_resource
+
   def index
     @products = @store.products.all.sort_by { |product| product.title }
   end
@@ -10,7 +12,8 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def new
-    @product = Product.new
+    redirect_to :root_url unless can? :manage, @store
+    @product = @store.products.new
   end
 
   def create

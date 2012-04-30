@@ -15,7 +15,12 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def destroy
-    @store.delete_admin_user(params[:user_id])
-    redirect_to admin_users_path(@store), :notice => "Admin deleted"
+    if @store.delete_admin_user(params[:user_id])
+      notice = "Administrator deleted."
+    else
+      notice = "You can't delete the only administrator."
+    end
+
+    redirect_to admin_users_path(@store), :notice => notice
   end
 end

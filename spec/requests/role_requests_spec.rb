@@ -27,15 +27,36 @@ describe Role do
       expect { click_button 'Create Role' }.to change{ Role.count }.from(1).to(2)
     end
 
+    it "must create roles with unique names" do
+      visit new_role_path
+      page.should have_content('New Role')
+      page.should_not have_content('You are not authorized to access this page.')
+      fill_in 'Name', :with => role.name
+      expect { click_button 'Create Role' }.to change{ Role.count }.by(0)
+    end
+
     it "can edit roles" do
-      visit edit_role_path(role)
+      admin_role = Role.create(:name => 'admin')
+      visit edit_role_path(admin_role)
       page.should have_content('Edit Role')
       page.should_not have_content('You are not authorized to access this page.')
       fill_in 'Name', :with => 'sassy_pants'
       click_button('Update Role')
-      role.reload
-      page.should have_content("Role #{role.name} updated.")
-      role.name.should == 'sassy_pants'
+      admin_role.reload
+      page.should have_content("Role sassy_pants updated.")
+      admin_role.name.should == 'sassy_pants'
+    end
+
+    it "can't edit a role to have a blank name" do
+      admin_role = Role.create(:name => 'admin')
+      visit edit_role_path(admin_role)
+      page.should have_content('Edit Role')
+      page.should_not have_content('You are not authorized to access this page.')
+      fill_in 'Name', :with => ''
+      click_button('Update Role')
+      admin_role.reload
+      page.should_not have_content("Role sassy_pants updated.")
+      admin_role.name.should == 'admin'
     end
 
     it "can assign roles to a user when editing that user" do

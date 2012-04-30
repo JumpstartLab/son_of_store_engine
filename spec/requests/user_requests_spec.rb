@@ -83,46 +83,17 @@ describe User, :user_request => :user do
     it "can't create new products" do
       visit new_admin_product_path(store)
       page.should have_content("Log In")
-      page.should have_content("You need to sign in or sign up")
+      page.should have_content("You are not authorized to access this page.")
     end
   end
 
-  describe "with role" do
-    context "nil" do
-      it "cannot visit the new product page" do
-        login_as(user.set_role(nil))
-        visit new_admin_product_path(store)
-        error = "Access denied. This page is for administrators only."
-        page.should have_content(error)
-        page.should have_content("Products")
-      end
-    end
+  it "with role 'puppy' cannot visit the new product page" do
+    user.add_role(Role.create(:name => 'puppy'))
+    login_as(user)
+    visit new_admin_product_path(store)
 
-    context "'blank'" do
-      it "cannot visit the new product page" do
-        login_as(user.set_role(''))
-        visit new_admin_product_path(store)
-
-        error = "Access denied. This page is for administrators only."
-        page.should have_content(error)
-        page.should have_content("Products")
-      end
-    end
-
-    context "puppy" do
-      before(:all) do
-        user.role = nil
-      end
-
-      it "cannot visit the new product page" do
-        login_as(user)
-        visit new_admin_product_path(store)
-
-        error = "Access denied. This page is for administrators only."
-        page.should have_content(error)
-        page.should have_content("Products")
-      end
-    end
+    error = "You are not authorized to access this page."
+    page.should have_content(error)
   end
 
   describe "superadmins" do

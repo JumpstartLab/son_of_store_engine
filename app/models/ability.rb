@@ -5,19 +5,20 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    if user.admin?
-      can :manage, :all
-    end
-
     if user.super_admin?
       can :manage, Role
       can :manage, User
+      can :manage, Store
     end
 
-    can :manage, Store do |store|
-      store.users.all.include?(user)
-    end
+    if user.admin?
+      can :manage, Store do |store|
+        store.users.include?(user)
+      end
 
-    can :read, :all
+      can :manage, Product do |product|
+        product.new_record? || product.store.users.include?(user)
+      end
+    end
   end
 end

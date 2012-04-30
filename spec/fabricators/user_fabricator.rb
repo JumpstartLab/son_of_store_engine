@@ -5,7 +5,6 @@
 #  id                     :integer         not null, primary key
 #  name                   :string(255)
 #  username               :string(255)
-#  role                   :string(255)
 #  email                  :string(255)     default(""), not null
 #  encrypted_password     :string(255)     default(""), not null
 #  reset_password_token   :string(255)
@@ -21,15 +20,41 @@
 #
 
 Fabricator(:user) do
-  name "Peter Griffin"
+  name 'Peter Griffin'
   email { Faker::Internet.email }
-  username "peter"
-  password "derpina"
+  username 'peter'
+  password 'derpina'
 end
 
-# Fabricator(:unique_user) do
-#   name "#{Faker::Name.first_name} #{Faker::Name.last_name}"
-#   email Faker::Internet.email
-#   username Faker::Internet.user_name
-#   password Faker::Lorem.words(1).first
-# end
+Fabricator(:stocker_user, :from => :user) do
+  name 'Meg Griffin'
+  email { Faker::Internet.email }
+  username 'meg'
+  password 'derpina'
+  after_build do |stocker_user|
+    role = Fabricate(:role, :name => 'stocker')
+    stocker_user.roles << role
+  end
+end
+
+Fabricator(:admin_user, :from => :user) do
+  name 'Lois Griffin'
+  email { Faker::Internet.email }
+  username 'lois'
+  password 'derpina'
+  after_build do |admin_user|
+    role = Fabricate(:role, :name => 'admin')
+    admin_user.roles << role
+  end
+end
+
+Fabricator(:super_admin_user, :from => :user) do
+  name 'Stewie Griffin'
+  email { Faker::Internet.email }
+  username 'stewie'
+  password 'derpina'
+  after_build do |super_admin_user|
+    role = Fabricate(:role, :name => 'super_admin')
+    super_admin_user.roles << role
+  end
+end

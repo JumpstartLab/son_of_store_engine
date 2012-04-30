@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe 'Store Admin' do
-  let!(:admin) { Fabricate(:user, :role => 'admin') }
+  let!(:admin) { Fabricate(:admin_user) }
   let!(:user) { Fabricate(:user) }
+  let(:super_admin_user) { Fabricate(:super_admin_user) }
 
   let!(:stores) do
     20.times.map do |n|
@@ -17,16 +18,15 @@ describe 'Store Admin' do
 
   context 'unauthenticated user' do
     it 'redirects to root path' do
-      login_as(user)
       visit superadmin_stores_path
-      page.should have_content('Access denied. This page is for administrators only.')
+      page.should have_content('You are not authorized to access this page.')
     end
   end
 
   context 'index page' do
     before(:each) do
       visit root_url
-      login_as(admin)
+      login_as(super_admin_user)
       visit superadmin_stores_path
     end
 

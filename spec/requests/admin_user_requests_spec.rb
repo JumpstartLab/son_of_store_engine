@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe User do
   let! (:user) { Fabricate(:user) }
-  let! (:second_user) { Fabricate(:user) }
+  let (:admin_user) { Fabricate(:admin_user) }
   let! (:store) { Fabricate(:store, :users => [user]) }
   let! (:product) { Fabricate(:product, :store => store) }
   let! (:cart) { Fabricate(:cart, :store => store) }
+  let (:admin_role) { Fabricate(:role, :name => 'admin') }
 
   after(:all) do
     User.destroy_all
@@ -24,10 +25,9 @@ describe User do
     }
 
     before(:each) do
-      user.set_role('admin')
-      second_user.set_role('admin')
+      store.add_user(admin_user)
       visit products_path(store)
-      login_as(user)
+      login_as(admin_user)
     end
 
     describe "the admin dashboard" do
@@ -91,14 +91,17 @@ describe User do
                   change{ store.users.count }.by(1)
         end
 
-        it "displays an 'admin deleted' message when an admin has been removed" do
-          click_button "Delete Admin"
-          page.should have_content("Admin deleted")
-        end
-
         context "when a store admin has been deleted" do
+          before(:each) do
+            fill_in "Email", :with => new_admin.email
+            click_button "Add Admin"
+          end
+          it "display an 'Administrator deleted' message" do
+            click_button "delete_admin_#{new_admin.id}"
+            page.should have_content("Administrator deleted")
+          end
           it "notifies the deleted admin that they have been removed via email" do
-            expect {click_button "Delete Admin" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+            expect {click_button "delete_admin_#{new_admin.id}" }.to change(ActionMailer::Base.deliveries, :size).by(1)
           end
         end
       end
@@ -106,8 +109,9 @@ describe User do
 
     describe "products" do
       before(:each) do
-        user.cart = cart
-        user.cart.add_product(product)
+        admin_user.cart = cart
+        product.store = store
+        admin_user.cart.add_product(product)
         visit admin_products_path(store)
       end
 

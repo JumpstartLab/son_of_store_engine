@@ -15,7 +15,7 @@ html
             - if @store and not @store.name.blank?
               li.nav class="brand" = link_to "#{@store.name.titlecase}", products_path(@store)
             - if @store and can? :manage, @store
-              li.nav = link_to("Admin Dashboard", admin_dashboard_path)
+              li.nav = link_to("Admin Dashboard", admin_dashboard_path(@store))
             - if current_user
               - if @store
                 li.nav = link_to("My Orders", orders_path(@store))
