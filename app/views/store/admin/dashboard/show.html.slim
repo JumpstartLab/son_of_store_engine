@@ -2,9 +2,31 @@ h1 Admin Dashboard for #{@store.name}
 .row
   .span6 style="margin-bottom:20px"
     h4
+      | Creator: #{@store.creator}
+      br/
+      br/
+      | Admins:
+      ul
+      - @store.admins.each do |store_admin|
+        li= store_admin.name
+        | &nbsp;
+        = link_to 'Delete as admin', admin_user_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
+      br/
+      br/
+      | Stockers:
+      - @store.stockers.each do |store_admin|
+        li= store_admin.name
+        | &nbsp;
+        = link_to 'Delete as admin', admin_user_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
+    br/
+    h4
       = link_to "Edit #{@store.name}", admin_edit_path(id: current_store.id)
+      | &nbsp;|&nbsp;
+      = link_to 'Add new store admin', admin_store_admin_new_path(@store.slug)
+      | &nbsp;|&nbsp;
+      = link_to 'Add stocker', admin_store_stocker_new_path(@store.slug)
 
-.row
+.row.row
   .span6 style="margin-bottom:20px"
     h4
       = link_to 'Add a product', new_admin_product_path(store_slug: store_slug)
@@ -52,7 +74,7 @@ h3
         th Date
         th Status
         th Actions
-      = render :partial => "admin/orders/admin_order", :collection => @orders
+      = render :partial => "store/admin/orders/admin_order", :collection => @orders
     h2 Categories
     table.table.table-bordered.table-striped
       = render :partial => "store/categories/category", :collection => @categories

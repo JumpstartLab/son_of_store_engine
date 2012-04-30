@@ -1,5 +1,5 @@
 tr
-  td= link_to "Order ##{admin_order.id} - #{admin_order.user.name}", order_path(store_slug: store_slug, id: admin_order.id)
+  td= link_to "Order ##{admin_order.id} - #{admin_order.user.name}", admin_order_path(store_slug: store_slug, id: admin_order.id)
   td= admin_order.created_at
   td= admin_order.status
   td= order_actions_by_status(admin_order)

@@ -32,6 +32,21 @@ class Store < ActiveRecord::Base
     scope status.to_sym, where(:status => status)
   end
 
+  def stockers
+    x = Role.where(:store_id => self.id).select { |role| role.name == "store_stocker" }
+    users = x.collect{ |role| role.user }
+  end
+
+  def creator
+    x = Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
+    users = x.collect{ |role| role.user }.first.name
+  end
+
+  def admins
+    x = Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
+    users = x.collect{ |role| role.user }
+  end
+
   def active_products
     Product.where(:store_id => id).where(:retired => false)
   end
