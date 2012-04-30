@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def places_of_employment
-    privileges.collect do |priv|
+    p = privileges.collect do |priv|
       priv.store
     end
   end

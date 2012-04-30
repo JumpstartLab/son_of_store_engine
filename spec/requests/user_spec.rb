@@ -163,4 +163,27 @@ describe "User" do
       page.current_path.should == root_path
     end
   end
+  
+  context "user is employed", :dork => :test do
+    let!(:user3) { FactoryGirl.create(:user)}
+    let!(:store1) { FactoryGirl.create(:store)}
+    let!(:store2) { FactoryGirl.create(:store)}
+
+    before(:each) do
+      user3.promote(store1, :stocker)
+      user3.promote(store2, :manager)
+      login(user3)
+      visit profile_path
+    end
+
+    it "shows stocker" do
+      page.should have_content store1.name
+      page.should have_content 'stocker'
+    end
+
+    it "shows manager" do
+      page.should have_content store2.name
+      page.should have_content 'manager'
+    end
+  end
 end

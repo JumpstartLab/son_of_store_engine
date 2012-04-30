@@ -35,7 +35,7 @@
 
 <h1>Your Jobs</h1>
 
-<% if @user.stores.count > 0 %>
+<% if @places_of_employment.count > 0 %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -45,7 +45,7 @@
     </tr>
   </thead>
   <tbody> 
-    <% @user.places_of_employment.each do |store| %>
+    <% @places_of_employment.each do |store| %>
       <tr>
         <td><%= store.name %></td>
         <td><%= @user.store_role(store) %></td>

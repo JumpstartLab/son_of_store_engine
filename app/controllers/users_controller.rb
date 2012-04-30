@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def profile
     @user = current_user
+    @places_of_employment = @user.places_of_employment
   end
 
   def new
