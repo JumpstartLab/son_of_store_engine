@@ -1,4 +1,5 @@
-class Admin::CategoriesController < Admin::ApplicationController
+class Store::Admin::CategoriesController < Store::Admin::BaseController
+  load_and_authorize_resource
 
   def new
     @category = Category.new
@@ -10,9 +11,7 @@ class Admin::CategoriesController < Admin::ApplicationController
   end
 
   def create
-    @category = Category.create(params[:category])
-
-    if @category.save
+    if @category = current_store.categories.create(params[:category])
       redirect_to admin_products_path,
       notice: 'Category was successfully created.'
     else

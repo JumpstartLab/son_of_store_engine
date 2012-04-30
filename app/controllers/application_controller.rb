@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :verify_store_status
-
+  
   helper_method :current_cart
   helper_method :current_store
   helper_method :verify_store_status
@@ -28,24 +28,7 @@ class ApplicationController < ActionController::Base
     @cart_storage ||= CartStorage.new(session)
   end
 
-  # def redirect_to_last_page(message=nil)
-  #   last_page = params[:last_page] || session[:last_page]
-  #   if last_page
-  #     redirect_to(last_page, :notice => message)
-  #   else
-  #     redirect_to(root_path, :notice => message)
-  #   end
-  # end
-
-  def redirect_to_login(message=nil)
-    #redirect_to signin_path
-  end
-
-  def is_admin?
-    #redirect_to_last_page unless current_user.admin
-  end
-
-private
+  private
 
   def get_cart_from_session
     cart_id = cart_storage[current_store.id]
@@ -73,11 +56,4 @@ private
       redirect_to stores_path, :notice => "That store has been disabled."
     end
   end
-
-  def verify_site_admin
-    redirect_to root_path, :notice => "You are not a site admin." unless
-      current_user && current_user.site_admin == true
-  end
-
-  
 end

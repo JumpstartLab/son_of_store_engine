@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120429233917) do
+ActiveRecord::Schema.define(:version => 20120430002159) do
 
   create_table "cart_products", :force => true do |t|
     t.integer  "cart_id"
@@ -116,6 +116,14 @@ ActiveRecord::Schema.define(:version => 20120429233917) do
   add_index "products", ["store_id", "id"], :name => "index_products_on_store_id_and_id"
   add_index "products", ["store_id"], :name => "index_products_on_store_id"
 
+  create_table "roles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.integer  "store_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "shipping_details", :force => true do |t|
     t.string   "ship_to_name"
     t.string   "ship_to_address_1"
@@ -152,14 +160,6 @@ ActiveRecord::Schema.define(:version => 20120429233917) do
 
   add_index "stores", ["slug"], :name => "index_stores_on_path"
 
-  create_table "roles", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "role"
-    t.integer  "store_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                        :null => false
     t.string   "name",                         :null => false
@@ -171,7 +171,6 @@ ActiveRecord::Schema.define(:version => 20120429233917) do
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
     t.string   "type"
-    t.integer  "role"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

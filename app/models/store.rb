@@ -31,4 +31,13 @@ class Store < ActiveRecord::Base
 
     scope status.to_sym, where(:status => status)
   end
+
+  def active_products
+    Product.where(:store_id => id).where(:retired => false)
+  end
+
+  def retired_products
+    Product.where(:store_id => id).where(:retired => true)
+  end
+
 end

@@ -1,4 +1,4 @@
-class Admin::OrdersController < Admin::ApplicationController
+class Store::Admin::OrdersController < Store::Admin::BaseController
 
   def index
     @orders = current_store.orders

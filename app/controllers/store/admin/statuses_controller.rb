@@ -1,4 +1,4 @@
-class Admin::StatusesController < Admin::ApplicationController
+class Store::Admin::StatusesController < Store::Admin::BaseController
 
   def create
     # raise params.inspect
@@ -7,7 +7,7 @@ class Admin::StatusesController < Admin::ApplicationController
   def update
     @order_status = OrderStatus.find_by_order_id(params[:order_id])
     @order_status.update_status(params[:new_status])
-    redirect_to_last_page("Status updated!")
+    redirect_to admin_store_path(current_store), :notice => "Status updated!"
   end
 
 end

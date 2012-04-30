@@ -1,8 +1,9 @@
-class Admin::ProductsController < Admin::ApplicationController
-  helper_method :product
+class Store::Admin::ProductsController < Store::Admin::BaseController
+  authorize_resource
+  helper_method :product, :products
 
   def index
-    @retired_products = current_store.products.retired
+    @retired_products = current_store.retired_products
     @categories = current_store.categories
   end
 
@@ -50,12 +51,12 @@ private
     if params[:product_id] || params[:id]
       @product ||= current_store.products.where(id: params[:product_id] || params[:id]).first
     else
-      @product ||=current_store.products.build(params[:product])
+      @product ||= current_store.products.build(params[:product])
     end
   end
 
   def products
-    @products = current_store.products.active
+    @products = current_store.active_products
   end
 
 end

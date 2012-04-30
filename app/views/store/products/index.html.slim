@@ -3,7 +3,7 @@
     h4 Browse by category:
     br/
     ul.nav.nav-pills
-      = render :partial => "categories/category", :collection => @categories
+      = render :partial => "store/categories/category", :collection => @categories
 ul.thumbnails
   - @products.each_slice(3) do |slice|
     .row style="margin-bottom:20px"

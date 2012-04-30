@@ -1,4 +1,4 @@
-class CallsController < ApplicationController
+class Store::CallsController < ApplicationController
   def create
     render :layout => "empty"
 

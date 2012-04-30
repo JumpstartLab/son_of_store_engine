@@ -6,6 +6,7 @@ class Seeder
     build_categories
     build_products(50)
     build_orders(100)
+    build_roles
   end
 
   def self.at_least_two(max)
@@ -104,16 +105,22 @@ class Seeder
     end
   end
 
+  def self.build_roles
+    Store.all.each do |store|
+      store.roles << Role.create(user: User.find(1), name: "store_admin")
+    end
+  end
+
   def self.build_users
     stocker = User.new( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
       password: 'hungry')
-    stocker.roles.build(role: "store_stocker", store: Store.find(1))
+    stocker.roles.build(name: "store_stocker", store: Store.find(1))
     stocker.save
     User.new( name: 'Jeff', display_name: 'j3',
       email: 'demo08+jeff@jumpstartlab.com', password: 'hungry')
     admin = User.new( name: 'Chad Fowler', display_name: 'SaxPlayer',
       email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
-    admin.roles.build(role: "site_admin")
+    admin.roles.build(name: "site_admin")
     admin.save
   end
 
