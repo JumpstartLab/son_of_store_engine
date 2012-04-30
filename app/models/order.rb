@@ -16,6 +16,7 @@ class Order < ActiveRecord::Base
   belongs_to :visitor_user
   belongs_to :address
 
+  validates_presence_of :store_id
 
   scope :pending, where(status: "pending")
   scope :paid, where(status: "paid")

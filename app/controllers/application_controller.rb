@@ -6,38 +6,22 @@ class ApplicationController < ActionController::Base
   private
 
   def lookup_cart
+    return nil unless current_store
     if current_user
-      current_user.cart = Cart.create if current_user.cart.nil?
-      @cart = current_user.cart
-      if @cart.id != session[:cart_id]
-        merge_cart(session[:cart_id]) unless session[:cart_id].blank?
-      end
+      @cart = find_or_create_user_store_cart
     else
-      @cart = new_cart
+      @cart = find_or_create_session_store_cart
     end
+   session["#{current_store.slug}_cart_id"] = @cart.id
   end
 
-  def new_cart
-    if session[:cart_id]
-      @cart = Cart.find_by_id(session[:cart_id])
-    end
-    @cart ||= Cart.create
-    session[:cart_id] = @cart.id
-    @cart
+  def find_or_create_session_store_cart
+    cart_id = session["#{current_store.slug}_cart_id"] || current_store.carts.create.id
+    Cart.find(cart_id)
   end
 
-  def merge_cart(session_cart_id)
-    session_cart = Cart.find_by_id(session_cart_id)
-    if !session_cart.nil?
-      session_cart.cart_items.each do |ci|
-        if !@cart.items.include?(ci.product)
-          @cart.cart_items << ci
-        else
-          @cart.increment_quantity_for(ci.product_id, ci.quantity)
-        end
-      end
-    end
-    session[:cart_id] = @cart.id
+  def find_or_create_user_store_cart
+    current_user.store_cart(current_store) || find_or_create_session_store_cart
   end
 
   def authorize
