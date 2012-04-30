@@ -2,7 +2,7 @@
   require 'resque/server'
 
   mount Resque::Server.new, :at => "/resque"
-  get "login" => 'sessions#new'
+  get "login" => 'sessions#new' 
   get "logout" => 'sessions#destroy', :as => "logout"
 
   resources :sessions, :pages
@@ -47,7 +47,7 @@
     resources :products, :only => [:show, :index] do
       resources :product_ratings, :only => [:create, :edit, :update]
     end
-    resources :categories, :only => [:show]
+    resources :categories, :only => [:show, :index]
     resources :orders, :only => [:show, :new] do
       collection do
         put 'charge'

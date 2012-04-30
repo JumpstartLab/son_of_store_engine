@@ -36,8 +36,9 @@ module NavHelper
       "Home" => root_path,
       "Cart" => cart_path,
       "Sales" => sales_path,
-      "Dashboard" => admin_dashboard_path,
+      "Admin Dashboard" => admin_dashboard_path,
       "My Orders" => my_orders_orders_path,
+      "Profile" => profile_path,
       "Logout" => logout_path
     }
   end
@@ -48,6 +49,7 @@ module NavHelper
       "Cart" => cart_path,
       "Sales" => sales_path,
       "My Orders" => my_orders_orders_path,
+      "Profile" => profile_path,
       "Logout" => logout_path
     }
   end
