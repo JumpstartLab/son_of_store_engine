@@ -17,7 +17,6 @@ end
 
 module StoreEngine
   class Application < Rails::Application
-    config.middleware.use Rack::Pjax
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
