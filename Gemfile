@@ -19,7 +19,6 @@ gem 'unicorn'
 #gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 
 gem 'pg'
-gem 'activerecord-postgres-adapter'
 
 # Gems used only for assets and not required
 # in production environments by default.
