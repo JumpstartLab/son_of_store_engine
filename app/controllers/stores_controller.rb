@@ -1,11 +1,5 @@
 class StoresController < ApplicationController
   before_filter :authorize, except: [:index, :show]
-  before_filter :foo
-
-  def foo
-    #raise request.referer
-  end
-
 
   def new
     @store = Store.new

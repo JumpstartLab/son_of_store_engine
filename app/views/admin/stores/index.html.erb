@@ -1,7 +1,7 @@
 <h1>Stores by User</h1>
 <br/>
-<% @stores.each do |store| %>
-  <h2><%= store.owner.full_name %></h2>
+<% @users.each do |user| %>
+  <h2><%= user.full_name %></h2>
   <br/>
 
 <table class="table table-striped">
@@ -15,6 +15,7 @@
     </tr>
   </thead>
   <tbody> 
+      <% user.stores.each do |store| %>
       <tr>
         <td><%= link_to store.name, store_path(store) %></td>
         <td><%= (store.description || "(blank)").truncate(32) %></td>
@@ -37,6 +38,7 @@
           <% end %>
         </td>
       </tr>
+    <% end %>
   </tbody>
 </table>
 <% end %>
