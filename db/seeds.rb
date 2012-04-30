@@ -43,21 +43,40 @@ boot_category = first_store.categories.create( title: "Boot")
 def seed_products(store, count)
   count.times do |i| 
     puts "Seeding product #{i}"
-    title = Faker::Lorem.words(1).join(" ") 
+    title = Faker::Lorem.words(2).join("#{i}") 
     desc = Faker::Lorem.words(1000).join(" ") 
     link = "http://dl.dropbox.com/u/71404227/100896-p-2x.png"
-    store.products.create(:title => title, :description => desc, 
+    store.products.create!(:title => title, :description => desc, 
                           :price => rand(2000), :image_link => link)
   end
 end
 
-def create_users(count)
+def seed_users(count)
   count.times do |i|
-    User.create(  full_name: Faker::Name.name,
+    puts "seeding user #{i}"
+    User.create!(  full_name: "full_name#{i}",
               password: "hungry",
               password_confirmation: "hungry",
-              sequence(:email) { |n| "user#{n}@example.com" },
-              sequence(:username) { |n| "user#{n}" } )
+              email: "user#{i}@example.com",
+              username: "user#{i}")
+  end
+end
+
+
+
+def seed_orders(store, count)
+
+  count.times do |i|
+    puts "seeding order #{i}"
+    o = store.orders.create(
+     user: User.all.sample
+     )
+    product = store.products.sample
+    o.order_items.create!(
+     product_id: product.id,
+     quantity: 1,
+     unit_price: product.price
+     )
   end
 end
 
@@ -169,6 +188,8 @@ products = first_store.products.create([{ title: 'Moccasin',
                         categories: [female_category, dress_category]}])
 
 seed_products(second_store, 10000)
+seed_users(10000)
+seed_orders(second_store, 10000)
 
 admin_user = User.new(  full_name: "Chad Fowler",
                         password: "hungry",
