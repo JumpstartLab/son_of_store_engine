@@ -41,5 +41,4 @@ describe "AuthenticationPages" do
     end
 
   end
-
 end
