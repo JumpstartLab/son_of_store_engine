@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   def notify_user_about_sign_up
     @user.send_welcome_email
     session[:user_id] = @user.id
-    redirect_to session[:return_to], notice: "Welcome Aboard"
+    redirect_to session[:return_to], notice: "Welcome Aboard. <a href='/profile'>View Your Profile</a>".html_safe
   end
 
 end
