@@ -8,7 +8,6 @@ StoreEngine::Application.configure do
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
-  ENV["REDISTOGO_URL"] = 'redis://redistogo:5c89ed218d04538e883296814b4a08f6@drum.redistogo.com:9640/'
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true

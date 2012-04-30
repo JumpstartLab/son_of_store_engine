@@ -5,6 +5,7 @@ if Rails.env.production?
 elsif Rails.env.development?
   redis_url = 'localhost:6379'
 end
+
 uri = URI.parse(redis_url)
 Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
