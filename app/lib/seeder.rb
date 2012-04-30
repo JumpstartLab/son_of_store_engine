@@ -84,12 +84,13 @@ class Seeder
       product = Product.create( name: "The #{Faker::Name.name}",
         description: Faker::Lorem.paragraph(3),
         price: (15 + rand(10) + rand(4)*0.25) )
-      (rand(3) + 1).times do
-        offset = rand(Category.count)
-        product.add_category(Category.first(:offset => offset))
-        product.store = Store.first(:offset => rand( Store.count ))
-        product.save
+      product.store = Store.first(:offset => rand( Store.count ))
+      store_categories = product.store.categories
+      Seeder.at_least_one(3).times do
+        category_to_add = store_categories[rand(store_categories.size)]
+        product.add_category(category_to_add)
       end
+      product.save
     end
   end
 

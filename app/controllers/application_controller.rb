@@ -45,7 +45,11 @@ class ApplicationController < ActionController::Base
   end
 
   def url_options
-    { :store_slug => current_store.slug }.merge(super)
+    if current_store
+      { :store_slug => current_store.slug }.merge(super)
+    else
+      super
+    end
   end
 
   def create_new_cart
