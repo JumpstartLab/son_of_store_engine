@@ -162,4 +162,42 @@ describe Store do
       end
     end
   end
+
+  context "when a user is added as a new admin to the store" do
+    let! (:admin_user) { Fabricate(:admin_user) }
+    let! (:store) { Fabricate(:store, :users => [admin_user]) }
+
+    it "emails user" do
+      mailer = double("string")
+      StoreAdminMailer.stub(:new_admin_email).with(admin_user, store).and_return mailer
+      mailer.should_receive(:deliver)
+      store.add_admin_from_form(admin_user.email)
+    end
+  end
+
+  # context "when a user is removed as an admin from the store" do
+  #   let (:admin_user) { Fabricate(:admin_user) }
+  #   let (:second_admin_user) { Fabricate(:admin_user) }
+  #   let (:store) { Fabricate(:store, :users => [admin_user]) }
+
+  #   it "emails user" do
+  #     mailer = double("string")
+  #     StoreAdminMailer.stub(:delete_admin_email).with(admin_user, store).and_return mailer
+  #     mailer.should_receive(:deliver)
+  #     store.delete_admin_user(admin_user.id)
+  #   end
+  # end
+
+  context "when a non-sonofstoreengine user is added as a store admin" do
+    let (:email) { "wazootyman@wazootyman.com" }
+    let! (:store) { Fabricate(:store) }
+
+    it "emails user" do
+      mailer = double("string")
+      StoreAdminMailer.stub(:invite_admin_email).with(email, store).and_return mailer
+      mailer.should_receive(:deliver)
+      store.invite_new_admin(email)
+    end
+  end
+
 end

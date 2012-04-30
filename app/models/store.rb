@@ -11,6 +11,8 @@
 #  updated_at  :datetime        not null
 #
 
+
+
 # Represents a store that is owned by a particular user
 class Store < ActiveRecord::Base
   attr_accessible :name, :user_id, :slug, :description, :status, :css
@@ -115,7 +117,7 @@ class Store < ActiveRecord::Base
 
   def invite_new_admin(email)
     StoreAdminMailer.invite_admin_email(email, self).deliver
-  end  
+  end
 
   def invite_new_stocker(email)
     StoreStockerMailer.invite_stocker_email(email, self).deliver

@@ -19,6 +19,7 @@ class StoreStockerMailer < ActionMailer::Base
   def delete_stocker_email(user, store)
     @user = user
     @store = store
-    mail(:to => user.email, :subject => "You have been removed as store stocker")
+    mail(:to => user.email, :subject =>
+      "You have been removed as store stocker")
   end
 end
