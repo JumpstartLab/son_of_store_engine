@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_one :billing_method
   has_one :shipping_address
   has_many :orders
+  has_many :store_permissions
   has_secure_password
 
   validates_presence_of :full_name, :email_address
@@ -47,6 +48,9 @@ class User < ActiveRecord::Base
     UserMailer.welcome_email(self.id).deliver
   end
 
+  def is_admin_of(store)
+    self.admin || store_permissions.where("store_id = #{store.id} AND permission_level = 1").first
+  end
 end
 # == Schema Information
 #

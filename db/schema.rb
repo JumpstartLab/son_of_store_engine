@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120426033449) do
+ActiveRecord::Schema.define(:version => 20120430191124) do
 
   create_table "billing_methods", :force => true do |t|
     t.string   "credit_card_number"
@@ -90,6 +90,12 @@ ActiveRecord::Schema.define(:version => 20120426033449) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "user_id"
+  end
+
+  create_table "store_permissions", :force => true do |t|
+    t.integer "user_id"
+    t.integer "store_id"
+    t.integer "permission_level"
   end
 
   create_table "stores", :force => true do |t|

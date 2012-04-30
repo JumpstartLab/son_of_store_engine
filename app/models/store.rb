@@ -2,11 +2,14 @@ class Store < ActiveRecord::Base
   has_many :products
   has_many :orders
   has_many :categories
+  has_many :store_permissions
 
   attr_accessible :name, :domain, :description, :approval_status, :enabled
   validates :name, uniqueness: true
   validates :domain, uniqueness: true
   validates :creating_user_id, presence: true
+
+  after_create :make_owner_an_admin
 
   def to_param
     domain
@@ -35,6 +38,10 @@ class Store < ActiveRecord::Base
 
   def created_on
     created_at.strftime("%B %d at %l:%M %p")
+  end
+
+  def make_owner_an_admin
+    StorePermission.create(user_id: creating_user_id, store_id: self.id, permission_level: 1)
   end
 end
 # == Schema Information

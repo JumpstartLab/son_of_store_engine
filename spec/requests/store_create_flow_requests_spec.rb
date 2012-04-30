@@ -37,6 +37,10 @@ describe "create new store flow" do
           visit "/#{@store.to_param}"
           page.should have_content "page cannot be found"
         end
+
+        it "makes the creating user an admin of the store" do
+          user.is_admin_of(@store).should be_true
+        end
       end
 
       context "using an existing store name" do

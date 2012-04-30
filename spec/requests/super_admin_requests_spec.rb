@@ -5,10 +5,13 @@ describe "super admin" do
   let!(:store2) { Fabricate(:store, approval_status: "approved", enabled: true) }
   let!(:store3) { Fabricate(:store, approval_status: "approved", enabled: false) }
   let!(:store4) { Fabricate(:store, approval_status: "pending") }
-  let!(:user) { Fabricate(:user, id: 1) }
+  let!(:user) { Fabricate(:user, id: 1, admin: true) }
 
   context "stores dashboard" do
     before(:each) do
+      visit root_path
+      click_link_or_button "Sign-In"
+      login(email: user.email_address, password: user.password)
       visit admin_stores_path
     end
 
