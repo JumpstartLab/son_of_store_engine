@@ -3,11 +3,11 @@ class StoreRole < ActiveRecord::Base
   belongs_to :store
   belongs_to :user
 
-  def admin
+  def admin?
     permission == 9
   end
   
-  def stocker
+  def stocker?
     permission == 5
   end
 
