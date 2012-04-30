@@ -9,8 +9,6 @@ gem 'rack-pjax'
 gem 'twitter-bootstrap-rails'
 gem 'bcrypt-ruby'
 gem 'redis-store', "~> 1.0.0"
-gem 'fabrication'
-gem 'faker'
 
 group :production do
   gem 'pg'
@@ -29,6 +27,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'fabrication'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
@@ -36,6 +35,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'simplecov'
   gem 'growl'
+  gem 'faker'
   gem 'reek', :git => "git://github.com/mvz/reek.git", :branch =>
   "ripper_ruby_parser-2"
   gem 'cane', :git => "git://github.com/square/cane.git"
