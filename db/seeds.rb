@@ -1,4 +1,4 @@
-
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
@@ -134,6 +134,35 @@ end
 
 #LineItems
 
+orders.each do
+  ((rand*5+1).to_i).times do
+    prod = products.sample
+    LineItem.create(order_id: orders.sample.id, price: prod.price, product_id: prod.id, quantity: (1..5).to_a.sample)
+  end
+end
+
+### STORE 3 ###
+
+store3 = Store.create(name: 'Slow Runnings', domain: 'slow-runnings', description: 'This store is really slow. Honestly, it was the worst shopping experience I have ever had. Monkeys run a faster ship.')
+store3.update_attribute(:creating_user_id, matt.id)
+store3.update_attribute(:approval_status, "approved")
+store3.update_attribute(:enabled, true)
+
+# PRODUCTS
+products = []
+10000.times do
+  products << Fabricate(:product, store_id: store3.id)
+end
+
+# ORDERS
+orders = []
+1000.times do
+  ["paid", "shipped", "cancelled", "returned"].each do |status|
+    orders << Order.create(status: status, user_id: User.all.sample.id, store_id: store2.id)
+  end
+end
+
+#LineItems
 orders.each do
   ((rand*5+1).to_i).times do
     prod = products.sample
