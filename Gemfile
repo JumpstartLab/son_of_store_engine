@@ -14,6 +14,7 @@ gem 'bcrypt-ruby'
 gem 'nifty-generators', :group => :development
 gem 'kaminari'
 gem 'faker'
+gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
 # in production environments by default.
