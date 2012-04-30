@@ -21,7 +21,7 @@ StoreEngine::Application.routes.draw do
   match '/admin/stores', :to => 'admin/stores#index'
 
   namespace :admin do
-    resources :stores, only: [ :index, :update, :show ]
+    resources :stores, only: [ :index, :update, :show, :edit ]
   end
 
   scope "", constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do

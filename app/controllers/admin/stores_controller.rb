@@ -2,7 +2,6 @@ class Admin::StoresController < ApplicationController
   before_filter :require_login
   before_filter :is_super_admin
   #before_filter :is_store_admin?, only: [ :show ]
-  #before_filter :is_super_admin
 
   def index
     @stores = Store.all
@@ -24,11 +23,16 @@ class Admin::StoresController < ApplicationController
     @store = Store.find_by_url_name(params[:id])
   end
 
+<<<<<<< HEAD
   private
 
   def is_super_admin
     redirect_to_last_page("Nice try, jerk.") unless
       current_user.admin
+=======
+  def edit
+    @store = Store.find_by_url_name(params[:id])
+>>>>>>> WIP working on store_admin, getting error on form creation
   end
 
 end
