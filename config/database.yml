@@ -11,7 +11,7 @@ test:
 production:
   adapter: postgresql
   encoding: utf8
-  database: project_production
+  database: sonofstoreengine_production
   pool: 5
-  username: 
-  password:
+  username: <%= ENV['SONOFSTOREENGINE_DB_USERNAME'] %>
+  password: <%= ENV['SONOFSTOREENGINE_DB_PASSWORD'] %>
