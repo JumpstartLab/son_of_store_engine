@@ -6,6 +6,7 @@ class Store < ActiveRecord::Base
   has_many :carts
   has_many :orders
   has_many :categories
+  has_many :employees, through: :privileges, source: "user"
   belongs_to :owner, class_name: "User", foreign_key: "owner_id"
 
   validates :slug,  :presence   => true,

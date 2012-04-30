@@ -6,6 +6,7 @@ class DashboardController < ApplicationController
     @orders = @store.orders
     @categories = @store.categories
     @products = @store.products
+    @employees = @store.employees
   end
 
   private

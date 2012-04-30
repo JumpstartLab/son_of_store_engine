@@ -71,11 +71,11 @@ describe "Dashboard" do
     end
   end
 
-  context "When hiring an employee" do
+  context "When managing an employee" do
     let!(:store) { FactoryGirl.create(:store) }
     before(:each) { login(admin) }
     before(:each) { visit store_dashboard_path(store) }
-    it "adds the user as an employee if the user exists" do
+    it "can hire a user as an employee if the user exists" do
       new_employee = FactoryGirl.create(:user)
       click_link "Add employee"
       fill_in "Email", with: new_employee.email
@@ -93,6 +93,16 @@ describe "Dashboard" do
       click_button "Save changes"
       page.should have_content("invited")
       ActionMailer::Base.deliveries.last.subject.include?("sign up").should be_true
+    end
+
+    it "allows me to edit & fire a user" do
+      employee = FactoryGirl.create(:user)
+      employee.promote(store, :manager)
+      employee.may_manage?(store).should be_true
+      visit store_dashboard_path(store)
+      click_link "Manage Employee"
+      click_link "Fire Employee"
+      employee.may_manage?(store).should be_false
     end
   end
 end

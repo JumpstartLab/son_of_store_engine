@@ -39,8 +39,14 @@ class User < ActiveRecord::Base
     #TODO
   end
 
+  # We probably don't need both of these - refactor one down to the other
+  # TODO: Examine
   def store_privileges(store)
     privileges.where(store_id: store.id)
+  end
+
+  def store_role(store)
+    privileges.where(store_id: store.id).first.name
   end
 
   def may_manage?(store)
