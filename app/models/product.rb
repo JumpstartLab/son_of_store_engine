@@ -51,7 +51,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.active
-    Product.order_by(:activity => true)
+    Product.where(:activity => true)
   end
 
   def status?
