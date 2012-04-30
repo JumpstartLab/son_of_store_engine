@@ -1,0 +1,58 @@
+h1 Admin Dashboard for #{@store.name}
+.row
+  .span6 style="margin-bottom:20px"
+    h4
+      = link_to "Edit #{@store.name}", admin_edit_path(id: current_store.id)
+
+.row
+  .span6 style="margin-bottom:20px"
+    h4
+      = link_to 'Add a product', new_admin_product_path(store_slug: store_slug)
+      | &nbsp;|&nbsp;
+      = link_to 'Create a category', new_admin_category_path(store_slug: store_slug)
+h3 Orders by status
+br/
+table.table.table-bordered.table-striped
+  tr
+    th Status
+    th Orders
+  tr
+    td Pending
+    td= orders_count_by_status('pending')
+  tr
+    td Cancelled
+    td= orders_count_by_status('cancelled')
+  tr
+    td Paid
+    td= orders_count_by_status('paid')
+  tr
+    td Shipped
+    td= orders_count_by_status('shipped')
+  tr
+h3
+  | Orders Summary
+  h3
+    br/
+    h4
+      / XXX These links are broken
+      | Filter by:
+      /= link_to 'Pending', admin_dashboard_path(store_slug: store_slug, order_status: 'pending')
+      | &nbsp;|&nbsp;
+      /= link_to 'Cancelled', admin_dashboard_path(store_slug: store_slug, order_status: 'cancelled')
+      | &nbsp;|&nbsp;
+      /= link_to 'Paid', admin_dashboard_path(store_slug: store_slug, order_status: 'paid')
+      | &nbsp;|&nbsp;
+      /= link_to 'Shipped', admin_dashboard_path(store_slug: store_slug, order_status: 'shipped')
+      | &nbsp;|&nbsp;
+      /= link_to 'All', admin_dashboard_path
+    br/
+    table.table.table-bordered.table-striped
+      tr
+        th Customer Name
+        th Date
+        th Status
+        th Actions
+      = render :partial => "admin/orders/admin_order", :collection => @orders
+    h2 Categories
+    table.table.table-bordered.table-striped
+      = render :partial => "store/categories/category", :collection => @categories

@@ -1,0 +1,38 @@
+h1 Admin Products View
+.row
+  .span12
+    ul.nav.nav-pills
+    h4 Categories:
+    br/
+    = render :partial => "store/categories/category", :collection => @categories
+    li= link_to 'New Category', new_admin_category_path(store_slug)
+ul.nav.nav-pills
+  h4 Active Products:
+  br/
+  li= link_to 'New Product', new_admin_product_path(store_slug)
+table.table.table-bordered.table-striped
+  tr
+    th Name
+    th Description
+    th Price
+    th Photo
+    th Categories
+    th Edit Product
+    /th Buy it!
+    th Retire it!
+  = render :partial => "product_table", :collection => products, :as => :product
+.row
+  .span12
+    ul.nav.nav-pills
+    h4 Retired Products:
+    br/
+    table.table.table-bordered.table-striped
+      tr
+        th Name
+        th Description
+        th Price
+        th Photo
+        th Categories
+        th Buy it!
+        th Unretire it!
+      = render :partial => "product_table", :collection => @retired_products, :as => :product
