@@ -86,3 +86,18 @@ Then /^I can make my purchase normally$/ do
   #page.text.should include "Order Details"
   #page.should have_selector("h1", text: /Order Details/)
 end
+
+Given /^there is a store named "([^"]*)" with URL id "([^"]*)"$/ do |name, slug|
+  @store = create(:store, name: name, slug: slug)
+end
+
+Given /^the store has a product named "([^"]*)"$/ do |name|
+  create(:product, store: @store, name: name)
+end
+
+Given /^the store does not have a product "([^"]*)"$/ do |name|
+  # express the regexp above with the code you wish you had
+  if Product.exists?(name: name, store_id: @store.id)
+    Product.where(name: name, store_id: @store.id).destroy
+  end
+end
