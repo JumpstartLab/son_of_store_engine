@@ -1,4 +1,3 @@
-@wip
 Feature:
   As a visitor
   When checking out

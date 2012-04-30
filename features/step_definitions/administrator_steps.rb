@@ -13,6 +13,7 @@ Given /^I visit "([^"]*)"$/ do |uri|
   url = uri.path
   url += "?" + uri.query if uri.query
 
+  @start_page = url # for some tests to check redirection
   visit(url)
 end
 
@@ -27,7 +28,7 @@ When /^I click "([^"]*)" for "([^"]*)"$/ do |action, store|
 end
 
 Then /^I should see a confirmation flash message$/ do
-  message = "has been updated."
+  message = "Store has been"
 
   flash_text.should include message
 end

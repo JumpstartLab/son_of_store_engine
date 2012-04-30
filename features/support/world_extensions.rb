@@ -2,7 +2,7 @@ require 'addressable/uri'
 
 module WorldExtensions
   def log_in(user)
-    # XXX This fucking sucks.
+    # XXX This sucks.
     click_on('Sign in') rescue visit('/signin')
     fill_in('Email', with: user.email)
     fill_in('Password', with: user.password)

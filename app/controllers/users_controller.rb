@@ -4,9 +4,10 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
-    if current_store.nil?
-      render 'new_global' and return
+    if request.referer
+      @return_path = request.referer
+    else
+      @return_path = root_url
     end
   end
 
@@ -18,7 +19,8 @@ class UsersController < ApplicationController
       auto_login(@user)
       transfer_cart_to_user(cart_before_login, @user)
       link = "<a href=\"#{edit_user_url(@user.id)}\">Update your profile.</a>" 
-      redirect_to successful_login_path, :notice => "You have been registered. #{link}".html_safe
+      redirect_to params[:return_path], :notice => "You have been registered. #{link}".html_safe
+      UserMailer.user_confirmation(@user).deliver
     else
       render :new
     end
