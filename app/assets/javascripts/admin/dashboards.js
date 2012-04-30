@@ -1,6 +1,7 @@
 $(document).ready(function() {
+  var old_slug = $("#store_slug").val();
+
   $(".edit_store").submit(function(e) {
-    var old_slug = "#{@store.slug}";
     var new_slug = $("#store_slug").val();
 
     if(old_slug != new_slug) {
