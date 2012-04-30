@@ -1,13 +1,9 @@
 Dir["#{Rails.root}/app/jobs/*.rb"].each { |file| require file }
 
-ENV["REDISTOGO_URL"] ||= 'redis://redistogo:5c89ed218d04538e883296814b4a08f6@drum.redistogo.com:9640/'
+if Rails.env.production? || Rails.env.development?
+  ENV["REDISTOGO_URL"] ||= 'redis://redistogo:5c89ed218d04538e883296814b4a08f6@drum.redistogo.com:9640/'
 
-uri = URI.parse(ENV["REDISTOGO_URL"])
-Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-
-Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
-
-Resque.before_fork do |server, worker| 
-  defined?(ActiveRecord::Base) and 
-  ActiveRecord::Base.establish_connection 
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
 end

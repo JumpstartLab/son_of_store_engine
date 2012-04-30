@@ -1,12 +1,11 @@
 class StripeCharge
   @queue = :stripe
 
-  def self.perform(amount, user_id)
-    user = User.find(user_id)
+  def self.perform(amount, stripe_id)
     Stripe::Charge.create(
       :amount => amount,
       :currency => "usd",
-      :customer => user.stripe_id
+      :customer => stripe_id
     )
   end
 end

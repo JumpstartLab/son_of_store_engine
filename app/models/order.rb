@@ -89,8 +89,8 @@ class Order < ActiveRecord::Base
     BillingProcessor.charge(total_price_after_sale_in_cents, user)
     self.status = Status.find_or_create_by_name("paid")
     self.is_cart = false
-    notify_charge
     self.save
+    notify_charge
   end
 
   def notify_charge

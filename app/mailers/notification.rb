@@ -3,8 +3,8 @@ class Notification < ActionMailer::Base
   default :from => "noreply@ehipster.herokuapp.com"
 
   def order_email(order_id)
-    @order = Order.find(order_id)
-    @user = order.user
+    @order =  Order.find_cart(order_id)
+    @user  =  @order.user
     mail(:to => @user.email, :subject => "Order Placed - ##{@order.id}")    
   end
 
