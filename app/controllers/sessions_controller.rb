@@ -1,6 +1,6 @@
 # Allows authentication
 class SessionsController < ApplicationController
-  before_filter :require_not_logged_in, :only => [:create]
+  before_filter :require_not_logged_in, :only => [:create, :new]
 
   def new
     @user = User.new
