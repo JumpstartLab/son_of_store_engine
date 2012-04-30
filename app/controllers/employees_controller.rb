@@ -17,4 +17,7 @@ class EmployeesController < ApplicationController
 
   def edit
   end
+
+  def destroy
+  end
 end

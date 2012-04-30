@@ -123,3 +123,21 @@
     </tr><% end %>
   </tbody> 
 </table>
+
+<br />
+<h2> Employees </h2>
+<table class="table table-striped table-condensed">
+  <thead>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Manage</th>
+  </thead>
+  <tbody>
+    <% @employees.each do |employee| %><tr>
+      <td><%= employee.full_name %></td>
+      <td><%= employee.store_role(current_store) %></td>
+      <td><%= link_to 'Manage Employee', 
+           edit_store_employee_path(current_store, employee) %></td>
+    </tr><% end %>
+  </tbody> 
+</table>
