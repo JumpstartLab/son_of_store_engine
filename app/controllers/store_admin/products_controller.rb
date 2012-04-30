@@ -3,6 +3,8 @@ class StoreAdmin::ProductsController < ApplicationController
   before_filter :lookup_product, except: [:index, :new, :create]
   before_filter :require_admin
 
+  cache_sweeper :product_sweeper
+
   def index
     @products = store_products
   end
@@ -16,11 +18,12 @@ class StoreAdmin::ProductsController < ApplicationController
 
   def create
     @product = Product.new(params[:product])
+    @product.store_id = @current_store.id
 
     respond_to do |format|
       if @product.save
         notice = 'Product was successfully created.'
-        format.html { redirect_to admin_product_path(@product), notice: notice }
+        format.html { redirect_to admin_product_path(@current_store, @product), notice: notice }
       else
         format.html { render action: "new" }
       end

@@ -8,6 +8,7 @@ gem 'slim'
 gem 'rack-pjax'
 gem 'twitter-bootstrap-rails'
 gem 'bcrypt-ruby'
+gem 'redis-store', "~> 1.0.0"
 
 group :production do
   gem 'pg'
@@ -40,4 +41,5 @@ group :development, :test do
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'sqlite3'
   gem 'annotate'
+  gem 'newrelic_rpm'
 end
