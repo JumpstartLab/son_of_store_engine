@@ -47,7 +47,7 @@ def seed_products(store, count)
     desc = Faker::Lorem.words(1000).join(" ") 
     link = "http://dl.dropbox.com/u/71404227/100896-p-2x.png"
     store.products.create!(:title => title, :description => desc, 
-                          :price => rand(2000), :image_link => link)
+                          :price => rand(2000) +1, :image_link => link)
   end
 end
 
@@ -188,8 +188,8 @@ products = first_store.products.create([{ title: 'Moccasin',
                         categories: [female_category, dress_category]}])
 
 seed_products(second_store, 10000)
-seed_users(10000)
-seed_orders(second_store, 10000)
+seed_users(500)
+seed_orders(second_store, 5000)
 
 admin_user = User.new(  full_name: "Chad Fowler",
                         password: "hungry",
