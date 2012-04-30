@@ -98,4 +98,16 @@ describe User do
     end    
   end
 
+  describe "#places_of_employment", :model => :user do
+    context "when user is employed" do
+      it "returns stores that user can stock" do
+        user = User.new
+        priv1 = double("privilege", :store => "foo")
+        priv2 = double("privilege", :store => "bar")
+        privs = [priv1, priv2]
+        user.stub(:privileges).and_return(privs)
+        user.places_of_employment.should == ["foo", "bar"]
+      end
+    end
+  end
 end

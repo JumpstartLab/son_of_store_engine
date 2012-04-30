@@ -62,4 +62,9 @@ class User < ActiveRecord::Base
     may_manage?(store) || store_privileges(store).map(&:name).include?("stocker")
   end
 
+  def places_of_employment
+    privileges.collect do |priv|
+      priv.store
+    end
+  end
 end

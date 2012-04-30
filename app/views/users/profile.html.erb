@@ -32,3 +32,29 @@
   </tbody>
 </table>
 <% end %>
+
+<h1>Your Jobs</h1>
+
+<% if @user.stores.count > 0 %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody> 
+    <% @user.places_of_employment.each do |store| %>
+      <tr>
+        <td><%= store.name %></td>
+        <td><%= @user.store_role(store) %></td>
+        <td>
+          <%= link_to "Administer", store_dashboard_path(store), 
+              :class => "btn" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
