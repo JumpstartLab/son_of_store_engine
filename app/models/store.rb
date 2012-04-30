@@ -60,6 +60,10 @@ class Store < ActiveRecord::Base
     self.destroy
   end
 
+  def order_items
+    OrderItem.includes(:order).where("orders.store_id = ?", self.id)
+  end
+
   private 
 
   def strip_whitespace
