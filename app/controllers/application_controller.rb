@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_last_page
   after_filter :set_last_page
 
-  helper_method :current_cart, :store
+  helper_method :current_cart, :store, :successful_login
 
   def get_last_page
     @last_page = "Your last page: #{session[:last_page]}"
@@ -76,7 +76,23 @@ private
   end
 
   def set_last_page
-    session[:last_page] = request.url
+    unless request.url == signin_url || request.url == signup_url
+      session[:last_page] = request.url
+    end
+  end
+
+  def successful_login(cart, user)
+    cart.assign_cart_to_user(user)
+    if session[:return_to_url]
+      redirect_to session[:return_to_url]
+      return
+    elsif session[:last_page]
+      redirect_to session[:last_page]
+      return
+    else
+      redirect_to stores_path,
+        :notice => "Logged in! Buy things! Capitalism!"
+    end
   end
 
 end
