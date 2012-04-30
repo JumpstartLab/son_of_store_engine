@@ -26,4 +26,15 @@ describe "Background Job", :bj => :emails do
       BackgroundJob.store_approved_email(store)
     end
   end
+
+  context ".store_declined_email" do
+    it "queues the store declined emailer in resque" do
+      user = double("user", :id => 1)
+      store = double("store", :name => "Name", :description => "desc",
+                    :slug => "slug", :owner => user)
+      Resque.should_receive(:enqueue).with(StoreDeclinedEmailer, 1, store.name,
+                                           store.description, store.slug)
+      BackgroundJob.store_declined_email(store)
+    end
+  end
 end

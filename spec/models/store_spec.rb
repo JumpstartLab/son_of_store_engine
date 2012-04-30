@@ -11,9 +11,8 @@ describe Store, :model => :store do
     end
 
     it "notifies the store owner via email when the store is declined" do
+      BackgroundJob.should_receive(:store_declined_email).with(store)
       store.decline!  
-      ActionMailer::Base.deliveries.first.subject.include?("declined").should be_true
-      ActionMailer::Base.deliveries.first.body.include?("better idea").should be_true
     end
   end
 

@@ -55,7 +55,7 @@ class Store < ActiveRecord::Base
   end
 
   def decline!
-    UserMailer.declined_store_notice(self).deliver
+    BackgroundJob.store_declined_email(self)
     self.destroy
   end
 
