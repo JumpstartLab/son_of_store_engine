@@ -13,6 +13,9 @@ gem 'twilio-ruby'
 gem 'newrelic_rpm'
 gem 'resque'
 gem 'tlsmail'
+
+gem 'capistrano'
+gem 'unicorn'
 #gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 
 group :production do
