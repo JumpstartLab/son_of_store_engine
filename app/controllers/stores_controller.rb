@@ -17,7 +17,7 @@ class StoresController < ApplicationController
   def create
     @new_store = Store.create(params[:store])
     if @new_store.save
-      redirect_to admin_store_path(@new_store),
+        redirect_to admin_dashboard_url(:subdomain => @new_store.url_name),
         :notice => "Sweet! #{@new_store.name} was created and is currently pending approval!"
     else
       @new_store.errors.full_messages.each do |msg|

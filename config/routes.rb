@@ -13,7 +13,6 @@ StoreEngine::Application.routes.draw do
   resources :sessions
   resources :cart_products, only: [:new, :update, :destroy]
 
-  match '/admin/dashboard', :to => 'admin/dashboard#show'
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
@@ -25,8 +24,7 @@ StoreEngine::Application.routes.draw do
 
   scope "", constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' } do
     match '', :to => 'stores#show', as: :store
-    match '/admin/dashboard', :to => 'admin/dashboard#show', as: "admin_dashboard"
-
+    match '/admin', :to => 'admin/dashboard#show', as: "admin_dashboard"
 
     resources :products, only: [:index, :show] do
       resource :retirement, only: [:create, :update]
@@ -44,12 +42,10 @@ StoreEngine::Application.routes.draw do
       resources :store_admins, only: [:destroy, :create]
       resources :products
       resources :categories
-      resource :dashboards, only: [:show]
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
       end
       resources :users, only: [:show]
-      resource :dashboards, only: [:show]
     end
   end
 

@@ -1,26 +1,26 @@
 class ApplicationController < ActionController::Base
-module UrlHelper
-  def with_subdomain(subdomain)
-    subdomain = (subdomain || "")
-    subdomain += "." unless subdomain.empty?
-    [subdomain, request.domain, request.port_string].join
-  end
+# module UrlHelper
+#   def with_subdomain(subdomain)
+#     subdomain = (subdomain || "")
+#     subdomain += "." unless subdomain.empty?
+#     [subdomain, request.domain, request.port_string].join
+#   end
 
-  def url_for(options = nil)
-    if options.kind_of?(Hash) && options.has_key?(:subdomain)
-      options[:host] = with_subdomain(options.delete(:subdomain))
-    end
-    super
-  end
-end
-  include UrlHelper
+#   def url_for(options = nil)
+#     if options.kind_of?(Hash) && options.has_key?(:subdomain)
+#       options[:host] = with_subdomain(options.delete(:subdomain))
+#     end
+#     super
+#   end
+# end
+#   include UrlHelper
   protect_from_forgery
 
   before_filter :find_or_create_cart
   before_filter :get_last_page
   after_filter :set_last_page
 
-  helper_method :current_cart, :store
+  helper_method :current_cart, :store, :successful_login
 
   def get_last_page
     @last_page = "Your last page: #{session[:last_page]}"
@@ -55,7 +55,8 @@ end
 private
 
   def store
-    @store ||= Store.find_all_by_url_name(request.subdomain).first
+    #@store ||= Store.find_all_by_url_name(request.subdomain).first
+    @store ||= Store.find_by_url_name(request.subdomain)
   end
 
   def find_or_create_cart
@@ -75,7 +76,23 @@ private
   end
 
   def set_last_page
-    session[:last_page] = request.url
+    unless request.url == signin_url || request.url == signup_url
+      session[:last_page] = request.url
+    end
+  end
+
+  def successful_login(cart, user)
+    cart.assign_cart_to_user(user)
+    if session[:return_to_url]
+      redirect_to session[:return_to_url]
+      return
+    elsif session[:last_page]
+      redirect_to session[:last_page]
+      return
+    else
+      redirect_to stores_path,
+        :notice => "Logged in! Buy things! Capitalism!"
+    end
   end
 
 end
