@@ -3,7 +3,7 @@ class Admin::StoresController < ApplicationController
   before_filter :find_store, only: [:approve, :decline, :enable, :disable, :edit]
 
   def index
-    @users = User.joins(:stores).group("users.id")
+    @users = User.joins(:stores).uniq
   end
 
   def approve
