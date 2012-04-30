@@ -1,9 +1,5 @@
 # Admins have direct access to administering or creating new stockers
 class Admin::StockersController < Admin::ApplicationController
-  def index
-    @users = @store.stocker_users
-  end
-
   def create
     if @store.add_stocker_from_form(params[:email])
       notice = "New stocker successfully added."

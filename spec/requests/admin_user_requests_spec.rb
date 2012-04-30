@@ -112,7 +112,7 @@ describe User do
 
         context "when a store admin is the only store admin" do
           it "cannot be deleted" do
-            click_button "delete_admin_2"
+            click_button "delete_admin_#{admin_user.id}"
             page.should have_content("You can't delete the only administrator")
           end
         end
@@ -146,6 +146,12 @@ describe User do
           it "emails the new store stocker" do
             fill_in "stocker_email", :with => new_stocker.email
             expect { click_button "Add Stocker" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+          end
+
+          it "shows the stocker on the manage users page" do
+            fill_in "stocker_email", :with => new_stocker.email
+            click_button "Add Stocker"
+            page.should have_content(new_stocker.name)
           end
         end
 
