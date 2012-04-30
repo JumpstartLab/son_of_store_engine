@@ -6,13 +6,15 @@ class ApplicationController < ActionController::Base
   private
 
   def lookup_cart
+    #session["#{current_store.slug}_cart_id"] = nil
     return nil unless current_store
     if current_user
       @cart = find_or_create_user_store_cart
     else
       @cart = find_or_create_session_store_cart
     end
-   session["#{current_store.slug}_cart_id"] = @cart.id
+    @cart.update_attribute(:user_id, current_user.id) if current_user
+    session["#{current_store.slug}_cart_id"] = @cart.id
   end
 
   def find_or_create_session_store_cart
@@ -21,7 +23,11 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_user_store_cart
-    current_user.store_cart(current_store) || find_or_create_session_store_cart
+    if session["#{current_store.slug}_cart_id"]
+      Cart.find_by_id(session["#{current_store.slug}_cart_id"]) || current_store.carts.create
+    else
+      current_user.store_cart(current_store) || find_or_create_session_store_cart
+    end
   end
 
   def authorize

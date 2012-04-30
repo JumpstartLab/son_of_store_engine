@@ -62,18 +62,18 @@ describe 'using the shopping cart' do
   end
 
   context "when I'm on the cart" do
+    let!(:store) { FactoryGirl.create(:store) }
     let(:products) do
-      (1..5).map { FactoryGirl.create(:product) }
+      (1..5).map { FactoryGirl.create(:product, store_id: store.id) }
     end
-    let(:test_cart) { FactoryGirl.create(:cart, :products => products)}
-
+    let(:test_cart) { FactoryGirl.create(:cart, :products => products, store_id: store.id) }
     before(:each) { load_cart_with_products(products) }
 
     it "removes the item when I click remove" do
-      within("#product_#{products.first.id}") do
+      within("#product_#{test_cart.cart_items.last.product.id}") do
         click_link_or_button "Remove item"
       end
-      page.should_not have_content(products.first.title)
+      page.should_not have_content(products.last.title)
     end
 
     it "shows the total price of the items" do
