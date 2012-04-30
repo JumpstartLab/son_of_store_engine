@@ -13,7 +13,7 @@ StoreEngine::Application.routes.draw do
   resources :sessions
   resources :cart_products, only: [:new, :update, :destroy]
 
-  match '/admin/dashboard', :to => 'admin/dashboard#show'
+  #match '/admin/dashboard', :to => 'admin/dashboard#show'
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
