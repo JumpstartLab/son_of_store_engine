@@ -105,13 +105,16 @@ class Seeder
   end
 
   def self.build_users
-    User.create( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
+    stocker = User.new( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
       password: 'hungry')
-    User.create( name: 'Jeff', display_name: 'j3',
+    stocker.roles.build(role: "store_stocker", store: Store.find(1))
+    stocker.save
+    User.new( name: 'Jeff', display_name: 'j3',
       email: 'demo08+jeff@jumpstartlab.com', password: 'hungry')
-    admin = User.create( name: 'Chad Fowler', display_name: 'SaxPlayer',
+    admin = User.new( name: 'Chad Fowler', display_name: 'SaxPlayer',
       email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
-    admin.update_attribute(:site_admin, true)
+    admin.roles.build(role: "site_admin")
+    admin.save
   end
 
   def self.destroy_db

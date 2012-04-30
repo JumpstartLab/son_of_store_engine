@@ -21,20 +21,11 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :shipping_details
 
-  has_many :store_users
-  has_many :stores, :through => :store_users
+  # has_many :store_users
+  # has_many :stores, :through => :store_users
 
-  ROLES = [ :store_stocker, :store_admin, :site_admin ]
-
-  def role=(role)
-    idx = ROLES.index(role)
-    write_attribute(:role, idx)
-  end
-
-  def role
-    idx = read_attribute(:role)
-    ROLES[idx]
-  end
+  has_many :roles
+  has_many :stores, :through => :roles
 
   def add_order(order)
     orders << order

@@ -14,8 +14,11 @@ class Store < ActiveRecord::Base
   has_many :orders, :extend => FindByStatusExtension
   has_many :products
   has_many :shipping_details
-  has_many :store_users
-  has_many :users, :through => :store_users
+  # has_many :store_users
+  # has_many :users, :through => :store_users
+
+  has_many :roles
+  has_many :users, :through => :roles
 
   STATUSES.each do |status|
     define_method(status+"!") do

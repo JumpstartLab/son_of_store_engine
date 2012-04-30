@@ -27,15 +27,19 @@ class Ability
 
     user ||= User.new
 
-    if user.role? :site_admin
+    if user.role == :site_admin
       can :manage, :all
-    elsif user.role? :store_admin
+    elsif user.role == :store_admin
       can :manage, :all
-    elsif user.role? :store_stocker
+    elsif user.role == :store_stocker
       can :read, :all
-      can :create, Product { |product| product.store == user.store }
+      can :create, Product do |product|
+        product.store == user.store
+      end
     else
-      can :read, :all
+      can :read, Order do |order|
+        order.user == user
+      end
       # can :update, User { |user_to_edit| user_to_edit == user }
     end
   end

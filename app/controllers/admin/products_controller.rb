@@ -1,5 +1,4 @@
 class Admin::ProductsController < Admin::ApplicationController
-
   helper_method :product
 
   def index
