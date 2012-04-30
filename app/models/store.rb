@@ -87,6 +87,10 @@ class Store < ActiveRecord::Base
     where(:slug => id.parameterize) unless id.blank?
   end
 
+  def add_user(user)
+    users << user
+  end
+
   def add_admin_user(email)
     if user = User.find_by_email(email)
       users << user

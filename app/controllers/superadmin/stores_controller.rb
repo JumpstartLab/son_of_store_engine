@@ -1,5 +1,6 @@
 # Super Admin User can manage the stores
 class Superadmin::StoresController < Superadmin::ApplicationController
+  load_and_authorize_resource
 
   def index
     @stores = Store.not_declined
@@ -21,5 +22,4 @@ class Superadmin::StoresController < Superadmin::ApplicationController
     Notification.store_accepted_notification(store) if store.active?
     Notification.store_declined_notification(store) if store.declined?
   end
-
 end

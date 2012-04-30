@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   let! (:user) { Fabricate(:user) }
-  let! (:second_user) { Fabricate(:user) }
+  let (:admin_user) { Fabricate(:admin_user) }
   let! (:store) { Fabricate(:store, :users => [user]) }
   let! (:product) { Fabricate(:product, :store => store) }
   let! (:cart) { Fabricate(:cart, :store => store) }
@@ -25,10 +25,9 @@ describe User do
     }
 
     before(:each) do
-      user.add_role admin_role
-      second_user.add_role admin_role
+      store.add_user(admin_user)
       visit products_path(store)
-      login_as(user)
+      login_as(admin_user)
     end
 
     describe "the admin dashboard" do
@@ -110,8 +109,9 @@ describe User do
 
     describe "products" do
       before(:each) do
-        user.cart = cart
-        user.cart.add_product(product)
+        admin_user.cart = cart
+        product.store = store
+        admin_user.cart.add_product(product)
         visit admin_products_path(store)
       end
 

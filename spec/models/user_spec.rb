@@ -5,7 +5,6 @@
 #  id                     :integer         not null, primary key
 #  name                   :string(255)
 #  username               :string(255)
-#  role                   :string(255)
 #  email                  :string(255)     default(""), not null
 #  encrypted_password     :string(255)     default(""), not null
 #  reset_password_token   :string(255)
