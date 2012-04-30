@@ -163,6 +163,17 @@ describe "shopper checkout", :shopper => true do
         page.should have_content "My Account"
       end
 
+      it "flashes a notice with a link to the user's new profile" do
+        click_link_or_button "Sign-Up"
+        page.should have_selector ".new_user"
+        sign_up({full_name: "Test User", email: "test@test.com",
+         password: "test", display_name: "Test"})
+        current_path.should == "/#{store.to_param}"
+        page.should have_content "Welcome"
+        click_link "View Your Profile"
+        current_path.should == profile_path
+      end
+
       it "can sign up and maintain its cart" do
         click_link_or_button "Add to Cart"
         click_link_or_button "Sign-Up"

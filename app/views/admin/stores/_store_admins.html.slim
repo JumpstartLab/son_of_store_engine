@@ -1,0 +1,9 @@
+/ = form_tag(:controller => "admin/store_permissions", :action => "create", :method => "get") do
+/   = text_field_tag :email, ""
+/   = submit_tag "Add New Store Admin"
+
+
+= form_for @store_permission do |f|
+  = f.text_field :email
+  = f.hidden_field :store_id, :value => @current_store.id
+  = f.submit "Add New Store Admin"

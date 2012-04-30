@@ -22,6 +22,8 @@ StoreEngine::Application.routes.draw do
 
   resources :stores, only: [:index, :new, :create, :update]
 
+  resources :store_permissions
+
 
   scope "/:domain" do
     match "/" => "products#index"

@@ -182,7 +182,7 @@ Fabricate(:store_stocker_permission, user_id: stocker.id, store_id: store3.id)
 
 # PRODUCTS
 products = []
-10000.times do
+100.times do
   products << Fabricate(:product, store_id: store3.id)
 end
 
