@@ -11,13 +11,6 @@
 #  updated_at  :datetime        not null
 #
 
-
-
-
-
-
-
-
 # Represents a store that is owned by a particular user
 class Store < ActiveRecord::Base
   attr_accessible :name, :user_id, :slug, :description, :status
@@ -87,19 +80,44 @@ class Store < ActiveRecord::Base
     where(:slug => id.parameterize) unless id.blank?
   end
 
-  def add_user(user)
-    users << user
+  def admin_users
+    self.users.select { |user| user.admin? }
   end
 
-  def add_admin_user(email)
+  def stocker_users
+    self.users.select { |user| user.stocker? }
+  end
+
+  def add_admin(user)
+    user.add_role(Role.admin)
+    self.users << user
+  end
+
+  def add_stocker(user)
+    user.add_role(Role.stocker)
+    self.users << user
+  end
+
+  def add_admin_from_form(email)
     if user = User.find_by_email(email)
-      users << user
+      add_admin(user)
       StoreAdminMailer.new_admin_email(user, self).deliver
     end
   end
 
-  def invite_new_user(email)
-    StoreAdminMailer.new_user_email(email, self).deliver
+  def add_stocker_from_form(email)
+    if user = User.find_by_email(email)
+      add_stocker(user)
+      StoreStockerMailer.new_stocker_email(user, self).deliver
+    end
+  end
+
+  def invite_new_admin(email)
+    StoreAdminMailer.invite_admin_email(email, self).deliver
+  end  
+
+  def invite_new_stocker(email)
+    StoreStockerMailer.invite_stocker_email(email, self).deliver
   end
 
   def delete_admin_user(user_id)
@@ -112,9 +130,10 @@ class Store < ActiveRecord::Base
     end
   end
 
-  def add_admin(user)
-    user.add_role(Role.admin)
-    self.users << user
+  def delete_stocker_user(user_id)
+    user = User.find(user_id)
+    StoreUser.find_by_user_id(user.id).destroy
+    StoreStockerMailer.delete_stocker_email(user, self).deliver
   end
 
   private
