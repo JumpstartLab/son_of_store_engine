@@ -42,8 +42,12 @@ class Product < ActiveRecord::Base
     order_items.inject(0) { |sum, oi| sum + oi.send(param) }
   end
 
-  def self.top_selling
-    product_sort(:sales)
+  def self.top_selling_for_store(store)
+    if store.order_items.any?
+      find(store.order_items.count(group: "product_id").sort_by {|k, v| v}.last.first)
+    else
+      store.products.first
+    end
   end
 
   def self.active
