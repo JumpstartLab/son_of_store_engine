@@ -1,6 +1,5 @@
-class Admin::CategoriesController < ApplicationController
-  before_filter :require_login
-  before_filter :is_admin?
+class Store::Admin::CategoriesController < Store::Admin::BaseController
+  load_and_authorize_resource
 
   def new
     @category = Category.new
@@ -12,9 +11,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.create(params[:category])
-
-    if @category.save
+    if @category = current_store.categories.create(params[:category])
       redirect_to admin_products_path,
       notice: 'Category was successfully created.'
     else

@@ -21,8 +21,11 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :shipping_details
 
-  has_many :store_users
-  has_many :stores, :through => :store_users
+  # has_many :store_users
+  # has_many :stores, :through => :store_users
+
+  has_many :roles
+  has_many :stores, :through => :roles
 
   # def email=(email)
   #   @email = email.downcase

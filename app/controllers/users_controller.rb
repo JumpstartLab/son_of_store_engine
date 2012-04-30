@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Store::UsersController < ApplicationController
   before_filter :is_current_user?, only: [ :show, :edit ]
   include SessionHelpers
 

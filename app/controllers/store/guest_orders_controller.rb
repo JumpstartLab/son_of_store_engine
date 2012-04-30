@@ -1,4 +1,4 @@
-class GuestOrdersController < ApplicationController
+class Store::GuestOrdersController < ApplicationController
 
   helper_method :user
 

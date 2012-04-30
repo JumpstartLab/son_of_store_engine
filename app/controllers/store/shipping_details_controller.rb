@@ -1,4 +1,4 @@
-class ShippingDetailsController < ApplicationController
+class Store::ShippingDetailsController < ApplicationController
 
   def new
     @shipping_detail = ShippingDetail.new

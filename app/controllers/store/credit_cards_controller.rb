@@ -1,4 +1,4 @@
-class CreditCardsController < ApplicationController
+class Store::CreditCardsController < ApplicationController
 
 def new
   @credit_card = CreditCard.new

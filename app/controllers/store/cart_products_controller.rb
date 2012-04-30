@@ -1,4 +1,4 @@
-class CartProductsController < ApplicationController
+class Store::CartProductsController < ApplicationController
 
   def new
     if current_cart.add_product_by_id(params[:id])

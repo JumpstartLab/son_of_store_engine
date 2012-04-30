@@ -1,6 +1,5 @@
 class Admin::StoresController < ApplicationController
-  before_filter :verify_site_admin
-  skip_before_filter :verify_store_status
+  authorize_resource :class => false
 
   def index
     @approved_stores  = Store.where(:status => "approved")
@@ -13,7 +12,7 @@ class Admin::StoresController < ApplicationController
   end
 
   def update
-    @store = Store.where(slug: params[:store_slug]).first
+    @store = Store.find(params[:id])
     @store.update_attributes(params[:store])
     if params[:store][:status] == "approved"
       # XXX This makes me sad inside...

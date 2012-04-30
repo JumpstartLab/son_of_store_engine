@@ -19,18 +19,19 @@ FactoryGirl.define do
     end
   end
 
-  factory :site_admin, class: User do
-    name                  "Jeff Casimir"
-    email                 "jeff@example.com"
-    display_name          "john_doe"
-    password              "foobar"
-    password_confirmation "foobar"
-    site_admin            true
-
+  factory :site_admin, parent: :user do
     after_create do |model, evaluator|
-      # Sorcery seems to blank out these fields after saving.
-      model.password = evaluator.password
-      model.password_confirmation = evaluator.password_confirmation
+      Role.create(user: model, name: "site_admin")
     end
   end
+
+  factory :store_admin, parent: :user do
+    ignore do
+      store { FactoryGirl.create(:store) }
+    end
+
+    after_create do |model, evaluator|
+      Role.create(user: model, name: "store_admin", store: evaluator.store)
+    end
+  end  
 end

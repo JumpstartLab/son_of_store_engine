@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+class Store::OrdersController < ApplicationController
 
   def new
     guard_new_order do

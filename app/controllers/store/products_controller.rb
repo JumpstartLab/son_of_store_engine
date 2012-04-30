@@ -1,9 +1,10 @@
-class ProductsController < ApplicationController
-
+class Store::ProductsController < ApplicationController
+  load_and_authorize_resource
   before_filter :store_must_exist
 
   def index
-    @products = current_store.products.active
+    @products = current_store.active_products
+    @products.accessible_by(current_ability)
     @categories = current_store.categories
   end
 

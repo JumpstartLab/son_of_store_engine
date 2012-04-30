@@ -18,13 +18,12 @@ StoreEngine::Application.routes.draw do
 
   resources :sessions
 
-  scope ':store_slug' do
+  scope ':store_slug', :module => "store" do
     match '/', :to => 'products#index', :as => :store
 
     resource  :cart, only: [:show, :update]
     resources :cart_products, only: [:new, :update, :destroy]
     resources :products, only: [:index, :show] do
-      resource :retirement, only: [:create, :update]
       resource :categories, only: :show
     end
 
@@ -36,8 +35,10 @@ StoreEngine::Application.routes.draw do
     resources :calls, only: [:new, :create, :index]
 
     namespace :admin do
-      resources :products
-      resource :store, only: [:edit, :update]
+      #resource :store, only: [:edit, :update]
+      resources :products do
+        resource :retirement, only: [:create, :update]
+      end
       resources :categories
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
@@ -56,5 +57,5 @@ StoreEngine::Application.routes.draw do
     end
   end
 
-  root :to => "info#home"
+  root :to => "static#home"
 end

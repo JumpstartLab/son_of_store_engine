@@ -14,8 +14,11 @@ class Store < ActiveRecord::Base
   has_many :orders, :extend => FindByStatusExtension
   has_many :products
   has_many :shipping_details
-  has_many :store_users
-  has_many :users, :through => :store_users
+  # has_many :store_users
+  # has_many :users, :through => :store_users
+
+  has_many :roles
+  has_many :users, :through => :roles
 
   STATUSES.each do |status|
     define_method(status+"!") do
@@ -28,4 +31,13 @@ class Store < ActiveRecord::Base
 
     scope status.to_sym, where(:status => status)
   end
+
+  def active_products
+    Product.where(:store_id => id).where(:retired => false)
+  end
+
+  def retired_products
+    Product.where(:store_id => id).where(:retired => true)
+  end
+
 end
