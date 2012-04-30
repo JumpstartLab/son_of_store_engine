@@ -20,9 +20,9 @@
 #
 
 Fabricator(:user) do
-  name 'Peter Griffin'
+  name { Faker::Name.name }
   email { Faker::Internet.email }
-  username 'peter'
+  username { Faker::Name.name }
   password 'derpina'
 end
 
@@ -38,9 +38,9 @@ Fabricator(:stocker_user, :from => :user) do
 end
 
 Fabricator(:admin_user, :from => :user) do
-  name 'Lois Griffin'
+  name { Faker::Name.name }
   email { Faker::Internet.email }
-  username 'lois'
+  username { Faker::Name.name }
   password 'derpina'
   after_build do |admin_user|
     role = Fabricate(:role, :name => 'admin')

@@ -8,6 +8,8 @@
 #  updated_at :datetime        not null
 #
 
+
+
 # CanCan uses roles to manage authorization
 class Role < ActiveRecord::Base
   attr_accessible :name
@@ -21,7 +23,7 @@ class Role < ActiveRecord::Base
   end
 
   def self.super_admin
-    where('name = ?', 'super_admin').first || 
+    where('name = ?', 'super_admin').first ||
       Role.create(:name => 'super_admin')
   end
 

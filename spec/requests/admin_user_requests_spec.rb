@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe User do
   let! (:user) { Fabricate(:user) }
-  let (:admin_user) { Fabricate(:admin_user) }
+  let (:admin_user) { Fabricate(:user) }
+  let (:stocker_user) { Fabricate(:user) }
   let! (:store) { Fabricate(:store, :users => [user]) }
   let! (:product) { Fabricate(:product, :store => store) }
   let! (:cart) { Fabricate(:cart, :store => store) }
@@ -25,32 +26,34 @@ describe User do
     }
 
     before(:each) do
-      store.add_user(admin_user)
+      store.add_admin(admin_user)
+      store.add_stocker(stocker_user)
       visit products_path(store)
       login_as(admin_user)
     end
 
-    describe "the admin dashboard" do
+    describe "access the admin dashboard" do
       it "provides a button to add a new admin user" do
         visit admin_dashboard_path(store)
         page.should have_link "Manage Users"
       end
 
-      context "the manage users page" do
+      context "and access the manage users page" do
         let!(:new_admin) { Fabricate(:user) }
+        let!(:new_stocker) { Fabricate(:user) }
 
         before(:each) do
           click_link "Admin"
           click_link "Manage Users"
         end
 
-        it "allows an admin to make a new admin via a user's email address" do
+        it "where they can add a new administrator" do
           page.should have_content("Add New Administrator")
         end
 
         context "when an admin who is not a valid sonofstoreengine user is added" do
           before(:each) do
-            fill_in "Email", :with => "bogusemailaddress@email123.com"
+            fill_in "admin_email", :with => "bogusemailaddress@email123.com"
           end
 
           it "validates the new admin's e-mail address as a valid sonofstoreengine user" do
@@ -64,26 +67,26 @@ describe User do
         end
 
         it "allows an admin to set another user as an admin for the store" do
-          fill_in "Email", :with => new_admin.email
+          fill_in "admin_email", :with => new_admin.email
           expect { click_button "Add Admin" }.to 
                   change{ store.users.count }.by(1)
         end
 
         context "when a new store admin has been successfully added" do
           it "emails the new store administrator" do
-            fill_in "Email", :with => new_admin.email
+            fill_in "admin_email", :with => new_admin.email
             expect { click_button "Add Admin" }.to change(ActionMailer::Base.deliveries, :size).by(1)
           end
         end
 
         it "displays an 'new admin successfully added' message when an admin has been added" do
-          fill_in "Email", :with => new_admin.email
+          fill_in "admin_email", :with => new_admin.email
           click_button "Add Admin"
           page.should have_content "New admin successfully added."
         end
 
         it "allows an admin to delete another admin" do
-          page.should have_content("Remove Admin")
+          page.should have_button("Delete Admin")
         end
 
         it "allows an admin to delete any current store admin" do
@@ -93,15 +96,93 @@ describe User do
 
         context "when a store admin has been deleted" do
           before(:each) do
-            fill_in "Email", :with => new_admin.email
+            fill_in "admin_email", :with => new_admin.email
             click_button "Add Admin"
           end
+
           it "display an 'Administrator deleted' message" do
             click_button "delete_admin_#{new_admin.id}"
             page.should have_content("Administrator deleted")
           end
+
           it "notifies the deleted admin that they have been removed via email" do
             expect {click_button "delete_admin_#{new_admin.id}" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+          end
+        end
+
+        context "when a store admin is the only store admin" do
+          it "cannot be deleted" do
+            click_button "delete_admin_#{admin_user.id}"
+            page.should have_content("You can't delete the only administrator")
+          end
+        end
+
+        it "where they can add a new store stocker" do
+          page.should have_content("Add New Stocker")
+        end
+
+        context "when a stocker who is not a valid sonofstoreengine user is added" do
+          before(:each) do
+            fill_in "stocker_email", :with => "bogusemailaddress@email123.com"
+          end
+
+          it "validates the new stocker's e-mail address as a valid sonofstoreengine user" do
+            click_button "Add Stocker"
+            page.should have_content "User with email 'bogusemailaddress@email123.com' does not exist."
+          end
+
+          it "emails the invalid stocker asking them to join sonofstoreengine" do
+            expect { click_button "Add Stocker" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+          end
+        end
+
+        it "allows an admin to set another user as a stocker for the store" do
+          fill_in "stocker_email", :with => new_stocker.email
+          expect { click_button "Add Stocker" }.to 
+                  change{ store.users.count }.by(1)
+        end
+
+        context "when a new store stocker has been successfully added" do
+          it "emails the new store stocker" do
+            fill_in "stocker_email", :with => new_stocker.email
+            expect { click_button "Add Stocker" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+          end
+
+          it "shows the stocker on the manage users page" do
+            fill_in "stocker_email", :with => new_stocker.email
+            click_button "Add Stocker"
+            page.should have_content(new_stocker.name)
+          end
+        end
+
+        it "displays an 'new stocker successfully added' message when an admin has been added" do
+          fill_in "stocker_email", :with => new_stocker.email
+          click_button "Add Stocker"
+          page.should have_content "New stocker successfully added."
+        end
+
+        it "allows an admin to delete a stocker" do
+          page.should have_button("Delete Stocker")
+        end
+
+        it "allows an admin to delete any current store stocker" do
+          expect { click_button "Delete Stocker" }.to 
+                  change{ store.users.count }.by(1)
+        end
+
+        context "when a store stocker has been deleted" do
+          before(:each) do
+            fill_in "stocker_email", :with => new_stocker.email
+            click_button "Add Stocker"
+          end
+
+          it "display an 'stocker deleted' message" do
+            click_button "delete_stocker_#{new_stocker.id}"
+            page.should have_content("Stocker deleted")
+          end
+
+          it "notifies the deleted stocker that they have been removed via email" do
+            expect {click_button "delete_stocker_#{new_stocker.id}" }.to change(ActionMailer::Base.deliveries, :size).by(1)
           end
         end
       end

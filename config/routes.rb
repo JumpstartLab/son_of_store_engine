@@ -24,7 +24,8 @@ StoreEngine::Application.routes.draw do
     namespace :admin do
       get '/' => 'dashboards#show'
       resources :orders
-      resources :users
+      resources :users, only: [:create, :index, :destroy]
+      resources :stockers, only: [:create, :index, :destroy]
       resources :order_items
       resources :store_users, only: :create
       resources :products

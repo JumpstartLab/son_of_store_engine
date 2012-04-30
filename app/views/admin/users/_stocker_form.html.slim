@@ -1,0 +1,33 @@
+hr
+table.table.table-bordered
+  tr
+    th Name
+    th Username
+    th Email
+    th User Role
+    th Remove Stocker
+  - users.each do |user|
+    tr id="user_#{user.id}"
+      td = user.name 
+      td = user.username
+      td = user.email
+      td = "Stocker"
+      td 
+        = button_to 'Delete Stocker',
+                    admin_stocker_path(@store,
+                    :user_id => user.id),
+                    :method => :delete,
+                    :class => 'btn btn-info',
+                    :id => "delete_stocker_#{user.id}",
+                    :confirm => "Are you sure you want to remove #{user.name} as a stocker?"
+
+h4 Add New Stocker
+
+= form_tag admin_stockers_path(@store) do
+
+  div.field
+    = label_tag :email
+    = text_field_tag :email, params[:email], :id => 'stocker_email'
+
+  div.actions
+    = submit_tag "Add Stocker"
