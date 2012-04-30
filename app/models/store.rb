@@ -33,18 +33,15 @@ class Store < ActiveRecord::Base
   end
 
   def stockers
-    x = Role.where(:store_id => self.id).select { |role| role.name == "store_stocker" }
-    users = x.collect{ |role| role.user }
+    Role.where(:store_id => self.id).select { |role| role.name == "store_stocker" }
   end
 
   def creator
-    x = Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
-    users = x.collect{ |role| role.user }.first.name
+    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }.first
   end
 
   def admins
-    x = Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
-    users = x.collect{ |role| role.user }
+    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
   end
 
   def active_products

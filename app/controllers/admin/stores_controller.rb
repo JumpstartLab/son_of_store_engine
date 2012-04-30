@@ -19,7 +19,7 @@ class Admin::StoresController < ApplicationController
       message = "Store has been approved."
       if @store.users.first
         message += " Sent email to #{@store.users.first.email}"
-        Resque.enqueue(Emailer, @store.id)
+        Resque.enqueue(Emailer, "store_approval_notification", @store.id)
       end
 
       flash.notice = message
