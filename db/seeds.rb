@@ -51,6 +51,17 @@ def seed_products(store, count)
   end
 end
 
+def create_users(count)
+  count.times do |i|
+    User.create(  full_name: Faker::Name.name,
+              password: "hungry",
+              password_confirmation: "hungry",
+              sequence(:email) { |n| "user#{n}@example.com" },
+              sequence(:username) { |n| "user#{n}" } )
+  end
+end
+
+
 products = first_store.products.create([{ title: 'Moccasin', 
                        description: 'For that Pokahontas look.', 
                              price: 125.00, 
@@ -157,7 +168,7 @@ products = first_store.products.create([{ title: 'Moccasin',
                         image_link: "http://dl.dropbox.com/u/71404227/1780225-p-2x.png",
                         categories: [female_category, dress_category]}])
 
-seed_products(second_store, 500)
+seed_products(second_store, 10000)
 
 admin_user = User.new(  full_name: "Chad Fowler",
                         password: "hungry",
