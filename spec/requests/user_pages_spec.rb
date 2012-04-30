@@ -39,4 +39,16 @@ describe "User pages" do
       end
     end
   end
+
+  context "when not signed in" do
+    before { visit root_path }
+
+    it "has a sign up link" do
+      page.should have_content('Register')
+    end
+
+    it "sends me to the appropriate top-level page when the sign up link is clicked" do
+      click_link_or_button('Register')
+    end
+  end
 end
