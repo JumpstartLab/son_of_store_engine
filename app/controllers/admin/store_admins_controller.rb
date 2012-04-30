@@ -25,4 +25,12 @@ class Admin::StoreAdminsController < Admin::ApplicationController
       redirect_to session[:last_page]
     end
   end
+
+  def edit
+    @store = Store.find_by_url_name(params[:id])
+  end
+
+  def show
+    @store = Store.find_by_url_name(params[:id])
+  end
 end
