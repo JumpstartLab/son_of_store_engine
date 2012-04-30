@@ -21,7 +21,22 @@ class User < ActiveRecord::Base
                       :allow_blank => true
 
   def promote(store, role)
-    privileges.create(store_id: store.id, name: role)
+    store_privileges(store).destroy_all
+    new_privilege = privileges.create!(store_id: store.id, name: role)
+    send_notice_of_promotion(new_privilege)
+  end
+
+  def terminate!(store)
+    store_privileges(store).destroy_all
+    send_notice_of_termination
+  end
+
+  def send_notice_of_promotion(privilege)
+    BackgroundJob.promotion_email(privilege)
+  end
+
+  def send_notice_of_termination
+    #TODO
   end
 
   def store_privileges(store)

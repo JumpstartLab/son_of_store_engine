@@ -6,7 +6,6 @@ StoreEngine::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
 
-  
   namespace "admin" do
     resources :stores do
       put "enable", on: :member
@@ -28,6 +27,7 @@ StoreEngine::Application.routes.draw do
     resource :two_click_orders
     resources :categories, :except => [:index]
     resources :orders
+    resources :employees
     resource :checkout, :controller => 'checkout'
     resource :cart, :only => [:show, :update]
     resources :cart_items

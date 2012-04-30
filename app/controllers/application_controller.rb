@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def lookup_cart
-    if current_user # if someone is logged in
+    if current_user
       current_user.cart = Cart.create if current_user.cart.nil?
       @cart = current_user.cart
       if @cart.id != session[:cart_id]
@@ -15,17 +15,15 @@ class ApplicationController < ActionController::Base
     else
       @cart = new_cart
     end
-    
   end
 
   def new_cart
     if session[:cart_id]
       @cart = Cart.find_by_id(session[:cart_id])
-    else
-      @cart ||= Cart.create
-      session[:cart_id] = @cart.id
-      @cart
     end
+    @cart ||= Cart.create
+    session[:cart_id] = @cart.id
+    @cart
   end
 
   def merge_cart(session_cart_id)
@@ -64,7 +62,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user = User.find(session[:user_id]) if session[:user_id] rescue nil
   end
 
   def admin?

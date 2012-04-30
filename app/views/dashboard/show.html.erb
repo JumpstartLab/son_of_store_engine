@@ -66,7 +66,12 @@
   </tbody>
 </table>
 <br />
-<br />
+<%= link_to "Add product", new_store_product_path(current_store), 
+    :class => "btn btn-large" %>
+<%= link_to "Add category", new_store_category_path(current_store), 
+    :class => "btn btn-large" %>
+<%= link_to "Add employee", new_store_employee_path(current_store), 
+    :class => "btn btn-large" %>
 <br />
 <div class="page-header">
 <h1>Categories</h1>
