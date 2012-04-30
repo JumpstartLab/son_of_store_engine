@@ -22,6 +22,9 @@ class UsersController < ApplicationController
       redirect_to params[:return_path], :notice => "You have been registered. #{link}".html_safe
       UserMailer.user_confirmation(@user).deliver
     else
+      @user.errors.full_messages.each do |msg|
+        flash.now[:error] = msg
+      end
       render :new
     end
   end

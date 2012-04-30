@@ -160,7 +160,7 @@ end
 
 Then /^I should receive an email confirmation$/ do
   # XXX Use fixture.
-  email = ActionMailer::Base.deliveries.first
+  email = ActionMailer::Base.deliveries.last
   email.from.should == ["info@berrystore.com"]
   email.to.should == [@user.email]
   email.subject.to_s.should include "You have been registered."
@@ -171,9 +171,30 @@ Given /^I or someone else has created a StoreEngine account with my email addres
 end
 
 Then /^I should see an error about duplicate email and a link to sign in$/ do
-  pending # express the regexp above with the code you wish you had
+  flash_text.should include "Email has already been taken"  
 end
 
-Then /^I should see a confirmation flash message with the link to update my account$/ do
-  pending # express the regexp above with the code you wish you had
+Then /^I should be able to correct it and resubmit$/ do
+  fill_in('user_email', with: 'ed.weng@gmail.com')
+  fill_in('user_password', with: @user.password)
+  fill_in('user_password_confirmation', with: @user.password)
+  click_on('Create Account')
+end
+
+Given /^I enter my email address and display name$/ do
+  fill_in('user_email', with: 'ed.weng@gmail.com')
+  fill_in('user_display_name', with: @user.display_name)
+  fill_in('user_password', with: @user.password)
+  fill_in('user_password_confirmation', with: @user.password)
+end
+
+Then /^I should see an error telling me I need to specify a full name$/ do
+  flash_text.should include "Name can't be blank"  
+end
+
+Given /^I enter my email address and full name$/ do
+  fill_in('user_email', with: @user.email)
+  fill_in('user_name', with: @user.name)
+  fill_in('user_password', with: @user.password)
+  fill_in('user_password_confirmation', with: @user.password)
 end
