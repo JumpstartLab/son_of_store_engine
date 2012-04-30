@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_cart
   helper_method :current_store
   helper_method :verify_store_status
-  helper_method :url_for
 
   def current_store
     @current_store ||= Store.where(slug: params[:store_slug]).first
@@ -41,14 +40,6 @@ class ApplicationController < ActionController::Base
       cart = current_user.carts.where(:store_id => current_store.id).first || current_user.carts.create!(:store_id => current_store.id)
       cart_storage[current_store.id] = cart.id
       cart
-    end
-  end
-
-  def url_options
-    if current_store
-      { :store_slug => current_store.slug }.merge(super)
-    else
-      super
     end
   end
 
