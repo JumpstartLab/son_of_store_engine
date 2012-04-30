@@ -124,4 +124,14 @@ describe Order do
       order.save
     end
   end
+
+  describe "after status update", :model => :bj  do
+    it "calls BackgroundJob.order_email" do
+      order = FactoryGirl.create(:order)
+      user = double("user", :id => 1)
+      order.stub(:order_user).and_return(user)
+      BackgroundJob.should_receive(:order_status_email).with(user, order)
+      order.update_status("paid")
+    end
+  end
 end

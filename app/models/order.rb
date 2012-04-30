@@ -67,8 +67,6 @@ class Order < ActiveRecord::Base
         :customer => order_user.stripe_id,
         :description => "order##{id}" )
       is_paid!
-      #Resque.enqueue(Emailer, order_user, "Sample Subject", "Email being sent from Resque")
-      ##UserMailer.order_confirmation(order_user, self).deliver
       save!
     end
     rescue Stripe::InvalidRequestError => error
@@ -103,7 +101,7 @@ class Order < ActiveRecord::Base
   def update_status(new_status)
     if VALID_STATUSES.include?(new_status)
       update_attribute(:status, new_status)
-      UserMailer.status_confirmation(user, self).deliver
+      BackgroundJob.order_status_email(order_user, self)
     end
   end
 
