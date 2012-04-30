@@ -112,6 +112,11 @@ class Store < ActiveRecord::Base
     end
   end
 
+  def add_admin(user)
+    user.add_role(Role.admin)
+    self.users << user
+  end
+
   private
 
   def parameterize_slug

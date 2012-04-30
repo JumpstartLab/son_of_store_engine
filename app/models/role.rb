@@ -15,4 +15,17 @@ class Role < ActiveRecord::Base
   has_many :users, :through => :user_roles
 
   validates :name, :presence => true, :uniqueness => true
+
+  def self.admin
+    where('name = ?', 'admin').first || Role.create(:name => 'admin')
+  end
+
+  def self.super_admin
+    where('name = ?', 'super_admin').first || 
+      Role.create(:name => 'super_admin')
+  end
+
+  def self.stocker
+    where('name = ?', 'stocker').first || Role.create(:name => 'stocker')
+  end
 end

@@ -24,7 +24,7 @@ describe Role do
       page.should have_content('New Role')
       page.should_not have_content('You are not authorized to access this page.')
       fill_in 'Name', :with => 'sassy_pants'
-      expect { click_button 'Create Role' }.to change{ Role.count }.from(1).to(2)
+      expect { click_button 'Create Role' }.to change{ Role.all.count }.from(2).to(3)
     end
 
     it "must create roles with unique names" do
@@ -36,7 +36,7 @@ describe Role do
     end
 
     it "can edit roles" do
-      admin_role = Role.create(:name => 'admin')
+      admin_role = Role.admin
       visit edit_role_path(admin_role)
       page.should have_content('Edit Role')
       page.should_not have_content('You are not authorized to access this page.')
@@ -48,7 +48,7 @@ describe Role do
     end
 
     it "can't edit a role to have a blank name" do
-      admin_role = Role.create(:name => 'admin')
+      admin_role = Role.admin
       visit edit_role_path(admin_role)
       page.should have_content('Edit Role')
       page.should_not have_content('You are not authorized to access this page.')
