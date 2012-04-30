@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Store Admin' do
   let!(:admin) { Fabricate(:admin_user) }
   let!(:user) { Fabricate(:user) }
-  let(:super_admin_user) { Fabricate(:super_admin_user) }
+  let!(:super_admin_user) { Fabricate(:super_admin_user) }
 
   let!(:stores) do
     20.times.map do |n|

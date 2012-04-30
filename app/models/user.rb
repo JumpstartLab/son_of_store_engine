@@ -54,11 +54,11 @@ class User < ActiveRecord::Base
   after_create :send_welcome_email
 
   def admin?
-    roles.map(&:name).include? 'admin'
+    roles.include? Role.admin
   end
 
   def super_admin?
-    roles.map(&:name).include? 'super_admin'
+    roles.include? Role.super_admin
   end
 
   def add_role(role)
