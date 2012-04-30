@@ -6,10 +6,17 @@ class ApplicationController < ActionController::Base
   before_filter :find_store, :find_cart, :stripe_api_key
   before_filter :verify_user
 
+  def subdomain_path(sub)
+    request.protocol + ("#{sub}." if sub).to_s + request.domain + (request.port.nil? ? '' : ":#{request.port}")
+  end  
+
+  helper_method :subdomain_path
+
 private
 
   def find_store
-    unless request.subdomain.empty?
+    if request.subdomain.present?
+      session[:current_store] = request.subdomain
       current_store = Store.find_active_store(request.subdomain)
       redirect_to "/404" if current_store.nil?
       set_current_tenant(current_store)

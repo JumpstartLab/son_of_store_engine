@@ -65,7 +65,7 @@
     end
     root :to => "products#index"
   end
-  get '/profile', :to => "users#edit"
+  get '/profile', :to => "users#edit", as: :profile
 
   root :to => "pages#index"
   # The priority is based upon order of creation:
