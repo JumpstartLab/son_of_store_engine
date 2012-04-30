@@ -149,10 +149,10 @@ store3.update_attribute(:approval_status, "approved")
 store3.update_attribute(:enabled, true)
 
 # PRODUCTS
-# products = []
-# 10000.times do
-#   products << Fabricate(:product, store_id: store3.id)
-# end
+products = []
+10000.times do
+  products << Fabricate(:product, store_id: store3.id)
+end
 
 # ORDERS
 orders = []
