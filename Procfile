@@ -1,1 +1,0 @@
-worker:  rake jobs:work
