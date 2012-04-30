@@ -18,6 +18,7 @@ class AdminAbility
         user.stores.include?(product.store)
       end
     else
+      #guest user can't gain access to admin functionality
     end
   end
 end

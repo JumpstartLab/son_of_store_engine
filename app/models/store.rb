@@ -45,11 +45,28 @@ class Store < ActiveRecord::Base
   end
 
   def active_products
-    Product.where(:store_id => id).where(:retired => false)
+    products.where(:retired => false)
   end
 
   def retired_products
-    Product.where(:store_id => id).where(:retired => true)
+    products.where(:retired => true)
+  end
+
+  def update_status(params)
+    if params[:status] == "approved"
+      self.status = "approved"
+    elsif params[:status] == "declined"
+      self.status = "declined"
+    end
+    self
+  end
+
+  def notify_store_admin_of_status
+    if status == "approved"
+      Resque.enqueue(Emailer, id)
+    elsif status == "declined"
+      StoreMailer.store_declined_notification(self).deliver
+    end
   end
 
 end

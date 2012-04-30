@@ -4,7 +4,7 @@ h1 Admin Products View
     ul.nav.nav-pills
     h4 Categories:
     br/
-    = render :partial => "categories/category", :collection => @categories
+    = render :partial => "store/categories/category", :collection => @categories
     li= link_to 'New Category', new_admin_category_path(store_slug)
 ul.nav.nav-pills
   h4 Active Products:

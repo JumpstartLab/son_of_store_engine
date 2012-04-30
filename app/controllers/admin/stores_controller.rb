@@ -13,6 +13,7 @@ class Admin::StoresController < ApplicationController
 
   def update
     @store = Store.find(params[:id])
+<<<<<<< HEAD
     @store.update_attributes(params[:store])
     if params[:store][:status] == "approved"
       # XXX This makes me sad inside...
@@ -32,9 +33,18 @@ class Admin::StoresController < ApplicationController
       end
 
       flash.notice = message
+=======
+    @store.update_status(params[:store])
+    if @store.save
+      @store.notify_store_admin_of_status
+      message = "Store has been #{@store.status}."
+      message += " Sent email to #{@store.users.first.email}"
+    else
+      message = "There has been an error in updating this store's status."
+>>>>>>> 2bbe3c0fa62051c423ae80c0e9c0ce29509c5306
     end
-
-    redirect_to :back, :notice => "#{@store.name} has been updated."
+    flash.notice = message
+    redirect_to admin_stores_path
   end
 
   def show
