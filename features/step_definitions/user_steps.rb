@@ -57,3 +57,7 @@ end
 Then /^I should see a not found error$/ do
   flash_text.should include "A store does not exist at this address."
 end
+
+Then /^I am signed in$/ do
+  page.text.should include "Sign out"
+end

@@ -5,7 +5,7 @@ StoreEngine::Application.routes.draw do
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
 
   resources :users, only: [:show, :create, :new, :edit, :update] do
-    resources :orders, :only => [:index]
+    resources :orders, :only => [:index, :show]
   end
 
   resources :stores, :only => [:show, :index, :create, :new]
@@ -28,7 +28,7 @@ StoreEngine::Application.routes.draw do
     end
 
     resources :categories , only: [:show]
-    resources :orders, only: [:show, :new, :create]
+    resources :orders, only: [:new, :create]
     resources :guest_orders, only: [:index, :new, :show, :create]
     resources :credit_cards, only: [:new, :create, :index]
     resources :shipping_details, only: [:new, :create, :index]
