@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :products, :through => :orders
   has_many :product_ratings
   has_one :cart
-  has_many :addresses
+  has_one :address
   after_create :send_confirmation_mail
 
   def guest_user

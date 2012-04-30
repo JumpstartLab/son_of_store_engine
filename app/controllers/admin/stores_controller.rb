@@ -7,6 +7,7 @@ module Admin
                                             :enable, :disable
 
                                           ]
+    before_filter :find_store_from_tenant, :only => [:manage, :user_stocker, :add_user, :add_stocker, :remove_role]
     before_filter :verify_store_admin, :except => [:new, :create, :index]
     before_filter :require_admin, :only => [:index]
 
@@ -21,7 +22,6 @@ module Admin
     end
 
     def manage
-      @store = current_tenant
       render "admin/stores/show"
     end
 
@@ -33,6 +33,22 @@ module Admin
       @store = current_tenant
       @store.add_admin(params[:store][:user])
       redirect_to '/admin', notice: "Admin added."
+    end
+
+    def user_stocker
+      @store = current_tenant
+    end
+
+    def add_stocker
+      @store = current_tenant
+      @store.add_stocker(params[:store][:user])
+      redirect_to '/admin', notice: "Stocker added."      
+    end
+
+    def remove_role
+      @store = current_tenant
+      @store.remove_role(params[:email])
+      redirect_to '/admin', notice: "Stocker removed."
     end
 
     def new
@@ -79,6 +95,9 @@ module Admin
     end
 
     private
+    def find_store_from_tenant
+      @store = current_tenant
+    end
 
     def lookup_store
       @store = Store.find(params[:id])

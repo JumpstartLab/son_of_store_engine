@@ -29,6 +29,9 @@
       collection do
         get 'users'
         put 'add_user'
+        get 'user_stocker'
+        put 'add_stocker'
+        put 'remove_role'
       end
     end
     resources :orders,:exclude => [:show] do
@@ -36,6 +39,10 @@
         get 'status'
       end
     end
+  end
+
+  namespace "stock" do
+    resources :products
   end
 
   # Subdomain Routes

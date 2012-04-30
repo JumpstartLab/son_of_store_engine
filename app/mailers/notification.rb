@@ -39,4 +39,19 @@ class Notification < ActionMailer::Base
     mail(:to => user.email, :subject => "You are now a store admin of #{store.name}")        
   end
 
+  def new_user_and_store_stocker(email, store)
+    @email = email
+    @store = store
+    mail(:to => email, :subject => "You have been invited to become a stocker of #{store.name}")        
+  end
+
+  def new_store_stocker(user,store)
+    @store = store
+    mail(:to => user.email, :subject => "You are now a store stocker of #{store.name}") 
+  end
+
+  def remove_role(email,store)
+     mail(:to => email, :subject => "Yo dawg, you've been fired! #{store.name} Doesn't want you anymore") 
+  end
+
 end
