@@ -31,16 +31,16 @@ class Store < ActiveRecord::Base
     active == 2
   end
 
-  def enabled?
-    enabled == true
-  end
-
   def disabled?
-    enabled == false
+    !enabled? 
   end
 
   def self.find_active_store(url)
     Store.where('url = ? AND active = ? AND enabled = ?', url, 2, true).first
+  end
+
+  def self.find_store(url)
+    Store.where('url = ? AND active = ?', url, 2).first
   end
 
   def editable?(user)

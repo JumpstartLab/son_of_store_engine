@@ -17,8 +17,9 @@ private
   def find_store
     if request.subdomain.present?
       session[:current_store] = request.subdomain
-      current_store = Store.find_active_store(request.subdomain)
-      redirect_to "/404" if current_store.nil?
+      current_store = Store.find_store(request.subdomain)
+      return redirect_to "/404" if current_store.nil?
+      return redirect_to "/maintenance.html" if current_store.disabled?
       set_current_tenant(current_store)
     end
   end
