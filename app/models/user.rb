@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :products, :through => :orders
   has_many :product_ratings
   has_one :cart
-  has_one :address
+  has_many :addresses
   after_create :send_confirmation_mail
 
   def guest_user
@@ -86,6 +86,14 @@ class User < ActiveRecord::Base
 
   def text(msg)
     send_text(msg, self.phone_number) if not self.phone_number.blank?
+  end
+
+  def billing_address
+    addresses.billing
+  end
+
+  def shipping_address
+    addresses.shipping
   end
 
 end

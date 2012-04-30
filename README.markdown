@@ -26,3 +26,7 @@ Use POW
 Start Redis (For emailers, stripe, geocoder, etc.)
 
   rake resque:work QUEUE=*
+
+To run test suite
+
+  RAILS_ENV=test rake
