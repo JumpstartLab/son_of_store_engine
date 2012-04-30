@@ -35,13 +35,13 @@ h3
     br/
     h4
       | Filter by: 
-      = link_to 'Pending', admin_path(order_status: 'pending')
+      = link_to 'Pending', admin_path(store_slug, order_status: 'pending')
       | &nbsp;|&nbsp;
-      = link_to 'Cancelled', admin_path(order_status: 'cancelled')
+      = link_to 'Cancelled', admin_path(store_slug, order_status: 'cancelled')
       | &nbsp;|&nbsp;
-      = link_to 'Paid', admin_path(order_status: 'paid')
+      = link_to 'Paid', admin_path(store_slug, order_status: 'paid')
       | &nbsp;|&nbsp;
-      = link_to 'Shipped', admin_path(order_status: 'shipped')
+      = link_to 'Shipped', admin_path(store_slug, order_status: 'shipped')
       | &nbsp;|&nbsp;
       = link_to 'All', admin_path
     br/

@@ -22,6 +22,6 @@ class ProductSweeper < ActionController::Caching::Sweeper
     # expire_page(:controller => 'products', :action => 'index')
  
     # Expire a fragment
-    expire_fragment('products_table')
+    expire_fragment('views/products_table')
   end
 end
