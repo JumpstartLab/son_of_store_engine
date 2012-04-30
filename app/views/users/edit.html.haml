@@ -1,6 +1,5 @@
 .row
   .span6
     = render 'form', :legend_title => "Edit Profile" 
-  - if @current_user.admin?
-    .span6
-      = link_to "Create Store", new_admin_store_path
+  .span6
+    = link_to "Create Store", new_admin_store_path

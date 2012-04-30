@@ -1,9 +1,11 @@
 # Restful actions for products
-module Admin
-  class ProductsController < Controller
-
-    include ProductsActions
-
+module Stock
+  class ProductsController < ApplicationController
+    before_filter :require_login
+    before_filter :confirm_stocker
+    def index
+      @products = Product.all
+    end
     def new
       @product = Product.new
     end
@@ -35,6 +37,14 @@ module Admin
         render 'edit'
       end
     end
+  private 
 
+    def confirm_stocker
+      sr = current_tenant.store_roles.find_by_user_id(current_user.id)
+      unless sr.stocker?
+        flash[:alert] = "You are not a store stocker!"
+        redirect_to root_url
+      end
+    end
   end
 end

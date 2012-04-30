@@ -1,0 +1,7 @@
+= form_for [:admin, @store], :url => add_stocker_admin_stores_path do |f|
+  %legend Add Stocker
+  = f.label :user, "Email"
+  = f.text_field :user
+  %br
+  %br
+  = f.submit "Add", :class => "btn btn-primary"

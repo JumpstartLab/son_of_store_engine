@@ -4,6 +4,7 @@
     %th Name
     %th Description
     %th URL
+    %th Admin
     %th Status
     %th Actions
     %th{:colspan => 3}
@@ -12,6 +13,7 @@
       %td= store.name
       %td= truncate(store.description, :length => 32)
       %td= store.url
+      %td= link_to "Admin", "http://#{store.url}.#{request.host}/admin"
       - if store.pending?
         %td
           = link_to "Approve", approve_admin_store_path(store), method: :put

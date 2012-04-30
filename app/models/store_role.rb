@@ -11,4 +11,12 @@ class StoreRole < ActiveRecord::Base
     permission == 5
   end
 
+  def role
+    if permission == 9
+      "ADMIN"
+    else
+      "STOCKER"
+    end
+  end
+
 end
