@@ -4,5 +4,5 @@ Fabricator(:store, :class_name => Store) do
   description "#{ Faker::Company.catch_phrase } #{ Faker::Company.catch_phrase } #{ Faker::Company.catch_phrase }"
   approval_status "approved"
   enabled true
-  creating_user_id 1
+  creating_user_id  { Fabricate(:user).id }
 end

@@ -1,16 +1,14 @@
 require 'spec_helper'
 
 describe "store admin for products", store_admin: true do
-  let!(:user) { Fabricate(:user) }
-  let!(:store) { Fabricate(:store) }
-  let!(:product) { Fabricate(:product, store_id: store.id) }
+  let!(:store_owner)  { Fabricate(:user) }
+  let!(:store)        { Fabricate(:store, creating_user_id: store_owner.id) }
+  let!(:product)      { Fabricate(:product, store_id: store.id) }
   
   before(:each) do
-    user.update_attribute(:admin, true)
-    user.update_attribute(:admin_view, true)
     visit "/#{store.to_param}/products"
     click_link_or_button "Sign-In"
-    login({email: user.email_address, password: user.password})
+    login({email: store_owner.email_address, password: store_owner.password})
   end
 
   context "admin product view" do
@@ -51,7 +49,13 @@ describe "store admin for products", store_admin: true do
         page.should have_content button
       end
     end
-
+    
+    it "displays information on the store product" do
+      within "#main-content" do
+        page.should have_content product.title
+      end
+    end
+    
     it "can un-retire a product" do
       within "#main-content" do
         click_link_or_button "Retire"
@@ -61,7 +65,7 @@ describe "store admin for products", store_admin: true do
       end
       page.should have_content "Retire"
     end
-    
+  
     context "when multiple stores exist" do
       let!(:store_2)    { Fabricate(:store) }
       let!(:product_2)  { Fabricate(:product, store_id: store_2.id) }
