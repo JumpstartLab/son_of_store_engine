@@ -5,7 +5,6 @@ gem 'resque_mailer'
 gem 'rails', '3.2.3'
 gem 'jquery-rails'
 gem 'slim'
-gem 'rack-pjax'
 gem 'twitter-bootstrap-rails'
 gem 'bcrypt-ruby'
 gem 'redis-store', "~> 1.0.0"
