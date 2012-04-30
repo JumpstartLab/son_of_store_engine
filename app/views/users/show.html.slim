@@ -6,9 +6,10 @@ h1 Dashboard
       li= @user.display_name
       li= @user.name
       li= @user.email
+      li= link_to "Edit profile", edit_user_path(@user.id)
 br/
 .row
   .span12
     h2 Most Recent Orders
     = render :partial => 'shared/orders', :object => @orders
-    = link_to "Show all orders", orders_path
+    = link_to "Show all orders", user_orders_path(@user.id)

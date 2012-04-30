@@ -1,46 +1,36 @@
 class SessionsController < ApplicationController
+  include SessionHelpers
 
   def new
+    render 'checkout_new' if params[:slug] && params[:checkout]
   end
 
   def create
-    #This needs to be fixed... login happens at root everytime now.
-
-    cart_before_login = current_cart
+    carts = current_carts
     if user = login(params[:email], params[:password], params[:remember_me])
-      successful_login(cart_before_login, user)
+      carts.each do |cart|
+        transfer_cart_to_user(cart, user)
+      end
+
+      if params[:checkout] == "true"
+        redirect_to new_order_path(params[:slug]), :notice => "You have been signed in."
+      else
+        redirect_to successful_login_path, :notice => "You have been signed in."
+      end
     else
-      invalid_email
+      invalid_login_credentials
+      render :new
     end
   end
 
   def destroy
     logout
-    redirect_to root_url, :notice => "Logged out."
+    redirect_to successful_logout_path, :notice => "You have been logged out."
   end
 
 private
 
-  def successful_login(cart_before_login, user)
-    unless current_store
-      redirect_to root_path
-      return
-    end
-
-    if cart_before_login.has_products?
-      existing_cart = user.carts.where(:store_id => current_store.id).first
-      existing_cart.destroy if existing_cart
-      user.carts << cart_before_login
-    else
-      cart_before_login.destroy
-    end
-
-    redirect_to store_path(current_store.slug)
-  end
-
-  def invalid_email
+  def invalid_login_credentials
     flash.now.alert = "Email or password was invalid."
-    render :new
   end
-
 end

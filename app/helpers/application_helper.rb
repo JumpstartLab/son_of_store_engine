@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def store_slug
-    current_store && current_store.slug.downcase
+    current_store && current_store.slug.downcase || params[:slug]
   end
 
 end

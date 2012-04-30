@@ -20,7 +20,7 @@ class Admin::StoresController < ApplicationController
       message = "Store has been approved."
       if @store.users.first
         message += " Sent email to #{@store.users.first.email}"
-        StoreMailer.store_declined_notification(@store).deliver
+        Resque.enqueue(Emailer, @store.id)
       end
 
       flash.notice = message
@@ -28,6 +28,7 @@ class Admin::StoresController < ApplicationController
       message = "Store has been declined."
       if @store.users.first
         message += " Sent email to #{@store.users.first.email}"
+        # XXX this should probably also use resque?
         StoreMailer.store_declined_notification(@store).deliver
       end
 

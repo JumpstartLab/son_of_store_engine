@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :verify_store_status
-  before_filter :get_last_page
-  after_filter :set_last_page
 
   helper_method :current_cart
   helper_method :current_store
@@ -13,14 +11,17 @@ class ApplicationController < ActionController::Base
     @current_store ||= Store.where(slug: params[:store_slug]).first
   end
 
-  def get_last_page
-    @last_page = "Your last page: #{session[:last_page]}"
-  end
-
   def current_cart
     if current_store
       @cart ||= get_cart_from_session || get_cart_from_user_if_logged_in || create_new_cart
     end
+  end
+
+  def current_carts
+    ids = cart_storage.values
+    ids.map do |id|
+      Cart.where(id: id).first
+    end.compact
   end
 
   def cart_storage
@@ -65,10 +66,6 @@ private
     cart
   end
 
-  def set_last_page
-    session[:last_page] = request.url
-  end
-
   def verify_store_status
     if current_store && current_store.status == "pending"
       redirect_to root_path, :notice => "That store is pending approval."
@@ -82,4 +79,5 @@ private
       current_user && current_user.site_admin == true
   end
 
+  
 end

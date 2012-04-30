@@ -34,16 +34,17 @@ h3
   h3
     br/
     h4
+      / XXX These links are broken
       | Filter by:
-      = link_to 'Pending', admin_dashboard_path(store_slug: store_slug, order_status: 'pending')
+      /= link_to 'Pending', admin_dashboard_path(store_slug: store_slug, order_status: 'pending')
       | &nbsp;|&nbsp;
-      = link_to 'Cancelled', admin_dashboard_path(store_slug: store_slug, order_status: 'cancelled')
+      /= link_to 'Cancelled', admin_dashboard_path(store_slug: store_slug, order_status: 'cancelled')
       | &nbsp;|&nbsp;
-      = link_to 'Paid', admin_dashboard_path(store_slug: store_slug, order_status: 'paid')
+      /= link_to 'Paid', admin_dashboard_path(store_slug: store_slug, order_status: 'paid')
       | &nbsp;|&nbsp;
-      = link_to 'Shipped', admin_dashboard_path(store_slug: store_slug, order_status: 'shipped')
+      /= link_to 'Shipped', admin_dashboard_path(store_slug: store_slug, order_status: 'shipped')
       | &nbsp;|&nbsp;
-      = link_to 'All', admin_dashboard_path
+      /= link_to 'All', admin_dashboard_path
     br/
     table.table.table-bordered.table-striped
       tr

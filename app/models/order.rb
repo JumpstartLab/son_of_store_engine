@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   has_many :order_products, :dependent => :destroy
   has_many :products, :through => :order_products
   has_one :order_status, :dependent => :destroy
-  
+
   validates_presence_of :user_id
   validates_presence_of :order_products
 
@@ -31,16 +31,14 @@ class Order < ActiveRecord::Base
     order.user if order
   end
 
-  def self.create_for(user, cart)
+  def self.build_for(user, cart)
     order = user.orders.build
     order.build_order_from_cart(cart)
-    order.save
     order
   end
 
   def add_shipping_detail_for(user, attributes)
     self.shipping_detail = user.shipping_details.find(attributes[:shipping_detail_id])
-    save
   end
 
   def make_new_order_status
@@ -50,6 +48,10 @@ class Order < ActiveRecord::Base
   def status
     result = self.order_status.status
     result ? result : ""
+  end
+
+  def store_name
+    store.name
   end
 
   def mark_as_paid

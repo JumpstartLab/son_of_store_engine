@@ -2,13 +2,12 @@ require 'spec_helper'
 
 describe "Viewing products" do
   let(:product) { FactoryGirl.create(:product) }
-  let(:store) { FactoryGirl.create(:store) }
+  let(:store) { FactoryGirl.create(:store, :status => "approved") }
 
   context "and I'm not logged in" do
     context "and I visit the products index page" do
       before(:each) do
-        visit store_path(store)
-        save_and_open_page
+        visit store_path(store.slug)
       end
 
       it "lets me view the products index" do
@@ -17,14 +16,14 @@ describe "Viewing products" do
 
       context "and a category has been created" do
         let!(:category) { FactoryGirl.create(:category) }
-        before(:each) { visit products_path }
+        # before(:each) { store.product.add_category_by_id(category.id) }
 
         it "lists the category on the product index" do
           page.should have_content(category.name)
         end
 
         context "and assigned to the created product" do
-          before(:each) { product.add_category_by_id(category.id) }
+          before(:each) { current_store.product.add_category_by_id(category.id) }
 
           context "and I visit a listed product's page" do
             before(:each) { visit product_path(product) }

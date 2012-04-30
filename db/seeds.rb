@@ -4,4 +4,4 @@
 # Examples:
 #
 
-  Seeder.build_db
+Seeder.build_db

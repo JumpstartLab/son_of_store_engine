@@ -19,3 +19,6 @@
 
 # Ignore exec
 /exec
+
+# MAC OSX
+.DS_Store
