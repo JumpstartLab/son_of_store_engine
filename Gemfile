@@ -15,10 +15,12 @@ gem 'resque'
 gem 'tlsmail'
 
 gem 'capistrano'
-gem 'unicorn'
 #gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 
-gem 'pg'
+group :production do
+  gem 'pg'
+  gem 'unicorn'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
