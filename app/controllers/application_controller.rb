@@ -5,7 +5,7 @@ module UrlHelper
     subdomain += "." unless subdomain.empty?
     [subdomain, request.domain, request.port_string].join
   end
-  
+
   def url_for(options = nil)
     if options.kind_of?(Hash) && options.has_key?(:subdomain)
       options[:host] = with_subdomain(options.delete(:subdomain))
@@ -19,7 +19,6 @@ end
   before_filter :find_or_create_cart
   before_filter :get_last_page
   after_filter :set_last_page
-  #before_filter :store
 
   helper_method :current_cart, :store
 
@@ -49,8 +48,8 @@ end
   end
 
   def is_store_admin?
-    redirect_to_last_page("Nice try, jerk.") unless 
-      current_user.stores.map{|s| s.url_name }.include?(params[:id])
+    redirect_to_last_page("Nice try, jerk.") unless
+      store.admins.include?(current_user)
   end
 
 private

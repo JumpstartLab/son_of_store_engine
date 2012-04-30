@@ -29,6 +29,10 @@ class Store < ActiveRecord::Base
     add_admin_by_id(self.owner_id)
   end
 
+  def owner
+    User.find(owner_id)
+  end
+
   def add_admin_by_id(id)
     admin_user = User.find(id)
     add_admin(admin_user)
