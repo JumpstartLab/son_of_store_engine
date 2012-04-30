@@ -20,9 +20,9 @@
 #
 
 Fabricator(:user) do
-  name 'Peter Griffin'
+  name { Faker::Name.name }
   email { Faker::Internet.email }
-  username 'peter'
+  username { Faker::Name.name }
   password 'derpina'
 end
 

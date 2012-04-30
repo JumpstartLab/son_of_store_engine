@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     roles.include? Role.super_admin
   end
 
+  def stocker?
+    roles.include? Role.stocker
+  end
+
   def add_role(role)
     roles << role
   end
