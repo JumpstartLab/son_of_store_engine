@@ -15,4 +15,8 @@ class OrderProduct < ActiveRecord::Base
     self.price * self.quantity
   end
 
+  def store_slug
+    product.store.slug
+  end
+
 end

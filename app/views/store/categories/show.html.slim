@@ -6,4 +6,4 @@ br/
 ul.thumbnails
   - @products.each_slice(3) do |slice|
     .row style="margin-bottom:20px"
-      = render :partial => "products/product", :collection => slice, :as => "product"
+      = render :partial => "store/products/product", :collection => slice, :as => "product"

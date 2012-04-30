@@ -11,5 +11,5 @@ br/
 .row
   .span12
     h2 Most Recent Orders
-    = render :partial => 'shared/orders', :object => @orders
+    = render :partial => 'store/shared/orders', :object => @orders
     = link_to "Show all orders", user_orders_path(@user.id)

@@ -4,7 +4,8 @@
     br/
     ul.nav.nav-pills
       = render :partial => "store/categories/category", :collection => @categories
-ul.thumbnails
-  - @products.each_slice(3) do |slice|
-    .row style="margin-bottom:20px"
-      = render :partial => "product", :collection => slice, :as => "product"
+= cache('products_table') do
+  ul.thumbnails
+    - @products.each_slice(3) do |slice|
+      .row style="margin-bottom:20px"
+        = render :partial => "product", :collection => slice, :as => "product"

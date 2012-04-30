@@ -4,7 +4,7 @@
   - order_products.each do |order_product|
     tr
       td
-        = link_to order_product.product.name, product_path(store_slug, order_product.product_id)
+        = link_to order_product.product.name, product_path(order_product.store_slug, order_product.product_id)
       td= order_product.quantity
       td= order_product.price
       td= order_product.subtotal
