@@ -18,7 +18,13 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to store_path(params[:slug]), :notice => "You have been logged out."
+    
+    if params[:slug].blank?
+      logout_path = root_path
+    else
+      logout_path = store_path(params[:slug])
+    end
+    redirect_to logout_path, :notice => "You have been logged out."
   end
 
 private

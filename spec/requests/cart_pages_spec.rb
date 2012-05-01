@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Using the shopping cart" do
   
   context "when I'm on the cart page" do
-    before(:each) { visit cart_path }
+    before(:each) { visit store_cart_path }
 
     context "and I haven't added any products" do
       it "should notify customer that there is nothing in the cart" do
@@ -16,7 +16,7 @@ describe "Using the shopping cart" do
 
   context "when I'm on a product page" do
     let(:product) { FactoryGirl.create(:product) }
-    before(:each) { visit product_path(product) }
+    before(:each) { visit store_product_path(product) }
 
     context "and I click 'add to cart'" do
       before(:each) { click_link("Add to cart") }
@@ -62,7 +62,7 @@ describe "Using the shopping cart" do
 
       context "when I add multiple items to the cart" do
         before(:each) do
-          visit product_path(product)
+          visit store_product_path(product)
           click_link_or_button("Add to cart" )
         end
 
@@ -87,7 +87,7 @@ describe "Using the shopping cart" do
 
       context "when I remove items from my cart" do
         before(:each) do
-          visit cart_path
+          visit store_cart_path
           click_link_or_button("Remove from cart")
         end
 
@@ -115,7 +115,7 @@ describe "Using the shopping cart" do
   context "when I have products in my cart" do
     let(:product) { FactoryGirl.create(:product) }
     before(:each) do
-      visit product_path(product)
+      visit store_product_path(product)
       click_link("Add to cart")
     end
 
@@ -138,7 +138,7 @@ describe "Using the shopping cart" do
 
         context "and I go to the product page" do
           before(:each) do
-            visit cart_path
+            visit store_cart_path
           end
 
           it "should not clear the cart" do
@@ -162,7 +162,7 @@ describe "Using the shopping cart" do
 
           context "and I go to the product page" do
           before(:each) do
-            visit cart_path
+            visit store_cart_path
           end
 
           it "should clear my cart" do
@@ -187,7 +187,7 @@ describe "Using the shopping cart" do
 
             context "and I go to the product page" do
               before(:each) do
-                visit cart_path
+                visit store_cart_path
               end
 
               it "should not have cleared the cart" do
@@ -202,7 +202,7 @@ describe "Using the shopping cart" do
     end
 
     context "and I'm on the cart page" do
-      before(:each) { visit cart_path }
+      before(:each) { visit store_cart_path }
 
       context "when I try to update the quantity of a product" do
         before(:each) do

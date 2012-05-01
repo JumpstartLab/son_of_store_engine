@@ -21,7 +21,7 @@ br/
           th Price
           th Total
       tbody
-        = render :partial => "store/shared/order_products", :locals => { :order_products => @order.order_products }
+        = render :partial => "stores/shared/order_products", :locals => { :order_products => @order.order_products }
         tr#total-row
           td colspan="2"
           td style="border-left: 0px; border-right: 0px;"

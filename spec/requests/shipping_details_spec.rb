@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Creating Shipping Detail" do
   before do
-    visit new_shipping_detail_path
+    visit new_store_shipping_detail_path
   end
 
   it "should show the new shipping details page" do
@@ -18,7 +18,7 @@ describe "Creating Shipping Detail" do
     context "when information is entered" do
 
       before(:each) do
-        visit new_shipping_detail_path
+        visit new_store_shipping_detail_path
         
         fill_in "shipping_detail_ship_to_name", with: "Ed"
         fill_in  "shipping_detail_ship_to_address_1", with: "1445 NH Ave"
@@ -29,7 +29,7 @@ describe "Creating Shipping Detail" do
 
       it "Should take me to a different page" do
         uri = URI.parse(current_url)
-        "#{uri.path}".should_not == new_shipping_detail_url
+        "#{uri.path}".should_not == new_store_shipping_detail_url
       end
     end
   end

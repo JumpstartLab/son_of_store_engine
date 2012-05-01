@@ -38,7 +38,7 @@ feature "Adding Products To The Cart From Multiple Sources" do
 
         it "then I should be on the product details page" do
           uri = URI.parse(current_url)
-          "#{uri.path}".should == product_path(target_product.id)
+          "#{uri.path}".should == store_product_path(target_product.id)
         end
 
         it "then I should see the product details" do
@@ -64,7 +64,7 @@ feature "Adding Products To The Cart From Multiple Sources" do
 
             it "then I should see my cart" do
               uri = URI.parse(current_url)
-              "#{uri.path}".should == cart_path
+              "#{uri.path}".should == store_cart_path
               page.should have_content("Quantity")
               page.should have_content("Checkout")
               page.should have_content("Total")
@@ -75,7 +75,7 @@ feature "Adding Products To The Cart From Multiple Sources" do
             end
 
             context "When I am viewing previous orders" do
-              before { visit orders_path }
+              before { visit store_orders_path }
 
               context "And I choose the order containing a product" do
                 let( :target_order_product ) { user.orders.first.products.first }

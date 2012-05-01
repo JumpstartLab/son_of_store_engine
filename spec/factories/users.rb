@@ -27,11 +27,12 @@ FactoryGirl.define do
 
   factory :store_admin, parent: :user do
     ignore do
-      store { FactoryGirl.create(:store) }
+      store nil
     end
 
     after_create do |model, evaluator|
-      Role.create(user: model, name: "store_admin", store: evaluator.store)
+      role = Role.create(user: model, name: "store_admin", store: evaluator.store)
+      model.roles << role
     end
   end  
 end

@@ -25,7 +25,7 @@ feature "Shopper Does Bad Things" do
 
     context "When I am viewing previous orders" do
       before do
-        visit orders_path
+        visit store_orders_path
         click_link_or_button("Order ##{order_product.order.id}")
       end
 
@@ -33,7 +33,6 @@ feature "Shopper Does Bad Things" do
         before do
           click_link_or_button(order_product.name)
           @previous_uri = URI.parse(current_url)
-          save_and_open_page
           click_link_or_button("Add to cart")
         end
 

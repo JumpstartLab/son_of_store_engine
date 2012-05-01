@@ -25,8 +25,8 @@ StoreEngine::Application.routes.draw do
 
   resources :sessions
 
-  scope ':store_slug', :module => "store" do
-    match '/', :to => 'products#index', :as => :store
+  scope ':store_slug', :module => "stores", :as => "store" do
+    match '/', :to => 'products#index', :as => ""
 
     resource  :cart, only: [:show, :update]
     resources :cart_products, only: [:new, :update, :destroy]
@@ -50,13 +50,18 @@ StoreEngine::Application.routes.draw do
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
       end
+<<<<<<< HEAD
       resources :users, only: [:show, :new, :create, :destroy, :update]
       resources :roles, only: [:new, :create, :destroy]
       match 'store_admin/new', :to => 'roles#new'
       match 'store_stocker/new', :to => 'roles#new'
+=======
+      # resources :users, only: [:show, :new, :create, :destroy, :update]
+      resources :roles, only: [:new, :create, :destroy]
+      resource :store, only: [:edit, :update]
+>>>>>>> 8453fffe18173c0fea0194d69cab41b511c9999c
     end
     match '/admin', :to => 'admin/dashboard#show'
-    match '/admin/edit', :to => 'admin/stores#edit'
   end
 
   namespace :admin do
