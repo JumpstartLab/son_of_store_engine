@@ -1,4 +1,4 @@
-class Admin::StoresController < ApplicationController
+class Admin::StoresController < Admin::BaseController
 
   def index
     @approved_stores  = Store.where(:status => "approved")
