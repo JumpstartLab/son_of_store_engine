@@ -1,6 +1,7 @@
 # Allows restful actions for orders + charging orders
 module Admin
   class OrdersController < Controller
+    cache_sweeper :order_sweeper
 
     def index
       status = Status.find_by_name(params[:status]) if params[:status]
