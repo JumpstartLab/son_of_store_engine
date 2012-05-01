@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Category do
-  let!(:store) { Fabricate(:store) }
   let!(:admin_user) { Fabricate(:admin_user) }
+  let!(:store) { Fabricate(:store, :users => [admin_user]) }
   let!(:category) { Fabricate(:category, :store => store) }
   let!(:product)  { Fabricate(:product, :store => store) }
 
@@ -41,19 +41,21 @@ describe Category do
     end
 
     it "and the link takes you to an index of all categories" do
-      click_link_or_button("Edit Categories")
+      click_link("Edit Categories")
       current_path.should == admin_categories_path(store)
       page.should have_content(category.name)
     end
     
     context "index" do
       it "has links to edit category" do
-        page.should have_link_or_button(category.name)
+        click_link("Edit Categories")
+        page.should have_link("Edit")
       end
 
       it "and the link takes you to an edit category page" do
-        click_link_or_button("category.name")
-        current_path.should == admin_category_path(store, category)
+        click_link("Edit Categories")
+        click_link_or_button("Edit")
+        current_path.should == edit_admin_category_path(store, category)
         page.should have_selector("form")
       end
     end
@@ -71,7 +73,7 @@ describe Category do
       context "the form" do
         it "asks for a name" do
           within("form") do
-            page.should have_content("label[for$='category_name']")
+            page.should have_content("Name")
             page.should have_selector("input[id$='category_name']")
           end
         end

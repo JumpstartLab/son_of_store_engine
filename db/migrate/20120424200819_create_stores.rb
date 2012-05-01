@@ -8,5 +8,9 @@ class CreateStores < ActiveRecord::Migration
       t.string :css
       t.timestamps
     end
+
+    add_index :stores, :name
+    add_index :stores, :slug
+    add_index :stores, :status
   end
 end

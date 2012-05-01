@@ -1,7 +1,9 @@
 h1 = @category.name
 
-table.table-striped
-  - @products.each do |product|
-    tr
-      td = link_to product.title, product_path(@store, product)
-      td = product.price
+.span10
+  .admin-cat-prods
+    table.table-striped
+      - @products.each do |product|
+        tr
+          td = link_to product.title, product_path(@store, product)
+          td = product.price
