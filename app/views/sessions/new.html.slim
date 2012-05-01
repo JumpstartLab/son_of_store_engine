@@ -2,7 +2,7 @@ h1 Sign in
 .row
   .span6.offset3
     = form_tag sessions_path do
-      =hidden_field_tag :slug, params[:slug]
+      =hidden_field_tag :return_path, return_path
       .field
         = label_tag :email
         = text_field_tag :email, params[:email]

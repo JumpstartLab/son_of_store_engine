@@ -4,11 +4,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    if request.referer
-      @return_path = request.referer
-    else
-      @return_path = root_url
-    end
   end
 
   def create
@@ -22,6 +17,9 @@ class UsersController < ApplicationController
       redirect_to params[:return_path], :notice => "You have been registered. #{link}".html_safe
       UserMailer.user_confirmation(@user).deliver
     else
+      @user.errors.full_messages.each do |msg|
+        flash.now[:error] = msg
+      end
       render :new
     end
   end

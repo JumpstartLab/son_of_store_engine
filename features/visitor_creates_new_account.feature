@@ -1,5 +1,3 @@
-@mofo
-
 Feature:
   As a visitor
   I can create an account
@@ -14,7 +12,6 @@ Feature:
     Given I have not created a StoreEngine account with my email address before
     And I follow the sign up link
     Then I should be on a top-level page, "http://storeengine.com/signup"
-
     When I enter my email address, full name, and display name
     When I click the button or link to create my account
     Then I am returned to the page I was on
@@ -43,5 +40,5 @@ Feature:
     And I enter my email address and full name
     When I click the button or link to create my account
     Then I am returned to the page I was on
-    And I should see a confirmation flash message with the link to update my account
+    And I should see a confirmation flash message with a link to change my account
     And I should receive an email confirmation

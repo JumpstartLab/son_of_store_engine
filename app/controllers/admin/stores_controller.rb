@@ -2,9 +2,9 @@ class Admin::StoresController < ApplicationController
   authorize_resource :class => false
 
   def index
-    @approved_stores  = Store.where(:status => "approved")
-    @pending_stores   = Store.where(:status => "pending")
-    @disabled_stores  = Store.where(:status => "disabled")
+    @stores = Store.where("status = 'approved'
+      OR status = 'disabled'
+      OR status = 'pending'")
   end
 
   def edit
