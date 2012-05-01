@@ -76,36 +76,4 @@ class Store < ActiveRecord::Base
     self.enabled = false
     self.save
   end
-
-  def add_stocker(email)
-    u = User.find_by_email(email)
-    if u
-      sr = store_roles.new
-      sr.user = u
-      sr.permission = 5
-      self.save
-      Notification.new_store_stocker(u, self).deliver
-    else
-      Notification.new_user_and_store_stocker(email, self).deliver
-    end      
-  end
-
-  def add_admin(email)
-    u = User.find_by_email(email)
-    if u
-      users << u
-      self.save
-      Notification.new_store_admin(u, self).deliver
-    else
-      # Guest ignores certain crudentials
-      #users << User.create(:email => email, :guest => true)
-      Notification.new_user_and_store_admin(email, self).deliver
-    end
-  end
-
-  def remove_role(email)
-    u = User.find_by_email(email)
-    self.store_roles.find_by_user_id(u.id).destroy
-    Notification.remove_role(u.email, self).deliver
-  end
 end

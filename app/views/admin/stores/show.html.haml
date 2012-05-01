@@ -17,14 +17,12 @@
     %th Stocker Emailer
   - @store.store_roles.each do |sr|
     %tr
-      %td= link_to "Remove", remove_role_admin_stores_path(:email => sr.user.email), method: :put, confirm: "You sure dawg? He can't be that bad."
+      %td= link_to "Remove", admin_store_role_path(sr), method: :delete, confirm: "You sure dawg? He can't be that bad."
       %td= sr.role
       %td= sr.user.email
 
 
 %p
-  %b= link_to "Add store admin", users_admin_stores_path
-%p
-  %b= link_to "Add store stocker", user_stocker_admin_stores_path
+  %b= link_to "New Store Person", new_admin_store_role_path
 %p
   %b= link_to "Edit Store", edit_admin_store_path(@store)

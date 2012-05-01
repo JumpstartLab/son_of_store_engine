@@ -26,19 +26,13 @@
         put 'enable'
         put 'disable'
       end
-      collection do
-        get 'users'
-        put 'add_user'
-        get 'user_stocker'
-        put 'add_stocker'
-        put 'remove_role'
-      end
     end
     resources :orders,:exclude => [:show] do
       member do
         get 'status'
       end
     end
+    resources :store_roles
   end
 
   namespace "stock" do

@@ -28,30 +28,21 @@ class Notification < ActionMailer::Base
     mail(:to => user.email, :subject => "New Store Requested")
   end
 
-  def new_user_and_store_admin(email, store)
-    @email = email
-    @store = store
-    mail(:to => email, :subject => "You have been invited to become an admin of #{store.name}")    
-  end
-
-  def new_store_admin(user, store)
-    @store = store
-    mail(:to => user.email, :subject => "You are now a store admin of #{store.name}")        
-  end
-
-  def new_user_and_store_stocker(email, store)
-    @email = email
-    @store = store
-    mail(:to => email, :subject => "You have been invited to become a stocker of #{store.name}")        
-  end
-
-  def new_store_stocker(user,store)
-    @store = store
-    mail(:to => user.email, :subject => "You are now a store stocker of #{store.name}") 
-  end
-
   def remove_role(email,store)
      mail(:to => email, :subject => "Yo dawg, you've been fired! #{store.name} Doesn't want you anymore") 
+  end
+
+  def new_user_and_store_role(email, store, role)
+    @email = email
+    @store = store
+    @role = role
+    mail(:to => email, :subject => "You have been invited to become a #{role} of #{store.name}")      
+  end
+
+  def new_store_role(email,store,role)
+    @store = store
+    @role = role
+    mail(:to => email, :subject => "You are now a store #{role} of #{store.name}")
   end
 
 end
