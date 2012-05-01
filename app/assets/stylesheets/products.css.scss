@@ -3,25 +3,26 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .products-listing{ 
-  width: 75%;
+  width: 90%;
   padding-left: 10%;
 }
 
 .indiv-product{ 
   display: inline-block;
-  width: 25%;
   padding: 25px;
-  position: relative;
 }
 
 .product-details{ 
   display: block;
+  position: absolute;
   width: 100%;
   top: -100px
+  font-size: 16px;
 }
 
 .product-thumbnail{ 
-  
+  height: 100%;
+  width: 100%;
 }
 
 #prod-index-title{ 
