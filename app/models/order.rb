@@ -76,12 +76,7 @@ class Order < ActiveRecord::Base
   end
 
   def create_user(token)
-    customer = Stripe::Customer.create(
-          :card => token,
-          :description => user.email
-        )
-    user.stripe_id = customer.id
-    user.save
+    Resque.enqueue(CreateCustomer, user.id, token)
   end
 
   def charge(token=nil)

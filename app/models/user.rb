@@ -35,21 +35,16 @@ class User < ActiveRecord::Base
   
   def verify_user(input)
     add_email(input[:email]) if input[:email]
-    update_address(input)
+    Resque.enqueue(CheckAddress, self.id, input[:street], input[:zipcode])
   end
 
-  def update_address(input)
-    self.address = nil
+  def update_address(street, zipcode)
     addr = Address.new(
-                        :street => input[:street],
-                        :zipcode => input[:zipcode]
+                        :street => street,
+                        :zipcode => zipcode
                       )
-    if addr.save
-      self.address = addr
-      true
-    else
-      false
-    end
+    self.address = addr if addr.save
+    self.save
   end
 
   def add_email(input)
