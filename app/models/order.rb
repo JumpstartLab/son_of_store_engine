@@ -63,6 +63,10 @@ class Order < ActiveRecord::Base
     (user || visitor_user).email
   end
 
+  def full_name
+    user ? user.full_name : "Visitor"
+  end
+
   def save_with_payment
     if valid?
       create_stripe_user(stripe_card_token) unless order_user.stripe_id
