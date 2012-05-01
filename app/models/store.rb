@@ -11,10 +11,14 @@ class Store < ActiveRecord::Base
   validates_presence_of :name, :url_name, :description
   validates_uniqueness_of :name, :url_name
 
-  after_create :create_store_admin
+  after_create :create_store_admin, :store_creation_confirmation
 
   def to_param
     url_name
+  end
+
+  def store_creation_confirmation
+    Resque.enqueue(Emailer, "store", "store_creation_confirmation", owner.id, self.id)
   end
 
   def stockers

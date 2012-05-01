@@ -3,13 +3,8 @@ class StoreAdmin < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :store
-  after_create :welcome_email
+  after_create :new_admin_notification_email
   after_destroy :admin_removal_email
-
-
-  def welcome_email
-    new_admin_notification_email
-  end
 
   def role
     if stocker
@@ -19,16 +14,17 @@ class StoreAdmin < ActiveRecord::Base
     end
   end
 
-
   def self.request_signup(email, store)
     Resque.enqueue(Emailer, "admin", "request_signup", email, store.id)
   end
 
   def new_admin_notification_email
-    Resque.enqueue(Emailer, "admin", "new_admin_notification", user.id, store.id, role)
+    unless user == store.owner
+      Resque.enqueue(Emailer, "admin", "new_admin_notification", user_id, store_id, role)
+    end
   end
 
   def admin_removal_email
-    Resque.enqueue(Emailer, "admin", "admin_removal", user.id, store.id, role)
+    Resque.enqueue(Emailer, "admin", "admin_removal", user_id, store_id, role)
   end
 end

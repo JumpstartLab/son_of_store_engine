@@ -8,7 +8,7 @@ class Admin::DashboardController < Admin::ApplicationController
     @new_admin = store.store_admins.new(stocker: false)
     @new_stocker = store.store_admins.new(stocker: true)
     @orders = Order.orders_by_status(params[:order_status]).paginate(:page => params[:page])
-    @categories = Category.all
+    @categories = store.categories
   end
 
 end
