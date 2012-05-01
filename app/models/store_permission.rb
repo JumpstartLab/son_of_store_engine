@@ -4,11 +4,15 @@ class StorePermission < ActiveRecord::Base
   validates :store_id, numericality: true, presence: true
   validates :user_id, numericality: true, presence: true
   validates :permission_level, numericality: true, presence: true
- 
+
   belongs_to :user
   belongs_to :store
 
   PERMISSION_TYPES = { 1 => "ADMIN", 2 => "STOCKER" }
+
+  def self.invite_user_to_be_admin_of(store, admin)
+
+  end
 
 end
 
