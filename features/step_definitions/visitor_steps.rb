@@ -5,7 +5,7 @@ end
 
 Given /^I have added items to my cart$/ do
   product = @store.products.first
-  visit new_cart_product_path(store_slug: @store.slug, id: product.id)
+  visit new_store_cart_product_path(store_slug: @store.slug, id: product.id)
   @cart_products = [product]
 end
 

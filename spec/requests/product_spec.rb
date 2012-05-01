@@ -26,7 +26,7 @@ describe "Viewing products" do
           before(:each) { current_store.product.add_category_by_id(category.id) }
 
           context "and I visit a listed product's page" do
-            before(:each) { visit product_path(product) }
+            before(:each) { visit store_product_path(product) }
 
             it "lets me view the products details" do
               page.should have_content(product.name)
@@ -43,7 +43,7 @@ describe "Viewing products" do
           end
 
           context "and I visit the category's path" do
-            before(:each) { visit category_path(category) }
+            before(:each) { visit store_category_path(category) }
 
             it "lists the products assigned to the category" do
               page.should have_content(product.name)
@@ -62,7 +62,7 @@ describe "Viewing products" do
     end
 
     context "and I visit the products index page" do
-      before(:each) { visit products_path }
+      before(:each) { visit store_products_path }
 
       it "lets me view the products index" do
         page.should have_content('Browse')
@@ -70,7 +70,7 @@ describe "Viewing products" do
 
       context "and a category has been created" do
         let!(:category) { FactoryGirl.create(:category) }
-        before(:each) { visit products_path }
+        before(:each) { visit store_products_path }
 
         it "lists the category on the product index" do
           page.should have_content(category.name)
@@ -80,7 +80,7 @@ describe "Viewing products" do
           before(:each) { product.add_category_by_id(category.id) }
 
           context "and I visit a listed product's page" do
-            before(:each) { visit product_path(product) }
+            before(:each) { visit store_product_path(product) }
 
             it "lets me view the products details" do
               page.should have_content(product.name)
@@ -97,7 +97,7 @@ describe "Viewing products" do
           end
 
           context "and I visit the category's path" do
-            before(:each) { visit category_path(category) }
+            before(:each) { visit store_category_path(category) }
 
             it "lists the products assigned to the category" do
               page.should have_content(product.name)

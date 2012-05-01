@@ -1,0 +1,30 @@
+li.span4
+  .thumbnail
+    = image_tag(product.photo, :size => "280x280", :class => "thumbnail")
+    .caption
+      p
+        = link_to product.name, store_product_path(store_slug: store_slug, id: product.id)
+      h4
+        | Price: #{product.price}
+      h5 Description
+      p= truncate(product.description, :length=>100)
+      p
+      h6 Categories:
+      h6
+        br/
+        - product.categories.each do |category|
+          span.label= link_to category.name, store_category_path(store_slug: store_slug, id: category.id)
+      br/
+      p
+        = link_to 'Add to cart',                                                         \
+            new_store_cart_product_path(:store_slug => store_slug, :product_id => product.id), \
+            class: "btn btn-primary"
+      p
+        = link_to 'Edit this product',                                                     \
+            edit_store_admin_product_path(:store_slug => store_slug, :product_id => product.id), \
+            class: "btn btn-success"
+      p
+        = link_to 'Retire product',                                                        \
+            store_admin_product_retirement_path(:store_slug => store_slug, :product_id => product.id), \
+            class:  "btn btn-danger",                                                      \
+            method: :post

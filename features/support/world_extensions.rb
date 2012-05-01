@@ -15,6 +15,11 @@ module WorldExtensions
     log_in(user)
   end
 
+  def log_in_as_store_admin
+    user = FactoryGirl.create(:store_admin)
+    log_in(user)
+  end
+
   def slug_for(name)
     Store.where(name: name).first.slug
   end
