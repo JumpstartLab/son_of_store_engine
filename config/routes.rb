@@ -9,6 +9,7 @@ StoreEngine::Application.routes.draw do
 
   match 'profile' => 'stores#new'
   get "tracking/:slug" => "trackings#show", :as => "tracking"
+  get "login" => redirect("/users/sign_in")
 
   resources :roles
   resources :stores
