@@ -9,4 +9,4 @@ ActionMailer::Base.smtp_settings = {
  :port  => 587,
  :user_name  => "hungryopensource",
  :password  => "hungryacademy",
- :authentication  => "plain"
+ :authentication  => "plain" }
