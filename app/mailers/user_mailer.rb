@@ -9,6 +9,6 @@ class UserMailer < ActionMailer::Base
   end
 
   def signup_notification(email)
-    mail(:to => "<#{email}>", :subject => "Please signup with StoreBerry")
+    mail(:to => email, :subject => "Please signup with StoreBerry")
   end
 end
