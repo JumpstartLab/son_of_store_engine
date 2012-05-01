@@ -18,7 +18,7 @@ module NavHelper
 
   def nav_array_home_user
     { 
-      "Browse All Stores" => "#",
+      "Browse All Stores" => home_path,
       "View/Edit Profile" => profile_path,      
       "Logout" => logout_path,
 
@@ -27,7 +27,7 @@ module NavHelper
 
   def nav_array_home_guest
     { 
-      "Browse All Stores" => "#",
+      "Browse All Stores" => home_path,
       "Login or Signup" => login_path
     }  
   end
