@@ -5,20 +5,19 @@ class CreditCard < ActiveRecord::Base
   validates_presence_of :user_id
   before_save :set_to_default
   belongs_to :user
+  after_create :add_details_from_stripe_card_token
 
   def set_to_default
     user = User.find(self.user_id)
     self.default_card = true unless user.credit_cards.find_by_default_card(true)
   end
 
-  def add_details_from_stripe_card_token(stripe_card_token)
-    stripe_customer_token = stripe_get_customer_token(stripe_card_token)
-    credit_card = parse_stripe_customer_token(stripe_customer_token)
+  def add_details_from_stripe_card_token
+    Resque.enqueue(Striper, "details", self.id, self.stripe_card_token)
   end
 
   def stripe_get_customer_token(stripe_card_token)
-    Stripe::Customer.create( description: "Mittenberry Customer
-      ##{self.user.id}", card: stripe_card_token)
+    Resque.enqueue(Striper, "customer", self.id, stripe_card_token)
   rescue Stripe::InvalidRequestError => error
     send_customer_create_error(error)
   end
@@ -32,31 +31,22 @@ class CreditCard < ActiveRecord::Base
   end
 
   def charge_as_guest(cart_total_in_cents)
-     Stripe::Charge.create(amount: cart_total_in_cents,
-                          currency: 'usd',
-                          card: stripe_card_token)
+    Resque.enqueue(Striper,"charge", self.id, cart_total_in_cents, stripe_card_token)
   rescue Stripe::InvalidRequestError => error
     send_charge_error(error)
   end
 
   def charge(cart_total_in_cents)
-    return false if stripe_customer_token.empty?
-
-    Stripe::Charge.create(amount: cart_total_in_cents,
-                          currency: 'usd',
-                          customer: stripe_customer_token)
+    Resque.enqueue(Striper,"charge", self.id, cart_total_in_cents, stripe_customer_token)
   rescue Stripe::InvalidRequestError => error
     send_charge_error(error)
   end
 
-private
-
   def parse_stripe_customer_token(customer_token)
-    self.stripe_customer_token = customer_token["id"]
     save_card_details(customer_token["active_card"])
     save
   end
-
+private
   def send_charge_error(e)
     logger.error "Stripe error while charging customer: #{e.message}"
     errors.add :base, "There was a problem with the charge."
