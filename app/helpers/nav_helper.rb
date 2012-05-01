@@ -17,24 +17,24 @@ module NavHelper
   end
 
   def nav_array_home_user
-    { 
+    {
       "Welcome!" => root_path,
-      "Profile" => profile_path,      
+      "Profile" => profile_path,
       "Logout" => logout_path,
-    }  
+    }
   end
 
   def nav_array_home_guest
-    { 
+    {
       "Welcome!" => root_path,
       "Login or Signup" => login_path
-    }  
+    }
   end
 
   def nav_array_admin
     {
       "Home" => root_path,
-      "Cart" => cart_path,
+      "Cart (#{@cart.products.size if @cart})" => cart_path,
       "Sales" => sales_path,
       "Admin Dashboard" => admin_dashboard_path,
       "My Orders" => my_orders_orders_path,
@@ -46,7 +46,7 @@ module NavHelper
   def nav_array_user
     {
       "Home" => root_path,
-      "Cart" => cart_path,
+      "Cart (#{@cart.products.size if @cart})" => cart_path,
       "Sales" => sales_path,
       "My Orders" => my_orders_orders_path,
       "Profile" => profile_path,
@@ -57,7 +57,7 @@ module NavHelper
   def nav_guest
     {
       "Home" => root_path,
-      "Cart" => cart_path,
+      "Cart (#{@cart.products.size if @cart})" => cart_path,
       "Sales" => sales_path,
       "Login or Signup" => login_path
     }

@@ -19,7 +19,7 @@
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; 
+  background-size: cover;
   font-family: "Arial Rounded MT Bold";
 }
 body {
@@ -40,6 +40,7 @@ body {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }*/
+
 #logo {
   margin-top: 23px;
   margin-left: 20px;
@@ -74,7 +75,7 @@ nav.main a:hover, nav a.active{
   color: #fff;
   height: 40px;
   text-decoration:none;
-  background: url(/assets/nav-hover.png); 
+  background: url(/assets/nav-hover.png);
 }*/
 /*
 */
@@ -92,7 +93,7 @@ nav.main a:hover, nav a.active{
   -webkit-border-top-left-radius: 20px;
   -webkit-border-top-right-radius: 20px;
   -moz-border-radius-topleft: 20px;
-  -moz-border-radius-topright: 20px;  
+  -moz-border-radius-topright: 20px;
   color:white;
   clear:both;
   padding:2% 5%;
@@ -106,33 +107,33 @@ nav.main a:hover, nav a.active{
   max-height:100px;
   max-width:100px;
 }
-#cart{ 
+#cart{
   width:100px;
   color: white;
   padding:10px;
   font-size:16px;
   text-align:center;
   border-top-left-radius: 20px;
-  border-top-right-radius: 20px; 
-  border-top-width: 1px; 
-  border-right-width: 1px; 
-  border-left-width: 1px; 
-  border-top-style: solid; 
-  border-right-style: solid; 
-  border-left-style: solid; 
-  border-top-color: rgb(255, 255, 255); 
-  border-right-color: rgb(255, 255, 255); 
-  border-left-color: rgb(255, 255, 255); 
-  border-top-left-radius: 4px; 
-  border-top-right-radius: 4px; 
-  -webkit-box-shadow: rgba(255, 255, 255, 0.246094) 1px 1px 1px inset, 
-                      rgba(0, 0, 0, 0.496094) 0px 1px 2px; 
-  box-shadow: rgba(255, 255, 255, 0.246094) 1px 1px 1px inset, 
-              rgba(0, 0, 0, 0.496094) 0px 1px 2px; 
-  position: fixed; 
-  right: 10px; 
+  border-top-right-radius: 20px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+  border-top-color: rgb(255, 255, 255);
+  border-right-color: rgb(255, 255, 255);
+  border-left-color: rgb(255, 255, 255);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.246094) 1px 1px 1px inset,
+                      rgba(0, 0, 0, 0.496094) 0px 1px 2px;
+  box-shadow: rgba(255, 255, 255, 0.246094) 1px 1px 1px inset,
+              rgba(0, 0, 0, 0.496094) 0px 1px 2px;
+  position: fixed;
+  right: 10px;
   bottom: 0px;
-  background-color: rgb(204, 109, 0); 
+  background-color: rgb(204, 109, 0);
 }
 #cart a{
   cursor: pointer;
@@ -179,8 +180,8 @@ nav.main a:hover, nav a.active{
   text-align: center;
 }
 
-/*.search { 
-  margin: 10px; 
+/*.search {
+  margin: 10px;
   margin-left: 20px;
 }*/
 #product_holder{

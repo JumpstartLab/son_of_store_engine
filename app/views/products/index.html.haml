@@ -1,7 +1,8 @@
-.page_header
-  %h1 Products
-%hr
-%ul.thumbnails
-  -@products.each_slice(2) do |items_for_row|
-    %li.span6
-      = render :partial => 'products/list', :collection => items_for_row, :as => :product
+- cache("products_index_page") do
+  .page_header
+    %h1 Products
+  %hr
+  %ul.thumbnails
+    -@products.each_slice(2) do |items_for_row|
+      %li.span6
+        = render :partial => 'products/list', :collection => items_for_row, :as => :product
