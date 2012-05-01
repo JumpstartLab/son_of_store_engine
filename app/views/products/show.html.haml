@@ -1,26 +1,36 @@
 .row
-  %div.well
+  .well
     %h1= @product.name
+
   .span5
     %img{:src => @product.avatar}
+
   .span7
     - @product.star_rating.times do |star|
       %input.star{:class => "{split:2}", :name => "adv1", :type => "radio", :disabled => "disabled", :checked => "checked"}
+
     %br
+
     %h4= @product.categories.map(&:name).join(', ') 
+
     - if @product.best_sale
       %h4{:style=> "text-decoration:line-through;"}= @product.price
       %h4.price= "#{@product.sale_price_in_dollars} | #{@product.best_sale.display_percent} off!" 
     - else
       %h4= @product.price
+
     %br
+
     %p= @product.description
+
     %br
+
     - if @product.active == 1
-      %p= link_to "Add To Cart", cart_path(:product_id => @product.id), :method => :put, :class => 'btn btn-info'
+      %p= link_to "Add To Cart", cart_path(:product_id => @product.id), :method => :put, :class => 'btn btn-custom'
       - if @product.can_two_click(current_user)
         %p= link_to "Buy Instantly!", two_click_cart_path(:product_id => @product.id), :method => :put, :class => 'btn btn-primary', :confirm => "Are you sure you want to give us your money?"  
     - else
-      %p.label.label-important This product has been retired. You cannot add this to your cart
+      %p.label.label-important This product is retired. 
+
     %br
     = render :partial => "ratings"
