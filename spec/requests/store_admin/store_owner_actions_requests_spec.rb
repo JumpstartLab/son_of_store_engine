@@ -187,7 +187,7 @@ describe "store owner actions", dose_store_admin: true do
         click_link_or_button "Sign-In"
         login({email: store_owner.email_address, password: store_owner.password})
         visit admin_store_path(store)
-        fill_in("store_permission_email", with: new_admin.email_address)
+        fill_in("email", with: new_admin.email_address)
       end
       it "creates a new Store Permissions record" do
         expect { click_link_or_button "Add New Store Admin" }.to change { StorePermission.count }.by(1)
