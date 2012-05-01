@@ -1,7 +1,10 @@
 require 'spec_helper'
 
   describe "As a visitor" do
+    context "and I do things I'm not supposed to do" do
 
+
+    end
   end
 
   describe "As a user" do
