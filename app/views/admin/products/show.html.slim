@@ -13,7 +13,15 @@ h1 = @product.title
       -else
         p = link_to("Retire Product",
                     admin_product_retire_path(:product_id => @product), :method => :put, :class => 'btn btn-warning')
-      
+        p = link_to("Edit Product",
+                    edit_admin_product_path(:product_id => @product))
+
+      h3 Add Category to this Product
+      - @store.categories.each do |category|
+        - unless @product.categories.include?(category)
+          li = link_to(category.name, 
+                       add_category_to_product_path(:product_id => @product.id,
+                                                    :category_id => category.id))
       h3 Categories Associated with Product
 
       - @product.categories.each do |category|

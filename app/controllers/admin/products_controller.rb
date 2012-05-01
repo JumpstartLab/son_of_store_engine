@@ -36,8 +36,6 @@ class Admin::ProductsController < Admin::ApplicationController
     if product
       product.retire
       notice = "Product #{product.title} retired."
-    else
-      notice = "Couldn't find product"
     end
 
     redirect_to admin_products_path(@store), :notice => notice

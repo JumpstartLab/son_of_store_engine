@@ -6,8 +6,9 @@ h1 #{@store.name} Dashboard
   ul
     li = link_to 'Edit Store', edit_admin_dashboard_path(@store)
     li = link_to "New Product", new_admin_product_path(@store)
-    li = link_to "New Category", new_admin_category_path(@store)
     li = link_to "Browse Products", admin_products_path(@store)
+    li = link_to "New Category", new_admin_category_path(@store)
+    li = link_to "Edit Categories", admin_categories_path(@store)
     li = link_to "Manage Users", admin_users_path(@store)
 
 h3 All Orders by Status

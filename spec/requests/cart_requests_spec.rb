@@ -3,10 +3,11 @@ require 'spec_helper'
 describe Cart do
   let(:user) { Fabricate(:user) }
   let!(:store) { Fabricate(:store, :users => [user]) }
-  let(:product) { Fabricate(:product, :store => store) }
-  let(:cart) { Fabricate(:cart, :store => store) }
-  let(:category) { Fabricate(:category, :store => store) }
-  let(:unsaved_user) { Fabricate.build(:user) }
+  let!(:product) { Fabricate(:product, :store => store) }
+  let!(:second_product) { Fabricate(:product, :store => store) }
+  let!(:cart) { Fabricate(:cart, :store => store) }
+  let!(:category) { Fabricate(:category, :store => store) }
+  let!(:unsaved_user) { Fabricate.build(:user) }
 
   context "as an unauthenticated user" do
     context "when I click checkout with a product in my cart" do
@@ -293,6 +294,16 @@ describe Cart do
       click_link "View Cart"
       page.should have_content("Your Cart")
     end
+
+    context "clicking the 'Keep Shopping' link from the cart show page" do
+      it "should redirect you back to the products page" do
+        visit products_path(store)
+        click_link "View Cart"
+        click_on("Keep Shopping")
+        current_path.should == products_path(store)
+        page.should have_content(store.products.first.title)
+      end
+    end
   end
 
   context "when I click on remove" do
@@ -329,4 +340,36 @@ describe Cart do
       find("#total").text.to_f.should > @previous_total
     end
   end
+
+  # context "when I increase the quantity of multiple products and click update cart" do
+  #   before(:each) do
+  #     visit product_path(store, product)
+  #     click_link "Add to Cart"
+  #     click_button("Keep Shopping")
+  #     visit product_path(store, second_product)
+  #     click_link "Add to Cart"
+  #     fill_in "cart_order_item_quantity", :with => "2"
+
+  #     page.should have_content("label[for$='category_name']")
+  #           page.should have_selector("input[id$='category_name']")
+
+
+  #     @previous_subtotal_1 = find(".subtotal").text.to_f
+  #     fill_in "cart_order_item_quantity", :with => "3"
+  #     @previous_subtotal = find(".subtotal").text.to_f
+  #     click_button "Update Cart"
+  #   end
+
+  #   it "changes the quantity in the cart" do
+  #     find("#cart_order_item_quantity").value.should == "2"
+  #   end
+
+  #   it "increases the subtotal for that product" do
+  #     find(".subtotal").text.to_f.should > @previous_subtotal
+  #   end
+
+  #   it "increases the total of the cart" do
+  #     find("#total").text.to_f.should > @previous_total
+  #   end
+  # end
 end
