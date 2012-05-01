@@ -16,7 +16,10 @@
         - if product.active == 1
           %p= link_to "Add To Cart", cart_path(:product_id => product.id), :method => :put, :class => 'btn btn-custom'
 
-.row-fluid
-  = will_paginate @products
+  .row-fluid
+    = will_paginate @products
+
+  .sale-button
+    = link_to "View #{current_tenant.name} Sales", sales_path, :class => 'btn btn-custom'
 
  
