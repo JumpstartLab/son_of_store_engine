@@ -7,4 +7,8 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => "You have been registered.",
       :body => "Congratulations! You have successfully been registered." )  
   end
+
+  def signup_notification(email)
+    mail(:to => "<#{email}>", :subject => "Please signup with StoreBerry")
+  end
 end
