@@ -43,12 +43,13 @@ class User < ActiveRecord::Base
     type == "GuestUser"
   end
 
-  def has_role?(role, store=nil)
-    role = role.to_s
+  def has_role?(roles, store=nil)
+    roles = Array(roles).map(&:to_s)
+
     if store
-      store.roles.where(user_id: id, name: role).count > 0
+      store.roles.where("user_id = ? AND name in (?)", id, roles).count > 0
     else
-      roles.where(name: role).count > 0
+      self.roles.where("user_id = ? AND name in (?)", id, roles).count > 0
     end
   end
 

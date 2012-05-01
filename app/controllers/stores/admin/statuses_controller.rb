@@ -1,6 +1,7 @@
 module Stores
   module Admin
     class StatusesController < BaseController
+      before_filter :authorize_store_admin!
 
       def create
       end

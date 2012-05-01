@@ -1,14 +1,15 @@
 module Stores
   module Admin
     class RolesController < BaseController
+      before_filter :authorize_store_admin!
   
       def new
-        authorize! :promote_users?, current_store
+        authorize! :promote_users, current_store
         @user = current_store.users.new
       end
 
       def create
-        authorize! :promote_users?, current_store
+        authorize! :promote_users, current_store
         if @user = User.find_by_email(params[:user][:email])
           determine_path_and_assign_role(@user)
         else
@@ -19,7 +20,7 @@ module Stores
       end
 
       def destroy
-        authorize! :promote_users?, current_store
+        authorize! :promote_users, current_store
 
         @role = Role.find(params[:id])
         if @role.destroy

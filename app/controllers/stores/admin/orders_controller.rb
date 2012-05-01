@@ -1,7 +1,7 @@
 module Stores
   module Admin
     class OrdersController < BaseController
-      load_and_authorize_resource
+      before_filter :authorize_store_admin!
       
       def index
         @orders = current_store.orders

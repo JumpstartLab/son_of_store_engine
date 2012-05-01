@@ -1,13 +1,18 @@
 module Stores
   module Admin
     class CategoriesController < BaseController
-      load_and_authorize_resource
+
+      before_filter :authorize_store_admin!
 
       def new
+        authorize! :manage, current_store
+
         @category = Category.new
       end
 
       def show
+        authorize! :manage, current_store
+
         @category = Category.find(params[:id])
         @products = @category.products
       end
@@ -42,6 +47,11 @@ module Stores
           render 'edit'
         end
       end
+
+      private
+
+
+
     end
   end
 end

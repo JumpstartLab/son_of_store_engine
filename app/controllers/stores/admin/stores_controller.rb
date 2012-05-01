@@ -1,6 +1,8 @@
 module Stores
   module Admin
     class StoresController < BaseController
+      before_filter :authorize_store_admin!
+
       def edit
         @store = current_store
       end
@@ -14,9 +16,9 @@ module Stores
         else
           warn_on_update_slug
           @store = current_store
-          @store.name = params[:name]
-          @store.description = params[:description]
-          @store.slug = params[:new_slug]
+          @store.attributes = { "name"        => params[:name],
+                                "description" => params[:description],
+                                "slug"        => params[:new_slug] }
           @confirm = true
           render 'edit'
         end
