@@ -20,16 +20,18 @@ h1 Admin Dashboard for #{@store.name}
         = link_to 'Remove as stocker', admin_role_path(:id => stocker.id), :method => :delete, :confirm => 'Sure?'
     br/
     h4
-      = link_to "Edit #{@store.name}", admin_edit_path(id: current_store.id)
-      | &nbsp;|&nbsp;
-      = link_to 'Add new store admin', admin_store_admin_new_path(@store.slug)
-      | &nbsp;|&nbsp;
-      = link_to 'Add stocker', admin_store_stocker_new_path(@store.slug)
+      -if can? :manage, @store
+        = link_to "Edit #{@store.name}", admin_edit_path(id: current_store.id)
+        | &nbsp;|&nbsp;
+        = link_to 'Add new store admin', admin_store_admin_new_path(@store.slug)
+        | &nbsp;|&nbsp;
+        = link_to 'Add stocker', admin_store_stocker_new_path(@store.slug)
 
 .row.row
   .span6 style="margin-bottom:20px"
     h4
-      = link_to 'Add a product', new_admin_product_path(store_slug: store_slug)
+      -if can? :create, Product
+        = link_to 'Add a product', new_admin_product_path(store_slug: store_slug)
       | &nbsp;|&nbsp;
       = link_to 'Create a category', new_admin_category_path(store_slug: store_slug)
 h3 Orders by status
