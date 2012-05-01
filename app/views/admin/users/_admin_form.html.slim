@@ -1,5 +1,5 @@
-hr
-table.table.table-bordered
+h2.store-admins #{@store.name} Admins
+table.table.table-striped
   tr
     th Name
     th Username
@@ -25,9 +25,9 @@ h4 Add New Administrator
 
 = form_tag admin_users_path(@store) do
 
-  div.field
+  .add-admin-field
     = label_tag :email
     = text_field_tag :email, params[:email], :id => 'admin_email'
 
-  div.actions
-    = submit_tag "Add Admin"
+  .add-admin-actions
+    = submit_tag "Add Admin", :class=> 'btn'

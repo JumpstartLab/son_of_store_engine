@@ -16,4 +16,6 @@
     = f.text_field :photo
 
   div class="actions"
-    = f.submit
+    = f.submit :class => 'btn btn-primary'
+    = link_to("Retire Product",
+                admin_product_retire_path(:product_id => @product.id), :class => 'btn')

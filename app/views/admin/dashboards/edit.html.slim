@@ -1,3 +1,5 @@
+.store-edit-heading
+  h1 Edit Your Store
 - if @store.errors.any?
   div id="error_explanation"
     ul
@@ -5,17 +7,17 @@
       li = msg
 
 = form_for(@store, :url => admin_dashboard_path) do |f|
-  div class="field"
+  .store-edit-name
     = f.label :name
     = f.text_field :name
 
-  div class="field"
+  .store-edit-slug
     = f.label "Unique Slug"
     = f.text_field :slug
 
-  div class="field"
+  .store-edit-descrip
     = f.label :description
     = f.text_field :description
 
-  div class="actions"
+  .store-edit-actions
     = f.submit
