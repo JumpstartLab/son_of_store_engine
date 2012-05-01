@@ -37,8 +37,9 @@ class StorePermission < ActiveRecord::Base
   def alert_user
     if user_id && user_id != store.creating_user_id
       email = User.find(user_id).email_address
-      UserMailer.alert_admin_email(store_id, email).deliver if permission_level == 1
-      UserMailer.alert_stocker_email(store_id, email).deliver if permission_level == 2
+      # UserMailer.alert_admin_email(store_id, email).deliver if permission_level == 1
+      UserMailer.alert_admin_email
+      #UserMailer.alert_stocker_email(store_id, email).deliver if permission_level == 2
     end
   end
 end
