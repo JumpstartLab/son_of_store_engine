@@ -30,4 +30,4 @@ div.cart id="cart"
       
 .cart-actions
 = link_to "Checkout", checkout_prompt_path(@store), :class=>'btn btn-primary'
-= link_to "Keep Shopping", store_path(@store), :class => 'btn btn-primary'
+= link_to "Keep Shopping", products_path(@store), :class => 'btn btn-primary'
