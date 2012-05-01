@@ -2,12 +2,13 @@ require "spec_helper"
 
 describe Admin do
   let!(:admin){ FactoryGirl.create(:user, :name => "worace", :email => "worace@worace.worace", :admin => true) }
+  let!(:stocker){ FactoryGirl.create(:user, :name => "worace the second", :email => "worace2@worace.worace", :admin => false) }
   let!(:anon_email) { "pierre@worace.worace"}
   let!(:store) { Store.last }
 
-  let(:mail){ AdminMailer.new_admin_notification(admin.email, store.id) }
+  let(:mail){ AdminMailer.new_admin_notification(admin.id, store.id, "admin") }
   let(:mail2){ AdminMailer.request_admin_signup(anon_email, store.id) }
-  let(:mail3){ AdminMailer.admin_removal(admin.email, store.id) }
+  let(:mail3){ AdminMailer.admin_removal(admin.id, store.id, "admin") }
 
 
   describe "#new_admin_notification" do
