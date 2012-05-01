@@ -27,15 +27,4 @@ class StoresController < ApplicationController
     end
   end
 
-  private
-
-  def not_found
-    # render :text => "404 Not Found", :status => '404'
-    render "public/404.html", status: '404'
-  end
-
-  def is_store_approved?
-    not_found unless store.approved? && store.enabled?
-  end
-
 end
