@@ -30,8 +30,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
-  gem 'perftools.rb'
   gem 'newrelic_rpm'
   gem 'taps'
   gem 'pg'
