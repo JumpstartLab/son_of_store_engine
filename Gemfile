@@ -16,7 +16,6 @@ gem 'resque'
 gem 'addressable'
 gem 'dynamic_form'
 gem 'cancan'
-
 gem 'newrelic_rpm'
 
 group :production do
