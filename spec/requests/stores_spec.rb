@@ -54,9 +54,8 @@ describe "Creating stores" do
           end
 
           it "does not let me view the store" do
-            #ARG NEED TO FIGURE HOW TO ACCESS RESPONSES
             visit('/')
-            page.should have_content("404 Not Found")
+            page.should_not have_content("Cool Sunglasses")
           end
         end
       end

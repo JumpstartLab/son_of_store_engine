@@ -1,5 +1,10 @@
 <h1>Add a Credit Card</h1>
 
+<script>$(function(){
+    order = new Order('#new_credit_card');
+    order.setupForm();
+  })</script>
+
 <%= form_for @credit_card, url: url do |f| %>
 
 <%= f.hidden_field :stripe_card_token %>
