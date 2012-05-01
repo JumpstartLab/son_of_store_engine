@@ -15,6 +15,7 @@ gem 'resque'
 gem 'tlsmail'
 gem 'redis-store'
 gem 'capistrano'
+gem 'will_paginate', '~> 3.0'
 gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 
 group :production do
