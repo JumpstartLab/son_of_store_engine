@@ -6,7 +6,7 @@ javascript:
 
 h3 Edit Store
 br
-= form_for @store, :url => admin_store_path(confirm: @confirm) do |f|
+= form_for @store, :url => store_admin_store_path(confirm: @confirm) do |f|
   .field
     = label_tag :name
     = text_field_tag :name, @store.name

@@ -17,4 +17,4 @@ h1 Your Cart
           td style="border-left: 0px; border-right: 0px;"
           td= current_cart.cart_total
   - unless current_cart.cart_products.empty?
-      = link_to "Checkout", new_order_path, :method => :get, :id => "go_checkout"
+      = link_to "Checkout", new_store_order_path, :method => :get, :id => "go_checkout"

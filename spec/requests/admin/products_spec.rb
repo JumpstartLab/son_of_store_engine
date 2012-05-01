@@ -11,7 +11,7 @@ describe "As an admin updating products" do
   context "when I'm on the products index page"
     let(:product) { FactoryGirl.create(:product) }
     before(:each) do
-      visit admin_products_path(store.slug)
+      visit store_admin_products_path(store.slug)
     end
 
     context "and I click 'New Product'" do
@@ -50,7 +50,7 @@ describe "As an admin updating products" do
     end
 
     context "and I retire a product" do
-      before(:each) { visit admin_product_path(product) }
+      before(:each) { visit store_admin_product_path(product) }
 
       it "retires that product" do
         click_link_or_button('Retire product')
@@ -59,12 +59,12 @@ describe "As an admin updating products" do
 
       context "and I want to un-retire that product" do
         before do  
-          visit admin_product_path(product)
+          visit store_admin_product_path(product)
           click_link_or_button('Retire product')
         end
 
         it "un-retires that product" do
-          visit admin_products_path
+          visit store_admin_products_path
           click_link_or_button('Un-retire')
           Product.find(product.id).active?.should == true
         end
@@ -73,7 +73,7 @@ describe "As an admin updating products" do
 
   context "when I'm on a product page" do
     let(:product) { FactoryGirl.create(:product) }
-    before(:each) { visit admin_product_path(product)}
+    before(:each) { visit store_admin_product_path(product)}
 
     context "and I click 'Edit this product'" do
       before(:each) { click_link("Edit this product") }

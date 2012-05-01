@@ -22,8 +22,8 @@ StoreEngine::Application.routes.draw do
 
   resources :sessions
 
-  scope ':store_slug', :module => "stores" do
-    match '/', :to => 'products#index', :as => :store
+  scope ':store_slug', :module => "stores", :as => "store" do
+    match '/', :to => 'products#index', :as => ""
 
     resource  :cart, only: [:show, :update]
     resources :cart_products, only: [:new, :update, :destroy]

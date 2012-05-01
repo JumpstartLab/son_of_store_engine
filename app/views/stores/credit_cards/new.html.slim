@@ -5,8 +5,9 @@ javascript:
     order = new Order('#new_credit_card');
     order.setupForm();
   })
-  
-= form_for(@credit_card) do |f|
+
+/XXX (?) We might need to specify the HTTP method here:
+= form_for(@credit_card, url: store_credit_cards_path(@credit_card), method: (@credit_card.new_record? ? :post : :put)) do |f|
   = f.hidden_field :stripe_card_token
   .field
     = label_tag :card_number, "Credit Card Number"

@@ -5,11 +5,11 @@ h1 Admin Products View
     h4 Categories:
     br/
     = render :partial => "stores/categories/category", :collection => @categories
-    li= link_to 'New Category', new_admin_category_path(store_slug)
+    li= link_to 'New Category', new_store_admin_category_path(store_slug)
 ul.nav.nav-pills
   h4 Active Products:
   br/
-  li= link_to 'New Product', new_admin_product_path(store_slug)
+  li= link_to 'New Product', new_store_admin_product_path(store_slug)
 table.table.table-bordered.table-striped
   tr
     th Name

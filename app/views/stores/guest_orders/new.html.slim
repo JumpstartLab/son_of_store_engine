@@ -6,7 +6,7 @@ javascript:
     order.setupForm();
   })
 
-= form_for user, :url => guest_orders_path(store_slug) do |u|
+= form_for user, :url => store_guest_orders_path(store_slug) do |u|
   /- if user.errors.any?
   /h2 Errors
   /  ul

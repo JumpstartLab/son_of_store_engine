@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "When I want to place an order" do
-  #before(:each) { visit new_order_path }
+  #before(:each) { visit new_store_order_path }
   let!(:user) { FactoryGirl.create(:user) }
   let(:product) { FactoryGirl.create(:product) }
 
@@ -10,7 +10,7 @@ describe "When I want to place an order" do
   end
 
   context "and I visit a product's page" do
-    before(:each) { visit product_path(product) }
+    before(:each) { visit store_product_path(product) }
 
     context "and I add the product to my cart" do
       before(:each) { click_link_or_button('Add to cart') }
@@ -20,7 +20,7 @@ describe "When I want to place an order" do
       end
 
       context "and I want to place an order" do
-        before(:each) { visit new_order_path }
+        before(:each) { visit new_store_order_path }
 
         it "prompts me to add a credit card" do
           page.should have_content('Add a Credit Card')
