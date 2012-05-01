@@ -84,15 +84,23 @@ private
   def successful_login(cart, user)
     cart.assign_cart_to_user(user)
     if session[:return_to_url]
-      redirect_to session[:return_to_url]
-      return
+      login_redirect_to_url(user)
     elsif session[:last_page]
-      redirect_to session[:last_page]
-      return
+      login_redirect_to_last_page(user)
     else
       redirect_to stores_path,
         :notice => "Logged in! Buy things! Capitalism!"
     end
+  end
+
+  def login_redirect_to_url(user)
+    redirect_to session[:return_to_url]
+    return
+  end
+
+  def login_redirect_to_last_page(user)
+    redirect_to session[:last_page]
+    return
   end
 
   def successful_first_login(cart, user)
