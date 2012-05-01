@@ -1,4 +1,5 @@
-#
+include HexHelper
+
 class User < ActiveRecord::Base
   attr_accessible :email_address, :full_name, :display_name, :password
   attr_accessible :password_confirmation
@@ -14,6 +15,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email_address
   validates_length_of :display_name, :minimum => 2, :maximum => 32,
     allow_nil: true, unless: Proc.new { |user| user.display_name.blank? }
+
+  attr_accessible :invite_code
 
   def pending_order
     orders.find_by_status("pending")

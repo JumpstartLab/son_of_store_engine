@@ -1,5 +1,6 @@
 #
 require 'digest/sha1'
+include HexHelper
 
 class Order < ActiveRecord::Base
   before_create :create_special_url
@@ -130,8 +131,7 @@ class Order < ActiveRecord::Base
   private
 
   def create_special_url
-    hex = Digest::SHA1.hexdigest(%Q|#{ Time.now.to_i.to_s + rand(10000).to_s }|)
-    write_attribute(:special_url, hex)
+    write_attribute(:special_url, create_hex)
   end
 
 end

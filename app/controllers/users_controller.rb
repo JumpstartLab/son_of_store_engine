@@ -11,12 +11,14 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @invite_code = params[:invite_code] if params[:invite_code]
     session[:return_to] = request.referrer
   end
 
   def create
     @user = User.new(params[:user])
     if @user.save
+      update_store_permission(params[:invite_code], @user) if params[:invite_code]
       @user = User.find_by_email_address(@user.email_address)
       notify_user_about_sign_up
     else
@@ -46,7 +48,16 @@ class UsersController < ApplicationController
   def notify_user_about_sign_up
     @user.send_welcome_email
     session[:user_id] = @user.id
-    redirect_to session[:return_to], notice: "Welcome Aboard. <a href='/profile'>View Your Profile</a>".html_safe
+    notice = "Welcome Aboard. <a href='/profile'>View Your Profile</a>".html_safe
+    if session[:return_to]
+      redirect_to session[:return_to], notice: notice
+    else
+      redirect_to root_path, notice: notice
+    end
+  end
+
+  def update_store_permission(hex, user)
+    StorePermission.find_by_admin_hex(hex).update_attributes(user_id: user.id)
   end
 
 end
