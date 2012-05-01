@@ -69,7 +69,8 @@ def seed_orders(store, count)
   count.times do |i|
     puts "seeding order #{i}"
     o = store.orders.create(
-     user: User.all.sample
+     user: User.all.sample,
+     address: Address.all.sample
      )
     product = store.products.sample
     o.order_items.create!(
@@ -80,6 +81,11 @@ def seed_orders(store, count)
   end
 end
 
+Address.create(  street_1: "100 A Street",
+                  city: "Portland",
+                state: "OR",
+                     zip_code: "97214",
+                  user: first_store_owner)
 
 products = first_store.products.create([{ title: 'Moccasin', 
                        description: 'For that Pokahontas look.', 
