@@ -49,6 +49,7 @@
       <th>Status</th>
       <th>Updated</th>
       <th>Total Price</th>
+      <th>Edit</th>
     </tr>
   </thead>
   <tbody id="orders">
@@ -62,6 +63,8 @@
             <td><strong><%= order.current_status %></strong></td>
             <td><%= order.updated_at.strftime("%m/%d/%Y  %I:%M%p") %>
             <td>$<%= order.total_price %></td>
+            <td><%= link_to "Edit", edit_store_order_path(order.store, order), 
+              :class => "btn btn-mini" %></td>
     </tr><% end %>
   </tbody>
 </table>
