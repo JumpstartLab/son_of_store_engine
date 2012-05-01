@@ -9,8 +9,7 @@ tr
         div id=(dom_id category)
         li= category.name
   td= link_to 'Edit', edit_admin_product_path(store_slug, product)
-  -if current_user.has_role? :store_stocker
-    -if product.active?
-      td= link_to 'Retire', admin_product_retirement_path(store_slug, product), method: :post
-    -else
-      td= link_to 'Unretire', admin_product_retirement_path(store_slug, product), method: :post
+  -if product.active?
+    td= link_to 'Retire', admin_product_retirement_path(store_slug, product), method: :post
+  -else
+    td= link_to 'Unretire', admin_product_retirement_path(store_slug, product), method: :post

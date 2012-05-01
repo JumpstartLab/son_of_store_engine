@@ -1,5 +1,4 @@
 class Store::Admin::DashboardController < Store::Admin::BaseController
-  authorize_resource :class => false
 
   def show
     @store = current_store

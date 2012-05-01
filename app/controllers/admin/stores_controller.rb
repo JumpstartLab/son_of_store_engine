@@ -1,5 +1,4 @@
 class Admin::StoresController < ApplicationController
-  authorize_resource :class => false
 
   def index
     @approved_stores  = Store.where(:status => "approved")
