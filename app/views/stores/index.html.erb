@@ -1,3 +1,12 @@
-<% @stores.each do |store| %>
-<p><%= store.name %></p>
-<% end %>
+<h1>Zut Alors! Regarde toutes les stores!</h1>
+
+<table class="table table-bordered table-striped">
+  <th>Store Name</th>
+  <th>Link</th>
+  <% @stores.each do |store| %>
+    <tr>
+      <td><%= store.name %></td>
+      <td><%= link_to "Browse the products!", store_url(subdomain: store.url_name) %></td>
+    </tr>
+  <% end %>
+</table>
