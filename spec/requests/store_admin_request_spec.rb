@@ -6,12 +6,20 @@ describe 'Store Admin' do
   let!(:super_admin_user) { Fabricate(:super_admin_user) }
 
   let!(:stores) do
-    20.times.map do |n|
+    stores = 20.times.map do |n|
       Fabricate(:store, 
                 :name => "store #{n}", 
                 :slug => "store-#{n}", 
                 :users => [admin])
     end
+
+    stores.each do |store|
+      store.add_admin(user)
+    end
+  end
+
+  let!(:product) do
+    Fabricate(:product, :store => stores.first)
   end
 
   let!(:pending_store) { Fabricate(:store, :status => 'pending', :users => [admin]) }
@@ -130,13 +138,34 @@ describe 'Store Admin' do
     end
   end
 
-  msg = "Store administrator works with products as in StoreEngine.
-         https://www.pivotaltracker.com/story/show/28489023"
-  pending msg do
-    context "for a store with products" do
-      it "creates a product, sees a flash message and a list of products"
-      it "edits all attributes of a product, then see a flash and all my products"
-      it "retires a product, then see a flash message and all my products"
+  context "for a store with products" do
+    before(:each) do
+      login_as(user)
+    end
+
+    it "creates a product, sees a flash message and a list of products" do
+      visit new_admin_product_path(stores.first)
+      fill_in 'Title', :with => 'Product One'
+      fill_in 'Description', :with => 'Product Description'
+      fill_in 'Price', :with => '1.00'
+      click_on 'Create Product'
+      page.should have_content('Product created')
+    end
+
+    it "edits all attributes of a product, then see a flash and all my products" do
+      visit admin_products_path(stores.first)
+      click_on 'Edit'
+      fill_in 'Title', :with => 'Product Two'
+      fill_in 'Description', :with => 'Product Description'
+      fill_in 'Price', :with => '1.00'
+      click_on 'Update Product'
+      page.should have_content('Product updated')
+    end
+
+    it "retires a product, then see a flash message and all my products" do
+      visit admin_products_path(stores.first)
+      click_on 'Retire'
+      page.should have_content('retired')
     end
   end
 

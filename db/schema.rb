@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20120430030347) do
     t.string   "slug"
     t.string   "description"
     t.string   "status",      :default => "pending"
+    t.string   "css"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
   end

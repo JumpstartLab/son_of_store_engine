@@ -5,8 +5,8 @@
     ul
     - @store.errors.full_messages.each do |msg|
       li = msg
-
-= form_for(@store, :url => admin_dashboard_path) do |f|
+  
+= form_for(@store, :url => admin_dashboard_path, :html => {:multipart => true}) do |f|
   .store-edit-name
     = f.label :name
     = f.text_field :name
@@ -19,5 +19,14 @@
     = f.label :description
     = f.text_field :description
 
+
+  .upload-css
+    = f.label :css
+    = f.file_field :css
+  
+  div Current Css File:
+  div = @store.css_path
+
+  
   .store-edit-actions
     = f.submit

@@ -9,7 +9,12 @@ gem 'slim'
 gem 'find_by_param'
 gem 'fabrication'
 gem 'faker'
+gem 'will_paginate'
+gem 'carrierwave'
+gem "fog", "~> 1.3.1"
 gem 'redis-store', '~> 1.0.0'
+gem 'capistrano'
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,8 +30,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
-  gem 'perftools.rb'
   gem 'newrelic_rpm'
   gem 'taps'
   gem 'pg'
@@ -36,6 +39,7 @@ group :development, :test do
   gem 'launchy'
   gem 'guard'
   gem 'growl'
+  gem 'sqlite3'
   gem 'guard-rspec'
   gem 'faker'
   gem 'seed_dump'

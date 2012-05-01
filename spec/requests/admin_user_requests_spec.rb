@@ -21,7 +21,8 @@ describe User do
       Fabricate(
         :order,
         :user_id => user.id,
-        :address_id => address.id
+        :address_id => address.id,
+        :store => store
       )
     }
 
@@ -43,7 +44,7 @@ describe User do
         let!(:new_stocker) { Fabricate(:user) }
 
         before(:each) do
-          click_link "Admin"
+          visit admin_dashboard_path(store)
           click_link "Manage Users"
         end
 
@@ -228,7 +229,7 @@ describe User do
 
       it "retire" do
         click_link "#{product.title}"
-        click_link "Retire"
+        click_link "Retire Product"
         find("#product_#{product.id}").should have_content("Retired")
       end
     end
@@ -303,6 +304,13 @@ describe User do
           click_button "Update Order"
           visit admin_order_path(store, order)
           find(".quantity").text.should == "2"
+        end
+
+        it 'allow css file to be uploaded' do
+          visit edit_admin_dashboard_path(store)
+          page.attach_file('store_css', 'spec/support/temp.css')
+          click_button 'Update Store'
+          (page.body =~ /temp.css/).should_not be_nil
         end
       end
     end
