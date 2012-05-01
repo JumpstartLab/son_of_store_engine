@@ -1,7 +1,8 @@
 <% "Search" %>
-<div class="hero-unit">
-  <div class="row-fluid"> 
-    <% if @top_selling %>
+
+  <% if @top_selling && !params[:search] && !params[:page] %>
+  <div class="hero-unit">
+    <div class="row-fluid"> 
       <div class="span7">
         <h1><%=  @top_selling.title %></h1>
         <p><%=  @top_selling.description %></p>
@@ -15,11 +16,12 @@
       </div>
       <div class="span5">
         <%= image_tag(@top_selling.image_link) %>
-      
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+  <% end %>
+  
+
 
 <div class="page-header">
   <h1>Products</h1>
