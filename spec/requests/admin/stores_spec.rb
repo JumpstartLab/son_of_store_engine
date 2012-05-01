@@ -15,33 +15,25 @@ describe "Administrator store pages" do
 
   context "admin visits admin page page for store" do
     before (:each) do
-      visit admin_store_url(:subdomain => test_two_store.url_name)
+      visit admin_dashboard_url(:subdomain => test_two_store.url_name)
     end
 
+    it "has an edit link that takes you to the edit page" do
+      page.should have_content('Edit Store Details')
+    end
 
-    describe "allows admin to click a link to edit store details" do
-
-      it "does something" do
-
-      end
-
-      it "has an edit link that takes you to the edit page" do
-        pending
-        page.should have_content('Edit Store')
-        # click_link_or_button('Edit Store')
+    describe "can edit store details" do
+      before(:each) do
+        click_link_or_button('Edit Store Details')
       end
 
       it "takes you to the edit page when you click the edit store link" do
-        pending
-        click_link_or_button('Edit Store')
         page.should have_selector('#edit')
       end
 
-      # it "allows you to edit the name" do
-      #   click_link_or_button('Edit Store')
-      #   # visit edit_admin_store_path(@store_id)
-      #   save_and_open_page
-      # end
+      it "allows you to edit the name" do
+        page.should have_content('#edit_name')
+      end
 
       it "gives a flash message when you edit the name" do
         pending

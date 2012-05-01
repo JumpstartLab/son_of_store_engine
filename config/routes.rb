@@ -42,7 +42,7 @@ StoreEngine::Application.routes.draw do
 
     namespace :admin do
       resources :store_admins, only: [:destroy, :create]
-      # resources :store, only: [:update, :edit, :show]
+      resources :stores, only: [:update, :edit ]
       resources :products
       resources :categories
       resources :orders, only: [:index, :show, :update] do
