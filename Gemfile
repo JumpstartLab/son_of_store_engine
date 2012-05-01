@@ -41,6 +41,7 @@ group :development, :test do
   gem 'launchy'
   gem 'guard'
   gem 'growl'
+  gem 'sqlite3'
   gem 'guard-rspec'
   gem 'faker'
   gem 'seed_dump'
