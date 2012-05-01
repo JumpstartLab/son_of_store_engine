@@ -1,4 +1,4 @@
-li.span2.category id==dom_id(category)
+li.span2.category id=="admin_#{dom_id(category)}"
   .image
     = link_to image_tag(category.image), admin_category_path(:domain, category), class: "image-link"
   .overlay

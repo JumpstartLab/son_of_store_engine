@@ -21,7 +21,7 @@ describe "Store Stocker Actions", store_stocker: true do
     
     it "displays a the list of products" do
       products.each do |product|
-        page.should have_selector "#product_#{product.id}"
+        page.should have_selector "#admin_product_#{product.id}"
       end
     end
   end
@@ -46,13 +46,13 @@ describe "Store Stocker Actions", store_stocker: true do
       products_with_new = products
       products_with_new << Product.where(title: "Brand New Product").first
       products_with_new.each do |product|
-        page.should have_selector "#product_#{product.id}"
+        page.should have_selector "#admin_product_#{product.id}"
       end
     end
     
     it "displays the information for the new product" do
       click_button "Create Product"
-      within "#product_#{Product.where(title: "Brand New Product").first.id}" do
+      within "#admin_product_#{Product.where(title: "Brand New Product").first.id}" do
         page.should have_content "Brand New Product"
         page.should have_content "100.50"
         page.should have_content "active"
@@ -69,7 +69,7 @@ describe "Store Stocker Actions", store_stocker: true do
     context "from store admin products view" do 
       before(:each) do
         visit "/#{store.to_param}/admin/products"
-        within "#product_#{product_to_be_edited.id}" do
+        within "#admin_product_#{product_to_be_edited.id}" do
           click_link_or_button "Edit"
         end
         fill_in "Title", :with => "Old Edited Product"
@@ -82,12 +82,12 @@ describe "Store Stocker Actions", store_stocker: true do
       it "displays a the list of products" do
         current_path.should == "/#{store.to_param}/admin/products"
         products.each do |product|
-          page.should have_selector "#product_#{product.id}"
+          page.should have_selector "#admin_product_#{product.id}"
         end
       end
       
       it "displays the updated information for the product" do
-        within "#product_#{product_to_be_edited.id}" do
+        within "#admin_product_#{product_to_be_edited.id}" do
           page.should have_content "Old Edited Product"
           page.should have_content "112.50"
         end
@@ -103,7 +103,7 @@ describe "Store Stocker Actions", store_stocker: true do
     context "from store admin products view" do 
       before(:each) do
         visit "/#{store.to_param}/admin/products"
-        within "#product_#{product_to_be_retired.id}" do
+        within "#admin_product_#{product_to_be_retired.id}" do
           click_link_or_button "Retire"
         end
       end
@@ -111,12 +111,12 @@ describe "Store Stocker Actions", store_stocker: true do
       it "displays a the list of products" do
         current_path.should == "/#{store.to_param}/admin/products"
         products.each do |product|
-          page.should have_selector "#product_#{product.id}"
+          page.should have_selector "#admin_product_#{product.id}"
         end
       end
       
       it "retires that product" do
-        within "#product_#{product_to_be_retired.id}" do
+        within "#admin_product_#{product_to_be_retired.id}" do
           page.should have_content "retired"
         end
       end
