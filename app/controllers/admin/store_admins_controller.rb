@@ -1,7 +1,4 @@
 class Admin::StoreAdminsController < Admin::ApplicationController
-  skip_before_filter :is_admin?
-  before_filter :is_store_admin?
-
 
   def destroy
     @store_admin = StoreAdmin.scoped.where("user_id = ?",params[:id]).where("store_id = ?", store.id ).first
@@ -22,7 +19,15 @@ class Admin::StoreAdminsController < Admin::ApplicationController
       email = params[:new_admin_email_address] || params[:new_stocker_email_address]
       flash[:message] = "#{email} could not be found in the system, so they have been invited to join the store. Try to add them as an admin after they have created an account."
       StoreAdmin.request_signup(email, store)
-      redirect_to session[:last_page]
+      redirect_to admin_dashboard_path
     end
+  end
+
+  def edit
+    @store = Store.find_by_url_name(params[:id])
+  end
+
+  def show
+    @store = Store.find_by_url_name(params[:id])
   end
 end
