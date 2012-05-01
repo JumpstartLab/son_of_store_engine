@@ -14,6 +14,10 @@ describe "Orders Requests" do
       o
     end
 
+    it "has the order's status" do
+      page.should have_content order.status
+    end
+
     it "has product titles for an order" do
       visit order_path(store, order)
       order.products.each do |product|
@@ -35,4 +39,50 @@ describe "Orders Requests" do
       end
     end
   end
+
+  # context "as an authenticated user" do
+  #   let!(:store) { Fabricate(:store) }
+  #   let(:order) do
+  #     o = Fabricate(:order, :store => store)
+  #     o.products << Fabricate(:product, :store => store)
+  #     o.products << Fabricate(:product, :store => store)
+  #     o.products << Fabricate(:product, :store => store)
+  #     double_product = Fabricate(:product, :store => store)
+  #     o.products << double_product
+  #     o.products << double_product
+  #     o
+  #   end
+  #   let!(:user) { Fabricate(:user, :order => order) }
+
+  #   before(:each) do
+  #     login_as(user)
+  #   end
+
+  #   it "has the order's status" do
+  #     visit order_path(store, order)
+  #     save_and_open_page
+  #     page.should have_content order.status
+  #   end
+
+  #   it "has product titles for an order" do
+  #     visit order_path(store, order)
+  #     order.products.each do |product|
+  #       page.should have_content product.title
+  #     end
+  #   end
+
+  #   it "has product subtotals for an order" do
+  #     visit order_path(store, order)
+  #     order.products.each do |product|
+  #       page.should have_content order.subtotal(product)
+  #     end
+  #   end
+
+  #   it "has a price for each product in an order" do
+  #     visit order_path(store, order)
+  #     order.products.each do |product|
+  #       page.should have_content product.price
+  #     end
+  #   end
+  # end
 end
