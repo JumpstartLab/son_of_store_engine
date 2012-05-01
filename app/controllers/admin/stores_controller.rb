@@ -8,7 +8,7 @@ class Admin::StoresController < ApplicationController
   end
 
   def update
-    @store = store
+    store ? @store = store : @store = Store.find_by_url_name(params[:id])
     @store.update_attributes(params[:store])
     if params[:store][:approved] == "true"
       Resque.enqueue(Emailer, "store", "store_approval_confirmation", @store.owner.id, @store.id)
@@ -16,8 +16,9 @@ class Admin::StoresController < ApplicationController
       Resque.enqueue(Emailer, "store", "store_rejection_confirmation", @store.owner.id, @store.id)
     end
     admin_dashboard_url(:subdomain => store.url_name)
-    redirect_to admin_dashboard_url(:subdomain => @store.url_name),
-      :notice => "#{@store.name} was updated!"
+    super_dash_or_admin_dash(params)
+    # redirect_to admin_dashboard_url(:subdomain => @store.url_name),
+    #   :notice => "#{@store.name} was updated!"
     # redirect_to :back,
     #   :notice => "#{ @store.name } was updated!"
   end
@@ -27,6 +28,16 @@ class Admin::StoresController < ApplicationController
   end
 
   private
+
+  def super_dash_or_admin_dash(params)
+    if params[:store][:enabled]
+      redirect_to :back,
+        :notice => "#{ @store.name } was updated!"
+    else
+      redirect_to admin_dashboard_url(:subdomain => @store.url_name),
+        :notice => "#{@store.name} was updated!"
+    end
+  end
 
   def is_super_admin
     redirect_to_last_page("Nice try, jerk.") unless
