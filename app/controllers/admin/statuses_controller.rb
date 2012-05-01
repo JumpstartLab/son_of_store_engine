@@ -1,7 +1,6 @@
 class Admin::StatusesController < Admin::ApplicationController
 
   def create
-    # raise params.inspect
   end
 
   def update
