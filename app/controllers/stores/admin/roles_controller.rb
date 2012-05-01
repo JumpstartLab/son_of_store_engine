@@ -12,7 +12,7 @@ module Stores
         if @user = User.find_by_email(params[:user][:email])
           determine_path_and_assign_role(@user)
         else
-          #send email
+          Resque.enqueue(UserEmailer, "signup_notification", new_user_email)
           redirect_to store_admin_path(current_store.slug),
             :notice => "That user does not exist, so we sent them a signup email."
         end
@@ -35,7 +35,7 @@ module Stores
           user.roles.create(name: params[:role], store: current_store)
           redirect_to store_admin_path(current_store.slug), :notice => "#{user.name} is now a #{role.gsub('_',' ')}."
         else
-          redirect_to store_admin_path(current_store.slug), :notice => "That roles does not exist."
+          redirect_to store_admin_path(current_store.slug), :notice => "That role does not exist."
         end
       end
 

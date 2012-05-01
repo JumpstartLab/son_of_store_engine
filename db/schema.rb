@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501025821) do
+ActiveRecord::Schema.define(:version => 20120501142757) do
 
   create_table "cart_products", :force => true do |t|
     t.integer  "cart_id"
@@ -60,6 +60,22 @@ ActiveRecord::Schema.define(:version => 20120501025821) do
   add_index "credit_cards", ["store_id", "id"], :name => "index_credit_cards_on_store_id_and_id"
   add_index "credit_cards", ["store_id"], :name => "index_credit_cards_on_store_id"
   add_index "credit_cards", ["user_id"], :name => "index_credit_cards_on_user_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "order_products", :force => true do |t|
     t.integer  "product_id"
@@ -168,7 +184,6 @@ ActiveRecord::Schema.define(:version => 20120501025821) do
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
     t.string   "type"
-    t.integer  "roles_mask"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
