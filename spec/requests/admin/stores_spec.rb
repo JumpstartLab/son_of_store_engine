@@ -32,11 +32,18 @@ describe "Administrator store pages" do
       end
 
       it "allows you to edit the name" do
-        page.should have_content('#edit_name')
+        new_name = Faker::Internet.user_name
+        fill_in "store_name", with: new_name
+        click_link_or_button('Update Store')
+        page.should have_content(new_name)
       end
 
       it "gives a flash message when you edit the name" do
-        pending
+        new_name = Faker::Internet.user_name
+        fill_in "store_name", with: new_name
+        click_link_or_button('Update Store')
+        page.should have_selector('#alert')
+        page.should have_content('was updated!')
       end
     end
   end

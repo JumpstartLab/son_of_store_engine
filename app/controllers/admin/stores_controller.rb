@@ -8,14 +8,15 @@ class Admin::StoresController < ApplicationController
   end
 
   def update
-    @store = Store.find_by_id(params[:id])
+    @store = store
     @store.update_attributes(params[:store])
     if params[:store][:approved] == "true"
       Resque.enqueue(Emailer, "store", "store_approval_confirmation", @store.owner.id, @store.id)
     elsif params[:store][:approved] == "false"
       Resque.enqueue(Emailer, "store", "store_rejection_confirmation", @store.owner.id, @store.id)
     end
-    redirect_to :back,
+    # admin_dashboard_url(:subdomain => store.url_name)
+    redirect_to admin_dashboard_url(:subdomain => @store.url_name),
       :notice => "#{@store.name} was updated!"
   end
 
@@ -23,16 +24,15 @@ class Admin::StoresController < ApplicationController
     @store = Store.find_by_url_name(params[:id])
   end
 
-<<<<<<< HEAD
+  def edit
+    @store = store
+  end
+
   private
 
   def is_super_admin
     redirect_to_last_page("Nice try, jerk.") unless
       current_user.admin
-=======
-  def edit
-    @store = Store.find_by_url_name(params[:id])
->>>>>>> WIP working on store_admin, getting error on form creation
   end
 
 end
