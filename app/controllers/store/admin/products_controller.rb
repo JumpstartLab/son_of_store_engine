@@ -1,5 +1,5 @@
 class Store::Admin::ProductsController < Store::Admin::BaseController
-  authorize_resource
+  #authorize_resource
   helper_method :product, :products
 
   def index

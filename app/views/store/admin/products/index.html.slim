@@ -4,7 +4,7 @@ h1 Admin Products View
     ul.nav.nav-pills
     h4 Categories:
     br/
-    = render :partial => "categories/category", :collection => @categories
+    = render :partial => "store/categories/category", :collection => @categories
     li= link_to 'New Category', new_admin_category_path(store_slug)
 ul.nav.nav-pills
   h4 Active Products:
@@ -19,7 +19,8 @@ table.table.table-bordered.table-striped
     th Categories
     th Edit Product
     /th Buy it!
-    th Retire it!
+    -if current_user.has_role? :store_stocker, @store
+      th Retire it!
   = render :partial => "product_table", :collection => products, :as => :product
 .row
   .span12
