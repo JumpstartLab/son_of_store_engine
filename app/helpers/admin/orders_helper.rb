@@ -1,4 +1,4 @@
-module Admin::OrdersHelper
+module Store::Admin::OrdersHelper
 
   def order_actions_by_status(order)
     case order.status

@@ -2,9 +2,9 @@ class Admin::StoresController < ApplicationController
   authorize_resource :class => false
 
   def index
-    @approved_stores  = Store.where(:status => "approved")
-    @pending_stores   = Store.where(:status => "pending")
-    @disabled_stores  = Store.where(:status => "disabled")
+    @stores = Store.where("status = 'approved'
+      OR status = 'disabled'
+      OR status = 'pending'")
   end
 
   def edit
@@ -13,28 +13,16 @@ class Admin::StoresController < ApplicationController
 
   def update
     @store = Store.find(params[:id])
-    @store.update_attributes(params[:store])
-    if params[:store][:status] == "approved"
-      # XXX This makes me sad inside...
-      message = "Store has been approved."
-      if @store.users.first
-        message += " Sent email to #{@store.users.first.email}"
-        Resque.enqueue(Emailer, @store.id)
-      end
-
-      flash.notice = message
-    elsif params[:store][:status] == "declined"
-      message = "Store has been declined."
-      if @store.users.first
-        message += " Sent email to #{@store.users.first.email}"
-        # XXX this should probably also use resque?
-        StoreMailer.store_declined_notification(@store).deliver
-      end
-
-      flash.notice = message
+    @store.update_status(params[:store])
+    if @store.save
+      @store.notify_store_admin_of_status
+      message = "Store has been #{@store.status}."
+      message += " Sent email to #{@store.users.first.email}"
+    else
+      message = "There has been an error in updating this store's status."
     end
-
-    redirect_to :back, :notice => "#{@store.name} has been updated."
+    flash.notice = message
+    redirect_to admin_stores_path
   end
 
   def show

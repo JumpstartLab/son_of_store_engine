@@ -12,7 +12,9 @@ Feature:
     When I checkout
     Then I can sign up for an account
     And I can sign in to my existing account
-    And I can provide my email, billing, shipping, and credit card info to purchase directly
+    And I can continue to guest checkout where I can provide my email, billing, shipping, and credit card info to purchase directly
+
+    When I continue to guest checkout
     When I provide my info directly:
       | name      | email               | card               | cvv | month       | year | address          | city   | state | zipcode |
       | Bob Smith | bob.smith@gmail.com | 424242424242424242 | 123 | 1 - January | 2016 | 123 Smith Street | Dallas | Texas | 75252   |

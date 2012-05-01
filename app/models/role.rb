@@ -3,4 +3,13 @@ class Role < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :store
+
+  def user_name
+    user.name
+  end
+
+  def store_name
+    store.name
+  end
+
 end

@@ -1,24 +1,6 @@
 module SessionHelpers
   private
 
-  def successful_login_path
-    if params[:slug].present? && params[:checkout].present?
-      new_order_path(params[:slug])
-    elsif params[:slug].present?
-      store_path(params[:slug])
-    else
-      root_path
-    end
-  end
-
-  def successful_logout_path
-    if params[:slug]
-      store_path(params[:slug])
-    else
-      root_url
-    end
-  end
-
   def transfer_cart_to_user(cart, user)
     return if cart.nil?
 

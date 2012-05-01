@@ -1,12 +1,16 @@
 class ApplicationController < ActionController::Base 
   protect_from_forgery
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "Access denied."
+    redirect_back_or_to store_path(current_store.slug)
+  end
 
   before_filter :verify_store_status
   
   helper_method :current_cart
   helper_method :current_store
   helper_method :verify_store_status
-  helper_method :url_for
+  helper_method :return_path
 
   def current_store
     @current_store ||= Store.where(slug: params[:store_slug]).first
@@ -44,14 +48,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def url_options
-    if current_store
-      { :store_slug => current_store.slug }.merge(super)
-    else
-      super
-    end
-  end
-
   def create_new_cart
     cart = current_store.carts.create
     cart_storage[current_store.id] = cart.id
@@ -62,7 +58,16 @@ class ApplicationController < ActionController::Base
     if current_store && current_store.status == "pending"
       redirect_to root_path, :notice => "That store is pending approval."
     elsif current_store && current_store.status == "disabled"
-      redirect_to root_path, :notice => "That store has been disabled."
+      redirect_to root_path, :notice => "This site is currently down for maintenence."
     end
   end
+
+  def return_path
+    if params[:return_path].blank?
+      @return_path = request.referer || root_url
+    else
+      @return_path = params[:return_path]
+    end
+  end
+
 end

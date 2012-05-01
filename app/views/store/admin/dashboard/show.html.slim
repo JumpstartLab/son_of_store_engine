@@ -2,9 +2,31 @@ h1 Admin Dashboard for #{@store.name}
 .row
   .span6 style="margin-bottom:20px"
     h4
+      | Creator: #{@store.creator.user_name}
+      br/
+      br/
+      | Admins:
+      ul
+      - @store.admins.each do |store_admin|
+        li= store_admin.user_name
+        | &nbsp;
+        = link_to 'Remove as admin', admin_role_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
+      br/
+      br/
+      | Stockers:
+      - @store.stockers.each do |stocker|
+        li= stocker.user_name
+        | &nbsp;
+        = link_to 'Remove as stocker', admin_role_path(:id => stocker.id), :method => :delete, :confirm => 'Sure?'
+    br/
+    h4
       = link_to "Edit #{@store.name}", admin_edit_path(id: current_store.id)
+      | &nbsp;|&nbsp;
+      = link_to 'Add new store admin', admin_store_admin_new_path(@store.slug)
+      | &nbsp;|&nbsp;
+      = link_to 'Add stocker', admin_store_stocker_new_path(@store.slug)
 
-.row
+.row.row
   .span6 style="margin-bottom:20px"
     h4
       = link_to 'Add a product', new_admin_product_path(store_slug: store_slug)
@@ -35,13 +57,13 @@ h3
     br/
     h4
       | Filter by: 
-      = link_to 'Pending', admin_path(order_status: 'pending')
+      = link_to 'Pending', admin_path(store_slug, order_status: 'pending')
       | &nbsp;|&nbsp;
-      = link_to 'Cancelled', admin_path(order_status: 'cancelled')
+      = link_to 'Cancelled', admin_path(store_slug, order_status: 'cancelled')
       | &nbsp;|&nbsp;
-      = link_to 'Paid', admin_path(order_status: 'paid')
+      = link_to 'Paid', admin_path(store_slug, order_status: 'paid')
       | &nbsp;|&nbsp;
-      = link_to 'Shipped', admin_path(order_status: 'shipped')
+      = link_to 'Shipped', admin_path(store_slug, order_status: 'shipped')
       | &nbsp;|&nbsp;
       = link_to 'All', admin_path
     br/
