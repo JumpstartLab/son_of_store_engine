@@ -49,7 +49,8 @@ class User < ActiveRecord::Base
   end
 
   def is_admin_of(store)
-    self.admin || store_permissions.where("store_id = #{store.id} AND permission_level = 1").first
+    admin_user = "store_id = #{store.id} AND permission_level = 1"
+    self.admin || store_permissions.where(admin_user).first
   end
 end
 # == Schema Information

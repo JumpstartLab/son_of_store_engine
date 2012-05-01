@@ -19,14 +19,11 @@ class StoreAdmin::ProductsController < ApplicationController
   def create
     @product = Product.new(params[:product])
     @product.store_id = @current_store.id
-
-    respond_to do |format|
-      if @product.save
-        notice = 'Product was successfully created.'
-        format.html { redirect_to admin_product_path(@current_store, @product), notice: notice }
-      else
-        format.html { render action: "new" }
-      end
+    if @product.save
+      notice = 'Product was successfully created.'
+      redirect_to admin_product_path(@current_store, @product), notice: notice
+    else
+      render action: "new"
     end
   end
 
@@ -63,7 +60,7 @@ class StoreAdmin::ProductsController < ApplicationController
   def store_products
     Product.where(store_id: @current_store.id)
   end
-  
+
   def confirm_has_store_admin_access
     redirect_to root_path unless current_user.is_admin_of(@current_store)
   end
