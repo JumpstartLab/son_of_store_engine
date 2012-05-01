@@ -170,6 +170,8 @@ GEM
     redis (2.2.2)
     redis-namespace (1.0.3)
       redis (< 3.0.0)
+    redis-store (1.1.0)
+      redis (~> 2.2.0)
     resque (1.20.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.0.2)
@@ -273,6 +275,7 @@ DEPENDENCIES
   rack-perftools_profiler
   rails (= 3.2.3)
   rake
+  redis-store
   reek!
   resque
   rspec-rails
