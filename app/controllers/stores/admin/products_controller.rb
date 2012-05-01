@@ -39,11 +39,7 @@ module Stores
 
         if product.save
           product.update_categories(params[:categories][1..-1])
-<<<<<<< HEAD
-          redirect_to admin_products_path(current_store.slug),
-=======
-          redirect_to store_admin_product_path(current_store.slug, product.id),
->>>>>>> d0b3572eb5d26c2bc538547342c33274f8bdb638
+          redirect_to store_admin_products_path(current_store.slug),
             notice: 'Product was successfully updated.'
         else
           product.errors.full_messages.each do |msg|
