@@ -64,9 +64,9 @@ describe 'using the shopping cart' do
   context "when I'm on the cart" do
     let!(:store) { FactoryGirl.create(:store) }
     let(:products) do
-      (1..5).map { FactoryGirl.create(:product, store_id: store.id) }
+      (1..5).map { FactoryGirl.create(:product, store: store) }
     end
-    let(:test_cart) { FactoryGirl.create(:cart, :products => products, store_id: store.id) }
+    let(:test_cart) { FactoryGirl.create(:cart, :products => products, store: store) }
     before(:each) { load_cart_with_products(products) }
 
     it "removes the item when I click remove" do
@@ -77,6 +77,7 @@ describe 'using the shopping cart' do
     end
 
     it "shows the total price of the items" do
+      visit store_cart_path(store, test_cart)
       page.should have_content(number_to_currency(test_cart.total_price))
     end
 

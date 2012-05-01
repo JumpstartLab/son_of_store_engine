@@ -46,10 +46,11 @@ describe 'checking out' do
     end
 
     context "when user is logged in and has items in cart the checkout page" do
+      let!(:store) { FactoryGirl.create(:store) }
       let(:products) do
-        (1..5).map { FactoryGirl.create(:product) }
+        (1..5).map { FactoryGirl.create(:product, store: store) }
       end
-      let(:test_cart) { FactoryGirl.create(:cart, :products => products)}
+      let(:test_cart) { FactoryGirl.create(:cart, :products => products, store: store)}
       before(:each) { load_cart_with_products(products) }
       it "takes me to checkout when i click checkout" do
         click_link_or_button "Checkout"

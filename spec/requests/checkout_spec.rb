@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe 'Checkout',:request => :anon do
   context "items in the cart" do
+    let!(:store) { FactoryGirl.create(:store) }
     let!(:products) do
-      (1..5).map { FactoryGirl.create(:product) }
+      (1..5).map { FactoryGirl.create(:product, store: store) }
     end
-    let!(:test_cart) { FactoryGirl.create(:cart, :products => products)}
+    let!(:test_cart) { FactoryGirl.create(:cart, :products => products, store: products.first.store) }
     before(:each) { load_cart_with_products(products) }
 
     context "user not logged in" do
