@@ -2,20 +2,31 @@ require 'spec_helper'
 
 
 describe "Administrator store pages" do
-  let!(:admin_user) { FactoryGirl.create(:user, :admin => true) }
-  let!(:test_two_store) { FactoryGirl.create(:store, :owner_id => admin_user.id) }
+  let!(:jq_admin_user) { FactoryGirl.create(:user, :admin => true) }
+  # let!(:jq_admin_user) {
+  #   user = User.new
+  #   user.name = Faker::Internet.user_name
+  #   user.email = Faker::Internet.email(user.name)
+  #   user.display_name = user.name
+  #   # user.password = "foobar"
+  #   user.save
+  # }
+  let!(:test_two_store) { FactoryGirl.create(:store, :owner_id => jq_admin_user.id) }
 
   before(:each) do
-    test_two_store.add_admin(admin_user)
+    test_two_store.add_admin(jq_admin_user)
+    visit "/signout"
     visit "/sessions/new"
-    fill_in "email", with: admin_user.email
+    fill_in "email", with: jq_admin_user.email
     fill_in "password", with: "foobar"
     click_link_or_button("Log in")
+    # save_and_open_page
   end
 
   context "admin visits admin page page for store" do
     before (:each) do
-      visit admin_dashboard_url(:subdomain => test_two_store.url_name)
+      set_host("#{test_two_store.url_name}")
+      visit admin_dashboard_path
     end
 
     it "has an edit link that takes you to the edit page" do
@@ -61,10 +72,6 @@ describe "Administrator store pages" do
 
         it "includes the url_name form" do
           page.should have_selector("#edit_url")
-        end
-
-        it "asks for confirmation" do
-          pending "Can probably drop this test - for Javascript"
         end
 
       end
