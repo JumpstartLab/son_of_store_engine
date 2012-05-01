@@ -16,6 +16,7 @@ class Order < ActiveRecord::Base
   belongs_to :visitor_user
   belongs_to :address
 
+  validates_presence_of :store_id
 
   scope :pending, where(status: "pending")
   scope :paid, where(status: "paid")
@@ -26,6 +27,11 @@ class Order < ActiveRecord::Base
   after_create :set_default_status
   after_create :generate_unique_url
   after_create :send_confirmation_email
+  after_create :expire_top_seller_cache
+
+  def expire_top_seller_cache
+    Rails.cache.write("#{store.slug}_top_seller", nil)
+  end
 
   def set_default_status
     update_attribute(:status, "pending")

@@ -20,10 +20,6 @@ class Product < ActiveRecord::Base
       search_term.upcase).map {|category| category.products}.flatten
   end
 
-  def self.top_grossing
-    product_sort(:revenue)
-  end
-
   def revenue
     revenue = counter(:price)
   end
@@ -32,19 +28,17 @@ class Product < ActiveRecord::Base
     sales = counter(:quantity)
   end
 
-  def self.product_sort(param)
-    Product.active.sort do |prod_a, prod_b|
-      prod_a.send(param) <=> prod_b.send(param)
-    end.last
-  end
-
   def counter(param)
     order_items.inject(0) { |sum, oi| sum + oi.send(param) }
   end
 
   def self.top_selling_for_store(store)
-    if store.order_items.any?
-      find(store.order_items.count(group: "product_id").sort_by {|k, v| v}.last.first)
+    if cached_value = Rails.cache.read("#{store.slug}_top_seller")
+      Product.find(cached_value)
+    elsif store.order_items.any?
+      top_seller = find(store.order_items.count(group: "product_id").invert.max.last)
+      Rails.cache.write("#{store.slug}_top_seller", top_seller.id)
+      Product.find(Rails.cache.read("#{store.slug}_top_seller"))
     else
       store.products.first
     end

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
-  has_one :cart
+  has_many :carts
   has_many :addresses
   has_many :orders
   has_many :privileges
@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
                       :minimum => 2,
                       :maximum => 32,
                       :allow_blank => true
+
+  def store_cart(store)
+    carts.where(store_id: store.id).first
+  end
 
   def promote(store, role)
     store_privileges(store).destroy_all

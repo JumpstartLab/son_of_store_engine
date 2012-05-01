@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
       session[:search] = false 
       @products = current_store.products.page(params[:page])
     end
-    @top_selling = current_store.products.top_selling_for_store(current_store)
+    @top_selling = Product.top_selling_for_store(current_store)
     @categories = current_store.categories
   end
 

@@ -117,7 +117,7 @@ describe Order do
 
   describe "after order creation" do
     it "calls BackgroundJob.order_email" do
-      order = Order.new
+      order = FactoryGirl.create(:store).orders.new
       user = double("user")
       order.stub(:order_user).and_return(user)
       BackgroundJob.should_receive(:order_email).with(user, order)
