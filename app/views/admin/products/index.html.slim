@@ -14,4 +14,4 @@ table
         - if product.retired?
           = 'Retired'
         - else
-          = link_to "Retire", admin_product_retire_path(@store, product)
+          = link_to "Retire", admin_product_retire_path(@store, :product_id => product)

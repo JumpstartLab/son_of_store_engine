@@ -12,7 +12,6 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def new
-    redirect_to :root_url unless can? :manage, @store
     @product = @store.products.new
   end
 
@@ -29,13 +28,18 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def update
     Product.find(params[:id]).update_attributes(params[:product])
-    redirect_to admin_products_path
+    redirect_to admin_products_path, :notice => 'Product updated'
   end
 
   def retire_product
-    product = Product.find(params[:product_id])
-    product.retire
-    notice = "Product #{product.title} retired."
+    product = @store.products.find(params[:product_id])
+    if product
+      product.retire
+      notice = "Product #{product.title} retired."
+    else
+      notice = "Couldn't find product"
+    end
+
     redirect_to admin_products_path(@store), :notice => notice
   end
 end

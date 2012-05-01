@@ -1,5 +1,7 @@
 # Shows all relevant administrator business intelligence information.
 class Admin::DashboardsController < Admin::ApplicationController
+  load_and_authorize_resource :store
+
   def show
     @statuses = @store.orders.statuses
     @orders_by_status = @store.orders.collect_by_status
