@@ -8,14 +8,15 @@ table.table.table-striped
     th Status
     th Actions
   - @stores.each do |store|
-    tr
-      td = link_to store.name, products_path(store)
-      td = store.slug
-      td = truncate(store.description, :length => 32)
-      td = store.status
-      td 
-        - if store.active?
-          = link_to 'administer', admin_dashboard_path(store), :class => 'btn btn-danger'
-          br
-          br
-        = render 'superadmin/stores/links', :store => store
+    - cache(store) do 
+      tr
+        td = link_to store.name, products_path(store)
+        td = store.slug
+        td = truncate(store.description, :length => 32)
+        td = store.status
+        td 
+          - if store.active?
+            = link_to 'administer', admin_dashboard_path(store), :class => 'btn btn-danger'
+            br
+            br
+          = render 'superadmin/stores/links', :store => store
