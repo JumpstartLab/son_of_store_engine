@@ -35,7 +35,7 @@ describe "Store Admin Permissions" do
   describe "signing up after recieving an admin invite" do
     let!(:store) { Fabricate(:store) }
     let!(:store_permission) { Fabricate(:store_permission, user_id: nil, admin_hex: "12345", store_id: store.id)}
-    before(:all) do
+    before(:each) do
       visit '/users/new?invite_code=12345'
       sign_up({full_name: "Test User", email: "frank@zappa.com", password: "test", display_name: "Test"})
     end
@@ -45,8 +45,7 @@ describe "Store Admin Permissions" do
     end
 
     it "assigns the user's id to the store_permission record" do
-      puts store_permission.inspect
-      store_permission.user_id.should == User.last.id
+      StorePermission.last.user_id.should == User.last.id
     end
   end
 end

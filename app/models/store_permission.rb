@@ -13,8 +13,8 @@ class StorePermission < ActiveRecord::Base
   PERMISSION_TYPES = { 1 => "ADMIN", 2 => "STOCKER" }
 
   def self.invite_user_to_be_admin_of(store, email)
-    StorePermission.create!(store_id: store.id, admin_hex: create_hex, permission_level: 1)
-    #Email user with admin_hex in link
+    permission = StorePermission.create(store_id: store.id, admin_hex: create_hex, permission_level: 1)
+    UserMailer.invite_admin_email(permission, email)
   end
 
 end
