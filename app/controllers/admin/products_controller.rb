@@ -1,19 +1,19 @@
 class Admin::ProductsController < Admin::ApplicationController
 
   def index
-    @products = Product.active.all
-    @retired_products = Product.retired.all
-    @categories = Category.all
+    @products = store.products.active.all
+    @retired_products = store.products.retired
+    @categories = store.categories.all
   end
 
   def new
     @product = Product.new
-    @categories = Category.all
+    @categories = store.categories.all
   end
 
   def create
     @product = Product.create(params[:product])
-    @categories = Category.all
+    @categories = @product.categories
 
     if @product.save
       @product.update_categories(params[:categories][1..-1])
