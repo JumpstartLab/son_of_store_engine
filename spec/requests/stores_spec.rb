@@ -55,6 +55,13 @@ describe "Creating stores" do
 
           it "does not let me view the store" do
             visit('/')
+            page.should have_content("n'est pas")
+          end
+
+          it "shows me a maintenance page when it is approved but disabled" do
+            s = Store.find_by_url_name("cool-sunglasses")
+            s.update_attributes(approved: true, enabled: false)
+            visit('/')
             page.should have_content("maintenance")
           end
         end

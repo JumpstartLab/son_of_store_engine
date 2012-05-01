@@ -1,5 +1,5 @@
 <h1>Add a Credit Card</h1>
-
+ <%= javascript_include_tag "https://js.stripe.com/v1" %>
 <script>$(function(){
     order = new Order('#new_credit_card');
     order.setupForm();

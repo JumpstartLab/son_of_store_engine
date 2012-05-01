@@ -26,15 +26,4 @@ class StoresController < ApplicationController
       render 'new'
     end
   end
-
-  private
-
-  def not_found
-    render "public/maintenance.html", status: '404'
-  end
-
-  def is_store_approved?
-    not_found unless store.approved? && store.enabled?
-  end
-
 end

@@ -36,6 +36,10 @@ class Store < ActiveRecord::Base
     self.approved.nil?
   end
 
+  def declined
+    self.approved != true
+  end
+
   def create_store_admin
     add_admin_by_id(self.owner_id)
   end
