@@ -13,7 +13,8 @@ class Admin::StoreAdminsController < Admin::ApplicationController
 
   def create
     if admin = User.find_by_email(params[:new_admin_email_address])
-      store.add_admin(admin)
+      @new_store_admin = StoreAdmin.create(:store_id => store.id, :user_id => admin.id, :stocker => params[:stocker])
+      #store.add_admin(admin)
       redirect_to admin_dashboard_path
     else
       flash[:message] = "#{params[:new_admin_email_address]} could not be found in the system, so they have been invited to join the store. Try to add them as an admin after they have created an account."

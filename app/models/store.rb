@@ -45,9 +45,11 @@ class Store < ActiveRecord::Base
     add_admin(admin_user)
   end
 
+  def add_stocker(stocker)
+    store_admins.create(user_id: stocker.id, stocker: true)
+  end
+
   def add_admin(admin)
-    self.admins ||= [ ]
-    self.admins << admin unless self.admins.include? admin
-    self.admins.uniq
+    store_admins.create(user_id: admin.id, stocker: false)
   end
 end

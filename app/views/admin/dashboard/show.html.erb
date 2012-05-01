@@ -37,7 +37,7 @@
 <div id="stockers">
   <h3>Stockers for <%= store.name %></h3><br />
 
-  <%= form_for (@new_stocker), :url => admin_store_stockers_path do |f| %>
+  <%= form_for (@new_stocker), :url => admin_store_admins_path do |f| %>
     <%= text_field_tag :new_stocker_email_address, nil, placeholder: "worace@worace.worace" %> <%= f.submit "Add Stocker" %>
   <% end %>
 </div>
