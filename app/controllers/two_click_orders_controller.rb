@@ -22,6 +22,7 @@ class TwoClickOrdersController < ApplicationController
   end
 
   def show
+    raise params.inspect
     redirect_to root_path,
     :alert => "You need to be logged in to instant purchase."
   end
