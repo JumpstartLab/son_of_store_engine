@@ -2,8 +2,6 @@ class Store::Admin::RetirementsController < Store::Admin::BaseController
 
   def create
     product = Product.find(params[:product_id])
-    authorize! :retire, product 
-
     if product.active?
       product.retire
     else

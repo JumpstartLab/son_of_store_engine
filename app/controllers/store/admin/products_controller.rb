@@ -1,5 +1,4 @@
 class Store::Admin::ProductsController < Store::Admin::BaseController
-  authorize_resource
   helper_method :product, :products
 
   def index
@@ -54,6 +53,7 @@ private
     else
       @product ||= current_store.products.build(params[:product])
     end
+    authorize! :manage, @product
   end
 
   def products

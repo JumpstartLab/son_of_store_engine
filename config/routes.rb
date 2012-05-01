@@ -1,12 +1,15 @@
 require 'resque/server'
 
 StoreEngine::Application.routes.draw do
+  
+  root :to => "static#home"
 
   get "info/home"
 
   mount Resque::Server.new, :at => "/resque"
 
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
+  match '/unauthorized', :to => "static#unauthorized"
 
   resources :users, only: [:show, :create, :new, :edit, :update] do
     resources :orders, :only => [:index, :show]
@@ -65,5 +68,4 @@ StoreEngine::Application.routes.draw do
     end
   end
 
-  root :to => "static#home"
 end

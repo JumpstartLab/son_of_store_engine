@@ -10,4 +10,3 @@ ActionMailer::Base.smtp_settings = {
  :user_name  => "hungryopensource",
  :password  => "hungryacademy",
  :authentication  => "plain"
-}

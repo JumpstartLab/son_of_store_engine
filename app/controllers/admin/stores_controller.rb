@@ -1,10 +1,10 @@
-class Admin::StoresController < ApplicationController
-  authorize_resource :class => false
+class Admin::StoresController < Admin::BaseController
 
   def index
     @stores = Store.where("status = 'approved'
       OR status = 'disabled'
       OR status = 'pending'")
+    authorize! :manage, @stores
   end
 
   def edit
