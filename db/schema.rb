@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501025307) do
+ActiveRecord::Schema.define(:version => 20120501210106) do
 
   create_table "billing_methods", :force => true do |t|
     t.string   "credit_card_number"
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(:version => 20120501025307) do
     t.text     "description"
     t.integer  "creating_user_id"
   end
+
+  add_index "stores", ["domain"], :name => "index_stores_on_domain"
 
   create_table "users", :force => true do |t|
     t.string   "email_address"
