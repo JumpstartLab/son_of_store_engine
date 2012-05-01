@@ -11,13 +11,13 @@ describe "sorting by categories" do
   context "creating categories" do
     it "does not allow non-users to create categories" do
       visit new_store_category_path(category.store, category)
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges for")
     end
 
     it "does not allow non-admin to create categories" do
       login(user)
       visit new_store_category_path(category.store, category)
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges for")
     end
 
     it "allows admins to create categories" do
@@ -46,12 +46,12 @@ describe "sorting by categories" do
   context "editing categories" do
     it "does not allow non-users to edit categories" do
       visit(edit_store_category_path(category.store, category))
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges")
     end
 
     it "does not allow non-admin to edit categories" do
       visit(edit_store_category_path(category.store, category))
-      page.should have_content("Not an admin")
+      page.should have_content("You do not have management privileges")
     end
 
     it "allows admins to edit categories" do

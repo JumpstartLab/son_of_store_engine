@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_filter :admin_required, only: [:new, :create, :update, :edit]
+  before_filter :user_may_manage, only: [:new, :create, :update, :edit]
   before_filter :store_required
 
   def show
@@ -19,7 +19,7 @@ class CategoriesController < ApplicationController
   def create
     @category = current_store.categories.new(params[:category])
     if @category.save
-      redirect_to store_category_path(@category.store, @category),
+      redirect_to store_dashboard_path(current_store),
       notice: "Categories all the way down!"
     else
       render 'new'
