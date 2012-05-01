@@ -45,7 +45,7 @@ describe "Administrator store pages" do
       describe "changing the name" do
 
         it "allows you to edit the name" do
-          new_name = Faker::Internet.name
+          new_name = Faker::Internet.user_name
           fill_in "store_name", with: new_name
           click_link_or_button('Update Store')
           page.should have_content(new_name)

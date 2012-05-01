@@ -15,15 +15,11 @@ class Admin::StoresController < ApplicationController
     elsif params[:store][:approved] == "false"
       Resque.enqueue(Emailer, "store", "store_rejection_confirmation", @store.owner.id, @store.id)
     end
-    # admin_dashboard_url(:subdomain => store.url_name)
-    # redirect_to admin_dashboard_url(:subdomain => @store.url_name),
-    #   :notice => "#{@store.name} was updated!"
-    redirect_to :back,
-      :notice => "#{ @store.name } was updated!"
-  end
-
-  def show
-    @store = Store.find_by_url_name(params[:id])
+    admin_dashboard_url(:subdomain => store.url_name)
+    redirect_to admin_dashboard_url(:subdomain => @store.url_name),
+      :notice => "#{@store.name} was updated!"
+    # redirect_to :back,
+    #   :notice => "#{ @store.name } was updated!"
   end
 
   def edit
