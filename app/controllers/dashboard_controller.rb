@@ -18,9 +18,9 @@ class DashboardController < ApplicationController
   end
 
   def ensure_active
-    @store = Store.find_by_slug(params[:id])
+    @store = Store.find_by_slug(params[:store_id])
     unless @store && @store.status == "enabled"
-      redirect_to root_path, :notice => "Store has not been approved"
+      redirect_to root_path, :notice => "Store is not currently approved"
     end
   end
 
