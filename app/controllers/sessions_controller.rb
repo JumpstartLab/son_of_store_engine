@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
   def destroy
     logout
     reset_session
-    redirect_to root_url, :notice => "Logged out."
+    redirect_to root_url(subdomain: false), :notice => "Logged out."
   end
 
 private
