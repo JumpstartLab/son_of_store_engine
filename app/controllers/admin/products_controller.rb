@@ -1,6 +1,6 @@
 class Admin::ProductsController < Admin::ApplicationController
-  skip_before_filter :is_admin?, only: [ :index ]
-  before_filter :is_stocker_or_admin?, only: [ :index ]
+  skip_before_filter :is_admin?
+  before_filter :is_stocker_or_admin?
 
   def index
     @products = store.products.active.all
