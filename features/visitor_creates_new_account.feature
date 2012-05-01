@@ -1,5 +1,3 @@
-@mofo
-
 Feature:
   As a visitor
   I can create an account

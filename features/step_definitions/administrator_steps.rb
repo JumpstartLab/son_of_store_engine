@@ -68,3 +68,35 @@ Then /^the user who requested approval is notified of the decline/ do
   email.to.should == [@user.email]
   email.subject.to_s.should include "Your store has been declined"
 end
+
+Given /^a store "([^"]*)" has been approved and is enabled$/ do |name|
+  @store = create(:store, name: name, status: "approved", users: [@user])
+end
+
+Given /^I visit "([^"]*)";$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I click "([^"]*)" for the store "([^"]*)"$/ do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I am viewing the admin list of stores$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I see a confirmation message$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I can see an option to "([^"]*)" the store "([^"]*)"$/ do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I visit the page "([^"]*)";$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should see a page informing me the site is currently down for maintenance$/ do
+  pending # express the regexp above with the code you wish you had
+end
