@@ -1,6 +1,7 @@
 class Store < ActiveRecord::Base
   attr_accessible :description, :name, :url_name, :approved, :enabled, :owner_id
-
+  # set per_page value for WillPaginate
+  self.per_page = 8
   has_many :products
   has_many :categories
 
