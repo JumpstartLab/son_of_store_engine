@@ -4,6 +4,9 @@ class Admin::StoresController < ApplicationController
     @approved_stores  = Store.where(:status => "approved")
     @pending_stores   = Store.where(:status => "pending")
     @disabled_stores  = Store.where(:status => "disabled")
+    authorize! :manage, @approved_stores
+    authorize! :manage, @pending_stores
+    authorize! :manage, @disabled_stores
   end
 
   def edit

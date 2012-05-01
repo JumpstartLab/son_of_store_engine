@@ -6,22 +6,15 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    raise "BOOM"
-
     if user.has_role? :site_admin
-      can :manage, :all
-      #can :read, "admin/stores"
-
+      can :manage, "admin/stores"
+      can :read, "admin/stores"
+      can :edit, "admin/stores"
     elsif user.has_role? :store_admin
-      can :edit, Store do |store|
-        store.admins.include?(user)
-      end
-
+      cannot :read, "admin/stores"
+      can :manage, "store/admin/dashboard"
     elsif user.has_role? :store_stocker
-      # can :manage, Store do |store|
-      #   store.stockers.include?(user)
-      # end
-
+      can :read, :all
     else
       can :read, Product
       can :read, Order do |order|
@@ -29,6 +22,5 @@ class Ability
       end
       # can :update, User { |user_to_edit| user_to_edit == user }
     end
-
   end
 end

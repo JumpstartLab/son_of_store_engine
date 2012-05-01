@@ -20,7 +20,7 @@ h1 Admin Dashboard for #{@store.name}
         = link_to 'Delete as admin', admin_user_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
     br/
     h4
-      -if can? :edit, @store
+      -if can? :manage, @store
         = link_to "Edit #{@store.name}", admin_edit_path(id: current_store.id)
         | &nbsp;|&nbsp;
         = link_to 'Add new store admin', admin_store_admin_new_path(@store.slug)
