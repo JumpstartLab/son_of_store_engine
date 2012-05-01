@@ -1,6 +1,6 @@
 class Admin::ProductsController < Admin::ApplicationController
-  skip_before_filter :is_admin?
-  before_filter :is_stocker_or_admin?
+  skip_before_filter :is_admin
+  before_filter :is_stocker_or_admin
 
   def index
     @products = store.products.active.paginate(:page => params[:page])

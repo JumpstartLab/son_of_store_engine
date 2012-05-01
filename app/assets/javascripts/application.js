@@ -22,6 +22,7 @@ $(document).ready(function() {
     if (!confirm(message)) {
       window.location = window.location;
     }
+    else return confirm;
   };
 
 })
