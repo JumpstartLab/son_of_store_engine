@@ -13,6 +13,12 @@ html
           ul id="nav"
             li.nav class="brand" 
               =link_to "Konami Coders Inc.", root_path
+            li.nav id="right"
+                = "#{current_user.name} | " 
+                = link_to("Log out",
+                          destroy_user_session_path(:slug => nil),
+                          :method => :delete)
+                = link_to("Manage your profile", edit_user_registration_path)   
     
     div.container
       - flash.each do |name, msg|

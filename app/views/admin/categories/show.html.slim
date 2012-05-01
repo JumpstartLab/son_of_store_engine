@@ -1,8 +1,7 @@
 h1 = @category.name
 
-table
+table.table-striped
   - @products.each do |product|
-    - cache(product) do
-      tr
-        td = link_to product.title, product_path(@store, product)
-        td = product.price
+    tr
+      td = link_to product.title, product_path(@store, product)
+      td = product.price
