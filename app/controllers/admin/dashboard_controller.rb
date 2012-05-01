@@ -1,5 +1,6 @@
 class Admin::DashboardController < Admin::ApplicationController
-  skip_before_filter :is_admin?, :only => ['show']
+  #skip_before_filter :is_admin?, :only => ['show']
+  #before_filter :is_store_admin?
 
   def show
     @admins = store.admins

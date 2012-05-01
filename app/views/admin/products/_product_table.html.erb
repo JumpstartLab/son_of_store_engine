@@ -9,7 +9,7 @@
       </div>
       <% end %></ul>
   <td><%= link_to 'Add to cart', new_cart_product_path(:product_id => product_table) %></td>
-  <td><%= link_to 'Edit this product',
+  <td><%= link_to 'Edit this product', 
           edit_admin_product_path(product_table),
           :class => "btn btn-success" %></td>
   <td><%= retire_button(product_table) %></td>

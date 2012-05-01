@@ -26,5 +26,4 @@ class StoresController < ApplicationController
       render 'new'
     end
   end
-
 end
