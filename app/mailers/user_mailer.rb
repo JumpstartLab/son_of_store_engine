@@ -34,7 +34,7 @@ class UserMailer < ActionMailer::Base
     store_name = Store.find(store_id).name
     mail(:to => email, :subject => "You have been fired from your stocker position at #{store_name}.")
   end
-
+  
   def alert_admin_email(store_id, email)
     @store = Store.find(store_id)
     mail(:to => email, :subject => "You have been added as an admin of #{@store.name}.")
