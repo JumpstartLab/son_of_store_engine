@@ -1,9 +1,6 @@
-`whoami >> ~/debugging.log`
-`echo $HOST >> ~/debugging.log`
-`echo $SENDGRID_USERNAME >> ~/debugging.log`
-`echo $SENDGRID_PASSWORD >> ~/debugging.log`
+require 'socket'
 
-if ENV['HOST'] == 'sonofstoreengine'
+if Socket.gethostname == 'sonofstoreengine'
   ActionMailer::Base.smtp_settings = {
     :address              => '127.0.0.1',
     :port                 => '25',
