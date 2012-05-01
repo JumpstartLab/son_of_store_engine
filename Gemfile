@@ -20,6 +20,7 @@ gem 'newrelic_rpm'
 
 group :production do
   gem 'pg'
+  gem 'delayed_job_active_record'
 end
 
 # Gems used only for assets and not required
