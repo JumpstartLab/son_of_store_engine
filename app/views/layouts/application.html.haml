@@ -6,8 +6,10 @@
     - else
       = render :partial => 'layouts/nav'
 
+    .main
     .topper
     .container
+
       - if flash[:notice]
         .alert.alert-success= flash[:notice].html_safe
       - elsif flash[:error]

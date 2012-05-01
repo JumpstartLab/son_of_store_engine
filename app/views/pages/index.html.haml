@@ -1,13 +1,8 @@
-%h1 Listing pages
+%h1 Favorite Entusiast Stores
 
-%table
-  %tr
-    %th Name
-    %th Body
-    %th
-    %th
-    %th
-
-%br
+%ul
+  -Store.all.each do |store|
+    %li.span6
+      = link_to store.name , home_path
 
 = link_to 'Go HOME', home_path
