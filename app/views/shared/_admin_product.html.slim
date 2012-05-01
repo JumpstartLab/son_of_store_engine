@@ -1,4 +1,4 @@
-tr
+tr id==dom_id(admin_product)
   td = render partial: "shared/admin_buttons", locals: {product: admin_product}
   td = admin_product.id
   td = link_to admin_product.title, admin_product_path(:domain, admin_product)
