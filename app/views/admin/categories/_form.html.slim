@@ -1,7 +1,7 @@
 = form_for([:admin, @category]) do |f|
-  div class="field"
+  .admin-new-cat-name
     = f.label :name
     = f.text_field :name
 
-  div class="actions"
+  .admin-new-cat-actions
     = f.submit

@@ -25,7 +25,7 @@ describe "Dashboard" do
 
   it "view total number of orders by status" do
     Order.statuses.each do |status|
-      find("#orders_by_status").should have_content("#{status}")
+      find("#admin_orders_by_status").should have_content("#{status}")
     end
     count_by_status = Order.find_all_by_status(order.status).count
     find(".#{order.status}_total").should have_content(count_by_status)

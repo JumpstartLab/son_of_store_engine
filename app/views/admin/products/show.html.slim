@@ -1,26 +1,28 @@
 h1 = @product.title
 
-div class="container"
-  div class="row"
-    div class="span4"
-      img src="#{@product.photo}" height="200px" width="200px"
-    div class="span8"
+.container
+ .row
+    .span4
+      img src="#{@product.photo}" height="300px" width="300px"
+    .span8
       h3 = "Price: $#{@product.price}"
       h3 Description
       p = @product.description
       - if @product.retired?
-        h4 Product retired, can't add to cart.
+        h4 Product Retired.
       -else
-        p = link_to("Add to Cart",
-                    cart_path(:product_id => @product), :method => :put)
         p = link_to("Retire Product",
-                    admin_product_retire_path(:product_id => @product), :method => :put)
-      h3 Add Category to this Product
-      - @categories.each do |category|
-        - unless @product.categories.include?(category)
-          li = link_to(category.name, 
-                       add_category_to_product_path(:product_id => @product.id,
-                                                    :category_id => category.id))
+                    admin_product_retire_path(:product_id => @product), :method => :put, :class => 'btn btn-warning')
+      
       h3 Categories Associated with Product
+
       - @product.categories.each do |category|
         p = link_to category.name, category_path(@store, category)
+
+      h3 Add Category to this Product
+      .prod-show-cats
+        - @categories.each do |category|
+          - unless @product.categories.include?(category)
+            li = link_to(category.name, 
+                         add_category_to_product_path(:product_id => @product.id,
+                                                      :category_id => category.id))
