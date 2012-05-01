@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 #Post.where(:published => true).paginate(:page => params[:page]).order('id DESC')
   def index
     @categories = store.categories
-    @products = store.products.paginate(:page => params[:page])
+    @products = store.products.page(params[:page]).per(12)
   end
 
   def show

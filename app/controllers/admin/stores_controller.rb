@@ -1,33 +1,44 @@
 class Admin::StoresController < ApplicationController
-  before_filter :require_login
-  before_filter :is_super_admin
-  #before_filter :is_store_admin?, only: [ :show ]
-  #before_filter :is_super_admin
+  before_filter :is_super_admin, only: [ :index ]
 
   def index
     @stores = Store.all
   end
 
   def update
-    @store = Store.find_by_id(params[:id])
+    store ? @store = store : @store = Store.find_by_url_name(params[:id])
     @store.update_attributes(params[:store])
     if params[:store][:approved] == "true"
       Resque.enqueue(Emailer, "store", "store_approval_confirmation", @store.owner.id, @store.id)
     elsif params[:store][:approved] == "false"
       Resque.enqueue(Emailer, "store", "store_rejection_confirmation", @store.owner.id, @store.id)
     end
-    redirect_to :back,
-      :notice => "#{@store.name} was updated!"
+    admin_dashboard_url(:subdomain => store.url_name)
+    super_dash_or_admin_dash(params)
+    # redirect_to admin_dashboard_url(:subdomain => @store.url_name),
+    #   :notice => "#{@store.name} was updated!"
+    # redirect_to :back,
+    #   :notice => "#{ @store.name } was updated!"
   end
 
-  def show
-    @store = Store.find_by_url_name(params[:id])
+  def edit
+    @store = store
   end
 
   private
 
+  def super_dash_or_admin_dash(params)
+    if params[:store][:enabled]
+      redirect_to :back,
+        :notice => "#{ @store.name } was updated!"
+    else
+      redirect_to admin_dashboard_url(:subdomain => @store.url_name),
+        :notice => "#{@store.name} was updated!"
+    end
+  end
+
   def is_super_admin
-    redirect_to_last_page("Nice try, jerk.") unless
+    redirect_to_last_page("NOT A SUPER ADMIN.") unless
       current_user.admin
   end
 
