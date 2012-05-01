@@ -2,6 +2,7 @@ StoreEngine::Application.routes.draw do
 
   resources :users
   resources :sessions
+  resources :all_orders, :controller => 'user_orders'
   
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"

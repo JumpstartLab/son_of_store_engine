@@ -43,8 +43,6 @@
 <% end %>
 </ul>
 
-<% unless searching? %>
-  <%= paginate @products %>
-<% end %>
+<%= paginate @products %>
 
  <%= render :partial => "addresses/address", :collection => @addresses %>

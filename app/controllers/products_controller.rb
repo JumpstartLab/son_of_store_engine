@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     @admin = admin?
     if params[:search] && params[:search].length > 0
       session[:search] = true
-      @products = current_store.products.active.find_by(params[:search])
+      @products = current_store.products.active.where("title LIKE '%#{params[:search]}%'").page(params[:page]).per(24)
     else
       session[:search] = false 
       @products = current_store.products.active.page(params[:page]).per(24)
@@ -67,7 +67,7 @@ class ProductsController < ApplicationController
   end
 
   def store_disabled
-    if current_store && !current_store.enabled?
+    if current_store && current_store.disabled?
       render "shared/store_disabled"
     end
   end

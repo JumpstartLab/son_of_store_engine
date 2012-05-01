@@ -38,4 +38,5 @@ class StoresController < ApplicationController
       render 'edit'
     end
   end
+
 end
