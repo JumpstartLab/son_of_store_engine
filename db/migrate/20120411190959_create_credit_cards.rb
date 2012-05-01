@@ -8,5 +8,7 @@ class CreateCreditCards < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :credit_cards, :user_id
   end
 end

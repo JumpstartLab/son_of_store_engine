@@ -6,5 +6,7 @@ class CreateProductCategories < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :product_categories, [:product_id, :category_id]
   end
 end

@@ -7,5 +7,7 @@ class CreateCategories < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :categories, :store_id
   end
 end
