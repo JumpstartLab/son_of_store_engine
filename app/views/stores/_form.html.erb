@@ -8,6 +8,11 @@
 <%= f.text_field :slug %>
 <br/>
 <br/>
-<%= f.submit :class => "btn-primary btn-large", :confirm => "Are You Sure?" %>
+
+<% if controller.action_name == "new" %>
+  <%= f.submit :class => "btn-primary btn-large" %>
+<% else %>
+  <%= f.submit :class => "btn-primary btn-large", :confirm => "Are You Sure?" %>
+<% end %>
 
 <% end %>
