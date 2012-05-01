@@ -3,9 +3,9 @@ class DashboardController < ApplicationController
   before_filter :user_may_manage, only: :show
 
   def show
-    @orders = @store.orders
+    @orders = @store.orders.page(params[:page]).per(10)
     @categories = @store.categories
-    @products = @store.products
+    @products = @store.products.page(params[:page]).per(10)
     @employees = @store.employees
   end
 

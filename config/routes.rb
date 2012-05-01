@@ -35,6 +35,7 @@ StoreEngine::Application.routes.draw do
     resources :visitor_orders
     resource :stocker_dashboard, :controller => 'stocker_dashboard', 
              :only => :show
+    resources :store_orders, :only => [:index]
   end
 
 
