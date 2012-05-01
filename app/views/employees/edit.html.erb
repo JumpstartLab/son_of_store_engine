@@ -1,0 +1,14 @@
+<h1>Edit Employee</h1>
+
+<%= form_tag store_employee_path(current_store, @employee), method: :put %>
+
+<%= label_tag :email %>
+<%= text_field_tag :email, @employee.email %>
+<%= label_tag :role %>
+<%= select_tag "role", options_for_select(%w(stocker manager)) %>
+<br />
+<%= submit_tag "Update Employee", class: "btn btn-info" %>
+
+<br /><br /><br /><br /><br />
+<%= link_to "Fire Employee", store_employee_path(current_store, @employee), method: :delete, confirm: "Are you sure you wish to fire this employee?",
+  class: "btn btn-danger"  %>

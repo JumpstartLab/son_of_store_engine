@@ -1,0 +1,7 @@
+<%= form_tag store_employees_path, method: :post %>
+
+<%= label_tag :email %>
+<%= text_field_tag :email %>
+<%= label_tag :role %>
+<%= select_tag "role", options_for_select(%w(stocker manager)) %>
+<%= submit_tag %>

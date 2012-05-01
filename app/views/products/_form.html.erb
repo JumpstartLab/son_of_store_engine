@@ -1,0 +1,44 @@
+<%= simple_form_for([@product.store, @product]) do |p| %>
+  <br/>
+  <p>
+    <%= p.label :title %> <br />
+    <%= p.text_field :title %>
+  </p>
+
+   <p>
+    <%= p.label :description %> <br />
+    <%= p.text_area :description, :size => "100x5" %>
+  </p>
+
+  <p>
+    <%= p.label :price, :required => true %> <br />
+    <%= p.text_field :price %>
+  </p>
+
+  <p>
+    <%= p.label :image_link %> <br />
+    <%= p.text_field :image_link %>
+  </p>
+
+  <p>
+    Product Status: <%= select('product', 'activity', %w(true false)) %>
+  </p>
+
+  <p>
+    <% current_store.categories.each do |category| %>
+      <div>
+       <%= check_box_tag "product[category_ids][]", 
+                          category.id, 
+                          @product.categories.include?(category) %>
+       <%= category.title %>
+      </div>
+    <% end %>
+  </p>
+  <p><%= link_to 'New Category', new_store_category_path %></p>
+
+  <p>
+    <%= p.submit :class => "btn-primary btn-large"%> 
+  </p>
+
+  <% end %>
+  

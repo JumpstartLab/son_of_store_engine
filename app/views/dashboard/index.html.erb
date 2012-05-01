@@ -1,0 +1,5 @@
+<ul>
+<% @stores.each do |store| %>
+  <li><%= link_to store.name, store_dashboard_path(store) %></li>
+<% end %>
+</ul>
