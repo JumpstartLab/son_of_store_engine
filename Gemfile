@@ -23,6 +23,7 @@ gem 'acts_as_tenant'
 gem 'redis'
 gem 'resque'
 gem 'thin'
+gem 'redis-store', "~> 1.0.0"
 
 # Gems used only for assets and not required
 # in production environments by default.

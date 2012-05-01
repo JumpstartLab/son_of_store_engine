@@ -1,6 +1,8 @@
 # Allows restful actions for the categories
 module Admin
   class CategoriesController < Controller
+    cache_sweeper :category_sweeper
+
     def index
       @categories = Category.all
     end
@@ -35,7 +37,7 @@ module Admin
       end
     end
 
-    def destroy      
+    def destroy
       Category.destroy(params[:id])
       flash[:notice] = "Category deleted."
       redirect_to admin_categories_path

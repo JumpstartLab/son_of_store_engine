@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_filter :require_guest_login, :only => [:new]
   before_filter :require_login, :except => [:new, :track, :charge]
   before_filter :is_owner_or_admin, :only => [:show]
+  cache_sweeper :order_sweeper
 
   def show
     @order = Order.find(params[:id])
@@ -16,7 +17,7 @@ class OrdersController < ApplicationController
     @order = @cart.create_order
     if @order.verify_user_and_charge(params[:order])
       clear_cart_from_session
-      redirect_to track_orders_path(:id => @order.unique_url), 
+      redirect_to track_orders_path(:id => @order.unique_url),
         :notice => "I HAVE ALL YOUR MONEY!"
     else
       flash[:alert] = "Address is invalid"

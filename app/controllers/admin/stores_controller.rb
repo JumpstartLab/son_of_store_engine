@@ -10,6 +10,7 @@ module Admin
     before_filter :find_store_from_tenant, :only => [:manage]
     before_filter :verify_store_admin, :except => [:new, :create, :index]
     before_filter :require_admin, :only => [:index]
+    cache_sweeper :store_sweeper
 
     def index
       @stores = Store.where('active <> 0')

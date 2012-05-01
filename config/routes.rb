@@ -2,18 +2,19 @@
   require 'resque/server'
 
   mount Resque::Server.new, :at => "/resque"
-  
-  get "login" => 'sessions#new' 
+
+  get "login" => 'sessions#new'
   get "logout" => 'sessions#destroy', :as => "logout"
   get 'polutropon' => "pages#index"
 
-  
+
   resources :sessions
 
   resources :users, :exclude => [:index] do
     collection do
       # Not yet needed
       # get 'signup_as_store_admin'
+      get 'current'
       # put 'create_store_admin'
     end
   end

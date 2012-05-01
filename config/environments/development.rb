@@ -1,4 +1,6 @@
 StoreEngine::Application.configure do
+  config.cache_store = :redis_store, "redis://localhost:6379/1/ns"
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -8,10 +10,10 @@ StoreEngine::Application.configure do
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
-  
+
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -42,13 +44,14 @@ StoreEngine::Application.configure do
   #   :password  => "6pdqgiwcyfq2",
   #   :authentication  => :login
   # }
-  ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => "app4236527@heroku.com",
-    :password       => "86gskmjs",
-    :domain         => 'heroku.com'
-  }
-  # ActionMailer::Base.delivery_method = :smtp  
+  # ActionMailer::Base.smtp_settings = {
+  #   :address        => 'smtp.sendgrid.net',
+  #   :port           => '587',
+  #   :authentication => :plain,
+  #   :user_name      => "app4236527@heroku.com",
+  #   :password       => "86gskmjs",
+  #   :domain         => 'heroku.com'
+  # }
+  # ActionMailer::Base.delivery_method = :smtp
+
 end

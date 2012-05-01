@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_admin, :only => [:index,:destroy]
   before_filter :require_not_logged_in, :only => [:new, :create]
   before_filter :require_login, :only => [:edit, :update]
+  cache_sweeper :user_sweeper
 
   def new
     @user = User.new
@@ -10,7 +11,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    current_store = session[:current_store] 
+    current_store = session[:current_store]
     if @user.save
       auto_login(@user)
       redirect_back_or_to(subdomain_path(current_store), :notice => "Account successfully made! " + view_context.link_to("Update your info", profile_path))
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
       render '/sessions/new'
     end
   end
-  
+
   # Not yet needed
   # def signup_as_store_admin
   #   u = User.find_by_email(params[:email])
@@ -36,6 +37,9 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
   end
+
+  # def show
+  # end
 
   def update
     @user = current_user
