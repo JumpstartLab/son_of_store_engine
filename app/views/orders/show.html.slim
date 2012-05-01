@@ -1,19 +1,21 @@
-h1#order_number = "Order ##{@order.id}"
-h3 = "Status: #{@order.status}"
-h3 = "Total: #{@order.total}"
-h4
-  = "To visit this order again in the future use your "
-  = link_to "order permalink", permalink(@order), :id => 'unique_url'
+- cache(@order) do
+  h1#order_number = "Order ##{@order.id}"
+  h3 = "Status: #{@order.status}"
+  h3 = "Total: #{@order.total}"
+  h4
+    = "To visit this order again in the future use your "
+    = link_to "order permalink", permalink(@order), :id => 'unique_url'
 
-table.table.table-condensed
-  tr
-    th Name
-    th Price
-    th Quantity
-    th Subtotal
-  - @order.items.each do |item|
+  table.table.table-striped
     tr
-      td = link_to(item.title, product_path(@store, item.product))
-      td = link_to(item.price, product_path(@store, item.product))
-      td = link_to(item.quantity, product_path(@store, item.product))
-      td = link_to(item.subtotal, product_path(@store, item.product))
+      th Name
+      th Price
+      th Quantity
+      th Subtotal
+    - @order.items.each do |item|
+      - cache(item) do 
+        tr
+          td = link_to(item.title, product_path(@store, item.product))
+          td = link_to(item.price, product_path(@store, item.product))
+          td = link_to(item.quantity, product_path(@store, item.product))
+          td = link_to(item.subtotal, product_path(@store, item.product))
