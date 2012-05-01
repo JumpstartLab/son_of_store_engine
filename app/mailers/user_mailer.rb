@@ -51,6 +51,6 @@ class UserMailer < ActionMailer::Base
   def user_confirmation(user)
     @email = user["email"]
     mail(:to => @email,
-      :subject => "Welcome to SOSE, #{user.name}!" )
+      :subject => "Welcome to SOSE, #{user["name"]}!" )
   end
 end
