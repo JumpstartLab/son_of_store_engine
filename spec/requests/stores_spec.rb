@@ -88,7 +88,7 @@ describe "Creating stores" do
     end
 
     context "and I click to decline a store" do
-      before(:each) { click_link_or_button('Decline this store')}
+      before(:each) { click_link_or_button('Decline this store') }
 
       it "declines the store" do
         Store.last.approved.should == false

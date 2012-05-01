@@ -11,7 +11,7 @@ describe "Administrator store pages" do
   #   # user.password = "foobar"
   #   user.save
   # }
-  let!(:test_two_store) { FactoryGirl.create(:store, :owner_id => jq_admin_user.id) }
+  let!(:test_two_store) { FactoryGirl.create(:store, :owner_id => jq_admin_user.id, :approved => true, :enabled => true) }
 
   before(:each) do
     test_two_store.add_admin(jq_admin_user)
