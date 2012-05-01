@@ -119,7 +119,6 @@ describe "Creating stores" do
             click_link_or_button('Disable this store')
             set_host("test-store")
             visit store_path
-            puts "#{Store.first.disabled}"
             page.should have_content 'maintenance'  
           end
         end
@@ -127,7 +126,6 @@ describe "Creating stores" do
         context "and I want to enable the store" do
           before(:each) do
             visit admin_stores_path
-            #click_link_or_button('Enable this store')
           end
 
           it "enables the store" do
