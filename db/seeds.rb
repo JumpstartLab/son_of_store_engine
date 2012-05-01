@@ -23,10 +23,22 @@ chad = User.create(full_name: 'Chad Fowler',
  display_name: 'SaxPlayer', password: 'hungry')
 chad.update_attribute(:admin, true)
 
+### STORE 1 ###
+
 store = Store.create(name: 'Cool Runnings', domain: 'cool-runnings', description: 'This is a moderately description for a store that I love. It is the best place in the world.')
 store.update_attribute(:creating_user_id, jeff.id)
 store.update_attribute(:approval_status, "pending")
 store.update_attribute(:enabled, false)
+
+admin = User.create(full_name: 'Cool Running Admin',
+ email_address: 'cool.runnings.admin@jumpstartlab.com',
+ display_name: 'CoolRunningAdmin', password: 'hungry')
+Fabricate(:store_admin_permission, user_id: admin.id, store_id: store.id)
+
+stocker = User.create(full_name: 'Cool Running Stocker',
+ email_address: 'cool.runnings.stocker@jumpstartlab.com',
+ display_name: 'CoolRunningStocker', password: 'hungry')
+Fabricate(:store_stocker_permission, user_id: stocker.id, store_id: store.id)
 
 ['Bikes', 'Shoes', 'Helmets', 'Tires', 'Accessories' ].each do |cat|
   Category.create(name: cat, store_id: store.id)
@@ -88,6 +100,16 @@ store2.update_attribute(:creating_user_id, matt.id)
 store2.update_attribute(:approval_status, "approved")
 store2.update_attribute(:enabled, true)
 
+admin = User.create(full_name: 'Cool Sunglasses Admin',
+ email_address: 'cool.sunglasses.admin@jumpstartlab.com',
+ display_name: 'CoolSunglassesAdmin', password: 'hungry')
+Fabricate(:store_admin_permission, user_id: admin.id, store_id: store2.id)
+
+stocker = User.create(full_name: 'Cool Sunglasses Stocker',
+ email_address: 'cool.sunglasses.stocker@jumpstartlab.com',
+ display_name: 'CoolSunglassesStocker', password: 'hungry')
+Fabricate(:store_stocker_permission, user_id: stocker.id, store_id: store2.id)
+
 ['Bikes'.reverse, 'Shoes'.reverse, 'Helmets'.reverse, 'Tires'.reverse, 'Accessories'.reverse ].each do |cat|
   Category.create(name: cat, store_id: store2.id)
 end
@@ -148,6 +170,16 @@ store3.update_attribute(:creating_user_id, matt.id)
 store3.update_attribute(:approval_status, "approved")
 store3.update_attribute(:enabled, true)
 
+admin = User.create(full_name: 'Slow Runnings Admin',
+ email_address: 'slow.runnings.admin@jumpstartlab.com',
+ display_name: 'SlowRunningsAdmin', password: 'hungry')
+Fabricate(:store_admin_permission, user_id: admin.id, store_id: store3.id)
+
+stocker = User.create(full_name: 'SlowRunnings Stocker',
+ email_address: 'slow.runnings.stocker@jumpstartlab.com',
+ display_name: 'SlowRunningsStocker', password: 'hungry')
+Fabricate(:store_stocker_permission, user_id: stocker.id, store_id: store3.id)
+
 # PRODUCTS
 products = []
 10000.times do
@@ -158,7 +190,7 @@ end
 orders = []
 1000.times do
   ["paid", "shipped", "cancelled", "returned"].each do |status|
-    orders << Order.create(status: status, user_id: User.all.sample.id, store_id: store2.id)
+    orders << Order.create(status: status, user_id: User.all.sample.id, store_id: store3.id)
   end
 end
 
