@@ -76,11 +76,13 @@ class Product < ActiveRecord::Base
   end
 
   def best_sale
-    if category_sale && category_sale.percent_off > percent_off
-      category_sale
-    else
-      sale
-    end
+    # if category_sale && category_sale.percent_off > percent_off
+    #   category_sale
+    # else
+    #   sale
+    # end
+    # We don't believe in products going on sale
+    nil
   end
 
   def price_in_dollars

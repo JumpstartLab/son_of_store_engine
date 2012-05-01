@@ -87,7 +87,7 @@ p18 = product(["Pen", "When you have lots to write, use this bad boy. It was use
 p19 = product(["Video Camera", "Study how a horse runs with this motion camera", "69.99", "http://goo.gl/bZaow", [c1, c3]])
 p20 = product(["Baller Shoes", "Jump up to 5 feet higher with these things on", "199", "http://goo.gl/1sQB8", [c10, c8]])
 
-100000.times do |p|
+4.times do |p|
   Product.create(
                   :name => Faker::Name.name, :description => Faker::Lorem.sentence(20),
                   :price => rand(100..999999), :store => @store_array[rand(0..2)], :categories => [@categories_array[rand(0..10)]]
