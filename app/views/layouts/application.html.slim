@@ -6,6 +6,9 @@ html
     = javascript_include_tag "application"
     = csrf_meta_tags
 
+    - if @store and not @store.css.blank?
+      = stylesheet_link_tag raw(@store.css)
+
   =yield :head
 
   body

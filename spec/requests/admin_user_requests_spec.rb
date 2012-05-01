@@ -304,6 +304,13 @@ describe User do
           visit admin_order_path(store, order)
           find(".quantity").text.should == "2"
         end
+
+        it 'allow css file to be uploaded' do
+          visit edit_admin_dashboard_path(store)
+          page.attach_file('store_css', 'spec/support/temp.css')
+          click_button 'Update Store'
+          (page.body =~ /temp.css/).should_not be_nil
+        end
       end
     end
   end

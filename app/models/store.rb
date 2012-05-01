@@ -7,6 +7,7 @@
 #  slug        :string(255)
 #  description :string(255)
 #  status      :string(255)     default("pending")
+#  css         :string(255)
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
 #
@@ -15,8 +16,9 @@
 
 # Represents a store that is owned by a particular user
 class Store < ActiveRecord::Base
-  attr_accessible :name, :user_id, :slug, :description, :status
+  attr_accessible :name, :user_id, :slug, :description, :status, :css
   before_validation :parameterize_slug
+  mount_uploader :css, CssUploader
 
   validates :name, :presence => true
   validates :slug, :presence => true
@@ -137,6 +139,10 @@ class Store < ActiveRecord::Base
     user = User.find(user_id)
     StoreUser.find_by_user_id(user.id).destroy
     StoreStockerMailer.delete_stocker_email(user, self).deliver
+  end
+
+  def css_path
+    self.css.file.path.split("/").last if self.css.file
   end
 
   private
