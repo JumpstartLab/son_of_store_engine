@@ -4,7 +4,13 @@ class ApplicationController < ActionController::Base
   before_filter :create_cart, :find_store
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to products_path(@store), :alert => exception.message
+    if @store
+      url = products_path(@store)
+    else
+      url = root_url
+    end
+
+    redirect_to url, :alert => exception.message
   end
 
   include SessionsHelper
