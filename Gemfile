@@ -18,6 +18,10 @@ gem 'capistrano'
 gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 gem 'kaminari'
 
+gem 'reek', :git => "git://github.com/mvz/reek.git", :branch =>
+"ripper_ruby_parser-2"
+gem 'cane', :git => "git://github.com/square/cane.git"
+
 group :production do
   gem 'pg'
   gem 'unicorn'
