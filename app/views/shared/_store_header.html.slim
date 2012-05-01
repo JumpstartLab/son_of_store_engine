@@ -7,23 +7,24 @@
       = link_to "A DOSE Store", root_url, class: "brand", id: "dose-store"
       .nav-collapse
         ul.nav.nav-pills
-          li#menu1.dropdown
-            a.dropdown-toggle data-toggle="dropdown" href="#menu1"
-              | Categories
-              b.caret
-            ul.dropdown-menu
-              - store_categories.each do |category|
-                li = link_to category.name, "/#{@current_store.to_param}/categories/#{category.to_param}"
-              li = link_to "All Categories", "/#{@current_store}/categories"
+          - if !admin_view?
+            li#menu1.dropdown
+              a.dropdown-toggle data-toggle="dropdown" href="#menu1"
+                | Categories
+                b.caret
+              ul.dropdown-menu
+                - store_categories.each do |category|
+                  li = link_to category.name, "/#{@current_store.to_param}/categories/#{category.to_param}"
+                li = link_to "All Categories", "/#{@current_store}/categories"
           - if session[:order_id]
             - cart = Order.find(session[:order_id])
-            li= link_to "Cart (#{cart.total_items})", order_path(:domain, cart), id: "cart", name: "cart"
+            li= link_to "Cart (#{cart.total_items})", order_path(@current_store, cart), id: "cart", name: "cart"
           - if logged_in?
-            - if current_user.has_order?
-              li = link_to "Orders", orders_path(:domain)
+            - if current_user.has_order? && !admin_view?
+              li = link_to "Orders", orders_path(@current_store)
             li= link_to "My Account", user_url(current_user)
             li= link_to "Logout", logout_path, :method => :delete
-            - if admin? || current_user.is_admin_of(@current_store)
+            - if admin? || current_user.is_admin_of(@current_store) || false
               li#admin_nav.dropdown
                 a.dropdown-toggle data-toggle="dropdown" href="#admin_nav"
                   | Admin Dashboards
