@@ -94,6 +94,12 @@ describe "Dashboard" do
           page.should have_link(product.title)
         end
 
+        it "the link to the product should redirect to the admin view of the product" do
+          click_link(product.title)
+          current_path.should == admin_product_path(store, product)
+          page.should have_content(product.name)
+        end
+
         it "quantity" do
           page.should have_content(order.items.first.quantity)
         end

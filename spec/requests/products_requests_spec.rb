@@ -58,4 +58,35 @@ describe Product do
     end
 
   end
+
+  context "admin" do
+    let!(:admin_user) { Fabricate(:admin_user) }
+    
+    context "show" do
+      before(:each) do
+        product.add_category(category)
+        login_as(admin_user)
+        visit admin_product_path(store, product)
+      end
+
+      it "lists all of the categories to which a product can be assigned" do
+        page.should have_content("Add to Category")
+      end
+
+      it "allows for a product to be added to a category" do
+        expect { click_link("category_#{category.name}") }.to change(category.products.count).by(1)
+      end
+
+      it "allows the admin to retire the product" do
+        page.should have_link_or_button("Retire")
+      end
+
+      it "retires the product when the 'retire' link is clicked" do
+        click_link_or_button("Retire")
+        page.should have_content("Product is retired")
+        visit admin_products_path(store)
+        page.should_not have_content(product.title)
+      end
+    end
+  end
 end
