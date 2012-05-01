@@ -1,3 +1,4 @@
-ul.image-and-title
-  = render partial: "category", collection: @categories
-  = link_to 'New', new_admin_category_path(:domain), :class => 'btn btn-primary'
+- cache("#{@current_store.to_param}_admin_categories") do
+  ul.image-and-title
+    = render partial: "category", collection: @categories
+    = link_to 'New', new_admin_category_path(:domain), :class => 'btn btn-primary'
