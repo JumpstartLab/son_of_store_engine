@@ -1,2 +1,4 @@
+- cache("#{@current_store.to_param}_categories_#{params[:page]}") do
 ul.image-and-title
   = render partial: "category", collection: @categories
+.span9 = paginate @categories

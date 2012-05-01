@@ -8,6 +8,10 @@ module ExtraProductMethods
     Product.where(store_id: @current_store.id)
   end
 
+  def store_category_products(category_id)
+    @products = Product.joins(:categories).where("category_id = #{category_id}")
+  end
+
   def confirm_has_store_admin_or_stocker_access
     redirect_to root_path unless current_user.is_admin_of(@current_store) || current_user.is_stocker_of(@current_store)
   end

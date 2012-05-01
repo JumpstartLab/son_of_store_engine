@@ -1,9 +1,6 @@
 h2 = @category.name
-#products
-  - unless admin_view?
-    ul.image-and-title
-      = render partial: "shared/product", collection: @products
-  - else
+- cache("#{@current_store.to_param}_admin_category_products_#{params[:page]}") do
+  #products
     h1 Products
     = link_to 'New', new_admin_product_path(:domain), :class => 'btn btn-primary'
     table.table.table-striped#order-table
@@ -18,5 +15,6 @@ h2 = @category.name
           th Created At
       tbody
         = render partial: "shared/admin_product", collection: @products
+.span9 = paginate @products
 
 

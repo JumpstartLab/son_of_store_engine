@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
   # default_scope
 
   def index
+    @active_store_products = active_store_products
     if params[:filtered].present?
       @products = active_store_products.where(
         if Rails.env.production?
@@ -12,9 +13,9 @@ class ProductsController < ApplicationController
       else
         ["title LIKE ?", "%#{params[:filtered]}%"]
       end
-      )
+      ).page(params[:page]).per(ITEMS_PER_PAGE)
     else
-      @products = active_store_products.all
+      @products = active_store_products.page(params[:page]).per(ITEMS_PER_PAGE)
       @line_item = LineItem.new
     end
   end

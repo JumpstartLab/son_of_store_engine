@@ -1,7 +1,7 @@
 h1 Orders
 = render partial: "filter"
 - if @orders.count > 0
-  - cache("#{@current_store.to_param}_admin_orders") do
+  - cache("#{@current_store.to_param}_admin_orders_#{params[:page]}") do
     table.table.table-striped#order-table
       thead
         tr
@@ -15,5 +15,6 @@ h1 Orders
           th Status
       tbody
         = render partial: "order", collection: @orders
+  .span9 = paginate @orders
 - else
   h3 = "No Orders Match Your Criteria"

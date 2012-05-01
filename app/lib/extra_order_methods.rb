@@ -16,6 +16,10 @@ module ExtraOrderMethods
     Order.where(store_id: @current_store.id)
   end
 
+  def user_store_orders
+    Order.where(store_id: @current_store.id, user_id: current_user.id)
+  end
+
   def confirm_has_store_admin_access
     redirect_to root_path unless current_user.is_admin_of(@current_store)
   end

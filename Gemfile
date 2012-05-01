@@ -10,6 +10,7 @@ gem 'bcrypt-ruby'
 gem 'redis-store', "~> 1.0.0"
 gem 'fabrication'
 gem 'faker'
+gem 'kaminari'
 
 group :production do
   gem 'pg'

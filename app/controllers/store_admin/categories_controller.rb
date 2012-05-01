@@ -1,10 +1,11 @@
 class StoreAdmin::CategoriesController < ApplicationController
   include ExtraCategoryMethods
   before_filter :lookup_category, :only => [:show, :edit, :destroy, :update]
+  before_filter :lookup_products, :only => [:show, :edit, :destroy, :update]
   before_filter :confirm_has_store_admin_access
 
   def index
-    @categories = store_categories.all
+    @categories = store_categories.page(params[:page]).per(10)
   end
 
   def show

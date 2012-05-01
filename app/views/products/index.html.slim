@@ -1,8 +1,9 @@
 - if @products.any?
   #products
-     ul.image-and-title
-       - cache("#{@current_store.to_param}_products") do
-         = render partial: "shared/product", collection: @products
+    ul.image-and-title
+      - cache("#{@current_store.to_param}_products_#{params[:page]}") do
+        #products = render partial: "shared/product", collection: @products
+  .span9 = paginate @products
 - else
   h3 = "Sorry, no products match your search criteria!"
 

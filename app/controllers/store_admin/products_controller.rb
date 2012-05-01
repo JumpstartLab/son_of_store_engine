@@ -6,7 +6,7 @@ class StoreAdmin::ProductsController < ApplicationController
   cache_sweeper :product_sweeper
 
   def index
-    @products = store_products
+    @products = store_products.page(params[:page]).per(10)
   end
 
   def show

@@ -1,5 +1,7 @@
 h2 = @category.name
 #products
    ul.image-and-title
-     = render partial: "shared/product", collection: @products
+     - cache("#{@current_store.to_param}_category_products_#{params[:page]}") do
+       = render partial: "shared/product", collection: @products
+.span9 = paginate @products
 
