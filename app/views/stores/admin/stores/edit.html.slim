@@ -1,0 +1,20 @@
+javascript:
+  $('a.submit').click(function(){
+      $('form').submit();
+      return false;
+  });
+
+h3 Edit Store
+br
+= form_for @store, :url => admin_store_path(confirm: @confirm) do |f|
+  .field
+    = label_tag :name
+    = text_field_tag :name, @store.name
+  .field
+    = label_tag :new_slug, "New URL"
+    = text_field_tag :new_slug, @store.slug
+  .field
+    = label_tag :description, "Description"
+    = text_field_tag :description, @store.description
+  .actions = submit_tag "Update Store", :id => "update_store"
+br/
