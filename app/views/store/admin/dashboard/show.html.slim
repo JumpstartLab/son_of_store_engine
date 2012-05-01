@@ -2,22 +2,22 @@ h1 Admin Dashboard for #{@store.name}
 .row
   .span6 style="margin-bottom:20px"
     h4
-      | Creator: #{@store.creator}
+      | Creator: #{@store.creator.user_name}
       br/
       br/
       | Admins:
       ul
       - @store.admins.each do |store_admin|
-        li= store_admin.name
+        li= store_admin.user_name
         | &nbsp;
-        = link_to 'Delete as admin', admin_user_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
+        = link_to 'Remove as admin', admin_role_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
       br/
       br/
       | Stockers:
-      - @store.stockers.each do |store_admin|
-        li= store_admin.name
+      - @store.stockers.each do |stocker|
+        li= stocker.user_name
         | &nbsp;
-        = link_to 'Delete as admin', admin_user_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
+        = link_to 'Remove as stocker', admin_role_path(:id => stocker.id), :method => :delete, :confirm => 'Sure?'
     br/
     h4
       -if can? :manage, @store
@@ -58,17 +58,16 @@ h3
   h3
     br/
     h4
-      / XXX These links are broken
-      | Filter by:
-      /= link_to 'Pending', admin_dashboard_path(store_slug: store_slug, order_status: 'pending')
+      | Filter by: 
+      = link_to 'Pending', admin_path(store_slug, order_status: 'pending')
       | &nbsp;|&nbsp;
-      /= link_to 'Cancelled', admin_dashboard_path(store_slug: store_slug, order_status: 'cancelled')
+      = link_to 'Cancelled', admin_path(store_slug, order_status: 'cancelled')
       | &nbsp;|&nbsp;
-      /= link_to 'Paid', admin_dashboard_path(store_slug: store_slug, order_status: 'paid')
+      = link_to 'Paid', admin_path(store_slug, order_status: 'paid')
       | &nbsp;|&nbsp;
-      /= link_to 'Shipped', admin_dashboard_path(store_slug: store_slug, order_status: 'shipped')
+      = link_to 'Shipped', admin_path(store_slug, order_status: 'shipped')
       | &nbsp;|&nbsp;
-      /= link_to 'All', admin_dashboard_path
+      = link_to 'All', admin_path
     br/
     table.table.table-bordered.table-striped
       tr

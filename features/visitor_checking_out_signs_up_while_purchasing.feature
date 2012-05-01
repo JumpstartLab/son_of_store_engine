@@ -1,4 +1,3 @@
-@wip
 Feature:
   As a visitor
   When checking out
@@ -13,8 +12,8 @@ Feature:
     When I checkout
     Then I can sign up for an account
     And I can sign in to my existing account
-    And I can provide my email, billing, shipping, and credit card info to purchase directly
-
+    And I can continue to guest checkout where I can provide my email, billing, shipping, and credit card info to purchase directly
+    
     When I choose to sign up
     Then I am asked for my account information
 
@@ -22,4 +21,4 @@ Feature:
     Then I should be logged in
     And I am returned to my checkout process
     And I can make my purchase normally
-    And I should receive a confirmation email for signing up
+    And I should receive an email confirmation

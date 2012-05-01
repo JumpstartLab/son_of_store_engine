@@ -14,7 +14,7 @@ li.span4
       h6
         br/
         - product.categories.each do |category|
-          span.label= link_to category.name, category_path(store_slug, category)
+          span.label= link_to category.name, category_path(store_slug, category.id)
           | &nbsp;
       p
       p

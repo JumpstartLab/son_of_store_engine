@@ -33,26 +33,43 @@ class Store < ActiveRecord::Base
   end
 
   def stockers
-    x = Role.where(:store_id => self.id).select { |role| role.name == "store_stocker" }
-    users = x.collect{ |role| role.user }
+    Role.where(:store_id => self.id).select { |role| role.name == "store_stocker" }
   end
 
   def creator
-    x = Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
-    users = x.collect{ |role| role.user }.first.name
+    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }.first
   end
 
   def admins
-    x = Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
-    users = x.collect{ |role| role.user }
+    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
   end
 
   def active_products
-    Product.where(:store_id => id).where(:retired => false)
+    products.where(:retired => false)
   end
 
   def retired_products
-    Product.where(:store_id => id).where(:retired => true)
+    products.where(:retired => true)
+  end
+
+  def update_status(params)
+    if params[:status] == "approved"
+      self.status = "approved"
+    elsif params[:status] == "declined"
+      self.status = "declined"
+    elsif params[:status] == "disabled"
+      self.status = "disabled"
+    end
+    self
+  end
+
+  def notify_store_admin_of_status
+    # TODO: do we need to add email for created stores?
+    if status == "approved"
+      Resque.enqueue(Emailer, "store_approval_notification", id)
+    elsif status == "declined"
+      Resque.enqueue(Emailer, "store_declined_notification", id)
+    end
   end
 
 end

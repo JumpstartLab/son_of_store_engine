@@ -1,7 +1,7 @@
 class Store::CategoriesController < ApplicationController
 
   def show
-    @category = Category.find(params[:id])
+    @category = current_store.categories.find(params[:id])
     @categories = Category.all
     @products = @category.products
   end

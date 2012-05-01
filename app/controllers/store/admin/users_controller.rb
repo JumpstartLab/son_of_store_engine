@@ -11,17 +11,9 @@ class Store::Admin::UsersController < Store::Admin::BaseController
     if @user
       determine_path_and_assign_role(@user)
     else
-      # send email
-      redirect_to :back
-    end
-  end
-
-  def destroy
-    @user = User.find(params[:id])
-    if @user.destroy
-      redirect_to :back, :notice => "#{@user.name} was deleted."
-    else
-      redirect_to :back, :notice => "Try again."
+      #send email
+      redirect_to admin_path(current_store.slug),
+        :notice => "That user does not exist, so we sent them a signup email."
     end
   end
 
@@ -29,11 +21,11 @@ class Store::Admin::UsersController < Store::Admin::BaseController
     if URI(request.referer).path == "/mittenberry/admin/store_stocker/new"
       user.roles << user.roles.create(name: "store_stocker", store: current_store)
       user.save
-      redirect_to :back
+      redirect_to admin_path(current_store.slug), :notice => "#{user.name} is now a store stocker."
     elsif URI(request.referer).path == "/mittenberry/admin/store_admin/new"
       user.roles << user.roles.create(name: "store_admin", store: current_store)
       user.save
-      redirect_to :back
+      redirect_to admin_path(current_store.slug), :notice => "#{user.name} is now a store admin."
     end
   end
 

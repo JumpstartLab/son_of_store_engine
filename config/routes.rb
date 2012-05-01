@@ -1,6 +1,13 @@
+require 'resque/server'
+
 StoreEngine::Application.routes.draw do
   
   root :to => "static#home"
+
+  get "info/home"
+
+  mount Resque::Server.new, :at => "/resque"
+
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
   match '/unauthorized', :to => "static#unauthorized"
 
@@ -43,7 +50,8 @@ StoreEngine::Application.routes.draw do
       resources :orders, only: [:index, :show, :update] do
         resource :status, only: :update
       end
-      resources :users, only: [:show, :new, :create, :destroy]
+      resources :users, only: [:show, :new, :create, :destroy, :update]
+      resources :roles, only: :destroy
       match 'store_admin/new', :to => 'users#new'
       match 'store_stocker/new', :to => 'users#new'
     end

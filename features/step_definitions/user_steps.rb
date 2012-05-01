@@ -61,3 +61,31 @@ end
 Then /^I am signed in$/ do
   page.text.should include "Sign out"
 end
+
+Given /^I am on a StoreEngine store page$/ do
+  @store = create(:store)
+  visit store_path(@store)
+end
+
+Then /^I should see a link in the header for my account$/ do
+  find('div', class: 'navbar').should have_link @user.name
+end
+
+When /^I click the my account link$/ do
+  find('div', class: 'navbar').click_on @user.name
+end
+
+Then /^I am viewing my user profile and I see a link to edit my user details$/ do
+  page.should have_link "Edit profile"
+end
+
+When /^I click the edit user details link$/ do
+  click_on "Edit profile"
+end
+
+Then /^I am viewing an edit form where I can change my full name, display name, and or password\. The password change requires entering a password confirmation as well\.$/ do
+  page.should have_field('user_name')
+  page.should have_field('user_display_name')
+  page.should have_field('user_password')
+  page.should have_field('user_password_confirmation')
+end

@@ -47,4 +47,8 @@ class User < ActiveRecord::Base
     roles.any? { |r| r.name.underscore.to_sym == role_sym }
   end
 
+  def find_cart_by_store_id(store_id)
+    carts.where(:store_id => store_id).first
+  end
+
 end
