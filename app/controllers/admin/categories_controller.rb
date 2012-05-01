@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::ApplicationController
   before_filter :require_login
-  before_filter :is_admin?
+  before_filter :is_admin
 
   def new
     @category = store.categories.new

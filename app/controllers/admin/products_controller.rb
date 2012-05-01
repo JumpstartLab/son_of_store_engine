@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::ApplicationController
-  skip_before_filter :is_admin
+  skip_before_filter :is_store_admin
   before_filter :is_stocker_or_admin
 
   def index

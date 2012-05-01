@@ -1,6 +1,6 @@
 class Admin::StoreAdminsController < Admin::ApplicationController
-  skip_before_filter :is_admin?
-  before_filter :is_store_admin?
+  skip_before_filter :is_admin
+  before_filter :is_store_admin
 
 
   def destroy

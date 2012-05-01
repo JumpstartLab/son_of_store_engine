@@ -35,10 +35,10 @@ class ApplicationController < ActionController::Base
       current_user.admin || store.admins.include?(current_user)
   end
 
-  def is_stocker_or_admin
-    redirect_to_last_page("NOT ADMIN OF THIS STORE") unless
-      store.store_admins.include?(current_user) || current_user.admin
-  end
+  # def is_stocker_or_admin
+  #   redirect_to_last_page("NOT ADMIN OF THIS STORE") unless
+  #     store.store_admins.include?(current_user) || current_user.admin
+  # end
 
 private
 
