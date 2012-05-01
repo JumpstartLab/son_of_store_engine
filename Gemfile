@@ -50,6 +50,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'newrelic_rpm'
   gem 'redis-store', '~>1.0.0'
-  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+  #gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   #gem 'ruby-debug19', :require => 'ruby_debug'
 end
