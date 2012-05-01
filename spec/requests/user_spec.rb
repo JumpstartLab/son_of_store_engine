@@ -37,25 +37,26 @@ describe "User" do
       end      
       it "can edit themselves" do
         visit edit_user_path(user)
-        page.should have_content("Edit User")
+        page.should have_content("Edit Profile")
         fill_in 'user[name]', :with => "rabble"
-        click_on "Edit User"
+        click_on "Edit Profile"
         page.should have_content("Update successful")        
       end
       it "has validation on update" do 
         visit edit_user_path(user)
         fill_in 'user[name]', :with => ""
-        click_on "Edit User"
-        page.should have_content("Edit User")        
+        click_on "Edit Profile"
+        page.should have_content("Edit Profile")        
       end
     end
     it "User can signup" do
       visit new_user_path
       fill_in 'user[email]', :with =>  "Jiberish@yahoo.com"
       fill_in "user[password]", :with => "mike"
-      fill_in "user[name]", :with => "mike"  
+      fill_in "user[name]", :with => "mike"
       click_on "Sign up"
-      page.should have_content("Account successfully made!")
+      #page.should have_content("Account successfully made!")
+      page.should have_content "Products"
     end
     it "User verifies auth" do
       visit new_user_path

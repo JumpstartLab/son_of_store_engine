@@ -20,7 +20,7 @@ module AuthenticationHelpers
     end
   end
 
-  def not_authenticated(msg= "You must login first")
+  def not_authenticated(msg= "You must login first")\
     flash[:alert] = msg
     redirect_to '/login'
   end
