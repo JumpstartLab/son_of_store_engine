@@ -70,13 +70,18 @@ class Order < ActiveRecord::Base
   end
 
   def save_with_payment
-    create_stripe_user(stripe_card_token) unless order_user.stripe_id
-    process_payment(self, order_user)
+    begin
+      create_stripe_user(stripe_card_token) unless order_user.stripe_id
+      process_payment(self, order_user)
+    rescue Stripe::InvalidRequestError => error
+      logger.error "Stripe error while creating customer: #{error.message}"
+      errors.add :base, "There was a problem with your credit card."
+    end
   end
 
   def create_stripe_user(token)
     customer = Stripe::Customer.create(description: order_user.email,
-      card: token)
+                                       card: token)
     order_user.update_attribute(:stripe_id, customer.id)
   end
 
@@ -95,7 +100,7 @@ class Order < ActiveRecord::Base
   end
 
   def paid
-    update_attribute(:status, "paid")
+    update_status("paid")
   end
 
   def update_status(new_status)
