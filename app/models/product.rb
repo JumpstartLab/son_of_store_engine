@@ -17,7 +17,7 @@
 class Product < ActiveRecord::Base
   self.per_page = 10
 
-  attr_accessible :description, :price, :title, :photo, :retired
+  attr_accessible :description, :price, :title, :photo, :retired, :store
   has_many :order_items
   has_many :orders, :through => :order_items
   has_many :product_categories
