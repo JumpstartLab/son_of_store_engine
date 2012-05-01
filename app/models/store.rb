@@ -5,6 +5,7 @@ class Store < ActiveRecord::Base
   validates_presence_of :name, :url
   has_many :products
   has_many :store_roles
+  has_many :products
   has_many :users, :through => :store_roles
   STATUS = ["Declined", "Pending", "Approved"]
 

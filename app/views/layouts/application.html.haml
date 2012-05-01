@@ -8,16 +8,18 @@
 
     .topper
     .container
-      - if flash[:notice]
-        .alert.alert-success= flash[:notice].html_safe
-      - elsif flash[:error]
-        .alert.alert-error= flash[:error]
-      - elsif flash[:alert]
-        .alert.alert-error
-          = flash[:alert]
-          - if flash[:link]
-            = link_to flash[:link][0], flash[:link][1], :method => flash[:link][2]      
-      = yield
-      .push
+      .body-container
 
-  =render 'layouts/home_footer'  
+        - if flash[:notice]
+          .alert.alert-success= flash[:notice].html_safe
+        - elsif flash[:error]
+          .alert.alert-error= flash[:error]
+        - elsif flash[:alert]
+          .alert.alert-error
+            = flash[:alert]
+            - if flash[:link]
+              = link_to flash[:link][0], flash[:link][1], :method => flash[:link][2]      
+        = yield
+        .push
+
+  =render 'layouts/footer'  

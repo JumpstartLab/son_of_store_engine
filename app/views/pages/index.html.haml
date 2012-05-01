@@ -1,13 +1,14 @@
-%h1 Listing pages
+.hero-unit
+  %h1 Polutropon Gear Stores
+  %p Customize your ride with gear from top speciality providers
 
-%table
-  %tr
-    %th Name
-    %th Body
-    %th
-    %th
-    %th
+%ul.thumbnails
+  -Store.all.each do |store|
+    %li.span3
+      .thumbnail
+        = link_to image_tag(store.products.first.avatar, {style: "width:210px; height:210px;"}), subdomain_path(store.url)
+        %h5 
+          = store.name 
+        %p 
+          = store.description
 
-%br
-
-= link_to 'Go HOME', home_path
