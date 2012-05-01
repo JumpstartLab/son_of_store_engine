@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+# Allows uploading css file to a store
 class CssUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
@@ -29,14 +30,6 @@ class CssUploader < CarrierWave::Uploader::Base
     %w(css)
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
-
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   #
@@ -53,12 +46,6 @@ class CssUploader < CarrierWave::Uploader::Base
   # For images you might use something like this:
   # def extension_white_list
   #   %w(jpg jpeg gif png)
-  # end
-
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
   # end
 
 end
