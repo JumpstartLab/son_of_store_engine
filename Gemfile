@@ -10,6 +10,8 @@ gem 'find_by_param'
 gem 'fabrication'
 gem 'faker'
 gem 'redis-store', '~> 1.0.0'
+gem 'capistrano'
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
