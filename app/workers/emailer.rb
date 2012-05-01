@@ -1,14 +1,16 @@
 class Emailer
   @queue = :emails
 
-  def self.perform(mailer, action, *object_ids)
+  def self.perform(mailer, action, *args)
     case mailer
     when "order"
-      order_mailer(action, *object_ids)
+      order_mailer(action, *args)
     when "user"
-      user_mailer(action, *object_ids)
+      user_mailer(action, *args)
     when "admin"
-      admin_mailer(action, *object_ids)
+      admin_mailer(action, *args)
+    when "store"
+      store_mailer(action, *args)
     end
   end
 
@@ -20,6 +22,17 @@ class Emailer
       AdminMailer.new_admin_notification(user_id_or_email, store_id, role).deliver
     when "admin_removal"
       AdminMailer.admin_removal(user_id_or_email, store_id, role).deliver
+    end
+  end
+
+  def self.store_mailer(action, user_id, store_id)
+    case action
+    when "store_creation_confirmation"
+      StoreMailer.store_creation_confirmation(user_id, store_id).deliver
+    when "store_approval_confirmation"
+      StoreMailer.store_approval_confirmation(user_id, store_id).deliver
+    when "store_rejection_confirmation"
+      StoreMailer.store_rejection_confirmation(user_id, store_id).deliver
     end
   end
 
