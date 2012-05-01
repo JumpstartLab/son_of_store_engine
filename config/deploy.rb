@@ -25,6 +25,8 @@ namespace :deploy do
     end
   end
 
+  after "deploy:update_code", "deploy:restart"
+  
   task :setup_config, roles: :app do
     sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
     sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
