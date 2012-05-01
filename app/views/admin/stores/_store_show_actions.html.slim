@@ -1,11 +1,11 @@
 .row
   h2.span8 Actions
 .row
-  - if @store.approval_status == "approved"
+  - if @current_store.approval_status == "approved"
     .label.span2 Store Activation
     .span6
-      - if @store.enabled
-        = link_to "Disable", store_path(@store, store:{enabled: false}), method: :put, class: "btn btn-danger", id: "enable_toggle"
+      - if @current_store.enabled
+        = link_to "Disable", store_path(@current_store, store:{enabled: false}), method: :put, class: "btn btn-danger", id: "enable_toggle"
       - else
-        = link_to "Enable", store_path(@store, store:{enabled: true}), method: :put, class: "btn btn-success", id: "enable_toggle"
-  = link_to "Edit", edit_admin_store_path(@store), class: "btn"
+        = link_to "Enable", store_path(@current_store, store:{enabled: true}), method: :put, class: "btn btn-success", id: "enable_toggle"
+  = link_to "Edit", edit_admin_store_path(@current_store), class: "btn"

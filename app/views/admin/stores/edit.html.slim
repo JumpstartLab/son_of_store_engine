@@ -1,5 +1,5 @@
-#hidden_domain=@store.domain
-.span16 = form_for @store do |f|
+#hidden_domain=@current_store.domain
+.span16 = form_for @current_store do |f|
   = f.label :name
   = f.text_field :name
 

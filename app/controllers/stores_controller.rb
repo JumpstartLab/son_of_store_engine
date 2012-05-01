@@ -1,4 +1,5 @@
 class StoresController < ApplicationController
+  before_filter :find_store, only: [:show]
 
   def index
     @stores = Store.where(:enabled => true)
@@ -20,7 +21,6 @@ class StoresController < ApplicationController
   end
 
   def show
-    @store = Store.find_by_id(params[:id])
   end
 
   def update

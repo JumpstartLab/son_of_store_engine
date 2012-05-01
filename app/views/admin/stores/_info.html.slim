@@ -3,20 +3,20 @@
 .row
   .label.span2 Name
   strong.span6#store_name 
-    = @store.name
+    = @current_store.name
 .row
   .label.span2 Domain
   .span6#store_domain
-    = link_to @store.domain, "/#{@store.to_param}"
+    = link_to @current_store.domain, "/#{@current_store.to_param}"
 .row
   .label.span2 Description
   .span6#store_description
-    = @store.description
+    = @current_store.description
 .row
   .label.span2 Approval Status
-  div(class="span6 approval_status_#{@store.approval_status.downcase}" id="store_approval_status")
-      = @store.approval_status.upcase
+  div(class="span6 approval_status_#{@current_store.approval_status.downcase}" id="store_approval_status")
+      = @current_store.approval_status.upcase
 .row
   .label.span2 Active Status
-  div(class="span6 active_status_#{@store.active_status.downcase}" id="store_active_status")
-    = @store.active_status.upcase
+  div(class="span6 active_status_#{@current_store.active_status.downcase}" id="store_active_status")
+    = @current_store.active_status.upcase
