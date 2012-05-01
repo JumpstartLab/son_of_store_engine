@@ -1,0 +1,52 @@
+<header class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to "Chez Pierre", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <li><%= link_to "Stores", stores_path %></li>
+          <li id="cart-menu">
+            <% if store %>
+              <%= link_to store_cart_path(current_cart) do %>
+              <i class='icon-shopping-cart icon-white'></i>&nbsp;&nbsp;<%= "Cart (#{get_cart_count})" %>
+              <% end %>
+            <% else %>
+              <%= link_to cart_path do %>
+              <i class='icon-shopping-cart icon-white'></i>&nbsp;&nbsp;<%= "Cart (#{get_cart_count})" %>
+              <% end %>
+            <% end %>
+          </li>
+          <% if current_user %>
+            <li>
+              <%= link_to current_user do %>
+              <i class='icon-user icon-white'></i>&nbsp;&nbsp;<%= "#{current_user.name}" %>
+              <% end %>
+            </li>
+        </li>
+            <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+
+<!--
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_user %></li>
+                <li><%= link_to "Settings", '#' %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Sign out", signout_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+          -->
+          <% else %>
+            <li><%= link_to "Sign in", signin_url(subdomain: false) %></li>
+            <li><%= link_to "Register", signup_url(subdomain: false) %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
