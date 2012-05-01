@@ -50,5 +50,5 @@ StoreEngine::Application.configure do
     :password       => "86gskmjs",
     :domain         => 'heroku.com'
   }
-  ActionMailer::Base.delivery_method = :smtp  
+  # ActionMailer::Base.delivery_method = :smtp  
 end

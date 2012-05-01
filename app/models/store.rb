@@ -48,22 +48,22 @@ class Store < ActiveRecord::Base
   end
   def self.create_store(params, user)
     s = Store.new(params)
-    Resque.enqueue(NewStoreEmailer, user)
     s.users << user
+    Resque.enqueue(NewStoreRequestEmailer, s.id)
     s
   end
 
   def approve
     self.active = 2
     self.enabled = true
-    Notification.new_store_approval(self).deliver
+    Resque.enqueue(NewStoreApprovalEmailer, self.id)
     self.save
   end
 
   def decline
     self.active = 0
     self.enabled = false
-    Notification.new_store_approval(self).deliver
+    Resque.enqueue(NewStoreApprovalEmailer, self.id)
     self.save
   end
 

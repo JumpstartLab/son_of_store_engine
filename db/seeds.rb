@@ -17,7 +17,10 @@ def user(values)
 end
 
 @new_store = Store.create(name: "Cool Sunglasses", active: 2, enabled: true, url: "cool-sunglasses")
-@new_store_2 = Store.create(:name => "Best Sunglasses", :active => true, enabled: true, active: 2, url:"best-sunglasses")
+@new_store_2 = Store.create(:name => "Best Sunglasses", enabled: true, active: 2, url:"best-sunglasses")
+@new_store_3 = Store.create(:name => "Bike Store", enabled: true, active: 2, url:"bike-store")
+
+@store_array = [@new_store, @new_store_3, @new_store_2]
 
 def product(values, store=@new_store)
   p =           Product.create(
@@ -34,6 +37,7 @@ def order(values)
                 :products => values[2], :is_cart => false
               )
 end
+
 u1 = user(["Mike Silvis", "mike", "mikesilvis@gmail.com", "mike", 9])
 u2 = user(["Elise Worthy", "elise", "elise.worthy@gmail.com", "elise", 9])
 user(["Matt Yoho", "hungry", "demoXX+matt@jumpstartlab.com", ""])
@@ -59,6 +63,8 @@ c9 = Category.create( :name => "Traveling Devices")
 c10 = Category.create( :name => "Personal")
 c11 = Category.create( :name => "Office")
 
+@categories_array = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11]
+
 p1 = product(["Nintendo", "DUCK HUNTER!!!", "9999.00", "http://images.sodahead.com/polls/001017851/nes_xlarge.jpeg"], @new_store_2)
 p2 = product(["iPod", "Carry up to 300 songs in your pocket!", "99.75", "http://goo.gl/3gfMb", [c1, c2, c3, c6]], @new_store_2)
 p3 = product(["Racecar", "VRRRRRRRRRMMMMMMM", "20.65", "http://goo.gl/REU7v", [c2]])
@@ -81,6 +87,13 @@ p18 = product(["Pen", "When you have lots to write, use this bad boy. It was use
 p19 = product(["Video Camera", "Study how a horse runs with this motion camera", "69.99", "http://goo.gl/bZaow", [c1, c3]])
 p20 = product(["Baller Shoes", "Jump up to 5 feet higher with these things on", "199", "http://goo.gl/1sQB8", [c10, c8]])
 
+100000.times do |p|
+  Product.create(
+                  :name => Faker::Name.name, :description => Faker::Lorem.sentence(20),
+                  :price => rand(100..999999), :store => @store_array[rand(0..2)], :categories => [@categories_array[rand(0..10)]]
+                )
+end
+
 Sale.create(:percent_off => 30, :end_at => 30.days.from_now, :categories => [c1])
 Sale.create(:percent_off => 60, :end_at => 30.days.from_now, :categories => [c11])
 Sale.create(:percent_off => 90, :end_at => 30.days.from_now, :products => [p1,p2,p20])
@@ -88,4 +101,5 @@ Sale.create(:percent_off => 90, :end_at => 30.days.from_now, :products => [p1,p2
 o1 = order([u1, s1, [p1, p2]])
 o2 = order([u1, s2, [p1, p3]])
 o2 = order([u2, s4, [p1, p3]])
+
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Stores" do
   before(:each) do
-    Capybara.app_host = "http://.son.test"
+    Capybara.app_host = "http://son.test"
   end  
   let!(:user) do 
     FactoryGirl.create(:user, :password => "mike")

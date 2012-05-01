@@ -29,14 +29,14 @@ class StoreRole < ActiveRecord::Base
       self.user = User.find_by_email(input[:email])
       self.permission = input[:role]
       self.save
-      Notification.new_store_role(input[:email], self.store, role).deliver
+      Resque.enqueue(NewStoreRoleEmailer, input[:email], self.store.id, role)
     else
-      Notification.new_user_and_store_role(input[:email], self.store, role).deliver
+      Resque.enqueue(NewUserAndStoreRoleEmailer, input[:email], self.store.id, role)
     end
   end
 
   def remove_role
     self.destroy
-    Notification.remove_role(user.email, self.store).deliver
+    Resque.enqueue(RemoveRoleEmailer, user.email, self.id)
   end
 end
