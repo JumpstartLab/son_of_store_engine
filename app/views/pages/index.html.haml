@@ -3,10 +3,13 @@
   %p Customize your ride with gear from top speciality providers
 
 %ul.thumbnails
-  -Store.all.each do |store|
+  - @store.each do |store|
     %li.span3
       .thumbnail
-        = link_to image_tag(store.products.first.avatar, {style: "width:210px; height:210px;"}), subdomain_path(store.url)
+        - if store.products.first
+          = link_to image_tag(store.products.first.avatar, {style: "width:210px; height:210px;"}), subdomain_path(store.url)
+        - else
+          = link_to image_tag("/avatars/original/missing.png",  {style: "width:210px; height:210px;"}), subdomain_path(store.url)
         %h5 
           = store.name 
         %p 
