@@ -1,6 +1,6 @@
 <%= form_for([current_store, @cart_item]) do |ci| %>
 <p><%= ci.label :quantity %> <br />
-   <%= ci.text_field :quantity %>
+   <%= ci.number_field :quantity, :size => 100, :min => 1 %>
 </p>
 
 <p> 
