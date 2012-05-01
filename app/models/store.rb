@@ -6,7 +6,6 @@ class Store < ActiveRecord::Base
 
   has_many :store_admins
   has_many :users, :through => :store_admins
-  alias_attribute :admins, :users
 
   validates_presence_of :name, :url_name, :description
   validates_uniqueness_of :name, :url_name
@@ -15,6 +14,14 @@ class Store < ActiveRecord::Base
 
   def to_param
     url_name
+  end
+
+  def stockers
+    users.where("stocker = ?", true)
+  end
+
+  def admins
+    users.where("stocker = ?", false)
   end
 
   def disabled
