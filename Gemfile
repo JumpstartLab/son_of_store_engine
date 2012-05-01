@@ -13,10 +13,13 @@ gem 'twilio-ruby'
 gem 'newrelic_rpm'
 gem 'resque'
 gem 'tlsmail'
+
+gem 'capistrano'
 #gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 
 group :production do
   gem 'pg'
+  gem 'unicorn'
 end
 
 # Gems used only for assets and not required
