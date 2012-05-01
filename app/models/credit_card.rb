@@ -17,8 +17,7 @@ class CreditCard < ActiveRecord::Base
   end
 
   def stripe_get_customer_token(stripe_card_token)
-    Stripe::Customer.create( description: "Mittenberry Customer
-      ##{self.user.id}", card: stripe_card_token)
+    Resque.enqueue(Striper, "customer", self.id, stripe_card_token)
   rescue Stripe::InvalidRequestError => error
     send_customer_create_error(error)
   end
@@ -32,19 +31,13 @@ class CreditCard < ActiveRecord::Base
   end
 
   def charge_as_guest(cart_total_in_cents)
-     Stripe::Charge.create(amount: cart_total_in_cents,
-                          currency: 'usd',
-                          card: stripe_card_token)
+    Resque.enqueue(Striper,"charge", self.id, cart_total_in_cents, stripe_card_token)
   rescue Stripe::InvalidRequestError => error
     send_charge_error(error)
   end
 
   def charge(cart_total_in_cents)
-    return false if stripe_customer_token.empty?
-
-    Stripe::Charge.create(amount: cart_total_in_cents,
-                          currency: 'usd',
-                          customer: stripe_customer_token)
+    Resque.enqueue(Striper,"charge", self.id, cart_total_in_cents, stripe_customer_token)
   rescue Stripe::InvalidRequestError => error
     send_charge_error(error)
   end
