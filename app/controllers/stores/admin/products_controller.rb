@@ -1,7 +1,6 @@
 module Stores
   module Admin
     class ProductsController < BaseController
-      authorize_resource
       helper_method :product, :products
 
       def index
@@ -14,6 +13,8 @@ module Stores
       end
 
       def create
+        authorize! :create, @store
+
         if product.save
           product.update_categories(params[:categories][1..-1])
           redirect_to store_admin_products_path(current_store.slug),
