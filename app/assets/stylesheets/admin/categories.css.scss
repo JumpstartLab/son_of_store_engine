@@ -7,7 +7,11 @@ h1.admin-cat-header{
 }
 
 .admin-new-cat-action{
-  padding-bottom: 10px;
+  padding-top: 25px;
+  padding-left: 190px;
+}
+th.categories{ 
+  border-bottom: double #BDBDBD;
 }
 
 table.admin-cat-index{ 
@@ -15,13 +19,20 @@ table.admin-cat-index{
 }
 
 #admin-index-cat-name{ 
-
+  color: black;
 }
 
 #admin-index-cat-actions{ 
   vertical-align: middle;
+  border-collapse: collapse;
 }
 
 /* NEW & PARTIAL */
-
+.admin-new-cat-name{ 
+  padding-top: 15px;
+}
 /* SHOW */
+.admin-cat-back{ 
+  padding-top: 10px;
+  padding-left: 150px;
+}

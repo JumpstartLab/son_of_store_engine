@@ -1,25 +1,24 @@
-- cache 'order' do
-  h1 = "Order ##{@order.id}"
-  h2 = "Total: #{@order.total}"
-  h3 = "Status: #{@order.status}"
-  h3 = "Created: #{@order.created_at.to_s}"
-  h3 = "Buyer: #{@order.user.name}"
-  - if @order.address 
-    h3 = "Address:" 
-    h4 = "#{@order.address.street}"
-    h4 = "#{@order.address.city}, #{@order.address.state} #{@order.address.zipcode}"
+h1 = "Order ##{@order.id}"
+h2 = "Total: #{@order.total}"
+h3 = "Status: #{@order.status}"
+h3 = "Created: #{@order.created_at.to_s}"
+h3 = "Buyer: #{@order.user.name}"
+- if @order.address 
+  h3 = "Address:" 
+  h4 = "#{@order.address.street}"
+  h4 = "#{@order.address.city}, #{@order.address.state} #{@order.address.zipcode}"
 
-  table
+table.table-condensed
+  tr.headers-order-show
+    th Item Title
+    th Price
+    th Quantity
+    th Subtotal
+    th
+  - @order.items.each do |item|
     tr
-      td Item Title
-      td Price
-      td Quantity
-      td Subtotal
-    - @order.items.each do |item|
-      - cache(item) do
-        tr
-          td = link_to item.title, admin_product_path(item)
-          td = item.price
-          td.quantity = item.quantity
-          td = item.subtotal
-          td = link_to "Remove", admin_order_path(:item_id => item.id), :method => :delete
+      td = link_to item.title, admin_product_path(item)
+      td = item.price
+      td.quantity = item.quantity
+      td.item-subtotal = item.subtotal
+      td = link_to "Remove", admin_order_path(:item_id => item.id), :method => :delete

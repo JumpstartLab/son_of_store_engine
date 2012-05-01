@@ -1,32 +1,32 @@
 .store-edit-heading
   h1 Edit Your Store
-- if @store.errors.any?
-  div id="error_explanation"
-    ul
-    - @store.errors.full_messages.each do |msg|
-      li = msg
-  
-= form_for(@store, :url => admin_dashboard_path, :html => {:multipart => true}) do |f|
-  .store-edit-name
-    = f.label :name
-    = f.text_field :name
+.span10
+  - if @store.errors.any?
+    div id="error_explanation"
+      ul
+      - @store.errors.full_messages.each do |msg|
+        li = msg
+    
+  = form_for(@store, :url => admin_dashboard_path, :html => {:multipart => true}) do |f|
+    .store-edit-name
+      = f.label :name
+      = f.text_field :name
 
-  .store-edit-slug
-    = f.label "Unique Slug"
-    = f.text_field :slug
+    .store-edit-slug
+      = f.label "Unique Slug"
+      = f.text_field :slug
 
-  .store-edit-descrip
-    = f.label :description
-    = f.text_field :description
+    .store-edit-descrip
+      = f.label :description
+      = f.text_field :description
 
 
-  .upload-css
-    = f.label :css
-    = f.file_field :css
-  
-  div Current Css File:
-  div = @store.css_path
+    .upload-css
+      = f.label :css, "CSS"
+      = f.file_field :css
+    
+    div Current CSS File:
+    div = @store.css_path
 
-  
-  .store-edit-actions
-    = f.submit
+    .store-edit-actions
+      = f.submit :class=> 'btn btn-primary'

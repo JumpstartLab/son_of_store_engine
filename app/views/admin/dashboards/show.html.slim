@@ -1,37 +1,37 @@
 h1 #{@store.name} Dashboard
-.admin-dash-descrip
-  = @store.description
+.span10
+  .admin-dash-descrip
+    = @store.description
 
-.dashboard-links
-  ul
-    li = link_to 'Edit Store', edit_admin_dashboard_path(@store)
-    li = link_to "New Product", new_admin_product_path(@store)
-    li = link_to "Browse Products", admin_products_path(@store)
-    li = link_to "New Category", new_admin_category_path(@store)
-    li = link_to "Edit Categories", admin_categories_path(@store)
-    li = link_to "Manage Users", admin_users_path(@store)
+  .dashboard-links
+    ul
+      li = link_to 'Edit Store', edit_admin_dashboard_path(@store)
+      li = link_to "New Product", new_admin_product_path(@store)
+      li = link_to "Browse Products", admin_products_path(@store)
+      li = link_to "New Category", new_admin_category_path(@store)
+      li = link_to "Edit Categories", admin_categories_path(@store)
+      li = link_to "Manage Users", admin_users_path(@store)
 
-h3 All Orders by Status
+  h3 All Orders by Status
+  .span12
+    #admin_orders_by_status
 
-#admin_orders_by_status
-  table
-    tr
+      table
+        tr
+          - @statuses.each do |status|
+            th#dashboard = status
+        tr
+          - @statuses.each do |status|
+            td[class="#{status}_total"] = @orders_by_status[status].count
+
+
+  h3.dashboard-order-head All Orders
+  .admin-dash-orders
+    ul
+      li.dashboard#show = "Show: "
+      li.dashboard#show = link_to "all", admin_dashboard_path(@store)
       - @statuses.each do |status|
-        th#dashboard = status
-    tr
-      - @statuses.each do |status|
-        td[class="#{status}_total"] = @orders_by_status[status].count
-
-br
-
-h3 All Orders
-.admin-dash-orders
-  ul
-    li.dashboard#show = "Show: "
-    li.dashboard#show = link_to "all", admin_dashboard_path(@store)
-    - @statuses.each do |status|
-      li.dashboard#show = link_to status, admin_dashboard_path(@store, :status => status)
-
-br
-
-  = render :partial => "admin/orders/all"
+        li.dashboard#show = link_to status, admin_dashboard_path(@store, :status => status)
+  .span12
+    .admin-dashboard-orders-partial
+      = render :partial => "admin/orders/all"

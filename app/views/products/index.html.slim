@@ -12,4 +12,4 @@ h1 Products
           = number_to_currency(product.price)
           #prod-index-cart
           = link_to "Add to Cart", cart_path(:product_id => product), :method => :put, :class=>'btn btn-mini'
-  = will_paginate @products
+  = will_paginate @productsg

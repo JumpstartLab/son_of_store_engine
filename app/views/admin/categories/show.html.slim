@@ -2,8 +2,10 @@ h1 = @category.name
 
 .span10
   .admin-cat-prods
-    table.table-striped
+    table.table-striped.table-condensed
       - @products.each do |product|
         tr
           td = link_to product.title, product_path(@store, product)
-          td = product.price
+          td.cat-prod-price = product.price
+  .admin-cat-back
+    = link_to "Back to All Categories", admin_categories_path, :class=> 'btn btn-small'
