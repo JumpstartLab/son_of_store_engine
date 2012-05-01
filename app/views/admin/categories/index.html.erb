@@ -1,3 +1,10 @@
-<% @categories.each do |c| %>
-  <p> <%= link_to c.name, "/#{store.url_name}/admin/categories/#{c.id}/edit" %> </p>
-<% end %>
+<table>
+  <th>Category Name</th>
+  <th><th>
+  <% @categories.each do |c| %>
+    <tr>
+      <td><%= link_to c.name, category_path(c) %> </td>
+      <td><%= link_to "Edit this category", edit_admin_category_path(c) %></td>
+    </tr>
+  <% end %>
+</table>
