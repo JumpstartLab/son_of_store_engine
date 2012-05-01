@@ -32,7 +32,7 @@
 
 <h2 align="right">Total Price: <%= number_to_currency(@order.total_price) %></h2>
 
-<% if admin? %>
+<% if current_user.may_manage?(current_store) %>
   <%= link_to "Edit", edit_store_order_path(current_store, @order), 
       :class => "btn btn-mini" %>
   <%= link_to "Your Orders", store_orders_path(current_store), 

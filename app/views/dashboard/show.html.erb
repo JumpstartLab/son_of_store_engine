@@ -8,9 +8,20 @@
   <h2>Total revenue: <%= number_to_currency(Order.revenue(current_store)) %></h2>
   <h2>Total Orders: <%= @orders.count %></h2>
 </div>
+<br />
+<%= link_to "Add product", new_store_product_path(current_store), 
+    :class => "btn btn-large" %>
+<%= link_to "Add category", new_store_category_path(current_store), 
+    :class => "btn btn-large" %>
+<%= link_to "Add employee", new_store_employee_path(current_store), 
+    :class => "btn btn-large" %>
+<br />
+<br />
+<br />
+<div class="page-header">
+<h1>Orders</h1>
+</div>
 <div id= "order_count">
-
-  
   <table id="status_numbers">
     <tbody>
       <td style="width: 110px"><%= link_to "Pending:", 
@@ -30,14 +41,9 @@
           <%= @orders.returned.count %></td>
     </tbody>
   </table>
-  
+</div>
+<br />
 
-</div>
-<br />
-<br />
-<div class="page-header">
-<h1>All Orders</h1>
-</div>
 <br />
 <table class="table table-striped table-condensed">
   <thead>
@@ -49,6 +55,7 @@
       <th>Status</th>
       <th>Updated</th>
       <th>Total Price</th>
+      <th>Edit</th>
     </tr>
   </thead>
   <tbody id="orders">
@@ -62,16 +69,18 @@
             <td><strong><%= order.current_status %></strong></td>
             <td><%= order.updated_at.strftime("%m/%d/%Y  %I:%M%p") %>
             <td>$<%= order.total_price %></td>
+            <td><%= link_to "Edit", edit_store_order_path(order.store, order), 
+              :class => "btn btn-mini" %></td>
     </tr><% end %>
   </tbody>
 </table>
 <br />
-<%= link_to "Add product", new_store_product_path(current_store), 
-    :class => "btn btn-large" %>
-<%= link_to "Add category", new_store_category_path(current_store), 
-    :class => "btn btn-large" %>
-<%= link_to "Add employee", new_store_employee_path(current_store), 
-    :class => "btn btn-large" %>
+<br />
+<%= link_to "More Orders", store_store_orders_path(current_store), 
+    :class => "btn-info btn-large" %>
+<br />
+<br />
+
 <br />
 <div class="page-header">
 <h1>Categories</h1>
@@ -123,7 +132,13 @@
     </tr><% end %>
   </tbody> 
 </table>
-
+<br />
+<%= link_to "More Products", store_stocker_dashboard_path(current_store), 
+    :class => "btn-info btn-large" %>
+<br />
+<br />
+<br />
+<br />
 <br />
 <h2> Employees </h2>
 <table class="table table-striped table-condensed">

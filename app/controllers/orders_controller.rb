@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_filter :authorize
-  before_filter :admin_required, only: [:edit, :update]
+  before_filter :user_may_manage, only: [:edit, :update]
 
   def index
     if params[:status_search] && current_user && current_user.admin?
@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @order.update_status(params[:order][:status])
-    redirect_to store_order_path(current_store, @order)
+    redirect_to store_dashboard_path(current_store), :notice => "Order Updated"
   end
 
   def create
