@@ -6,6 +6,7 @@ describe "As an admin visiting the dashboard" do
   let(:store_admin2) { FactoryGirl.create(:user, :name => "store admin 2", :email => "admin2@worace.com", :admin => false) }
   let(:new_store_admin) { FactoryGirl.create(:user, :name => "Worace the Third", :email => "admin3@worace.com", :admin => false) }
   let(:new_store_stocker) { FactoryGirl.create(:user, :name => "Worace the Fourth", :email => "stocker1@worace.cim", :admin => false) }
+  let(:store_stocker2) { FactoryGirl.create(:user, :name => "store stocker 2", :email => "stocker2@worace.cim", :admin => false) }
 
   before do
     set_host(store.url_name)
@@ -26,6 +27,7 @@ describe "As an admin visiting the dashboard" do
 
       store.add_admin(store_admin2)
       store.add_admin(user)
+      store.add_stocker(store_stocker2)
 
       visit "/sessions/new"
       fill_in "email", with: user.email
@@ -84,7 +86,9 @@ describe "As an admin visiting the dashboard" do
       end
     end
 
-    context "when working with stockers" do
+    context "when working with stockers as an admin" do
+
+
       it "has a section for listing stockers" do
         within("#stockers") do
           page.should have_content("Stockers for #{store.name}")
@@ -98,6 +102,31 @@ describe "As an admin visiting the dashboard" do
         end
         within("#stockers") do
           page.should have_content(new_store_stocker.name)
+        end
+      end
+
+      it "lists the stockers for the current store" do
+        store.stockers.each do |stocker|
+          page.should have_content(stocker.email)
+        end
+      end
+
+      it "has a link to remove a non-owner admin" do
+        store.stockers.each do |stocker|
+          within("#stocker_#{stocker.id}") do
+            unless store.owner == stocker || stocker == user
+              page.should have_link("Remove Stocker")
+            end
+          end
+        end
+      end
+
+      it "removes the stocker" do
+        within("#stocker_#{store_stocker2.id}") do
+          click_link_or_button "Remove Stocker"
+        end
+        within("#admins") do
+          page.should_not have_content(store_stocker2.name)
         end
       end
     end
