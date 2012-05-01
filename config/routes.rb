@@ -1,4 +1,6 @@
 StoreEngine::Application.routes.draw do
+  require 'resque/server'
+  mount Resque::Server.new, :at => "/resque"
 
   match 'profile' => "users#show"
   resources :users, only: [:show, :create, :new, :update]
