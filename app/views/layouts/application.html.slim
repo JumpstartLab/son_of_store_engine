@@ -43,8 +43,8 @@ html
     - flash.each do |name, msg|
       = content_tag :div, msg.html_safe, :id => "flash_#{name}"
 
-    div class="container"
-      span class="12"
+    .container-fluid
+      .span12
 
     div class="navbar navbar-fixed-bottom"
       div class="navbar-inner"
