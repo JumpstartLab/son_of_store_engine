@@ -1,5 +1,5 @@
 = form_for @store_permission do |f|
   = text_field_tag :email
   = f.select :permission_level, [["Administrator", 1], ["Stocker",2]]
-  = f.hidden_field :store_id, :value => @store.id
+  = f.hidden_field :store_id, :value => @current_store.id
   = f.submit "Add New Store Employee"
