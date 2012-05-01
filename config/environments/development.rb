@@ -35,6 +35,9 @@ StoreEngine::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.cache_store = :redis_store, "redis://localhost:6379/1/ns"
+
+
   config.middleware.use ::Rack::PerftoolsProfiler,
       :default_printer => 'pdf', :bundler => true
 end
