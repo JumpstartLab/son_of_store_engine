@@ -1,7 +1,6 @@
 class StoreMailer < ActionMailer::Base
   default from: "hungryopensource@gmail.com"
           
-
   def store_approval_notification(store_id)
     @store = Store.find(store_id)
     @store_admin = @store.users.first
