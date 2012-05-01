@@ -10,6 +10,8 @@ gem 'find_by_param'
 gem 'fabrication'
 gem 'faker'
 gem 'will_paginate'
+gem 'carrierwave'
+gem "fog", "~> 1.3.1"
 
 # Gems used only for assets and not required
 # in production environments by default.

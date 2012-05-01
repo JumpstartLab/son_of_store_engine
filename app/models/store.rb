@@ -11,17 +11,11 @@
 #  updated_at  :datetime        not null
 #
 
-
-
-
-
-
-
-
 # Represents a store that is owned by a particular user
 class Store < ActiveRecord::Base
-  attr_accessible :name, :user_id, :slug, :description, :status
+  attr_accessible :name, :user_id, :slug, :description, :status, :css
   before_validation :parameterize_slug
+  mount_uploader :css, CssUploader
 
   validates :name, :presence => true
   validates :slug, :presence => true
@@ -115,6 +109,10 @@ class Store < ActiveRecord::Base
   def add_admin(user)
     user.add_role(Role.admin)
     self.users << user
+  end
+
+  def css_path
+    self.css.file.path.split("/").last if self.css.file
   end
 
   private

@@ -9,6 +9,7 @@ class Ability
       can :manage, Role
       can :manage, User
       can :manage, Store
+      can :manage, :stores
     end
 
     if user.admin?

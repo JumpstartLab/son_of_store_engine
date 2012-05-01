@@ -16,3 +16,4 @@
 /coverage
 /*.dat
 /*.rdb
+/config/initializers/amazon_storage.rb
