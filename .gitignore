@@ -17,3 +17,4 @@
 /*.dat
 /*.rdb
 /config/initializers/amazon_storage.rb
+/public/uploads/tmp
