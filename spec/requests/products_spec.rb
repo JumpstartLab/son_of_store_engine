@@ -120,4 +120,18 @@ describe "Products", :requests => :products do
       end
     end
   end
+
+  context "stockers logged in to stocker_dashboard", :austen => :fart do
+    let!(:user6) { FactoryGirl.create(:user) }
+    let!(:store4) { FactoryGirl.create(:store) }
+    
+    it "allows stocker to add a product" do
+      user6.promote(store4, 'stocker')
+      login(user6)
+
+      visit store_stocker_dashboard_path(store4)
+      click_on 'Add Product'
+      current_path.should == new_store_product_path(store4)
+    end
+  end
 end

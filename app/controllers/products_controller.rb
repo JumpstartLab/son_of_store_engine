@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_filter :store_disabled
-  before_filter :user_may_manage,
-                only: [:destroy, :edit, :update, :create, :new]
+  before_filter :user_may_stock,
+                only: [:destroy, :edit, :update, :create, :new]  
   before_filter :store_required
   before_filter :find_product, only: [:show, :edit, :update, :destroy]
 

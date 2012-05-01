@@ -47,6 +47,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def user_may_stock
+    unless current_user && current_user.may_stock?(current_store)
+       redirect_to store_path(current_store),
+      alert: "You do not have management privileges for #{current_store.name}."
+    end
+  end
+
   def user_may_manage
     unless current_user && current_user.may_manage?(current_store)
       redirect_to store_path(current_store),
