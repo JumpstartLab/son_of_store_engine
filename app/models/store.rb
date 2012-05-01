@@ -62,10 +62,11 @@ class Store < ActiveRecord::Base
   end
 
   def notify_store_admin_of_status
+    # TODO: do we need to add email for created stores?
     if status == "approved"
-      Resque.enqueue(Emailer, id)
+      Resque.enqueue(Emailer, "store_approval_notification", id)
     elsif status == "declined"
-      StoreMailer.store_declined_notification(self).deliver
+      Resque.enqueue(Emailer, "store_declined_notification", id)
     end
   end
 
