@@ -15,7 +15,7 @@ gem 'resque'
 gem 'tlsmail'
 gem 'redis-store'
 gem 'capistrano'
-#gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 
 group :production do
   gem 'pg'
@@ -36,7 +36,7 @@ end
 
 group :development, :test do
   # gem 'fabrication'
-  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+  #gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'capybara'
