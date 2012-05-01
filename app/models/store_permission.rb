@@ -10,6 +10,8 @@ class StorePermission < ActiveRecord::Base
 
   PERMISSION_TYPES = { 1 => "ADMIN", 2 => "STOCKER" }
 
+  attr_reader :email
+
 end
 
 # == Schema Information

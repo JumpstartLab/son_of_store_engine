@@ -13,7 +13,7 @@ describe "store owner actions", dose_store_admin: true do
 
     context "when on the store administration page" do
       before(:each) do
-        visit admin_store_path(store)
+        visit "/#{store.to_param}/admin"
       end
 
       it "displays the name" do
@@ -176,6 +176,31 @@ describe "store owner actions", dose_store_admin: true do
           page.should have_content "updated successfully"
         end
       end
+    end
+  end
+
+  context "adding another store admin" do
+    context "the added user already has an account" do
+      let!(:new_admin) { Fabricate(:user) }
+      before(:each) do
+        visit "/"
+        click_link_or_button "Sign-In"
+        login({email: store_owner.email_address, password: store_owner.password})
+        visit admin_store_path(store)
+        fill_in("store_permission_email", with: new_admin.email_address)
+      end
+      it "creates a new Store Permissions record" do
+        expect { click_link_or_button "Add New Store Admin" }.to change { StorePermission.count }.by(1)
+      end
+  #     it "displays the new admin on the store admin page" do
+  #       within("#admin_list") do
+  #         page.should have_content(new_admin.email_address)
+  #         page.should have_content(new_admin.name)
+  #       end
+  #     end
+  #   end
+  #   context "the added user does not already have an account" do
+  #
     end
   end
 end

@@ -17,13 +17,15 @@ body { padding-top: 60px; }
 //
 // Example:
 // @linkColor: #ff0000;
-
 /************VARIABLES AND MIXINS***********/
 @nav-color: #d5cdc1;
-@background: #d5cdc1;
-@diff: #111111;
+@main-content-background-color: #d5cdc1;
 @whale: #262626;
-@font1: Helvetica, Arial, Sans Serif;
+@header-font-family: Helvetica, Arial, Sans Serif;
+@main-font-family: Helvetica, Arial, Sans Serif;
+@background-image: "background.jpg";
+@diff: #111111;
+@order-status-color: #ccb06b;
 .gradient(@color) {
   background-image: linear-gradient(top, @color 33%, @color - @diff 67%);
   background-image: -o-linear-gradient(bottom, @color 33%, @color - @diff 67%);
@@ -42,22 +44,49 @@ body { padding-top: 60px; }
   -webkit-border-radius: 0 0 @amount @amount;
   border-radius: 0 0 @amount @amount;
 }
+/*********** COLOR THEME FOR TENANTS *********/
+@t-nav-color: @nav-color;
+@t-content-background: @main-content-background-color;
+@t-font-color: @whale;
+@t-header-font-family: @header-font-family;
+@t-main-font-family: @main-font-family;
+@t-background-image: @background-image;
+@cart-font-color: #4d453f;
 
 /********UNIVERSAL*********/
-body { background: url("background.jpg") no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
-
-.container #main-content, .container #cart-aside, .container #search { background: @background; padding: 15px; .rounded(8px); margin-bottom: 20px; float: left; margin-top: 30px; font-family: @font1;  }
-
-.container #cart-aside a, .container #search a, .container #search input[type='submit'] { margin-right: 10px; }
-.container #search {
-  text-align: center;
-  padding-bottom: 5px;
-  margin-bottom: 0;
-  input[type='text'] { width: 100%; margin-top: 5px; }
-  a, input[type='submit'] { padding: 5px 30px; margin-top: 10px;}
+body {
+  background: url(@background-image) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-input { height: 30px; }
+
+.container {
+  #main-content, #cart-aside, #search {
+    background: @main-content-background-color;
+    padding: 15px;
+    .rounded(8px);
+    margin-bottom: 20px;
+    float: left;
+    margin-top: 30px;
+    font-family: @main-font-family;
+  }
+  #cart-aside a, #search a, #search input[type='submit'] {
+    margin-right: 10px;
+  }
+  #search {
+    text-align: center;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+    input[type='text'] { width: 100%; margin-top: 5px; }
+    a, input[type='submit'] { padding: 5px 30px; margin-top: 10px;}
+  }
+  input { height: 30px; }
+}
+
 .navbar .navbar-inner {
+  font-family: @header-font-family;
   font-size: 16px;
   .gradient(@nav-color);
   height: 50px;
@@ -66,20 +95,22 @@ input { height: 30px; }
   a, .nav li a { color: @whale; text-shadow: none; }
 }
 
-
+#dose-store {
+  font-size: 12px; .rounded(0px); margin: 0 0 10px 0px; background: transparent;
+}
+.brand { background-color: #AAA; color: white; .rounded(8px); }
 img.logo { width: 50px; float: left; padding-right: 15px; }
 
 .row{ margin: 0;
-  #notice { background: @background; margin: 30px 10px 0 30px; padding: 10px; font-family: @font1; .rounded(8px); }
+  #notice { background: @main-content-background-color; margin: 30px 10px 0 30px; padding: 10px; font-family: @main-font-family; .rounded(8px); }
 }
 
-.brand { background-color: #AAA; color: white; .rounded(8px); }
-#dose-store { font-size: 12px; .rounded(0px); margin: 0 0 10px 0px; background: transparent; }
 
 /*********PRODUCTS********/
-.title-font { font-family: Arial Rounded MT Bold, Helvetica, Arial, Sans Serif; font-size: 32px; color: @title-color; }
-@price-color: @nav-color;/*#e19418;*/
-@title-color: @whale;/*#6aa3c4;*/
+@price-color: @t-nav-color;
+@title-font-color: @t-font-color;
+@title-font-family: Arial Rounded MT Bold, Helvetica, Arial, Sans Serif;
+.title-font { font-family: @title-font-family; font-size: 32px; color: @title-font-color; }
 .buy-font { font-family: Arial Rounded MT Bold, Helvetica, Arial, Sans Serif; font-size: 28px; color: @price-color; margin: 20px 0;}
 .buy-button{ padding: 10px; margin: 5px; font-size: 18px; .rounded(8px); }
 
@@ -96,8 +127,8 @@ img.logo { width: 50px; float: left; padding-right: 15px; }
       height: 180px;
       overflow: hidden;
       .bottom_rounded(5px);
-    }
-    img {
+     }
+     img {
       .bottom_rounded(5px);
       width: 200px;
     }
@@ -147,19 +178,19 @@ img.logo { width: 50px; float: left; padding-right: 15px; }
 
 /****************ORDERS**********/
 
-#order-status { font-size: 16px; margin: 15px 0; padding: 10px; background-color: #ccb06b; .rounded(8px); text-align: center; font-family: Arial Rounded MT, Helvetica, Arial, Sans Serif; }
+#order-status { font-size: 16px; margin: 15px 0; padding: 10px; background-color: @order-status-color; .rounded(8px); text-align: center; font-family: @title-font-family; }
 
 /**********CART*********/
 .cart_font {
-  font-size: 16px; font-family: Arial Rounded MT Bold, Helvetica, Arial, Sans Serif; color: #4d453f;
+  font-size: 16px; font-family: @title-font-family; color: @cart-font-color;
 }
 #cart-aside{
   #cart_item_title {
     .cart_font;
-  }
-  #cart_total {
-    .cart_font; color: #0e1735; font-size: 18px;
-  }
+}
+#cart_total {
+  .cart_font; color: #0e1735; font-size: 18px;
+}
 }
 
 

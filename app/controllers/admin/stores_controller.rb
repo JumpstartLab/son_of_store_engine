@@ -3,6 +3,7 @@ class Admin::StoresController < ApplicationController
   before_filter :confirm_has_store_admin_access, only: [:show, :edit]
 
   def show
+    @store_permission = StorePermission.new
   end
 
   def index
@@ -25,6 +26,6 @@ class Admin::StoresController < ApplicationController
   end
 
   def confirm_has_store_admin_access
-    redirect_to root_path unless current_user.is_admin_of(@store)
+    redirect_to root_path unless current_user && current_user.is_admin_of(@store)
   end
 end

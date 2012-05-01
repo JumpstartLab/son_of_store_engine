@@ -1,0 +1,4 @@
+= form_for @store_permission do |f|
+  = f.text_field :email
+  = f.hidden_field :store_id, :value => @store.id
+  = f.submit "Add New Store Admin"

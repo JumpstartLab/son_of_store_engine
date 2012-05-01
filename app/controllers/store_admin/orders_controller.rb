@@ -1,8 +1,8 @@
 #
 class StoreAdmin::OrdersController < ApplicationController
-  before_filter :require_admin
   before_filter :lookup_order, :only => [:show, :edit, :destroy, :update]
-
+  before_filter :confirm_has_store_admin_access
+  
   def index
     if params[:status] == "all"
       @orders = store_orders.all
@@ -56,5 +56,8 @@ class StoreAdmin::OrdersController < ApplicationController
   def store_orders
     Order.where(store_id: @current_store.id)
   end
-
+  
+  def confirm_has_store_admin_access
+    redirect_to root_path unless current_user.is_admin_of(@current_store)
+  end
 end
