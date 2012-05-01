@@ -25,11 +25,8 @@
           :class => "btn btn-success" %>
     </p>
     <p>
-      <%= link_to 'Retire product', 
-          product_retirement_path(product),
-          :class => "btn btn-danger",
-          method: :post %>
-   </p>
+      <%= retire_button(@product) %>
+    </p>
    </div>
  </div>
 </li>
