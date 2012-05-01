@@ -37,9 +37,10 @@ class ProductsController < ApplicationController
   end
 
   def store_enabled
-    if @current_store.nil? || !@current_store.enabled
+    if @current_store.nil? || @current_store.approval_status == "pending" || @current_store.approval_status == "declined"
       render "errors/404", :status => 404, :domain => nil
-      #redirect_to root_path, notice: "This store does not exist"
+    elsif @current_store.approval_status == "approved" && !@current_store.enabled
+      redirect_to root_path, notice: "This site is currently down for maintenance"
     end
   end
 end
