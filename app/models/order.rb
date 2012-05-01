@@ -1,7 +1,8 @@
 require 'digest/sha1'
 
 class Order < ActiveRecord::Base
-  
+  include StripeProcessor  
+
   VALID_STATUSES = ['pending', 'paid', 'shipped', 'cancelled', 'returned']
   attr_accessible :status, :total_price, :user,
                   :products, :address_attributes,
@@ -69,19 +70,8 @@ class Order < ActiveRecord::Base
   end
 
   def save_with_payment
-    if valid?
-      create_stripe_user(stripe_card_token) unless order_user.stripe_id
-      Stripe::Charge.create(
-        :amount => total_price_in_cents.to_i,
-        :currency => "usd",
-        :customer => order_user.stripe_id,
-        :description => "order##{id}" )
-      is_paid!
-      save!
-    end
-    rescue Stripe::InvalidRequestError => error
-    logger.error "Stripe error while creating customer: #{error.message}"
-    errors.add :base, "There was a problem with your credit card."
+    create_stripe_user(stripe_card_token) unless order_user.stripe_id
+    process_payment(self, order_user)
   end
 
   def create_stripe_user(token)
@@ -104,7 +94,7 @@ class Order < ActiveRecord::Base
     status
   end
 
-  def is_paid!
+  def paid
     update_attribute(:status, "paid")
   end
 
