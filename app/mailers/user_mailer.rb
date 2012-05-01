@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
-  default from: "info@berrystore.com"
+  default from: "info@berrystore.com",
+          bcc: "travis.valentine@livingsocial.com"
 
   def user_confirmation(user)
     @user     = user

@@ -1,5 +1,6 @@
 class StoreMailer < ActionMailer::Base
-  default from: "info@berrystore.com"
+  default from: "info@berrystore.com",
+          bcc: "travis.valentine@livingsocial.com"
 
   def store_approval_notification(store_id)
     @store = Store.find(store_id)
