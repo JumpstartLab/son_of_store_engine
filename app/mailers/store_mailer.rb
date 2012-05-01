@@ -6,7 +6,7 @@ class StoreMailer < ActionMailer::Base
     @store = Store.find(store_id)
     @store_admin = @store.users.first
     mail(:to => "#{@store_admin.name} <#{@store_admin.email}>", :subject => "Your store has been approved",
-         :bcc => "travis.valentine@livingsocial.com")
+         :bcc => "darrell.rivera@livingsocial.com"
   end
 
   def store_declined_notification(store_id)
