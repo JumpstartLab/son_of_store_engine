@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe StoreRolesController do
+# describe StoreRolesController do
 
-end
+# end
