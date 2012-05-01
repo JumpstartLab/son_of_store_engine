@@ -30,8 +30,7 @@ class StoresController < ApplicationController
   private
 
   def not_found
-    # render :text => "404 Not Found", :status => '404'
-    render "public/404.html", status: '404'
+    render "public/maintenance.html", status: '404'
   end
 
   def is_store_approved?

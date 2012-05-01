@@ -12,7 +12,7 @@
   </tr>
 
 <% @stores.each do |store| %>
-<tr>
+<tr id="<%= store.url_name %>">
   <td><%= store.name %></td>
   <td><%= store.url_name %></td>
   <td><%= truncate(store.description, :length=>32) %></td>
