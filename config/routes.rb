@@ -32,8 +32,10 @@ StoreEngine::Application.routes.draw do
       resources :categories
       resource :dashboard
 
-      put "product_retire" => "products#retire_product", :as => "product_retire"
+      match "product_retire" => "products#retire_product", :as => "product_retire"
     end
+
+    get 'stock/products' => 'products#stock', :as => 'stock_products'
 
     get '/' => "stores#show"
     get "checkout" => "carts#checkout", :as => "checkout"

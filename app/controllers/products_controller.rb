@@ -7,4 +7,8 @@ class ProductsController < ApplicationController
   def show
     @product = @store.products.find(params[:id])
   end
+
+  def stock
+    redirect_to admin_products_path(@store)
+  end
 end

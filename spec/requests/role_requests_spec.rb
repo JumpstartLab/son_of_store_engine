@@ -20,11 +20,12 @@ describe Role do
     end
 
     it "can create roles" do
+      before = Role.all.count
       visit new_role_path
       page.should have_content('New Role')
       page.should_not have_content('You are not authorized to access this page.')
       fill_in 'Name', :with => 'sassy_pants'
-      expect { click_button 'Create Role' }.to change{ Role.all.count }.from(2).to(3)
+      expect { click_button 'Create Role' }.to change{ Role.all.count }.from(before).to(before+1)
     end
 
     it "must create roles with unique names" do

@@ -1,5 +1,7 @@
 # Admins have direct access to administering or creating new admins
 class Admin::UsersController < Admin::ApplicationController
+  load_and_authorize_resource :store
+
   def index
     @users = @store.admin_users
   end
