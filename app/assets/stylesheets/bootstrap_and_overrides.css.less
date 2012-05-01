@@ -1,7 +1,4 @@
-
 @import "twitter/bootstrap/bootstrap";
-
-
 
 * {
     margin: 0;
@@ -27,7 +24,7 @@ html, body {
 body {
   background-image: url("/assets/topgear-background.jpg");
   background-repeat:no-repeat;
-  background-color: white;
+  background-color: #7E7A84;
 }
 
 .topper { 
@@ -41,11 +38,10 @@ body {
   border: 1px solid darkgray;
 }  
 
-h1 {
-  color: ##342F36;
+h1, h2, h3, h3 a {
+  color: #800000;
   font-style: italic;
   font-weight: bold;
-  margin-bottom: 15px;
 }
 
 #footer, .push {
@@ -70,8 +66,35 @@ h1 {
   border: 1px solid darkgray;
 }
 
+li.span3 {
+  padding-left: 50px;
+}
 
-/* ----- SimpleForm Styles ----- */
+.pagination {
+  padding-left: 50px;
+}
+
+.previous_page, .current, .next_page, a[rel="prev start"], a[rel="prev"], a[rel="next"] {
+  background-color: white;
+}
+
+.btn-custom {
+  background-color: hsl(360, 75%, 2%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bb1a1a", endColorstr="#080101");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#bb1a1a), to(#080101));
+  background-image: -moz-linear-gradient(top, #bb1a1a, #080101);
+  background-image: -ms-linear-gradient(top, #bb1a1a, #080101);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bb1a1a), color-stop(100%, #080101));
+  background-image: -webkit-linear-gradient(top, #bb1a1a, #080101);
+  background-image: -o-linear-gradient(top, #bb1a1a, #080101);
+  background-image: linear-gradient(#bb1a1a, #080101);
+  border-color: #080101 #080101 hsl(360, 75%, -8%);
+  text-shadow: none;
+  color: white;
+  }
+
+/* ----- Form Styles ----- */
 
 label, input, button, select, textarea {
 font-size: 16px;

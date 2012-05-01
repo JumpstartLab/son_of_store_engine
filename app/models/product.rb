@@ -25,7 +25,7 @@ class Product < ActiveRecord::Base
 
   has_many :product_ratings
   belongs_to :sale
-  self.per_page = 20
+  self.per_page = 15
   acts_as_tenant(:store)
 
   def average_rating
