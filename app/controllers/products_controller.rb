@@ -3,7 +3,6 @@ class ProductsController < ApplicationController
 
 #Post.where(:published => true).paginate(:page => params[:page]).order('id DESC')
   def index
-    params[:page] ||= 1
     @categories = store.categories
     @products = store.products.paginate(:page => params[:page])
   end

@@ -48,6 +48,8 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.0.0)
+    bootstrap-will_paginate (0.0.7)
+      will_paginate
     builder (3.0.0)
     capistrano (2.12.0)
       highline
@@ -260,6 +262,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
   bootstrap-sass (= 2.0.0)
+  bootstrap-will_paginate
   cane!
   capistrano
   capybara

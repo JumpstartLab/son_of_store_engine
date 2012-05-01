@@ -1,8 +1,8 @@
 class Admin::ProductsController < Admin::ApplicationController
 
   def index
-    @products = store.products.active.all
-    @retired_products = store.products.retired
+    @products = store.products.active.paginate(:page => params[:page])
+    @retired_products = store.products.retired.paginate(:page => params[:page])
     @categories = store.categories.all
   end
 
