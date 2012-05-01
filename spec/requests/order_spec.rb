@@ -36,11 +36,11 @@ describe "When I want to place an order" do
 
           it "redirects me back to the checkout process after registering" do
             within("#new_user") do
-              fill_in "user_email", with: 'test@test.com'
-              fill_in "user_name", with: 'testuser'
-              fill_in "user_display_name", with: 'bomb-diggity'
-              fill_in "user_password", with: 'hungry'
-              fill_in "user_password_confirmation", with: 'hungry'
+              fill_in "email", with: 'test@test.com'
+              fill_in "name", with: 'testuser'
+              fill_in "display_name", with: 'bomb-diggity'
+              fill_in "password", with: 'hungry'
+              fill_in "password_confirmation", with: 'hungry'
               click_link_or_button('Create Account')
               current_path.should == new_credit_card_path
             end
