@@ -6,4 +6,9 @@ class Admin::ApplicationController < ApplicationController
     { :url_name => params[:url_name] }
   end
 
+  def is_stocker_or_admin?
+    redirect_to store_path(subdomain: store.url_name) unless
+      store.users.include?(current_user) || current_user.admin
+  end
+
 end
