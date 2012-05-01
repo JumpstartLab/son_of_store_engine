@@ -30,10 +30,40 @@
     </tbody>
   </table>
   <%= form_for (@new_admin), :url => admin_store_admins_path do |f| %>
-    <%= text_field_tag :new_admin_email_address, nil, placeholder: "worace@worace.worace" %> <%= f.submit "Add Admin" %>
+    <%= text_field_tag :new_admin_email_address, nil, placeholder: "worace@worace.worace" %>
+    <%= f.hidden_field :stocker, :value => @new_admin.stocker %>
+    <%= f.submit "Add Admin" %>
   <% end %>
 </div>
 
+<div id="stockers">
+  <h3>Stockers for <%= store.name %></h3><br />
+
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Name (email)</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @stockers.each do |stocker| %>
+        <tr id="stocker_<%=stocker.id%>">
+      <td> <%= "#{stocker.name} (#{stocker.email})" %></td>
+      <% unless stocker == store.owner || stocker == current_user %>
+        <td> <%= link_to "Remove Stocker", admin_store_admin_path(stocker), :confirm => "Really remove #{stocker.name} from store stockers?", :method => "delete" %> </td>
+      <% end %>
+    </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <%= form_for (@new_stocker), :url => admin_store_admins_path do |f| %>
+    <%= text_field_tag :new_stocker_email_address, nil, placeholder: "worace@worace.worace" %>
+    <%= f.hidden_field :stocker, :value => @new_stocker.stocker %>
+    <%= f.submit "Add Stocker" %>
+  <% end %>
+</div>
 
 <h3>Orders by status</h3><br />
 <table class="table table-bordered table-striped">
