@@ -39,7 +39,7 @@ class Admin::ProductsController < Admin::ApplicationController
     else
       notice = "Couldn't find product"
     end
-    
+
     redirect_to admin_products_path(@store), :notice => notice
   end
 end

@@ -70,7 +70,12 @@ describe Role do
       user.roles.should include role2
     end
 
-    it "sees a user's assigned roles when editing that user"
+    it "sees a user's assigned roles when editing that user" do
+      role2 = Role.create(:name => 'fancy_pants')
+      visit edit_user_path(user, store)
+      page.should have_content(role2.name)
+      find_field('super_admin').value.should == "1"
+    end
   end
 
   describe "non-superadmins" do

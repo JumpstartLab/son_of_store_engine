@@ -22,7 +22,7 @@ class Admin::OrdersController < Admin::ApplicationController
   def destroy
     OrderItem.find(params[:item_id]).destroy
     notice = "Item deleted."
-    redirect_to admin_order_path(@store.orders.find(params[:id])), 
+    redirect_to admin_order_path(@store.orders.find(params[:id])),
       :notice => notice
   end
 end
