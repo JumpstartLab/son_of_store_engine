@@ -10,7 +10,7 @@ module Stores
         else
           product.activate
         end
-        redirect_to store_admin_products_path(current_store.slug)
+        redirect_to store_admin_products_path(current_store.slug), notice: 'Product has been retired.'
       end
     end
   end

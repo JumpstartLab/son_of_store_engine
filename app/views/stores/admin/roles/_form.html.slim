@@ -1,6 +1,7 @@
 .center
   h2 Please enter your details
-  = form_for([:admin, @user]) do |f|
+  = form_for @user, url: store_admin_roles_path do |f|
+    = hidden_field_tag :role, params[:role]
     = f.text_field :email, :placeholder => "E-mail Address"
     br/
     = f.submit "Create Account", :class => "btn btn-large btn-primary"

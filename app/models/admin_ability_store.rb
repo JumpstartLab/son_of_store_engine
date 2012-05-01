@@ -8,7 +8,10 @@ class AdminAbilityStore
     
     elsif user.has_role? :store_admin
       can [:manage, :promote_users?], Store do |store|
-        store.admins.include?(user)
+        # x = ( store.admins.first.user == user )
+        # raise user.inspect
+        store.admins.select{ |admin| admin.user == user }.any?
+        # raise store.admins.include?(user).inspect
       end
 
       can :manage, Category do |category|

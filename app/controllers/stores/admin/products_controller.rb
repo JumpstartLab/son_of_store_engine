@@ -1,7 +1,6 @@
 module Stores
   module Admin
     class ProductsController < BaseController
-      authorize_resource
       helper_method :product, :products
 
       def index
@@ -14,9 +13,11 @@ module Stores
       end
 
       def create
+        authorize! :create, @store
+
         if product.save
           product.update_categories(params[:categories][1..-1])
-          redirect_to store_admin_product_path(current_store.slug, product.id),
+          redirect_to store_admin_products_path(current_store.slug),
             notice: 'Product was successfully created.'
         else
           flash.now[:error] = product.errors.full_messages.join("\n")
@@ -39,7 +40,7 @@ module Stores
 
         if product.save
           product.update_categories(params[:categories][1..-1])
-          redirect_to store_admin_product_path(current_store.slug, product.id),
+          redirect_to store_admin_products_path(current_store.slug),
             notice: 'Product was successfully updated.'
         else
           product.errors.full_messages.each do |msg|
@@ -56,10 +57,12 @@ module Stores
         else
           @product ||= current_store.products.build(params[:product])
         end
+        authorize! :manage, @product
       end
 
       def products
         @products = current_store.active_products
+        # XXX AUTHORIZE COLLECTION?
       end
 
     end

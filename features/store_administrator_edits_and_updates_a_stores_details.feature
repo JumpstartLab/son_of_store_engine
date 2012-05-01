@@ -1,5 +1,3 @@
-@mofo
-
 Feature:
   As a store administrator
   I can edit and update my store details
@@ -31,9 +29,10 @@ Feature:
     Then I should be viewing the edit store page
     And the previous store URL id should be shown
 
+  @javascript
   Scenario:
     When I am being asked about confirming the change to a store URL id
     And I choose to confirm
-    Then I should see a confirmation flash message
+    And I should see a confirmation flash message with "Store details updated."
     And I should see my store admin section
     And the new store URL id should be displayed

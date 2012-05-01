@@ -1,5 +1,8 @@
 module Admin
   class StoresController < ApplicationController
+    def current_ability
+      @current_ability ||= AdminAbilitySite.new(current_user)
+    end
 
     def index
       @stores = Store.where("status = 'approved'

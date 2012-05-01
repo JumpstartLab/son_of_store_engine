@@ -1,7 +1,8 @@
 module Stores
   module Admin
     class OrdersController < BaseController
-
+      load_and_authorize_resource
+      
       def index
         @orders = current_store.orders
       end
@@ -12,8 +13,9 @@ module Stores
 
       def update
         @order = current_store.orders.find_by_id(params[:id])
-      end
+        authorize! :update, @order
 
+      end
     end
   end
 end

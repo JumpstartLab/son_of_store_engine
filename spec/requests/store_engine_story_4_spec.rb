@@ -33,7 +33,6 @@ feature "Shopper Does Bad Things" do
         before do
           click_link_or_button(order_product.name)
           @previous_uri = URI.parse(current_url)
-          save_and_open_page
           click_link_or_button("Add to cart")
         end
 
