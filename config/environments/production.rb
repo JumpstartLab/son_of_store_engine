@@ -1,7 +1,7 @@
  StoreEngine::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-
+  WillPaginate.per_page = 10
   # Code is not reloaded between requests
   config.cache_classes = true
 
