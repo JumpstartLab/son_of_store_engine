@@ -8,11 +8,12 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def new
     @product = Product.new
-    @categories = Category.all
+    @categories = store.categories.all
   end
 
   def create
     @product = Product.create(params[:product])
+    @categories = @product.categories
 
     if @product.save
       @product.update_categories(params[:categories][1..-1])
