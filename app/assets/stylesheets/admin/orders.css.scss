@@ -1,3 +1,29 @@
 // Place all the styles related to the admin/orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/* EDIT */
+.order-table{ 
+  padding-bottom: 10px;
+}
+th.order-edit{ 
+  border-bottom: double #bdbdbd;
+}
+
+td.quantity{ 
+  text-align: right;
+}
+
+tr.order-items{ 
+  border-bottom: 1px solid #bdbdbd;
+  vertical-align: middle;
+}
+
+/* SHOW */ 
+
+td.item-subtotal{ 
+  text-align: right;
+}
+
+tr.headers-order-show{ 
+  border-bottom: double #bdbdbd;
+}

@@ -1,20 +1,23 @@
 = form_for([:admin, @order]) do |f|
-  div class="field"
-    = f.label :status
-    = f.text_field :status
-
-    table
+  .order-table
+    table.table-condensed
       tr
-        th = "Title"
-        th = "Price"
-        th = "Quantity"
-        th = "Subtotal"
+        th.order-edit = "Title"
+        th.order-edit = "Price"
+        th.order-edit  = "Quantity"
+        th.order-edit  = "Subtotal"
         = f.fields_for :order_items do |i|
-          tr
+          tr.order-items
             td = i.object.title
             td = i.object.price
             td.quantity = i.text_field :quantity
             td = i.object.subtotal
 
-  div class="actions"
-    = f.submit
+  .status-field
+    #edit-status-label
+      = f.label :status
+    #edit-status-text
+      = f.text_field :status
+
+  .edit-order-actions
+    = f.submit :class=> 'btn btn-primary'
