@@ -34,7 +34,7 @@ module NavHelper
 
   def nav_array_admin
     {
-      "Home" => root_path,
+      "Browse All Stores" => home_path,
       "Cart" => cart_path,
       "Sales" => sales_path,
       "Admin Dashboard" => admin_dashboard_path,
@@ -46,7 +46,7 @@ module NavHelper
 
   def nav_array_user
     {
-      "Home" => root_path,
+      "Browse All Stores" => home_path,
       "Cart" => cart_path,
       "Sales" => sales_path,
       "My Orders" => my_orders_orders_path,
@@ -57,8 +57,8 @@ module NavHelper
 
   def nav_guest
     {
-      "Home" => root_path,
-      "Cart" => cart_path,
+      "Browse All Stores" => home_path,
+      # "Cart For #{.name}" => cart_path,
       "Sales" => sales_path,
       "Login or Signup" => login_path
     }
@@ -66,6 +66,7 @@ module NavHelper
 
   def admin_navigation
     {
+      "Browse All Stores" => home_path,
       "Products"    => admin_products_path,
       "Orders"      => admin_orders_path,
       "Categories"  => admin_categories_path,
