@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 `$(function() {
-	$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function(data) {
+	$.getJSON('stats/revenue_over_time', function(data) {
 
 		// Create the chart
 		window.chart = new Highcharts.StockChart({
@@ -15,17 +15,18 @@
 			},
 
 			title : {
-				text : 'AAPL Stock Price'
+				text : 'Revenue Over Time'
 			},
 
 			series : [{
-				name : 'AAPL Stock Price',
+				name : 'Revenue Over Time',
 				data : data,
 				type : 'area',
 				threshold : null,
 				tooltip : {
 					valueDecimals : 2
 				},
+
 				fillColor : {
 					linearGradient : {
 						x1: 0, 

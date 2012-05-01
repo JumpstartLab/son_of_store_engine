@@ -37,6 +37,7 @@ StoreEngine::Application.routes.draw do
     resource :stocker_dashboard, :controller => 'stocker_dashboard', 
              :only => :show
     resources :store_orders, :only => [:index]
+    match "stats/revenue_over_time" => "stats#revenue_over_time"
   end
 
 

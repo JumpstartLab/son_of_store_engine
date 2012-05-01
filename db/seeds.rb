@@ -78,6 +78,8 @@ def seed_orders(store, count)
      quantity: 1,
      unit_price: product.price
      )
+     o.created_at = (rand*200).days.ago
+     o.save
   end
 end
 
@@ -193,9 +195,9 @@ products = first_store.products.create([{ title: 'Moccasin',
                         image_link: "http://dl.dropbox.com/u/71404227/1780225-p-2x.png",
                         categories: [female_category, dress_category]}])
 
-seed_products(second_store, 10000)
-seed_users(500)
-seed_orders(second_store, 5000)
+seed_products(second_store, 1000)
+seed_users(5)
+seed_orders(second_store, 1000)
 
 admin_user = User.new(  full_name: "Chad Fowler",
                         password: "hungry",
