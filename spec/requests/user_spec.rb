@@ -163,27 +163,75 @@ describe "User" do
       page.current_path.should == root_path
     end
   end
-  
-  context "user is employed", :dork => :test do
+  context "employees trying to manage stores", :dork => :test do
     let!(:user3) { FactoryGirl.create(:user)}
     let!(:store1) { FactoryGirl.create(:store)}
-    let!(:store2) { FactoryGirl.create(:store)}
 
     before(:each) do
       user3.promote(store1, :stocker)
-      user3.promote(store2, :manager)
       login(user3)
-      visit profile_path
     end
 
-    it "shows stocker" do
-      page.should have_content store1.name
-      page.should have_content 'stocker'
+    context "user is employed" do
+      let!(:store2) { FactoryGirl.create(:store)}
+
+      before(:each) do
+        user3.promote(store2, :manager)
+        visit profile_path
+      end
+
+      it "shows stocker" do
+        page.should have_content store1.name
+        page.should have_content 'stocker'
+      end
+
+      it "shows manager" do
+        page.should have_content store2.name
+        page.should have_content 'manager'
+      end
     end
 
-    it "shows manager" do
-      page.should have_content store2.name
-      page.should have_content 'manager'
+    context "on profile page" do
+      before (:each) do
+        visit profile_path
+      end
+
+      context "and stocker clicks on administer" do
+        it "takes stocker to the stocker_dashboard" do
+          click_on "Administer"
+          page.current_path.should == store_stocker_dashboard_path(store1)
+        end
+      end
+    end
+
+      context "and manager clicks on administer" do
+        it "takes manager to the dashboard" do
+          user5 = FactoryGirl.create(:user)
+          store3 = FactoryGirl.create(:store) 
+          user5.promote(store3, :manager)
+          login(user5)
+          visit profile_path
+          click_on "Administer"
+          page.current_path.should == store_dashboard_path(store3)
+        end
+      end
+      
+    context "when not an employee" do
+      let!(:user4) { FactoryGirl.create(:user)}
+
+      it "redirects to the root path" do
+        login(user4)
+        visit store_stocker_dashboard_path(store1)
+        page.current_path.should == root_path
+      end
+    end
+
+    context "when not logged in" do
+      it "redirects to root path" do
+        click_link "Log Out"
+        visit store_stocker_dashboard_path(store1)
+        page.current_path.should == root_path
+      end
     end
   end
 end

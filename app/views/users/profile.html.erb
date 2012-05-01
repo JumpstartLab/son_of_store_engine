@@ -19,7 +19,7 @@
   <tbody> 
     <% @user.stores.each do |store| %>
       <tr>
-        <td><%= link_to store.name, store_path(store) %></td>
+        <td><%= store.name %></td>
         <td><%= (store.description || "(blank)").truncate(32) %></td>
         <td><%= store.slug %></td>
         <td><%= store.status %></td>
@@ -50,8 +50,13 @@
         <td><%= store.name %></td>
         <td><%= @user.store_role(store) %></td>
         <td>
-          <%= link_to "Administer", store_dashboard_path(store), 
-              :class => "btn" %>
+          <% if @user.may_manage?(store) %>
+            <%= link_to "Administer", store_dashboard_path(store), 
+                :class => "btn" %>
+          <% else @user.may_stock?(store) %>
+            <%= link_to "Administer", store_stocker_dashboard_path(store), 
+                :class => "btn" %>
+          <% end %>
         </td>
       </tr>
     <% end %>

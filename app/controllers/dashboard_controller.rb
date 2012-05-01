@@ -1,8 +1,16 @@
 class DashboardController < ApplicationController
   before_filter :validate_store 
-  before_filter :user_may_manage, only: :show
+  #before_filter :user_may_manage, only: :show
 
   def show
+    # if current_user is stocker
+    # render stocker template
+    # else if manager
+    # render mang template
+    # elsif owner
+    # render owner template
+    # else
+    #  BOOM
     @orders = @store.orders
     @categories = @store.categories
     @products = @store.products

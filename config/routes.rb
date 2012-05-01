@@ -33,6 +33,8 @@ StoreEngine::Application.routes.draw do
     resources :cart_items
     resources :unique_orders, :only => :show
     resources :visitor_orders
+    resource :stocker_dashboard, :controller => 'stocker_dashboard', 
+             :only => :show
   end
 
 
