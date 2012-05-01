@@ -19,8 +19,8 @@ class Admin::CategoriesController < Admin::ApplicationController
     @category = store.categories.create(params[:category])
 
     if @category.save
-      redirect_to admin_categories_path(store),
-      notice: 'Category was successfully created.'
+      redirect_to admin_dashboard_path,
+        notice: 'Category was successfully created.'
     else
       @category.errors.full_messages.each do |msg|
         flash.now[:error] = msg
@@ -39,7 +39,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 
     if @category.save
       redirect_to admin_categories_path(store),
-      notice: 'Category was successfully updated.'
+        notice: 'Category was successfully updated.'
     else
       @category.errors.full_messages.each do |msg|
         flash.now[:error] = msg

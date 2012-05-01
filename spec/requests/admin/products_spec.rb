@@ -9,10 +9,10 @@ describe "As an admin updating products" do
     fill_in "email", with: user.email
     fill_in "password", with: "foobar"
     click_link_or_button('Log in')
-    visit products_path
+    visit admin_products_path(subdomain: "best-sunglasses")
   end
   context "when I'm on the products index page"
-    let(:product) { FactoryGirl.create(:product) }
+    let(:product) { FactoryGirl.create(:product, store_id: Store.find_by_url_name("best-sunglasses").id ) }
     before(:each) { visit admin_products_path }
 
     context "and I click 'New Product'" do
@@ -50,7 +50,9 @@ describe "As an admin updating products" do
     end
 
     context "and I retire a product" do
-      before(:each) { visit admin_product_path(product) }
+      before do
+        visit admin_product_path(product)
+      end
 
       it "retires that product" do
         click_link_or_button('Retire product')
