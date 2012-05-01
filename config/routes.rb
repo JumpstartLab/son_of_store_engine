@@ -15,7 +15,7 @@ StoreEngine::Application.routes.draw do
       put "decline", on: :member
     end
   end
-  match "/code" => redirect("http://github.com/chrismanderson/store_engine")
+  match "/code" => redirect("https://github.com/tkiefhaber/son_of_store_engine")
   match "/profile" => "users#profile", as: "profile"
 
   match "/new" => "stores#new"
