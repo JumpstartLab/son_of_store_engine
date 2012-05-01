@@ -15,7 +15,7 @@
               ul.dropdown-menu
                 - store_categories.each do |category|
                   li = link_to category.name, "/#{@current_store.to_param}/categories/#{category.to_param}"
-                li = link_to "All Categories", "/#{@current_store}/categories"
+                li = link_to "All Categories", "/#{@current_store.to_param}/categories"
           - if session[:order_id]
             - cart = Order.find(session[:order_id])
             li= link_to "Cart (#{cart.total_items})", order_path(@current_store, cart), id: "cart", name: "cart"
