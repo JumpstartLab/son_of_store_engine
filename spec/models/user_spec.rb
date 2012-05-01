@@ -110,15 +110,6 @@ describe User do
     end
   end
 
-  describe ".invite_user(email)" do
-    it "creates a new user" do
-    end
-    it "creates a user without a password" do
-    end
-    it "creates a user with a set password token" do
-    end
-  end
-
 end
 
 # == Schema Information

@@ -7,6 +7,7 @@
       ul
       - @user.errors.full_messages.each do |msg|
         li = msg
+  = hidden_field_tag :invite_code, @invite_code
   = f.label :full_name
   = f.text_field :full_name
   = f.label :email_address
