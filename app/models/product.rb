@@ -15,6 +15,8 @@
 
 # A product can be added to a cart or an order through order_items
 class Product < ActiveRecord::Base
+  self.per_page = 10
+
   attr_accessible :description, :price, :title, :photo, :retired
   has_many :order_items
   has_many :orders, :through => :order_items

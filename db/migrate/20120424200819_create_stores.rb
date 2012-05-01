@@ -5,6 +5,7 @@ class CreateStores < ActiveRecord::Migration
       t.string :slug
       t.string :description
       t.string :status,             :default => 'pending'
+      t.string :css
       t.timestamps
     end
   end

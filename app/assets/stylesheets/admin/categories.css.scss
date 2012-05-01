@@ -1,3 +1,27 @@
 // Place all the styles related to the admin/categories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/* INDEX */ 
+h1.admin-cat-header{ 
+ padding-bottom: 25px;
+}
+
+.admin-new-cat-action{
+  padding-bottom: 10px;
+}
+
+table.admin-cat-index{ 
+  width: 25%;
+}
+
+#admin-index-cat-name{ 
+
+}
+
+#admin-index-cat-actions{ 
+  vertical-align: middle;
+}
+
+/* NEW & PARTIAL */
+
+/* SHOW */
