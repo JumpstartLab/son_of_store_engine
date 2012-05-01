@@ -1,6 +1,6 @@
 # Restful actions for products
 class ProductsController < ApplicationController
-  
+  cache_sweeper :product_sweeper
   include ProductsActions
 
   def show
