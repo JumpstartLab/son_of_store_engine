@@ -20,11 +20,13 @@ gem 'aws-s3', :require => 'aws/s3'
 gem 'aws-sdk'
 gem 'newrelic_rpm'
 gem 'acts_as_tenant'
-gem 'redis'
-gem 'resque'
 gem 'thin'
-gem 'redis-store', "~> 1.0.0"
 
+group :development, :production do 
+  gem 'redis'
+  gem 'resque'
+  gem 'redis-store', "~> 1.0.0"
+end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
