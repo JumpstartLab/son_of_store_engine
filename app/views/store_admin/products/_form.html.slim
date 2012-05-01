@@ -31,11 +31,11 @@
       h3 Categories
       br/
       = hidden_field_tag "product[category_ids][]", nil
-      - Category.all.each do |category|
+      - Category.where(store_id: @current_store.id).all.each do |category|
         = check_box_tag "product[category_ids][]", category.id, @product.category_ids.include?(category.id), id: dom_id(category)
         = label_tag dom_id(category), category.name
 
     br/
     .form-actions
       = f.submit :class => 'btn btn-primary'
-      = link_to 'Cancel', products_path(:domain), :class => 'btn'
+      = link_to 'Cancel', admin_products_path(:domain), :class => 'btn'
