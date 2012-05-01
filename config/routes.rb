@@ -51,9 +51,9 @@ StoreEngine::Application.routes.draw do
         resource :status, only: :update
       end
       resources :users, only: [:show, :new, :create, :destroy, :update]
-      resources :roles, only: :destroy
-      match 'store_admin/new', :to => 'users#new'
-      match 'store_stocker/new', :to => 'users#new'
+      resources :roles, only: [:new, :create, :destroy]
+      match 'store_admin/new', :to => 'roles#new'
+      match 'store_stocker/new', :to => 'roles#new'
     end
     match '/admin', :to => 'admin/dashboard#show'
     match '/admin/edit', :to => 'admin/stores#edit'

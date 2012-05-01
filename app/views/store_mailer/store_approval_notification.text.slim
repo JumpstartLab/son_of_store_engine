@@ -1,0 +1,12 @@
+= "Hi #{@store.users.first.name}, "
+
+| Your store (
+= @store.name
+| ) at 
+= link_to "http://storeberry.herokuapp.com/#{@store.slug}"
+|  has been approved.
+
+=  "Upon signin, you can visit the admin page at http://storeberry.herokuapp.com/#{@store.slug}/admin"
+
+Thanks,
+Storeberry

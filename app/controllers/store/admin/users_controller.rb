@@ -28,5 +28,4 @@ class Store::Admin::UsersController < Store::Admin::BaseController
       redirect_to admin_path(current_store.slug), :notice => "#{user.name} is now a store admin."
     end
   end
-
 end
