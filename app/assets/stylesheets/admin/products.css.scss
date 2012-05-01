@@ -1,3 +1,26 @@
 // Place all the styles related to the admin/products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/* INDEX */ 
+#create_new_prod_from_index{
+  padding-top: 10px;
+  padding-left: 265px;
+}
+
+/* EDIT */ 
+.admin-edit-prod-cat{
+  margin-top:150px;
+}
+
+
+/* FORM */ 
+form.edit_product{ 
+  float: left;
+  margin-right: 10px;
+  width: 250px;
+ }
+/* NEW */ 
+.prod-actions{ 
+  padding-top: 10px;
+}
+/* SHOW */ 
