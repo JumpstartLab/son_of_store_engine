@@ -194,7 +194,7 @@ describe Cart do
           fill_billing_form
           click_button "Submit"
           page.should have_content("Thank you!")
-          find('h1').should have_content("Order")
+          find('h2').should have_content("Order")
         end
 
         it "clears my cart" do

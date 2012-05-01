@@ -2,7 +2,6 @@ h1 = "Category #{@category.name}"
 
 table.products id="products" class="span12"
   - @products.each do |product|
-   - cache(product) do
       tr
         table.product id="product" class="span3"
           tr

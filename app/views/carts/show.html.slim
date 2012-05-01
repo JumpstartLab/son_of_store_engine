@@ -1,9 +1,10 @@
 h1 = "Your Cart#{' is Empty.' if @cart.items.empty?}"
 
+
 div.cart id="cart"
-  table.table-striped
-    tr 
-      th#cart Title
+  table.table-striped.table-condensed
+    tr.span8
+      th#cart Titles
       th#cart Price
       th#cart Quantity
       th#cart Subtotal
@@ -27,7 +28,7 @@ div.cart id="cart"
         td#text Total: 
         td#total = @cart.total
       = f.submit "Update Cart", :class => 'btn'
-      
+    
 .cart-actions
 = link_to "Checkout", checkout_prompt_path(@store), :class=>'btn btn-primary'
 = link_to "Keep Shopping", products_path(@store), :class => 'btn btn-primary'
