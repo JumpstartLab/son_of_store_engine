@@ -90,7 +90,7 @@ p20 = product(["Baller Shoes", "Jump up to 5 feet higher with these things on", 
 # 4.times do |p|
 #   Product.create(
 #                   :name => Faker::Name.name, :description => Faker::Lorem.sentence(20),
-#                   :price => rand(100..999999), :store => @store_array[rand(0..2)], :categories => [@categories_array[rand(0..10)]]
+#                   :price => rand(100..9999), :store => @store_array[rand(0..2)], :categories => [@categories_array[rand(0..10)]]
 #                 )
 # end
 
