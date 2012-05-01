@@ -1,5 +1,10 @@
 class SessionsController < ApplicationController
 
+  def index
+    redirect_to store_path,
+      :notice => "Chef Pierre says, 'Bonjour!'"
+  end
+
   def new
   end
 

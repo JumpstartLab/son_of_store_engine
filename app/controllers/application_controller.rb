@@ -85,6 +85,7 @@ private
       redirect_to session[:last_page]
       return
     else
+      raise "BOOM"
       redirect_to stores_path,
         :notice => "Logged in! Buy things! Capitalism!"
     end
