@@ -1,22 +1,10 @@
 <h1 id="edit">Edit the Store</h1>
 
-<%= form_for([:admin, @store]) do |f| %>
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, :class => "store_name" %>
+<div class="row">
+  <div class="span6">
+    <%= render "edit_info_form" %>
   </div>
-  <div class="field">
-    <%= f.label :url_name %>
-    <%= f.text_field :url_name, :class => "url_name" %>
+  <div class="span6">
+    <%= render "edit_url_form" %>
   </div>
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
-<% end %>
+</div>
