@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe "As an admin visiting the dashboard" do
-  let!(:store) { Store.first }
-  let!(:user) { FactoryGirl.create(:user, :admin => true) }
-  let!(:store_admin2) { FactoryGirl.create(:user, :name => "store admin 2", :email => "admin2@worace.com", :admin => true) }
-  let!(:new_store_admin) { FactoryGirl.create(:user, :name => "Worace the Third", :email => "admin3@worace.com", :admin => true) }
+  let(:store) { Store.first }
+  let(:user) { FactoryGirl.create(:user, :admin => true) }
+  let(:store_admin2) { FactoryGirl.create(:user, :name => "store admin 2", :email => "admin2@worace.com", :admin => false) }
+  let(:new_store_admin) { FactoryGirl.create(:user, :name => "Worace the Third", :email => "admin3@worace.com", :admin => false) }
+  let(:new_store_stocker) { FactoryGirl.create(:user, :name => "Worace the Fourth", :email => "stocker1@worace.cim", :admin => false) }
 
   before do
     set_host(store.url_name)
@@ -84,12 +85,21 @@ describe "As an admin visiting the dashboard" do
     end
 
     context "when working with stockers" do
-      it "has a box to add a stocker" do
+      it "has a section for listing stockers" do
         within("#stockers") do
           page.should have_content("Stockers for #{store.name}")
         end
       end
 
+      it "lets me create a new stocker for my awesome store" do
+        within("#stockers") do
+          fill_in "new_stocker_email_address", with: new_store_stocker.email
+          click_link_or_button('Add Stocker')
+        end
+        within("#stockers") do
+          page.should have_content(new_store_stocker.name)
+        end
+      end
     end
   end
 end

@@ -5,6 +5,7 @@ class Admin::DashboardController < Admin::ApplicationController
   def show
     @admins = store.admins
     @new_admin = store.store_admins.new
+    @new_stocker = store.store_stockers.new
     @orders = Order.orders_by_status(params[:order_status])
     @categories = Category.all
   end
