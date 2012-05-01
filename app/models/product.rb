@@ -1,7 +1,5 @@
 class Product < ActiveRecord::Base
   REGEX = /^https?:\/\/(?:[a-z\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png|jpeg)$/
-  # set per_page value for WillPaginate
-  self.per_page = 12
   attr_accessible :description, :name, :photo, :price, :store_id
   before_save :check_for_photo
 

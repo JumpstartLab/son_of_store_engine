@@ -1,7 +1,5 @@
 class Order < ActiveRecord::Base
   attr_accessible :user_id, :credit_card_id, :order_products
-  # set per_page value for WillPaginate
-  self.per_page = 20
   belongs_to :user
   belongs_to :credit_card
 

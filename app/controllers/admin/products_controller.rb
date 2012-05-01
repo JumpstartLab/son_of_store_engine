@@ -3,8 +3,8 @@ class Admin::ProductsController < Admin::ApplicationController
   before_filter :is_stocker_or_admin?
 
   def index
-    @products = store.products.active.paginate(:page => params[:page])
-    @retired_products = store.products.retired.paginate(:page => params[:page])
+    @products = store.products.active.page(params[:page]).per(12)
+    @retired_products = store.products.retired.page(params[:page]).per(12)
     @categories = store.categories.all
   end
 
