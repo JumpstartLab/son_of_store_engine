@@ -56,4 +56,9 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, :notice => "That store has been disabled."
     end
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to unauthorized_path, :alert => exception.message
+  end
+
 end
