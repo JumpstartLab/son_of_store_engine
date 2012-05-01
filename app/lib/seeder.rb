@@ -117,8 +117,12 @@ class Seeder
       password: 'hungry')
     stocker.roles.build(name: "store_stocker", store: Store.find(1))
     stocker.save
-    User.new( name: 'Jeff', display_name: 'j3',
+    
+    store_admin = User.new( name: 'Jeff', display_name: 'j3',
       email: 'demo08+jeff@jumpstartlab.com', password: 'hungry')
+    store_admin.roles.build(name: "store_admin", store: Store.find(2))
+    store_admin.save
+
     admin = User.new( name: 'Chad Fowler', display_name: 'SaxPlayer',
       email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
     admin.roles.build(name: "site_admin")

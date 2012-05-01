@@ -32,6 +32,18 @@ class Store < ActiveRecord::Base
     scope status.to_sym, where(:status => status)
   end
 
+  def stockers
+    Role.where(:store_id => self.id).select { |role| role.name == "store_stocker" }
+  end
+
+  def creator
+    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }.first
+  end
+
+  def admins
+    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
+  end
+
   def active_products
     products.where(:retired => false)
   end
@@ -50,10 +62,11 @@ class Store < ActiveRecord::Base
   end
 
   def notify_store_admin_of_status
+    # TODO: do we need to add email for created stores?
     if status == "approved"
-      Resque.enqueue(Emailer, id)
+      Resque.enqueue(Emailer, "store_approval_notification", id)
     elsif status == "declined"
-      StoreMailer.store_declined_notification(self).deliver
+      Resque.enqueue(Emailer, "store_declined_notification", id)
     end
   end
 

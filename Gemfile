@@ -48,6 +48,8 @@ group :development, :test do
   gem 'reek', :git => "git://github.com/mvz/reek.git", :branch => "ripper_ruby_parser-2"
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'simplecov'
+  gem 'newrelic_rpm'
   gem 'redis-store', '~>1.0.0'
+  gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   #gem 'ruby-debug19', :require => 'ruby_debug'
 end

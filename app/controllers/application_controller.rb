@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::Base 
   protect_from_forgery
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = "Access denied."
+    redirect_back_or_to store_path(current_store.slug)
+  end
 
   before_filter :verify_store_status
   
