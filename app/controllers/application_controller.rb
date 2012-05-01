@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     else
       url = root_url
     end
-    
+
     redirect_to url, :alert => exception.message
   end
 
