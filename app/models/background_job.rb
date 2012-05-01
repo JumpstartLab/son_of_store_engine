@@ -23,4 +23,8 @@ class BackgroundJob
   def self.invitation_email(email, privilege, store)
     Resque.enqueue(InvitationEmailer, email, privilege, store)
   end
+
+  def self.user_confirmation_email(user)
+    Resque.enqueue(UserConfirmationEmailer, user)
+  end
 end

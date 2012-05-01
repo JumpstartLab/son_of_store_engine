@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
                       :maximum => 32,
                       :allow_blank => true
 
+  after_create :send_confirmation_email
+
+  def send_confirmation_email
+    BackgroundJob.user_confirmation_email(self)
+  end
+
   def store_cart(store)
     carts.where(store_id: store.id).first
   end

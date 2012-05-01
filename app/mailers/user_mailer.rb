@@ -47,4 +47,10 @@ class UserMailer < ActionMailer::Base
     mail(:to => @email,
       :subject => "#{@store_name} wants you to sign up so you can be a #{@privilege}!" )
   end
+
+  def user_confirmation(user)
+    @email = user.email
+    mail(:to => @email,
+      :subject => "Welcome to SOSE, #{user.name}!" )
+  end
 end
