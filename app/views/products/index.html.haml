@@ -16,8 +16,6 @@
         - if product.active == 1
           %p= link_to "Add To Cart", cart_path(:product_id => product.id), :method => :put, :class => 'btn btn-custom'
 
-
-
 .row-fluid
   = will_paginate @products
 
