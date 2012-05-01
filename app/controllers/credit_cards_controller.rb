@@ -6,8 +6,8 @@ class CreditCardsController < ApplicationController
 
   def create
     @cc = current_user.credit_cards.new
-    @cc.add_details_from_stripe_card_token(
-      params[:credit_card][:stripe_card_token] )
+    @cc.stripe_card_token = params[:credit_card][:stripe_card_token]
+    @cc.save
     redirect_to new_order_path
   end
 
