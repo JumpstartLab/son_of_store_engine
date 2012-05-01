@@ -3,7 +3,7 @@
 # Ruby, Java, .NET, PHP, and Python applications with deep visibility and low overhead.
 # For more information, visit www.newrelic.com.
 #
-# Generated April 23, 2012
+# Generated May 01, 2012
 #
 # This configuration file is custom generated for Jonan Studios
 
@@ -225,4 +225,3 @@ staging:
   <<: *default_settings
   monitor_mode: true
   app_name: My Application (Staging)
-
