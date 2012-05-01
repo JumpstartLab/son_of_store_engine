@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 describe "As an admin updating categories" do
-  let!(:user) { FactoryGirl.create(:user, :admin => true) }
+  let!(:user) { FactoryGirl.create(:user) }
+
 
   before(:each) do
+    user.roles.create(name: "store_admin")
     login_user_post(user.email, "foobar")
   end
 
@@ -14,6 +16,7 @@ describe "As an admin updating categories" do
 
     context "and I enter invalid information" do
       it "prevents me from making a new category" do
+        save_and_open_page
         expect {click_link_or_button('Create Category')}.to_not change(Category, :count).by(1)
       end
 

@@ -56,10 +56,12 @@ module Stores
         else
           @product ||= current_store.products.build(params[:product])
         end
+        authorize! :manage, @product
       end
 
       def products
         @products = current_store.active_products
+        # XXX AUTHORIZE COLLECTION?
       end
 
     end

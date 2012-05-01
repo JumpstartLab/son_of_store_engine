@@ -3,7 +3,7 @@ ul.thumbnails
   .row style="margin-bottom:20px"
     = render :partial => product
     li.span8
-      h1= product.name.capitalize
+      h1= product.name.titleize
       h4 Description:
       br/
       = product.description

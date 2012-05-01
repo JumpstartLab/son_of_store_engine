@@ -62,6 +62,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to unauthorized_path, :alert => exception.message
+  end
+
   def return_path
     if params[:return_path].blank?
       @return_path = request.referer || root_url

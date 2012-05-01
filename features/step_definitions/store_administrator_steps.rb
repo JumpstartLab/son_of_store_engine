@@ -131,6 +131,7 @@ Then /^that product is retired, as in StoreEngine v(\d+)$/ do |arg1|
 end
 
 Given /^I to click to add a new store admin$/ do
+  save_and_open_page
   click_on "Add new store admin"
 end
 

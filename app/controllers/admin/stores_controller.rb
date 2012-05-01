@@ -1,11 +1,15 @@
 module Admin
   class StoresController < ApplicationController
-    authorize_resource :class => false
+    
+    def current_ability
+      @current_ability ||= AdminAbilitySite.new(current_user)
+    end
 
     def index
       @stores = Store.where("status = 'approved'
         OR status = 'disabled'
         OR status = 'pending'")
+      authorize! :manage, @stores
     end
 
     def edit

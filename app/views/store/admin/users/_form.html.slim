@@ -1,6 +1,0 @@
-.center
-  h2 Please enter your details
-  = form_for([:admin, @user]) do |f|
-    = f.text_field :email, :placeholder => "E-mail Address"
-    br/
-    = f.submit "Add user", :class => "btn btn-large btn-primary"

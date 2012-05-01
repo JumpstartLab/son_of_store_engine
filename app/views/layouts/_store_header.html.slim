@@ -7,7 +7,7 @@ header.navbar.navbar-fixed-top
           li#cart-menu
           - if current_user
             / XXX Ed, bro. Fix this.
-            li= link_to "Stores", admin_stores_path if can? :read, Store
+            li= link_to "Stores", admin_stores_path if current_user.has_role?(:site_admin)
             li= link_to user_path(current_user.id) do
                 i.icon-user.icon-white
                 | &nbsp;&nbsp;#{current_user.name}
