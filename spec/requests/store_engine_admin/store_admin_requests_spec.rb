@@ -29,5 +29,21 @@ describe "Store Admin Requests" do
       page.should have_content "Other store name"
       page.should_not have_content old_name
     end
+    context "when disabling a store" do
+      it "notifies about the store being disabled" do
+        click_link_or_button "Disable"
+        current_path.should == "/admin/stores"
+        page.should have_content "has been disabled"
+        page.should have_content "Enable"
+      end
+      context "when navigating to the store" do
+        it "says that the store is under maintenance" do
+          click_link_or_button "Disable"
+          visit "/#{store.to_param}"
+          page.should have_content "maintenance"
+          page.should_not have_content "$"
+        end
+      end
+    end
   end
 end

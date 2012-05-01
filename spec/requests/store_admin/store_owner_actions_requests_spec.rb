@@ -88,7 +88,9 @@ describe "store owner actions", dose_store_admin: true do
               end
 
               it "shows the site as enabled" do
-                find("#store_active_status").text.downcase.should have_content "enabled"
+                within "#store_#{store.id}"do
+                  page.should have_content "Yes"
+                end
               end
             end
           end
@@ -119,7 +121,9 @@ describe "store owner actions", dose_store_admin: true do
               end
 
               it "shows the site as enabled" do
-                find("#store_active_status").text.downcase.should have_content "disabled"
+                within ("#store_#{store.id}")do
+                  page.should have_content "No"
+                end
               end
             end
           end

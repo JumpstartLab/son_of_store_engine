@@ -4,7 +4,7 @@ class StorePermission < ActiveRecord::Base
   validates :store_id, numericality: true, presence: true
   validates :user_id, numericality: true, presence: true
   validates :permission_level, numericality: true, presence: true
- 
+
   belongs_to :user
   belongs_to :store
 

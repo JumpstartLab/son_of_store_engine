@@ -41,7 +41,12 @@ class Store < ActiveRecord::Base
   end
 
   def make_owner_an_admin
-    StorePermission.create(user_id: creating_user_id, store_id: self.id, permission_level: 1)
+    StorePermission.create(user_id: creating_user_id, store_id: self.id,
+                           permission_level: 1)
+  end
+
+  def approved?
+    approval_status == "approved"
   end
 end
 # == Schema Information

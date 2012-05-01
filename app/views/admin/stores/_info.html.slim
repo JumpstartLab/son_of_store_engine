@@ -7,7 +7,7 @@
 .row
   .label.span2 Domain
   .span6#store_domain
-    = link_to @store.domain, store_path(@store)
+    = link_to @store.domain, "/#{@store.to_param}"
 .row
   .label.span2 Description
   .span6#store_description
