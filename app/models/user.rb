@@ -43,8 +43,13 @@ class User < ActiveRecord::Base
     type == "GuestUser"
   end
 
-  def has_role?(role_sym)
-    roles.any? { |r| r.name.underscore.to_sym == role_sym }
+  def has_role?(role, store=nil)
+    role = role.to_s
+    if store
+      store.roles.where(user_id: id, name: role).count > 0
+    else
+      roles.where(name: role).count > 0
+    end
   end
 
   def find_cart_by_store_id(store_id)
