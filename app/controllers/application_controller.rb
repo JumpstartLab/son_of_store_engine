@@ -46,8 +46,13 @@ private
     render "public/404.html", status: '404'
   end
 
+  def down_for_maintenance
+    render "public/maintenance", status: '404'
+  end
+
   def is_store_approved?
-    not_found unless store.approved? && store.enabled?
+    not_found if store.pending? || store.declined # store.enabled?
+    down_for_maintenance if store.approved && store.disabled
   end
 
   def store
@@ -85,7 +90,6 @@ private
       redirect_to session[:last_page]
       return
     else
-      raise "BOOM"
       redirect_to stores_path,
         :notice => "Logged in! Buy things! Capitalism!"
     end
