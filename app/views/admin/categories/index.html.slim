@@ -1,15 +1,16 @@
 h1 Categories
-br
-p = link_to "New Category", new_admin_category_path, :class=> 'btn btn-primary'
 
-br
-table.table-striped
+.admin-new-cat-action
+= link_to "New Category", new_admin_category_path, :class=> 'btn btn-primary'
+
+table.table-bordered.table-striped
   tr
     th.categories Name
-    th.categories Actions
+    th.span2.categories Actions
   - @categories.each do |category|
     - cache(category) do
       tr
+        .admin-index-cat-name
         td = link_to category.name, admin_category_path(@store, category)
         td = link_to "Edit", edit_admin_category_path(@store, category)
         td = link_to 'Destroy', admin_category_path(@store), :method => :delete, 

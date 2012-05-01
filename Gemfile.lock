@@ -142,6 +142,9 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
+    redis (2.2.2)
+    redis-store (1.0.0.1)
+      redis (~> 2.2.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ripper_ruby_parser (0.0.6)
@@ -244,6 +247,7 @@ DEPENDENCIES
   pg
   rack-perftools_profiler
   rails (= 3.2.3)
+  redis-store (~> 1.0.0)
   reek!
   ripper_ruby_parser
   rspec-rails
