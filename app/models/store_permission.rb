@@ -35,7 +35,6 @@ class StorePermission < ActiveRecord::Base
   private
 
   def alert_user
-    raise "BOOM!"
     if user_id && user_id != store.creating_user_id
       email = User.find(user_id).email_address
       UserMailer.alert_admin_email(store_id, email) if permission_level == 1
