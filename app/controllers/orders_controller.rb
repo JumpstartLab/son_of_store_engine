@@ -45,6 +45,7 @@ class OrdersController < ApplicationController
     if @order.save_with_payment
       @cart.destroy
       session[:cart_id] = Cart.create.id
+      session[:checking_out] = nil
       redirect_to [current_store, @order], :notice => "Transaction Complete"
     else
       render :new

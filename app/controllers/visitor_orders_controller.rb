@@ -9,6 +9,7 @@ class VisitorOrdersController < ApplicationController
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
       session["#{current_store.slug}_cart_id"] = nil
+      session[:checking_out] = nil
       @cart.destroy
       redirect_to store_visitor_order_path(current_store, @order.unique_url), 
                   :notice => "Transaction Complete"
