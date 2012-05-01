@@ -11,7 +11,6 @@ class AdminAbility
       can :manage, Category
       can :update, Order
       can :read, :dashboard
-      raise "BOOM!"
       can :manage, Product
     elsif user.roles.select{|role| role.name == "store_stocker"}.any?
       can [:read, :create], Product
