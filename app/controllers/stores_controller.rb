@@ -3,7 +3,7 @@ class StoresController < ApplicationController
   before_filter :is_store_approved?, only: [ :show ]
 
   def index
-    @stores = Store.where(:approved => true).paginate(:page => params[:page])
+    @stores = Store.where(:approved => true).page(params[:page]).per(8)
   end
 
   def new

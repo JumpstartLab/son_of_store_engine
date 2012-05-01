@@ -126,7 +126,7 @@ describe "Creating stores" do
             click_link_or_button('Disable this store')
             set_host("test-store")
             visit store_path
-            page.should have_content 'maintenance'  
+            page.should have_content 'maintenance'
           end
         end
 
