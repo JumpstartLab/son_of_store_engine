@@ -4,7 +4,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def index
     @products = @store.products.order('title').paginate(
-      :page => params[:page], 
+      :page => params[:page],
       :per_page => 25)
   end
 
