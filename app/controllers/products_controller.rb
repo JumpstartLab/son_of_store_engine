@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
       @products = current_store.products.active.find_by(params[:search])
     else
       session[:search] = false 
-      @products = current_store.products.active.page(params[:page])
+      @products = current_store.products.active.page(params[:page]).per(24)
     end
     @top_selling = Product.top_selling_for_store(current_store)
     @categories = current_store.categories
