@@ -12,13 +12,6 @@ describe "AuthenticationPages" do
         click_link_or_button('Log in')
         page.should have_selector('div.alert.alert-alert', :text => 'Email or password was invalid.')
       end
-
-      describe "after visiting another page" do
-        it "should not persist the error message" do
-          click_link('logo')
-          should_not have_selector('div.alert.alert-error')
-        end
-      end
     end
 
     describe "with valid information" do
