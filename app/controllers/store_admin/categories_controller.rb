@@ -1,7 +1,7 @@
 #
 class StoreAdmin::CategoriesController < ApplicationController
   before_filter :lookup_category, :only => [:show, :edit, :destroy, :update]
-  before_filter :require_admin
+  before_filter :confirm_has_store_admin_access
 
 
     def index
@@ -44,6 +44,10 @@ class StoreAdmin::CategoriesController < ApplicationController
 
     def store_categories
       Category.where(store_id: @current_store.id)
+    end
+    
+    def confirm_has_store_admin_access
+      redirect_to root_path unless current_user.is_admin_of(@current_store)
     end
 end
 
