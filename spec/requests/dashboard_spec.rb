@@ -105,4 +105,15 @@ describe "Dashboard" do
       employee.may_manage?(store).should be_false
     end
   end
+
+  context "when not a manager", :FU => :TOM do
+    it "should redirect to root" do
+      store = FactoryGirl.create(:store) 
+      user = FactoryGirl.create(:user)
+      user.promote(store, :stocker)
+      login(user)
+      visit store_dashboard_path(store)
+      page.current_path.should == store_products_path(store)
+    end
+  end
 end

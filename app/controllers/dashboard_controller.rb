@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   before_filter :validate_store 
-  #before_filter :user_may_manage, only: :show
+  before_filter :user_may_manage, only: :show
 
   def show
     @orders = @store.orders

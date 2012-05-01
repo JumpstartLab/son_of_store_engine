@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_filter :store_disabled
   before_filter :user_may_stock,
-                only: [:destroy, :edit, :update, :create, :new]  
+  only: [:destroy, :edit, :update, :create, :new]  
   before_filter :store_required
   before_filter :find_product, only: [:show, :edit, :update, :destroy]
 
@@ -27,11 +27,7 @@ class ProductsController < ApplicationController
     store = @product.store
     if @product.save
       notice = "Product #{@product.title} created."
-      if current_user.may_manage?(store)
-        redirect_to store_dashboard_path(store), :notice => notice
-      else
-        redirect_to store_stocker_dashboard_path(store), :notice => notice
-      end
+      dashboard_redirect(notice)
     else
       flash[:error] = @product.errors.full_messages.join(", ")
       render 'new'
@@ -46,8 +42,8 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update_attributes(params[:product])
-      redirect_to store_dashboard_path(@product.store), 
-      :notice => "Product #{@product.title} updated."
+      notice = "Product #{@product.title} updated."
+      dashboard_redirect(notice)
     else
       flash[:error] = @product.errors.full_messages.join(", ")
       render 'edit'
@@ -73,6 +69,15 @@ class ProductsController < ApplicationController
   def store_disabled
     if current_store && current_store.disabled?
       render "shared/store_disabled"
+    end
+  end
+
+  def dashboard_redirect(notice)
+    store = current_store
+    if current_user.may_manage?(store)
+      redirect_to store_dashboard_path(store), :notice => notice
+    else
+      redirect_to store_stocker_dashboard_path(store), :notice => notice
     end
   end
 end
