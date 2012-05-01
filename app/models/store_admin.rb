@@ -8,24 +8,27 @@ class StoreAdmin < ActiveRecord::Base
 
 
   def welcome_email
-    if :stocker
-      #new_stocker_notification_email
+    new_admin_notification_email
+  end
+
+  def role
+    if stocker
+      "stocker"
     else
-      new_admin_notification_email
+      "admin"
     end
   end
 
 
-  def new_admin_notification_email
-    Resque.enqueue(Emailer, "admin", "new_admin_notification", self.user.email, store.id)
-  end
-
-  def self.request_signup(email)
+  def self.request_signup(email, store)
     Resque.enqueue(Emailer, "admin", "request_signup", email, store.id)
   end
 
-  def admin_removal_email
-    Resque.enqueue(Emailer, "admin", "admin_removal", user.id, store.id)
+  def new_admin_notification_email
+    Resque.enqueue(Emailer, "admin", "new_admin_notification", user.id, store.id, role)
   end
 
+  def admin_removal_email
+    Resque.enqueue(Emailer, "admin", "admin_removal", user.id, store.id, role)
+  end
 end
