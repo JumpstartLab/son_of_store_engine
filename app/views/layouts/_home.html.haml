@@ -1,0 +1,18 @@
+%header
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+        %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        .brand
+          %img{:src => "/assets/top-gear-logo.png"}/ 
+        %a.brand{:href => "/"}
+        .nav-collapse
+          %ul.nav
+            - main_navigation.each do |name, path| # From Nav Helper
+              %li= link_to name, path, :class => tab_is_active?(path)
+          .right
+            = render 'search/search', :value => params[:q] || ""
+           

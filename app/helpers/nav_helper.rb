@@ -18,15 +18,16 @@ module NavHelper
 
   def nav_array_home_user
     { 
-      "Welcome!" => root_path,
-      "Profile" => profile_path,      
+      "Browse All Stores" => "#",
+      "View/Edit Profile" => profile_path,      
       "Logout" => logout_path,
+
     }  
   end
 
   def nav_array_home_guest
     { 
-      "Welcome!" => root_path,
+      "Browse All Stores" => "#",
       "Login or Signup" => login_path
     }  
   end
