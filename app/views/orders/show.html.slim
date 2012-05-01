@@ -1,12 +1,12 @@
 - cache(@order) do
-  h1#order_number = "Order ##{@order.id}"
+  h2#order_number = "Order ##{@order.id}"
   h3 = "Status: #{@order.status}"
   h3 = "Total: #{@order.total}"
   h4
     = "To visit this order again in the future use your "
     = link_to "order permalink", permalink(@order), :id => 'unique_url'
 
-  table.table.table-striped
+  table.table.table-striped.table-condensed
     tr
       th Name
       th Price
