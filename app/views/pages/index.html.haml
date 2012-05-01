@@ -1,8 +1,14 @@
-%h1 Favorite Entusiast Stores
+.hero-unit
+  %h1 Polutropon Gear Stores
+  %p Customize your ride with gear from top speciality providers
 
-%ul
+%ul.thumbnails
   -Store.all.each do |store|
-    %li.span6
-      = link_to store.name , home_path
+    %li.span3
+      .thumbnail
+        = link_to image_tag(store.products.first.avatar, {style: "width:210px; height:210px;"}), subdomain_path(store.url)
+        %h5 
+          = store.name 
+        %p 
+          = store.description
 
-= link_to 'Go HOME', home_path
