@@ -18,4 +18,10 @@
 $(document).ready(function() {
   $('.disabled').click(function() { return false; });
 
+  $.rails.confirm = function(message) {
+    if (!confirm(message)) {
+      window.location = window.location;
+    }
+  };
+
 })
