@@ -1,6 +1,6 @@
 require 'fabrication'
 
-10.times { |n| Fabricate(:store, :name => "Store #{n}", :slug => "store-#{n}") }
+stores =  10.times.map { |n| Fabricate(:store, :name => "Store #{n}", :slug => "store-#{n}") }
 100.times { Fabricate(:product, :photo => '', :store => Store.all.sample) }
 10.times { Fabricate(:category) }
 
@@ -19,13 +19,13 @@ end
   3.times { Fabricate(:order, :status => status) }
 end
 
-User.create(
+u1 = User.create(
   :name => 'Matt Yoho',
   :email => 'demo10+matt@jumpstartlab.com',
   :password => 'hungry'
 )
 
-User.create(
+u2 = User.create(
   :name => 'Jeff',
   :email => 'demo10+jeff@jumpstartlab.com',
   :password => 'hungry',
@@ -38,3 +38,12 @@ User.create(
   :password => 'hungry',
   :username => 'SaxPlayer'
 ).add_role(Role.super_admin)
+
+
+stores[0..4].each do |s|
+  s.add_admin(u1)
+end
+
+stores[4..-1].each do |s|
+  s.add_admin(u2)
+end

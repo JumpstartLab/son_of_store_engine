@@ -20,11 +20,12 @@ describe Role do
     end
 
     it "can create roles" do
+      before = Role.all.count
       visit new_role_path
       page.should have_content('New Role')
       page.should_not have_content('You are not authorized to access this page.')
       fill_in 'Name', :with => 'sassy_pants'
-      expect { click_button 'Create Role' }.to change{ Role.all.count }.from(2).to(3)
+      expect { click_button 'Create Role' }.to change{ Role.all.count }.from(before).to(before+1)
     end
 
     it "must create roles with unique names" do
@@ -69,7 +70,12 @@ describe Role do
       user.roles.should include role2
     end
 
-    it "sees a user's assigned roles when editing that user"
+    it "sees a user's assigned roles when editing that user" do
+      role2 = Role.create(:name => 'fancy_pants')
+      visit edit_user_path(user, store)
+      page.should have_content(role2.name)
+      find_field('super_admin').value.should == "1"
+    end
   end
 
   describe "non-superadmins" do
