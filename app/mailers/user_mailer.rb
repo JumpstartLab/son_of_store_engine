@@ -15,8 +15,8 @@ class UserMailer < ActionMailer::Base
   end
 
   def alert_admin_email(store_id, email)
-    @store = Store.first
-    mail(:to => email, :subject => "You have been added as an admin of #{@store.name}.")
+    @store = Store.find(store_id)
+    mail(:to => email, :subject => "You have been added as an admin of .")
   end
 
   def invite_stocker_email(store_id, admin_hex, email)
