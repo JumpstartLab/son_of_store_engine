@@ -6,7 +6,8 @@ table.table.table-condensed
     th = "Placed on"
     th = "Total"
   - @orders.each do |order|
-    tr
-      td = link_to(order.id, order_path(@store, order))
-      td = link_to(order.created_at, order_path(@store, order))
-      td = link_to(order.total, order_path(@store, order))
+    - cache(order) do
+      tr
+        td = link_to(order.id, order_path(@store, order))
+        td = link_to(order.created_at, order_path(@store, order))
+        td = link_to(order.total, order_path(@store, order))
