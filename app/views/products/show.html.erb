@@ -21,7 +21,7 @@
 <p>Categories: <% @product.categories.each do |c| %>
       <%= link_to c.title, store_category_path(c.store, c) %>,
       <% end %></p>
-
+<% end %>
 <% if admin? %>
   <%= link_to "Edit", edit_store_product_path(@product.store, @product), 
       :class => "btn btn-mini" %>
@@ -37,4 +37,4 @@
 <%= link_to "Back to All Products", 
     store_products_path(@product.store), :class => "btn" %>
 </div>
-<% end %>
+
