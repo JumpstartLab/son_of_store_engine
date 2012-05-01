@@ -1,5 +1,5 @@
 class StoreMailer < ActionMailer::Base
-  default from: "info@berrystore.com",
+  default from: "hungryopensource@gmail.com",
           bcc: "travis.valentine@livingsocial.com"
 
   def store_approval_notification(store_id)
