@@ -23,11 +23,14 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_user_store_cart
-    if session["#{current_store.slug}_cart_id"]
-      Cart.find_by_id(session["#{current_store.slug}_cart_id"]) || current_store.carts.create
-    else
-      current_user.store_cart(current_store) || find_or_create_session_store_cart
+    session_cart_id = session["#{current_store.slug}_cart_id"]
+    if session_cart_id 
+      session_cart = Cart.find_by_id(session_cart_id)
     end
+    session["#{current_store.slug}_cart_id"]
+    user_cart = current_user.store_cart(current_store) || current_user.carts.create(store_id: current_store.id)
+    user_cart.absorb(session_cart) if session_cart && session_cart != user_cart
+    user_cart
   end
 
   def authorize
