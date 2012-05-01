@@ -15,7 +15,7 @@ class StoreAdmin < ActiveRecord::Base
   end
 
   def self.request_signup(email, store)
-    Resque.enqueue(Emailer, "admin", "request_signup", email, store_id)
+    Resque.enqueue(Emailer, "admin", "request_signup", email, store.id)
   end
 
   def new_admin_notification_email
