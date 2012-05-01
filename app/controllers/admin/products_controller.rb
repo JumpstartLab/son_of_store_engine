@@ -1,4 +1,6 @@
 class Admin::ProductsController < Admin::ApplicationController
+  skip_before_filter :is_admin?
+  before_filter :is_stocker_or_admin?
 
   def index
     @products = store.products.active.all
@@ -17,7 +19,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
     if @product.save
       @product.update_categories(params[:categories][1..-1])
-      redirect_to admin_product_path(@product),
+      redirect_to admin_products_path,
         notice: 'Product was successfully created.'
     else
       @product.errors.full_messages.each do |msg|

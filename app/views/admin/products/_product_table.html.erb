@@ -1,6 +1,6 @@
 <tr>
   <td><%= link_to product_table.name, admin_product_path(product_table) %></td>
-  <td><%= product_table.description %></td>
+  <td><%= truncate(product_table.description, length: 32) %></td>
   <td><%= product_table.price %></td>
   <td><%= image_tag(product_table.photo, :size => "50x50") %></td>
   <td><ul><% product_table.categories.each do |category| %>
@@ -9,5 +9,8 @@
       </div>
       <% end %></ul>
   <td><%= link_to 'Add to cart', new_cart_product_path(:product_id => product_table) %></td>
-  <td><%= link_to 'Retire', product_retirement_path(product_table), method: :post %></td>
+  <td><%= link_to 'Edit this product', 
+          edit_admin_product_path(product_table),
+          :class => "btn btn-success" %></td>
+  <td><%= retire_button(product_table) %></td>
 </tr>

@@ -67,7 +67,7 @@ class Seeder
   def self.build_products(quantity, store_id)
     quantity.times do
       product = Product.create( name: "The #{Faker::Name.name}",
-        description: Faker::Lorem.paragraph(3),
+        description: Faker::Lorem.sentences(2),
         price: (15 + rand(10) + rand(4)*0.25),
         store_id: store_id )
       (rand(3) + 1).times do
