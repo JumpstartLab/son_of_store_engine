@@ -1,8 +1,9 @@
 # if ENV['HOST'] == 'sonofstoreengine'
   ActionMailer::Base.smtp_settings = {
-    :address        => '127.0.0.1',
-    :port           => '25',
-    :domain         => 'sonofstoreengine.com'
+    :address              => '127.0.0.1',
+    :port                 => '25',
+    :domain               => 'sonofstoreengine.com',
+    :enable_starttls_auto => false
   }
 # else
 #   ActionMailer::Base.smtp_settings = {
