@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
   def is_store_admin?
     redirect_to_last_page("Nice try, jerk.") unless
-      store.admins.include?(current_user) || current_user.admin
+      store.store_admins.include?(current_user) || current_user.admin
   end
 
 private
