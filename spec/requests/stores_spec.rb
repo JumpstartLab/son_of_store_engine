@@ -55,7 +55,7 @@ describe "Creating stores" do
 
           it "does not let me view the store" do
             visit('/')
-            page.should_not have_content("Cool Sunglasses")
+            page.should have_content("maintenance")
           end
         end
       end
@@ -104,14 +104,29 @@ describe "Creating stores" do
       it "emails the store owner that the store was approved"
 
       context "and I want to disable the store" do
-        before(:each) { click_link_or_button('Disable this store') }
-        
-        it "disables the store" do
-          Store.first.disabled.should == true
+
+        it "allows me to disable the store" do
+          within("#test-store") do
+            click_link_or_button('Disable this store')
+          end
+          within("#test-store") do
+            page.should have_content('Enable this store')
+          end
+        end
+
+        context "and I visit the disabled stores page" do
+          it 'shows maintenance page for disabled store' do
+            click_link_or_button('Disable this store')
+            set_host("test-store")
+            visit store_path
+            page.should have_content 'maintenance'  
+          end
         end
 
         context "and I want to enable the store" do
-          before(:each) { click_link_or_button('Enable this store') }
+          before(:each) do
+            visit admin_stores_path
+          end
 
           it "enables the store" do
             Store.first.enabled?.should == true
@@ -121,7 +136,8 @@ describe "Creating stores" do
             before(:each) { set_host("test-store") }
 
             it "has a live page for the store" do
-              visit '/'
+              #set_host("test-store")
+              visit store_path
               page.should have_content('Browse by category')
             end
           end
