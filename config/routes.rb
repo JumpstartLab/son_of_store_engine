@@ -5,6 +5,7 @@
   
   get "login" => 'sessions#new' 
   get "logout" => 'sessions#destroy', :as => "logout"
+  get 'polutropon' => "pages#index"
 
   
   resources :sessions
@@ -71,6 +72,5 @@
   end
 
   get '/profile', :to => "users#edit", as: :profile
-  get '/', to: "pages#index", as: :home
   root :to => "pages#index"
 end

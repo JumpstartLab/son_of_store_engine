@@ -18,5 +18,8 @@
 
 .row-fluid
   = will_paginate @products
+  
+.sale-button
+  = link_to "View #{current_tenant.name} Sales", sales_path, :class => 'btn btn-custom'
 
  

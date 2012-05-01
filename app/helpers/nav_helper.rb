@@ -18,7 +18,7 @@ module NavHelper
 
   def nav_array_home_user
     { 
-      "Browse All Stores" => home_path,
+      "Browse All Stores" => polutropon_path,
       "View/Edit Profile" => profile_path,      
       "Logout" => logout_path,
 
@@ -27,14 +27,14 @@ module NavHelper
 
   def nav_array_home_guest
     { 
-      "Browse All Stores" => home_path,
+      "Browse All Stores" => polutropon_path,
       "Login or Signup" => login_path
     }  
   end
 
   def nav_array_admin
     {
-      "Browse All Stores" => home_path,
+      "Browse All Stores" => polutropon_path,
       "Cart" => cart_path,
       "Sales" => sales_path,
       "Admin Dashboard" => admin_dashboard_path,
@@ -46,7 +46,7 @@ module NavHelper
 
   def nav_array_user
     {
-      "Browse All Stores" => home_path,
+      "Browse All Stores" => polutropon_path,
       "Cart" => cart_path,
       "Sales" => sales_path,
       "My Orders" => my_orders_orders_path,
@@ -57,16 +57,16 @@ module NavHelper
 
   def nav_guest
     {
-      "Browse All Stores" => home_path,
-      # "Cart For #{.name}" => cart_path,
-      "Sales" => sales_path,
+      "Browse All Stores" => polutropon_path,
+      "#{current_tenant.name} Products" => root_path,
+      "Your #{current_tenant.name} Cart" => cart_path,
       "Login or Signup" => login_path
     }
   end
 
   def admin_navigation
     {
-      "Browse All Stores" => home_path,
+      "Browse All Stores" => polutropon_path,
       "Products"    => admin_products_path,
       "Orders"      => admin_orders_path,
       "Categories"  => admin_categories_path,
