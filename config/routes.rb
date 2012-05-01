@@ -10,6 +10,7 @@ StoreEngine::Application.routes.draw do
 
   match '/code' => redirect("https://github.com/mikesea/store_engine"), :as => :code
   match '/unauthorized', :to => "static#unauthorized"
+  match '/about', :to => "static#about"
 
   resources :users, only: [:show, :create, :new, :edit, :update] do
     resources :orders, :only => [:index, :show]

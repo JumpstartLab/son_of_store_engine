@@ -4,4 +4,7 @@ class StaticController < ApplicationController
   
   def unauthorized
   end
+
+  def about
+  end
 end
