@@ -1,7 +1,7 @@
 # "add_to_cart", :to => "cart_item#create", :as => "add_to_cart"?
 
 class Cart < ActiveRecord::Base
-  attr_accessible :product
+  attr_accessible :product, :store_id
   has_many :cart_items, dependent: :destroy
   has_many :products, :through => :cart_items
 
@@ -45,5 +45,14 @@ class Cart < ActiveRecord::Base
     cart_items.inject(0) do |result, item|
       result += item.quantity
     end
+  end
+
+  def absorb(other_cart)
+    other_cart.cart_items.each do |cart_item|
+      cart_item.quantity.times do
+        add_or_increment_by_product(cart_item.product_id)
+      end
+    end
+    other_cart.destroy
   end
 end

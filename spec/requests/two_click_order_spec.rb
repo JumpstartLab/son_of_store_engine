@@ -14,12 +14,6 @@ describe "ordering with two clicks", :requests => :twoclick do
     end
     
     before(:each) { visit store_product_path(product.store, product) }
-    context "when I'm not logged in and click buy instantly" do
-      it "should redirect an unlogged user to the login page" do
-        click_link_or_button "Buy instantly"
-        page.should have_content("You need to log in")
-      end
-    end
 
     context "when I'm logged in" do
       before(:each) do 
@@ -60,16 +54,6 @@ describe "ordering with two clicks", :requests => :twoclick do
       it "should have a status of paid if saved with payment", requests: :two_click_1 do
         page.should have_content("Status: PAID")
       end
-    end
-  end
-
-  describe "when I'm not logged in and i click buy instantly" do
-    let(:product) { FactoryGirl.create(:product) }
-    it "directs me to home" do
-      visit store_product_path(product.store, product)
-      click_link_or_button "Buy instantly"
-      login(user)
-      page.should have_content "You need to be logged in to instant purchase."
     end
   end
 end
