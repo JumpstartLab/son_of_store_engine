@@ -1,7 +1,7 @@
 #
 class StoreAdmin::ProductsController < ApplicationController
   before_filter :lookup_product, except: [:index, :new, :create]
-  before_filter :confirm_has_store_admin_access
+  before_filter :confirm_has_store_admin_or_stocker_access
 
   cache_sweeper :product_sweeper
 
@@ -21,7 +21,7 @@ class StoreAdmin::ProductsController < ApplicationController
     @product.store_id = @current_store.id
     if @product.save
       notice = 'Product was successfully created.'
-      redirect_to admin_product_path(@current_store, @product), notice: notice
+      redirect_to admin_products_path(@current_store), notice: notice
     else
       render action: "new"
     end
@@ -29,7 +29,7 @@ class StoreAdmin::ProductsController < ApplicationController
 
   def destroy
     Product.destroy(@product)
-    redirect_to admin_products_path
+    redirect_to admin_products_path(@current_store)
   end
 
   def retire
@@ -39,7 +39,7 @@ class StoreAdmin::ProductsController < ApplicationController
     else
       product.retire
     end
-    redirect_to admin_products_path
+    redirect_to admin_products_path, notice: "\'#{product.title}\' was retired"
   end
 
 
@@ -48,7 +48,7 @@ class StoreAdmin::ProductsController < ApplicationController
 
   def update
     @product.update_attributes(params[:product])
-    redirect_to admin_product_path(@product)
+    redirect_to admin_products_path(@current_store), notice: "\'#{@product.title}\' has been updated"
   end
 
   private
@@ -60,8 +60,8 @@ class StoreAdmin::ProductsController < ApplicationController
   def store_products
     Product.where(store_id: @current_store.id)
   end
-
-  def confirm_has_store_admin_access
-    redirect_to root_path unless current_user.is_admin_of(@current_store)
+  
+  def confirm_has_store_admin_or_stocker_access
+    redirect_to root_path unless current_user.is_admin_of(@current_store) || current_user.is_stocker_of(@current_store)
   end
 end

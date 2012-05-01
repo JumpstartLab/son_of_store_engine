@@ -105,6 +105,7 @@ describe "store admin for products", store_admin: true do
       click_link_or_button "Edit"
       fill_in "Title", with: "Other Product"
       click_link_or_button "Update Product"
+      visit "/#{store.to_param}/admin/products/#{product.to_param}"
       within "#product-title" do
         page.should_not have_content product.title
         page.should have_content "Other Product"
