@@ -12,6 +12,9 @@ gem 'faker'
 gem 'will_paginate'
 gem 'carrierwave'
 gem "fog", "~> 1.3.1"
+gem 'redis-store', '~> 1.0.0'
+gem 'capistrano'
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
