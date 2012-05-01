@@ -65,6 +65,7 @@ FactoryGirl.define do
     sequence(:name)  { |n| "Store ##{n}" }
     sequence(:slug)  { |s| "slug_#{s}" }
     owner_id 1
+    status "enabled"
     after_create do |store|
       user = FactoryGirl.create(:user)
       store.update_attribute(:owner_id, user.id)

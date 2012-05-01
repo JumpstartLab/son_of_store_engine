@@ -30,6 +30,7 @@ describe "the admin stores page", :requests => :admin_store do
 
     context "admin manipulating store status" do
       it "allows admin to accept a store request" do
+        store.update_attribute(:status, "pending")
         visit admin_stores_path
         click_link "Approve"
         store.reload
@@ -38,6 +39,7 @@ describe "the admin stores page", :requests => :admin_store do
       end
 
       it "allows admin to decline a store request" do
+        store.update_attribute(:status, "pending")
         visit admin_stores_path
         click_link "Decline"
         Store.count.should == 0
