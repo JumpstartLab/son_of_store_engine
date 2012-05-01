@@ -38,7 +38,10 @@
       </div>
     <% end %>
   </p>
-  <p><%= link_to 'New Category', new_store_category_path %></p>
+  <p><% if current_user.may_manage?(current_store) %>
+    <%= link_to 'New Category', new_store_category_path %>
+    <% end %>
+  </p>
 
   <p>
     <%= p.submit :class => "btn-primary btn-large"%> 

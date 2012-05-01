@@ -24,9 +24,14 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_store.products.new(params[:product])
+    store = @product.store
     if @product.save
-      redirect_to store_dashboard_path(@product.store), 
-      :notice => "Product #{@product.title} created."
+      notice = "Product #{@product.title} created."
+      if current_user.may_manage?(store)
+        redirect_to store_dashboard_path(store), :notice => notice
+      else
+        redirect_to store_stocker_dashboard_path(store), :notice => notice
+      end
     else
       flash[:error] = @product.errors.full_messages.join(", ")
       render 'new'
