@@ -169,26 +169,58 @@ describe 'Store Admin' do
     end
   end
 
-  msg = "Store administrator adds new stocker.
-         https://www.pivotaltracker.com/story/show/28489031"
-  pending msg do
-    context "adds a stocker" do
-      it "by entering known email adds role of stocker to that user and emails"
-      it "by entering unknown email invites that email to join as a stocker"
+  context "adds a stocker" do
+    let (:stocker_user) { Fabricate(:user) }
+    before(:each) do
+      login_as(admin)
+      visit admin_dashboard_path(stores.first)
+      click_link "Manage Users"
+    end
+
+    it "by entering known email adds role of stocker to that user and emails" do
+      fill_in "stocker_email", :with => stocker_user.email
+      expect { click_button "Add Stocker" }.to change{ stores.first.users.count }.by(1)
+      expect { click_button "Add Stocker" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+      click_button "Add Stocker"
+      page.should have_content(stocker_user.name)
+    end
+
+    it "by entering unknown email invites that email to join as a stocker" do
+      fill_in "stocker_email", :with => "bogusemailaddress@email123.com"
+      expect { click_button "Add Stocker" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+      click_button "Add Stocker"
+      page.should have_content "User with email '' does not exist."
     end
   end
 
+  context "with a stocker" do
+    let (:stocker_user_first) { Fabricate(:user) }
+    let (:stocker_user_second) { Fabricate(:user) }
 
-  msg = "Store admin removes stocker
-         https://www.pivotaltracker.com/story/show/28489035"
-  pending msg do
-    context "with a stocker" do
-      it "views a list of stockers on their admin page"
-      it "can remove stockers from their store with a link on the admin page"
-      it "when removing a stocker is prompted to confirm"
-      it "after removing a stocker sees a confirmation flash message"
-      it "after removing a stocker the user is emailed a notification"
-      it "when removing stocker, and confirming, cancels and stocker lives on"
+    before(:each) do
+      stores.first.add_stocker(stocker_user_first)
+      stores.first.add_stocker(stocker_user_second)  
+      login_as(admin)
+      visit admin_dashboard_path(stores.first)
+      click_link "Manage Users"
+    end
+    it "views a list of stockers on their admin page" do
+      page.should have_content(stocker_user_first.name)
+      page.should have_content(stocker_user_second.name)
+    end
+
+    it "can remove stockers from their store with a link on the admin page" do
+      page.should have_button("Delete Stocker")
+    end
+
+    it "after removing a stocker the user is emailed a notification" do
+      expect {click_button "delete_stocker_#{stocker_user_first.id}" }.to change(ActionMailer::Base.deliveries, :size).by(1)
+    end
+
+    it "after removing a stocker sees a confirmation flash message" do
+      expect { click_button "Delete Stocker" }.to change{ stores.first.users.count }.by(-1)
+      click_button "Delete Stocker" 
+      page.should have_content("Stocker deleted")
     end
   end
 end

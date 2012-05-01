@@ -15,8 +15,11 @@ div class="container"
                     cart_path(:product_id => @product), :method => :put)
         p = link_to("Retire Product",
                     admin_product_retire_path(:product_id => @product), :method => :put)
+        p = link_to("Edit Product",
+                    edit_admin_product_path(:product_id => @product))
+
       h3 Add Category to this Product
-      - @categories.each do |category|
+      - @store.categories.each do |category|
         - unless @product.categories.include?(category)
           li = link_to(category.name, 
                        add_category_to_product_path(:product_id => @product.id,

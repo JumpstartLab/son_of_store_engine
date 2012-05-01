@@ -30,4 +30,11 @@ class Admin::CategoriesController < Admin::ApplicationController
   def index
     @categories = @store.categories.all.sort_by { |category| category.name }
   end
+
+  def add_product
+    @category = Category.find(params[:category_id])
+    @product = Product.find(params[:product_id])
+    @category.add_product(@product)
+    redirect_to admin_product_path(@store, @product)
+  end
 end
