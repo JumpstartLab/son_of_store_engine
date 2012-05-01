@@ -22,10 +22,12 @@ Then /^I can sign in to my existing account$/ do
   find('input', value: "Log in")
 end
 
-# XXX Changed user story. Waiting for Matt's approval.
-Then /^I can provide my email, billing, shipping, and credit card info to purchase directly$/ do
-  click_on("Continue to checkout as guest")
-  page.should have_selector("#new_guest_user")
+Then /^I can continue to guest checkout where I can provide my email, billing, shipping, and credit card info to purchase directly$/ do
+  page.should have_link "Continue to checkout as guest"
+end
+
+When /^I continue to guest checkout$/ do
+  click_on "Continue to checkout as guest"
 end
 
 When /^I provide my info directly:$/ do |table|
@@ -68,11 +70,13 @@ Given /^I have a StoreEngine account$/ do
 end
 
 When /^I choose to sign in$/ do
-  log_in(@user)
+  fill_in('Email', with: @user.email)
+  fill_in('Password', with: @user.password)
+  click_on('Log in')
 end
 
 Then /^I should be logged in$/ do
-  flash_text.should include "You have been signed in."
+  page.should have_content "Sign out"
 end
 
 Then /^I am returned to my checkout process$/ do
@@ -197,4 +201,25 @@ Given /^I enter my email address and full name$/ do
   fill_in('user_name', with: @user.name)
   fill_in('user_password', with: @user.password)
   fill_in('user_password_confirmation', with: @user.password)
+end
+
+Given /^I don't have a StoreEngine account$/ do
+  # no action needed
+end
+
+When /^I choose to sign up$/ do
+  click_on 'Register'
+end
+
+Then /^I am asked for my account information$/ do
+  text.should include "Please enter your details"
+end
+
+When /^I create my account$/ do
+  @user = build(:user)  
+  fill_in('user_email', with: @user.email)
+  fill_in('user_name', with: @user.name)
+  fill_in('user_password', with: @user.password)
+  fill_in('user_password_confirmation', with: @user.password)
+  click_on 'Create Account'
 end

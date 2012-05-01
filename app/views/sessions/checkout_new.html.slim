@@ -2,7 +2,7 @@ h1 Sign in
 .row
   .span6
     = form_tag sessions_path(:checkout => "true") do
-      =hidden_field_tag :slug, params[:slug]
+      = hidden_field_tag :return_path, return_path
       .field
         = label_tag :email
         = text_field_tag :email, params[:email]
@@ -15,7 +15,7 @@ h1 Sign in
       .actions= submit_tag "Log in", :id => "go_log_in"
     p 
       | New user? 
-      = link_to 'Register', new_user_path(:slug => params[:slug])
+      = link_to 'Register', new_user_path(return_path: return_path)
       |  for an account.
   .span6
     = link_to 'Continue to checkout as guest', new_guest_order_path(params[:slug])

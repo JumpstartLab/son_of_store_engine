@@ -12,7 +12,7 @@ Feature:
     When I checkout
     Then I can sign up for an account
     And I can sign in to my existing account
-    And I can provide my email, billing, shipping, and credit card info to purchase directly
+    And I can continue to guest checkout where I can provide my email, billing, shipping, and credit card info to purchase directly
 
     When I choose to sign in
     Then I should be logged in

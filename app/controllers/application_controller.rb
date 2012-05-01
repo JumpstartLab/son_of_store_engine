@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_cart
   helper_method :current_store
   helper_method :verify_store_status
+  helper_method :return_path
 
   def current_store
     @current_store ||= Store.where(slug: params[:store_slug]).first
@@ -57,7 +58,16 @@ class ApplicationController < ActionController::Base
     if current_store && current_store.status == "pending"
       redirect_to root_path, :notice => "That store is pending approval."
     elsif current_store && current_store.status == "disabled"
-      redirect_to root_path, :notice => "That store has been disabled."
+      redirect_to root_path, :notice => "This site is currently down for maintenence."
     end
   end
+
+  def return_path
+    if params[:return_path].blank?
+      @return_path = request.referer || root_url
+    else
+      @return_path = params[:return_path]
+    end
+  end
+
 end

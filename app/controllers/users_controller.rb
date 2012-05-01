@@ -4,11 +4,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    if request.referer
-      @return_path = request.referer
-    else
-      @return_path = root_url
-    end
   end
 
   def create

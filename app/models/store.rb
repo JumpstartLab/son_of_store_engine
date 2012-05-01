@@ -57,6 +57,8 @@ class Store < ActiveRecord::Base
       self.status = "approved"
     elsif params[:status] == "declined"
       self.status = "declined"
+    elsif params[:status] == "disabled"
+      self.status = "disabled"
     end
     self
   end
