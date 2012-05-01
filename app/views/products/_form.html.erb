@@ -21,7 +21,7 @@
   </p>
 
   <p>
-    Product Status: <%= select('product', 'activity', %w(true false)) %>
+    Product Status: <%= select('product', 'activity', [['Active', true], ['Retired', false]]) %>
   </p>
 
   <p>

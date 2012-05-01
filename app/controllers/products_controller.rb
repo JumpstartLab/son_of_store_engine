@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
   def update
     if @product.update_attributes(params[:product])
       redirect_to store_dashboard_path(@product.store), 
-      :notice => "Product #{@product.title} ."
+      :notice => "Product #{@product.title} updated."
     else
       flash[:error] = @product.errors.full_messages.join(", ")
       render 'edit'
