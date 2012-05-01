@@ -1,7 +1,7 @@
 h3 Products assigned to #{@category.name}
 br/
 .row
-  = link_to 'Back to all products', products_path, :class => "btn"
+  = link_to 'Back to all products', store_products_path, :class => "btn"
 br/
 ul.thumbnails
   - @products.each_slice(3) do |slice|

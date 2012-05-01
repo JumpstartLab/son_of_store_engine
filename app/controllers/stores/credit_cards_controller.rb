@@ -7,7 +7,7 @@ module Stores
     def create
       new_credit_card = CreditCard.build_from_stripe_for(current_user, params[:credit_card])
       new_credit_card.save
-      redirect_to new_order_path
+      redirect_to new_store_order_path
     end
 
     def index

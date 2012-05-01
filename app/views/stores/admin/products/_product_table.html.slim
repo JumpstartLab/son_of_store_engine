@@ -1,5 +1,5 @@
 tr
-  td= link_to product.name, admin_product_path(store_slug, product)
+  td= link_to product.name, store_admin_product_path(store_slug, product)
   td= product.description
   td= product.price
   td= image_tag(product.photo, :size => "50x50")
@@ -8,8 +8,8 @@ tr
       - product.categories.each do |category|
         div id=(dom_id category)
         li= category.name
-  td= link_to 'Edit', edit_admin_product_path(store_slug, product)
+  td= link_to 'Edit', edit_store_admin_product_path(store_slug, product)
   -if product.active?
-    td= link_to 'Retire', admin_product_retirement_path(store_slug, product), method: :post
+    td= link_to 'Retire', store_admin_product_retirement_path(store_slug, product), method: :post
   -else
-    td= link_to 'Unretire', admin_product_retirement_path(store_slug, product), method: :post
+    td= link_to 'Unretire', store_admin_product_retirement_path(store_slug, product), method: :post

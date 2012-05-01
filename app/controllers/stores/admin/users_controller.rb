@@ -12,7 +12,7 @@ module Stores
           determine_path_and_assign_role(@user)
         else
           #send email
-          redirect_to admin_path(current_store.slug),
+          redirect_to store_admin_path(current_store.slug),
             :notice => "That user does not exist, so we sent them a signup email."
         end
       end
@@ -21,11 +21,11 @@ module Stores
         if URI(request.referer).path == "/mittenberry/admin/store_stocker/new"
           user.roles << user.roles.create(name: "store_stocker", store: current_store)
           user.save
-          redirect_to admin_path(current_store.slug), :notice => "#{user.name} is now a store stocker."
+          redirect_to store_admin_path(current_store.slug), :notice => "#{user.name} is now a store stocker."
         elsif URI(request.referer).path == "/mittenberry/admin/store_admin/new"
           user.roles << user.roles.create(name: "store_admin", store: current_store)
           user.save
-          redirect_to admin_path(current_store.slug), :notice => "#{user.name} is now a store admin."
+          redirect_to store_admin_path(current_store.slug), :notice => "#{user.name} is now a store admin."
         end
       end
 

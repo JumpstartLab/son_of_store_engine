@@ -36,7 +36,7 @@ feature "Admin Puts Product Through Lifecycle" do
 
         it "then I should see the created product" do
           uri = URI.parse(current_url)
-          "#{uri.path}".should == admin_product_path(Product.last.id)
+          "#{uri.path}".should == store_admin_product_path(Product.last.id)
         end
 
         it "then I should see the correct product info" do
@@ -88,7 +88,7 @@ feature "Admin Puts Product Through Lifecycle" do
                     let(:user) { User.find_by_email("demo08+matt@jumpstartlab.com") }
                     let(:product) { user.orders.first.products.first }
                     before do
-                      visit admin_order_path(user.orders.first)
+                      visit store_admin_order_path(user.orders.first)
                       click_link_or_button(product.name)
                       click_link_or_button("Retire product")
                     end

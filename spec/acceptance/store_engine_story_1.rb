@@ -49,7 +49,7 @@ feature "Checking Out While Logged Out" do
 
         it "then I should see my cart" do
           uri = URI.parse(current_url)
-          "#{uri.path}".should == cart_path
+          "#{uri.path}".should == store_cart_path
           page.should have_content("Quantity")
           page.should have_content("Checkout")
           page.should have_content("Total")

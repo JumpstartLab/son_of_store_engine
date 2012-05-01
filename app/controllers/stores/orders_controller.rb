@@ -5,10 +5,10 @@ module Stores
       guard_new_order do
         if current_user.credit_cards.empty?
           flash.notice = flash.notice
-          redirect_to new_credit_card_path(current_store.slug) and return
+          redirect_to new_store_credit_card_path(current_store.slug) and return
         elsif current_user.shipping_details.empty?
           flash.notice = flash.notice
-          redirect_to new_shipping_detail_path(current_store.slug) and return
+          redirect_to new_store_shipping_detail_path(current_store.slug) and return
         end
 
         @order = Order.new()

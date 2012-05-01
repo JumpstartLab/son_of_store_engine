@@ -14,7 +14,7 @@ module Stores
 
       def create
         if @category = current_store.categories.create(params[:category])
-          redirect_to admin_products_path,
+          redirect_to store_admin_products_path,
           notice: 'Category was successfully created.'
         else
           @category.errors.full_messages.each do |msg|
@@ -33,7 +33,7 @@ module Stores
         @category.update_attributes(params[:category])
 
         if @category.save
-          redirect_to admin_products_path,
+          redirect_to store_admin_products_path,
           notice: 'Category was successfully updated.'
         else
           @category.errors.full_messages.each do |msg|

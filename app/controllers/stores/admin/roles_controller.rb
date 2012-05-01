@@ -6,7 +6,7 @@ module Stores
         @role = Role.find(params[:id])
         raise @role.inspect
         if @role.destroy
-          redirect_to admin_path(current_store.slug)
+          redirect_to store_admin_path(current_store.slug)
         else
           redirect_to :back
         end

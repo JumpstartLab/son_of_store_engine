@@ -1,5 +1,5 @@
 h1 Add a Shipping Address
-= form_for @shipping_detail, :url => shipping_details_path(:last_page => session[:last_page]) do |f|
+= form_for @shipping_detail, :url => store_shipping_details_path(:last_page => session[:last_page]) do |f|
   .field
     = label_tag :ship_to_name, "Name"
     = f.text_field :ship_to_name
