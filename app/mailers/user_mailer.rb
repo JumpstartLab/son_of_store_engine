@@ -49,7 +49,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def user_confirmation(user)
-    @email = user.email
+    @email = user["email"]
     mail(:to => @email,
       :subject => "Welcome to SOSE, #{user.name}!" )
   end
