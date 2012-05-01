@@ -1,7 +1,7 @@
-`whoami > ~/debugging.log`
-`echo ENV['HOST'] > ~/debugging.log`
-`echo ENV['SENDGRID_USERNAME'] > ~/debugging.log`
-`echo ENV['SENDGRID_PASSWORD'] > ~/debugging.log`
+`whoami >> ~/debugging.log`
+`echo $HOST >> ~/debugging.log`
+`echo $SENDGRID_USERNAME >> ~/debugging.log`
+`echo $SENDGRID_PASSWORD >> ~/debugging.log`
 
 if ENV['HOST'] == 'sonofstoreengine'
   ActionMailer::Base.smtp_settings = {
