@@ -228,4 +228,48 @@ describe "store owner actions", dose_store_admin: true do
       end
     end
   end
+
+  context "removing a store admin" do
+    let!(:admin) { Fabricate(:user) }
+    let!(:store_permission) { Fabricate(:store_permission, user_id: admin.id, store_id: store.id, permission_level: 1) }
+    before(:each) do
+      visit "/"
+      click_link_or_button "Sign-In"
+      login({email: store_owner.email_address, password: store_owner.password})
+      visit admin_store_path(store)
+    end
+    it "removes the Store Permissions record" do
+      within("##{dom_id(admin)}_admin_listing") do
+        expect { click_link_or_button "Remove" }.to change { StorePermission.count }.by(-1)
+      end
+    end
+    it "no longer shows the former admin's email on the page" do
+      within("##{dom_id(admin)}_admin_listing") do
+        click_link_or_button "Remove"
+      end
+      page.should_not have_content(admin.email_address)
+    end
+  end
+
+  context "removing a store stocker" do
+    let!(:stocker) { Fabricate(:user) }
+    let!(:store_permission) { Fabricate(:store_permission, user_id: stocker.id, store_id: store.id, permission_level: 2) }
+    before(:each) do
+      visit "/"
+      click_link_or_button "Sign-In"
+      login({email: store_owner.email_address, password: store_owner.password})
+      visit admin_store_path(store)
+    end
+    it "removes the Store Permissions record" do
+      within("##{dom_id(stocker)}_stocker_listing") do
+        expect { click_link_or_button "Remove" }.to change { StorePermission.count }.by(-1)
+      end
+    end
+    it "no longer shows the former admin's email on the page" do
+      within("##{dom_id(stocker)}_stocker_listing") do
+        click_link_or_button "Remove"
+      end
+      page.should_not have_content(stocker.email_address)
+    end
+  end
 end

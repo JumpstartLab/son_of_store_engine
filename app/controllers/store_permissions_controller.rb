@@ -1,5 +1,7 @@
 class StorePermissionsController < ApplicationController
   before_filter :validate_added_email, only: :create
+  before_filter :find_store, only: :destroy
+
   def create
     added_user = User.where(:email_address => params[:email]).first
     store = Store.find(params[:store_permission][:store_id])
@@ -12,7 +14,14 @@ class StorePermissionsController < ApplicationController
       store_permission.save
       notice = "#{added_user.full_name} has been given this role."
     end
-    redirect_to "/#{store.domain}/admin", notice: notice
+    redirect_to admin_store_path(store), notice: notice
+  end
+
+  def destroy
+    store_permission = StorePermission.find(params[:id])
+    store = Store.find(store_permission.store_id)
+    store_permission.destroy
+    redirect_to admin_store_path(store), notice: "Employee has been terminated."
   end
 
   private

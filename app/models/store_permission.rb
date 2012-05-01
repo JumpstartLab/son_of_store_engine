@@ -11,6 +11,7 @@ class StorePermission < ActiveRecord::Base
   belongs_to :store
 
   after_create :alert_user
+  before_destroy :send_pink_slip
 
   PERMISSION_TYPES = { 1 => "ADMIN", 2 => "STOCKER" }
 
@@ -18,15 +19,20 @@ class StorePermission < ActiveRecord::Base
     permission = StorePermission.new(store_permission_params)
     permission.admin_hex = create_hex
     permission.save
-    send_invite_email(permission, email)
+    permission.send_invite_email(email)
+  end
+
+  def send_invite_email(email)
+    UserMailer.invite_admin_email(store, admin_hex, email) if permission_level == 1
+    UserMailer.invite_stocker_email(store, admin_hex, email) if permission_level == 2
+  end
+
+  def send_pink_slip
+    UserMailer.fire_admin(store, user.email_address) if permission_level == 1
+    UserMailer.fire_stocker(store, user.email_address) if permission_level == 2
   end
 
   private
-
-  def self.send_invite_email(permission, email)
-    UserMailer.invite_admin_email(permission, email) if permission.permission_level == 1
-    UserMailer.invite_stocker_email(permission, email) if permission.permission_level == 2
-  end
 
   def alert_user
     if user_id && user_id != store.creating_user_id
