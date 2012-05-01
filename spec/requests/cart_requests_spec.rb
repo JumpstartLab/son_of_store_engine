@@ -3,11 +3,11 @@ require 'spec_helper'
 describe Cart do
   let(:user) { Fabricate(:user) }
   let!(:store) { Fabricate(:store, :users => [user]) }
-  let(:product) { Fabricate(:product, :store => store) }
-  let(:second_product) { Fabricate(:product, :store => store) }
-  let(:cart) { Fabricate(:cart, :store => store) }
-  let(:category) { Fabricate(:category, :store => store) }
-  let(:unsaved_user) { Fabricate.build(:user) }
+  let!(:product) { Fabricate(:product, :store => store) }
+  let!(:second_product) { Fabricate(:product, :store => store) }
+  let!(:cart) { Fabricate(:cart, :store => store) }
+  let!(:category) { Fabricate(:category, :store => store) }
+  let!(:unsaved_user) { Fabricate.build(:user) }
 
   context "as an unauthenticated user" do
     context "when I click checkout with a product in my cart" do
@@ -299,9 +299,9 @@ describe Cart do
       it "should redirect you back to the products page" do
         visit products_path(store)
         click_link "View Cart"
-        click_button("Keep Shopping")
+        click_on("Keep Shopping")
         current_path.should == products_path(store)
-        page.should have_content(product.name)
+        page.should have_content(store.products.first.title)
       end
     end
   end
