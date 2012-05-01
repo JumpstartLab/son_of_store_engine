@@ -49,6 +49,8 @@ StoreEngine::Application.routes.draw do
       end
       resources :users, only: [:show]
     end
+
+    match '/stock/products', to: 'admin/products#index'
   end
 
   root :to => "static_pages#home"
