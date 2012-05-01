@@ -1,5 +1,5 @@
-#
 class StoreAdmin::UsersController < ApplicationController
+  include ExtraUserMethods
   before_filter :require_admin
   before_filter :lookup_user, only: :show
 
@@ -8,12 +8,6 @@ class StoreAdmin::UsersController < ApplicationController
   end
 
   def show
-  end
-
-  private
-
-  def lookup_user
-    @user = User.find(params[:id])
   end
 
 end

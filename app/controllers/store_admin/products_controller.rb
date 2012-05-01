@@ -1,5 +1,5 @@
-#
 class StoreAdmin::ProductsController < ApplicationController
+  include ExtraProductMethods
   before_filter :lookup_product, except: [:index, :new, :create]
   before_filter :confirm_has_store_admin_or_stocker_access
 
@@ -51,17 +51,4 @@ class StoreAdmin::ProductsController < ApplicationController
     redirect_to admin_products_path(@current_store), notice: "\'#{@product.title}\' has been updated"
   end
 
-  private
-
-  def lookup_product
-    @product = store_products.where(id: params[:id]).first
-  end
-
-  def store_products
-    Product.where(store_id: @current_store.id)
-  end
-  
-  def confirm_has_store_admin_or_stocker_access
-    redirect_to root_path unless current_user.is_admin_of(@current_store) || current_user.is_stocker_of(@current_store)
-  end
 end

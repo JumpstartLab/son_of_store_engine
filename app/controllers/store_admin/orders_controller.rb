@@ -1,8 +1,8 @@
-#
 class StoreAdmin::OrdersController < ApplicationController
+  include ExtraOrderMethods
   before_filter :lookup_order, :only => [:show, :edit, :destroy, :update]
   before_filter :confirm_has_store_admin_access
-  
+
   def index
     if params[:status] == "all"
       @orders = store_orders.all
@@ -35,29 +35,4 @@ class StoreAdmin::OrdersController < ApplicationController
     end
   end
 
-  private
-
-  def lookup_order
-    @order = store_orders.where(id: params[:id]).first
-  end
-
-  def cancel_order
-    @order.update_attribute(:status, "cancelled")
-    @order.set_action_time("cancelled")
-    session[:order_id] = nil if @order.user == current_user
-  end
-
-  def transition_status
-    session[:return_to] = request.url
-    notice = "Transition successful"
-    redirect_to session[:return_to], notice: notice
-  end
-
-  def store_orders
-    Order.where(store_id: @current_store.id)
-  end
-  
-  def confirm_has_store_admin_access
-    redirect_to root_path unless current_user.is_admin_of(@current_store)
-  end
 end

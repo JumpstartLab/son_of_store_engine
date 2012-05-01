@@ -1,4 +1,5 @@
 class Admin::StoresController < ApplicationController
+  include ExtraStoreMethods
   before_filter :find_store, only: [:show, :edit]
   before_filter :confirm_has_store_admin_access, only: [:show, :edit]
 
@@ -14,11 +15,4 @@ class Admin::StoresController < ApplicationController
 
   end
 
-  private
-
-  def confirm_has_store_admin_access
-    unless current_user && current_user.is_admin_of(@current_store)
-      redirect_to root_path
-    end
-  end
 end
