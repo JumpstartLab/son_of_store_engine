@@ -12,8 +12,7 @@ class CreditCard < ActiveRecord::Base
   end
 
   def add_details_from_stripe_card_token(stripe_card_token)
-    stripe_customer_token = stripe_get_customer_token(stripe_card_token)
-    credit_card = parse_stripe_customer_token(stripe_customer_token)
+    Resque.enqueue(Striper, "details", self.id, stripe_card_token)
   end
 
   def stripe_get_customer_token(stripe_card_token)
