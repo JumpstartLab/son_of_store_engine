@@ -3,7 +3,9 @@ class Admin::ProductsController < Admin::ApplicationController
   load_and_authorize_resource
 
   def index
-    @products = @store.products.all.sort_by { |product| product.title }
+    @products = @store.products.order('title').paginate(
+      :page => params[:page], 
+      :per_page => 25)
   end
 
   def show

@@ -15,3 +15,5 @@ table.table-condensed.table-striped
           = 'Retired'
         - else
           = link_to "Retire", admin_product_retire_path(@store, :product_id => product)
+
+= will_paginate(@products)
