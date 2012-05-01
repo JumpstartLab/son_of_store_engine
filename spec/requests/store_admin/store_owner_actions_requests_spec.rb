@@ -13,7 +13,7 @@ describe "store owner actions", dose_store_admin: true do
 
     context "when on the store administration page" do
       before(:each) do
-        visit admin_store_path(store)
+        visit "/#{store.to_param}/admin"
       end
 
       it "displays the name" do
@@ -182,7 +182,7 @@ describe "store owner actions", dose_store_admin: true do
   context "adding another store admin" do
     context "the added user already has an account" do
       let!(:new_admin) { Fabricate(:user) }
-      before(:all) do
+      before(:each) do
         visit "/"
         click_link_or_button "Sign-In"
         login({email: store_owner.email_address, password: store_owner.password})
