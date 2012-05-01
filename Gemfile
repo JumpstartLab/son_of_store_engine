@@ -17,10 +17,10 @@ gem 'addressable'
 gem 'dynamic_form'
 gem 'cancan'
 gem 'newrelic_rpm'
+gem 'redis-store', '~>1.0.0'
 
 group :production do
   gem 'pg'
-  gem 'delayed_job_active_record'
 end
 
 # Gems used only for assets and not required
@@ -50,7 +50,6 @@ group :development, :test do
   gem 'reek', :git => "git://github.com/mvz/reek.git", :branch => "ripper_ruby_parser-2"
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'simplecov'
-  gem 'redis-store', '~>1.0.0'
   # gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
   #gem 'ruby-debug19', :require => 'ruby_debug'
 end
