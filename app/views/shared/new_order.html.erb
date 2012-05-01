@@ -44,7 +44,7 @@
  <%= f.fields_for :address do |builder| %>
  <p>
   <%= builder.label :street_1, "Street" %>
-  <%= builder.text_field :street_1, value: "42 street"  %>
+  <%= builder.text_field :street_1 %>
 </p>
 
 <p>
@@ -54,17 +54,17 @@
   
 <p>
   <%= builder.label :city %>
-  <%= builder.text_field :city, value: "city"  %>
+  <%= builder.text_field :city %>
 </p>
 
 <p>
   <%= builder.label :state %>
-  <%= builder.text_field :state, value: "DC"  %>
+  <%= builder.text_field :state %>
 </p>
 
 <p>
   <%= builder.label :zip_code %>
-  <%= builder.text_field :zip_code, value: "42424"  %>
+  <%= builder.text_field :zip_code %>
 </p>
 
   <% end %>
