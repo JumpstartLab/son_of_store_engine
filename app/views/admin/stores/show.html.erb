@@ -1,3 +1,15 @@
 <h1>Store: <%= @store.name %></h1>
 <h2>This is the admin view of your store!!!</h2>
-<h2>Is your store pending approval? <%= @store.pending? %></h2>
+<div class="well">
+  <ul>
+    <li>Store Name: <%= @store.name %></li>
+    <li>Store URL: <%= @store.url_name %></li>
+    <li>Description: <%= @store.description %></li>
+    <li>Pending Approval?
+      <% if @store.pending? %>
+        <span class="label label-warning">Pending Approval</span>
+      <% else %>
+        <span class="label label-success">Approved</span>
+      <% end %>
+</div>
+<%= link_to "Edit Store", edit_admin_store_path(store), :class => "btn" %>

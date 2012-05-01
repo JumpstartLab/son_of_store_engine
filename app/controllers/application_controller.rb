@@ -30,15 +30,15 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path
   end
 
-  def is_admin?
+  def is_store_admin
     redirect_to_last_page unless 
       current_user.admin || store.admins.include?(current_user)
   end
 
-  def is_store_admin?
-    redirect_to_last_page("Nice try, jerk.") unless
-      store.store_admins.include?(current_user) || current_user.admin
-  end
+  # def is_stocker_or_admin
+  #   redirect_to_last_page("NOT ADMIN OF THIS STORE") unless
+  #     store.store_admins.include?(current_user) || current_user.admin
+  # end
 
 private
 
