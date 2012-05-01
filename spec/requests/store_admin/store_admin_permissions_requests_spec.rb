@@ -188,7 +188,7 @@ describe "Store Admin Permissions" do
 
   describe "signing up after recieving an admin invite" do
     let!(:store) { Fabricate(:store) }
-    let!(:store_permission) { Fabricate(:store_permission, user_id: nil, admin_hex: "12345", store_id: store.id)}
+    let!(:store_permission) { Fabricate(:store_permission, user_id: nil, admin_hex: "12345", store_id: store.id, permission_level: 1)}
     before(:each) do
       visit '/users/new?invite_code=12345'
       sign_up({full_name: "Test User", email: "frank@zappa.com", password: "test", display_name: "Test"})
@@ -200,6 +200,31 @@ describe "Store Admin Permissions" do
 
     it "assigns the user's id to the store_permission record" do
       StorePermission.last.user_id.should == User.last.id
+    end
+
+    it "gives the user admin rights" do
+      StorePermission.last.permission_level.should == 1
+    end
+  end
+
+  describe "signing up after recieving an stocker invite" do
+    let!(:store) { Fabricate(:store) }
+    let!(:store_permission) { Fabricate(:store_permission, user_id: nil, admin_hex: "12345", store_id: store.id, permission_level: 2)}
+    before(:each) do
+      visit '/users/new?invite_code=12345'
+      sign_up({full_name: "Test User", email: "frank@zappa.com", password: "test", display_name: "Test"})
+    end
+
+    it "creates a new user" do
+      User.last.display_name.should == "Test"
+    end
+
+    it "assigns the user's id to the store_permission record" do
+      StorePermission.last.user_id.should == User.last.id
+    end
+
+    it "gives the user stocker rights" do
+      StorePermission.last.permission_level.should == 2
     end
   end
 end

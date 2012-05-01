@@ -180,27 +180,52 @@ describe "store owner actions", dose_store_admin: true do
   end
 
   context "adding another store admin" do
+    let!(:new_admin) { Fabricate(:user) }
+    before(:each) do
+      visit "/"
+      click_link_or_button "Sign-In"
+      login({email: store_owner.email_address, password: store_owner.password})
+      visit admin_store_path(store)
+      select "Administrator"
+    end
     context "the added user already has an account" do
-      let!(:new_admin) { Fabricate(:user) }
-      before(:each) do
-        visit "/"
-        click_link_or_button "Sign-In"
-        login({email: store_owner.email_address, password: store_owner.password})
-        visit admin_store_path(store)
+      it "creates a new Store Permissions record with admin permissions" do
         fill_in("email", with: new_admin.email_address)
+        expect { click_link_or_button "Add New Store Employee" }.to change { StorePermission.count }.by(1)
+        StorePermission.last.permission_level.should == 1
       end
-      it "creates a new Store Permissions record" do
-        expect { click_link_or_button "Add New Store Admin" }.to change { StorePermission.count }.by(1)
+    end
+    context "the added user does not already have an account" do
+      it "creates a new Store Permissions record without a user_id" do
+        fill_in("email", with: "kenny@loggins.com")
+        expect { click_link_or_button "Add New Store Employee" }.to change { StorePermission.count }.by(1)
+        StorePermission.last.user_id.should be_nil
       end
-  #     it "displays the new admin on the store admin page" do
-  #       within("#admin_list") do
-  #         page.should have_content(new_admin.email_address)
-  #         page.should have_content(new_admin.name)
-  #       end
-  #     end
-  #   end
-  #   context "the added user does not already have an account" do
-  #
+    end
+  end
+
+  context "adding a store stocker" do
+    let!(:new_stocker) { Fabricate(:user) }
+    before(:each) do
+      visit "/"
+      click_link_or_button "Sign-In"
+      login({email: store_owner.email_address, password: store_owner.password})
+      visit admin_store_path(store)
+      select "Stocker"
+    end
+    context "the added user already has an account" do
+      it "creates a new Store Permissions record with stocker permission" do
+        fill_in("email", with: new_stocker.email_address)
+        expect { click_link_or_button "Add New Store Employee" }.to change { StorePermission.count }.by(1)
+        StorePermission.last.permission_level.should == 2
+      end
+    end
+    context "the added user does not already have an account" do
+      it "creates a new Store Permissions record without a user_id" do
+        fill_in("email", with: "kenny@loggins.com")
+        expect { click_link_or_button "Add New Store Employee" }.to change { StorePermission.count }.by(1)
+        StorePermission.last.user_id.should be_nil
+      end
     end
   end
 end

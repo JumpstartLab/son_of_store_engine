@@ -1,14 +1,25 @@
 class StorePermissionsController < ApplicationController
+  before_filter :validate_added_email, only: :create
   def create
-    user = User.where(:email_address => params[:email]).first
+    added_user = User.where(:email_address => params[:email]).first
     store = Store.find(params[:store_permission][:store_id])
-    if user.nil?
-      invite_user_to_be_admin_of(store, params[:email])
-      @notice = "#{params[:email]} has been invited to join DOSE as an administrator."
+    if added_user.nil?
+      StorePermission.invite_user_to_access_store(params[:store_permission], params[:email])
+      notice = "#{params[:email]} is not currently a DOSE member. They have been invited to sign up to fulfill this role."
     else
-      StorePermission.create(user_id: user.id, store_id: store.id, permission_level: 1)
-      @notice = "#{user.full_name} has been added as an administrator."
+      store_permission = StorePermission.new(params[:store_permission])
+      store_permission.user_id = added_user.id
+      store_permission.save
+      notice = "#{added_user.full_name} has been given this role."
     end
-    redirect_to "/#{store.domain}/admin", notice: @notice
+    redirect_to "/#{store.domain}/admin", notice: notice
+  end
+
+  private
+
+  def validate_added_email
+    unless params[:email].match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/)
+      redirect_to :back, notice: "Invalid Email"
+    end
   end
 end

@@ -3,20 +3,20 @@ require 'spec_helper'
 describe StorePermission do
   describe ".invite_user_to_be_admin_of(store, email)" do
     let!(:store) { Fabricate(:store) }
+    let!(:store_permission) { Fabricate(:store_permission, store_id: store.id, user_id: nil, permission_level: 1) }
+    let!(:store_permission_params) { { store_id: store_permission.store_id, permission_level: store_permission.permission_level } }
 
     it "creates a new store permission" do
-      expect { StorePermission.invite_user_to_be_admin_of(store, "dweevil@zappa.com") }.to change{ StorePermission.count }.by(1)
+      expect { StorePermission.invite_user_to_access_store(store_permission_params, "dweevil@zappa.com") }.to change{ StorePermission.count }.by(1)
     end
     it "creates a new store permission with a hex but no user id" do
-      StorePermission.invite_user_to_be_admin_of(store, "frank@zappa.com")
+      StorePermission.invite_user_to_access_store(store_permission_params, "frank@zappa.com")
       StorePermission.last.user_id.should be_nil
       StorePermission.last.admin_hex.should_not be_nil
     end
-    it "emails the user" do
-      pending "not sure how to test emails"
-    end
   end
-end# == Schema Information
+end
+# == Schema Information
 #
 # Table name: store_permissions
 #

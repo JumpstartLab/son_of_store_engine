@@ -10,11 +10,30 @@ class StorePermission < ActiveRecord::Base
   belongs_to :user
   belongs_to :store
 
+  after_create :alert_user
+
   PERMISSION_TYPES = { 1 => "ADMIN", 2 => "STOCKER" }
 
-  def self.invite_user_to_be_admin_of(store, email)
-    permission = StorePermission.create(store_id: store.id, admin_hex: create_hex, permission_level: 1)
-    UserMailer.invite_admin_email(permission, email)
+  def self.invite_user_to_access_store(store_permission_params, email)
+    permission = StorePermission.new(store_permission_params)
+    permission.admin_hex = create_hex
+    permission.save
+    send_invite_email(permission, email)
+  end
+
+  private
+
+  def self.send_invite_email(permission, email)
+    UserMailer.invite_admin_email(permission, email) if permission.permission_level == 1
+    UserMailer.invite_stocker_email(permission, email) if permission.permission_level == 2
+  end
+
+  def alert_user
+    if user_id && user_id != store.creating_user_id
+      email = User.find(user_id).email_address
+      UserMailer.alert_admin_email(store_id, email) if permission_level == 1
+      UserMailer.alert_stocker_email(store_id, email) if permission_level == 2
+    end
   end
 end
 
