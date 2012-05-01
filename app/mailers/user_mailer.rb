@@ -8,9 +8,9 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email_address, :subject => "Welcome to DOSE!")
   end
 
-  def invite_admin_email(store, admin_hex, email)
+  def invite_admin_email(store_id, admin_hex, email)
     @invite_code = admin_hex
-    @store_name = store.name
+    @store_name = Store.find(store_id).name
     mail(:to => email, :subject => "You have been invited to be an admin of #{@store_name}.")
   end
 
@@ -19,9 +19,9 @@ class UserMailer < ActionMailer::Base
     mail(:to => email, :subject => "You have been added as an admin of #{@store_name}.")
   end
 
-  def invite_stocker_email(store, admin_hex, email)
+  def invite_stocker_email(store_id, admin_hex, email)
     @invite_code = admin_hex
-    @store_name = store.name
+    @store_name = Store.find(store_id).name
     mail(:to => email, :subject => "You have been invited to be a stocker of #{@store_name}.")
   end
 
@@ -30,13 +30,13 @@ class UserMailer < ActionMailer::Base
     mail(:to => email, :subject => "You have been added as a stocker of #{@store_name}.")
   end
 
-  def fire_admin(store, email)
-    @store = store
+  def fire_admin(store_id, email)
+    Store.find(store_id).name
     mail(:to => email, :subject => "You have been fired from your admin position at #{@store_name}.")
   end
 
-  def fire_stocker(store, email)
-    @store = store
+  def fire_stocker(store_id, email)
+    Store.find(store_id).name
     mail(:to => email, :subject => "You have been fired from your stocker position at #{@store_name}.")
   end
 end
