@@ -16,10 +16,6 @@ module UsersHelper
     end
   end
 
-  def admin_view?
-    controller_path.split("/").first=="admin"
-  end
-
   def prevent_guest
     if !logged_in?
       redirect_to login_page_path, notice: "Please sign up first"
