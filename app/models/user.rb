@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
 
   def notify_of_role_removal(name)
     if name == "store_admin" || name == "store_stocker"
-      method_name = "#{name}_addition_notification"
+      method_name = "#{name}_removal_notification"
     end 
     Resque.enqueue(RoleEmailer, method_name, id)
   end
