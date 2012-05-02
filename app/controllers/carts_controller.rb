@@ -10,9 +10,10 @@ class CartsController < ApplicationController
   end
 
   def update
-    if params[:cart] && params[:cart][:order_item]
-      item = OrderItem.find(params[:cart][:order_item][:id])
-      item.update_attributes(params[:cart][:order_item])
+    # raise params.inspect
+    if params[:order_item] #&& params[:cart][:order_item]
+      item = OrderItem.find(params[:order_item][:id])
+      item.update_attributes(params[:order_item])
     else
       @cart.add_product_by_id(params[:product_id])
     end

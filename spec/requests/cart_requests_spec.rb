@@ -310,7 +310,7 @@ describe Cart do
     before(:each) do
       visit product_path(store, product)
       click_link "Add to Cart"
-      click_link ""
+      click_link "Remove Item"
     end
 
     it "removes the product from my cart" do
@@ -322,14 +322,14 @@ describe Cart do
     before(:each) do
       visit product_path(store, product)
       click_link "Add to Cart"
-      fill_in "cart_order_item_quantity", :with => "2"
+      fill_in "order_item_quantity", :with => "2"
       @previous_total = find("#total").text.to_f
       @previous_subtotal = find(".subtotal").text.to_f
-      click_button "Update Cart"
+      click_button "Change Quantity"
     end
 
     it "changes the quantity in the cart" do
-      find("#cart_order_item_quantity").value.should == "2"
+      find("#order_item_quantity").value.should == "2"
     end
 
     it "increases the subtotal for that product" do
