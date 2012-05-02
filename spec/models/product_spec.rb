@@ -57,14 +57,16 @@ describe Product do
   end
 
   describe ".find_by with a category" do
-    let(:category) { FactoryGirl.create(:category) }
-    let!(:product) { FactoryGirl.create(:product, categories: [category]) }
+    let!(:category) { FactoryGirl.create(:category) }
+    let!(:product) { FactoryGirl.create(:product) }
     it "returns a match with the exact string" do
+      product.categories << category
       p = Product.find_by(category.title)
       p.first.title.should == product.title
     end
 
     it "returns a match with the lowercase string" do
+      product.categories << category
       p = Product.find_by(category.title.downcase)
       p.first.title.should == product.title
     end

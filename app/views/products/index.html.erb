@@ -1,11 +1,13 @@
 <% "Search" %>
-
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
   <% if @top_selling && !params[:search] && !params[:page] %>
   <div class="hero-unit">
     <div class="row-fluid"> 
       <div class="span7">
         <h1><%=  @top_selling.title %></h1>
-        <p><%=  @top_selling.description %></p>
+        <p><%=  @top_selling.description.truncate(500) %></p>
         <div id="info">
           <p id="price"><%= number_to_currency(@top_selling.price) %>
           <%= link_to "Add to Cart", store_cart_items_path(current_store, 
