@@ -24,7 +24,6 @@ describe "As an admin updating products" do
       context "and I enter invalid information" do
 
         it "does not create a new product" do
-          save_and_open_page
           expect {click_link_or_button('Create Product')}.to_not change(Product, :count).by(1)
         end
 

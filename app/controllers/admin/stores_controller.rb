@@ -1,5 +1,8 @@
 module Admin
   class StoresController < ApplicationController
+    
+    before_filter :authorize_site_admin!
+
     def current_ability
       @current_ability ||= AdminAbilitySite.new(current_user)
     end
@@ -8,7 +11,6 @@ module Admin
       @stores = Store.where("status = 'approved'
         OR status = 'disabled'
         OR status = 'pending'")
-      authorize! :manage, @stores
     end
 
     def edit
@@ -20,10 +22,10 @@ module Admin
       @store.update_status(params[:store])
       if @store.save
         @store.notify_store_admin_of_status
-        message = "Store has been #{@store.status}."
-        message += " Sent email to #{@store.users.first.email}"
+        message = "Store has been #{@store.status}.
+         An email has been sent to #{@store.users.first.email}"
       else
-        message = "There has been an error in updating this store's status."
+        message = "There has been an error in updating status."
       end
       flash.notice = message
       redirect_to admin_stores_path
@@ -31,6 +33,12 @@ module Admin
 
     def show
       @store = Store.find(params[:id])
+    end
+
+    private
+
+    def authorize_site_admin!
+      authorize! :manage, :all
     end
 
   end

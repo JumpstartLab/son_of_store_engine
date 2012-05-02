@@ -16,7 +16,6 @@ describe "As an admin updating categories" do
 
     context "and I enter invalid information" do
       it "prevents me from making a new category" do
-        save_and_open_page
         expect {click_link_or_button('Create Category')}.to_not change(Category, :count).by(1)
       end
 

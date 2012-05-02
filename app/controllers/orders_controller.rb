@@ -18,7 +18,8 @@ private
     if order.user.guest? || order.user == current_user
       block.call()
     else
-      redirect_to root_path
+      redirect_to root_path, :notice => 'Sorry. You can only view
+         orders which you have placed.'
     end
   end
 

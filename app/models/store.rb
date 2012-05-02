@@ -33,15 +33,21 @@ class Store < ActiveRecord::Base
   end
 
   def stockers
-    Role.where(:store_id => self.id).select { |role| role.name == "store_stocker" }
+    roles.where(name: "store_stocker").pluck(:user_id).collect{ |user_id| User.find(user_id) }
+    # query = "select * from users where users.id in (select users.id from roles INNER JOIN users where roles.name = 'store_admin' AND store.id = ?);"
+    # User.find_by_sql(query, id)
   end
 
   def creator
-    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }.first
+    roles.where(name: "store_admin").order("created_at DESC").first.user
   end
 
   def admins
-    Role.where(:store_id => self.id).select { |role| role.name == "store_admin" }
+    roles.where(name: "store_admin").pluck(:user_id).collect{ |user_id| User.find(user_id) }
+  end
+
+  def has_multiple_admin?
+    roles.where(name: "store_admin").size > 1 ? true : false
   end
 
   def active_products
