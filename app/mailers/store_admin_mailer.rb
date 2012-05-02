@@ -20,6 +20,7 @@ class StoreAdminMailer < ActionMailer::Base
   def delete_admin_email(user, store)
     @user = user
     @store = store
-    mail(:to => user['email'], :subject => "You have been removed as store admin")
+    mail(:to => user['email'],
+      :subject => "You have been removed as store admin")
   end
 end
