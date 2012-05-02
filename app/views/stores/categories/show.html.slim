@@ -1,6 +1,5 @@
-h3 Products assigned to #{@category.name}
-br/
-.row
+h3 
+  |Products assigned to #{@category.name}&nbsp;&nbsp;&nbsp;
   = link_to 'Back to all products', store_products_path, :class => "btn"
 br/
 = paginate @products
