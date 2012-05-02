@@ -10,7 +10,7 @@
 .indiv-product{ 
   display: inline-block;
   padding: 25px;
-  width: 15%
+  width: 30%
 }
 
 .product-details{ 
@@ -45,3 +45,13 @@
 
 /* SHOW */ 
 
+#prod_show_img{ 
+  float: left;
+  margin-right: 15px;
+  width: 400px;
+  height: 400px;
+}
+
+#prod_show_info{
+  margin-top:  10px;
+}
