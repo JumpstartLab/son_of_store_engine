@@ -61,7 +61,7 @@ module Stores
       end
 
       def products
-        @products = current_store.active_products
+        @products = current_store.active_products.order("name").page(params[:page]).per(12)
       end
 
       def can_manage_store_products
