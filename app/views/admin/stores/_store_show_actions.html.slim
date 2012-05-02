@@ -8,4 +8,3 @@
         = link_to "Disable", store_path(@current_store, store:{enabled: false}), method: :put, class: "btn btn-danger", id: "enable_toggle"
       - else
         = link_to "Enable", store_path(@current_store, store:{enabled: true}), method: :put, class: "btn btn-success", id: "enable_toggle"
-  = link_to "Edit", edit_admin_store_path(@current_store), class: "btn"
