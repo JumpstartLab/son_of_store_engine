@@ -1,5 +1,5 @@
 store_dashboard_calcs:
-  every: 5s
+  every: 5m
   # you can use rufus-scheduler "every" syntax in place of cron if you prefer
   # every: 1hr
   # By default the job name (hash key) will be taken as worker class name.
