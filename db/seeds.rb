@@ -11,10 +11,10 @@ ProductCategorization.destroy_all
 Store.destroy_all
 StorePermission.destroy_all
 
-IMAGE_ARRAY = ["https://s3.amazonaws.com/StoreEngine/box.png",
-               "https://s3.amazonaws.com/StoreEngine/present.png",
-               "https://s3.amazonaws.com/StoreEngine/brown-bag.png",
-               "https://s3.amazonaws.com/StoreEngine/puzzle.png"]
+IMAGE_ARRAY = ['https://s3.amazonaws.com/StoreEngine/box.png',
+               'https://s3.amazonaws.com/StoreEngine/present.png',
+               'https://s3.amazonaws.com/StoreEngine/brown-bag.png',
+               'https://s3.amazonaws.com/StoreEngine/puzzle.png']
 
 matt = User.create(full_name: 'Matt Yoho',
   email_address: 'demo11+matt@jumpstartlab.com', display_name: '',
@@ -27,9 +27,9 @@ chad = User.create(full_name: 'Chad Fowler',
  display_name: 'SaxPlayer', password: 'hungry')
 chad.update_attribute(:admin, true)
 
-#10000.times do
-2.times do
+10000.times do
   Fabricate(:user)
+  puts "Created User #{User.last.id}"
 end
 
 ### STORE 1 ###
@@ -54,9 +54,9 @@ categories = []
   categories << Fabricate(:category, store_id: store.id)
 end
 
-33.times do
-#33000.times do
+33000.times do
   Fabricate(:product, store_id: store.id, photo_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
+  puts "Created Product #{Product.last.id}"
 end
 
 
@@ -82,9 +82,9 @@ categories = []
   categories << Fabricate(:category, store_id: store2.id)
 end
 
-33.times do
-#33000.times do
+33000.times do
   Fabricate(:product, store_id: store2.id, photo_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
+  puts "Created Product #{Product.last.id}"
 end
 
 ### STORE 3 ###
@@ -109,7 +109,7 @@ categories = []
   categories << Fabricate(:category, store_id: store3.id)
 end
 
-33.times do
-#34000.times do
+34000.times do
   Fabricate(:product, store_id: store3.id, photo_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
+  puts "Created Product #{Product.last.id}"
 end

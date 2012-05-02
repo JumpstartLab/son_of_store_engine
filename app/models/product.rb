@@ -12,8 +12,7 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_numericality_of :price
   validates_format_of :photo_url,
-    with: /^https?:\/\/(?:[a-z\-]+\.)+
-    [a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png|jpeg)$/x,
+    with: /\Ahttp.*(jpeg|jpg|gif|png)\Z/,
   allow_nil: true, unless: Proc.new { |prod| prod.photo_url.blank? }
 
   default_scope order(:title)
