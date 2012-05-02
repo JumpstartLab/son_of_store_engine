@@ -65,7 +65,7 @@ class Product < ActiveRecord::Base
 
   def image
     if !photo_url || photo_url == ""
-      "/logo.png"
+      "icon.png"
     else
       photo_url
     end
