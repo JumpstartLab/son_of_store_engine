@@ -13,6 +13,7 @@ class Ability
       can :manage, Category
       can :manage, Order
       can :manage, :stores
+      can :manage, :all
     end
 
     if user.admin?
