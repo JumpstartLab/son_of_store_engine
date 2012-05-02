@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def manage_session
+  def manage_session_and_redirect
     @cart.destroy
     session[:cart_id] = Cart.create.id
     session[:checking_out] = nil
