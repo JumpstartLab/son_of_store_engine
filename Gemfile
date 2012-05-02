@@ -48,9 +48,9 @@ end
 group :production do
   gem 'pg'
   gem 'thin'
-  gem 'memcache-client'
 end
 
+  gem 'memcache-client'
 group :test do
   gem 'guard-spork'
   gem 'spork'

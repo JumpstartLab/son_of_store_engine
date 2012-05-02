@@ -1,4 +1,5 @@
 class StoreDashboardStatsJob
+  extend MemoryCache 
   @queue = :store_stats
 
   def self.perform
@@ -19,7 +20,7 @@ class StoreDashboardStatsJob
     end
 
     key = "#{store.slug}:revenue_over_time"
-    Rails.cache.write(key, result.to_json)
+    store(key, result.to_json)
   end
 
   def self.category_revenue(store)
@@ -38,7 +39,7 @@ class StoreDashboardStatsJob
     end
 
     key = "#{store.slug}:category_revenue"
-    Rails.cache.write(key, category_name_to_revenue.to_json)
+    store(key, category_name_to_revenue.to_json)
   end
 
   def self.top_ten_user_revenue(store)
@@ -51,6 +52,6 @@ class StoreDashboardStatsJob
     end
 
     key = "#{store.slug}:top_ten_user_revenue"
-    Rails.cache.write(key, result.to_json)
+    store(key, result.to_json)
   end
 end
