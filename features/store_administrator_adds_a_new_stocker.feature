@@ -1,5 +1,3 @@
-@mofos 
-
 Feature:
   As a store administrator
   I can add a new stocker

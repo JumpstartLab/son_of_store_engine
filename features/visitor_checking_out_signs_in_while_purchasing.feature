@@ -1,3 +1,5 @@
+@mofos
+
 Feature:
   As a visitor
   When checking out
@@ -18,3 +20,15 @@ Feature:
     Then I should be logged in
     And I am returned to my checkout process
     And I can make my purchase normally
+
+  Scenario: I can navigate through the checkout process
+    Given I have a StoreEngine account
+    When I visit "http://storeengine.com/signin/"
+    When I choose to sign in
+    When I visit "http://storeengine.com/cool-sunglasses/"
+    Then I can directly add a product to my cart
+    Then I am taken to my cart
+    Then I can checkout
+    Then I am asked to enter my credit card information
+    Then I am asked to enter my shipping information
+    Then I am finished

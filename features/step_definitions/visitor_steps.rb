@@ -66,8 +66,8 @@ Given /^I have a StoreEngine account$/ do
 end
 
 When /^I choose to sign in$/ do
-  fill_in('Email', with: @user.email)
-  fill_in('Password', with: @user.password)
+  fill_in('email', with: @user.email)
+  fill_in('password', with: @user.password)
   click_on('Log in')
 end
 
@@ -214,4 +214,51 @@ When /^I create my account$/ do
   fill_in('user_password', with: @user.password)
   fill_in('user_password_confirmation', with: @user.password)
   click_on 'Create Account'
+end
+
+Then /^I can directly add a product to my cart$/ do
+  click_on('Add to cart')
+end
+
+Then /^I am taken to my cart$/ do
+  text.should include "Your Cart"
+end
+
+Then /^I can update the quantity$/ do
+  fill_in('cart_product[quantity]', with: '2')
+  click_on 'update'
+end
+
+Then /^I can remove the product from my cart$/ do
+  click_on 'Remove from cart'
+end
+
+Then /^I can click on a product$/ do
+  click_on Product.first.name
+end
+
+Then /^I am taken to the product$/ do
+  text.should include Product.first.name
+  text.should include Product.first.description
+end
+
+Then /^I can checkout$/ do
+  click_link('Checkout')
+end
+
+Then /^I am asked to enter my credit card information$/ do
+  click_on('Create Credit Card')
+end
+
+Then /^I am asked to enter my shipping information$/ do
+  fill_in('shipping_detail_ship_to_name', with: 'Ed Weng')
+  fill_in('shipping_detail_ship_to_address_1', with: '200 West Street')
+  fill_in('shipping_detail_ship_to_city', with: 'NYC')
+  fill_in('shipping_detail_ship_to_zip', with: '20010')
+  click_on('Create Shipping detail')
+end
+
+Then /^I am finished$/ do
+  click_on 'Create Order'
+  text.should include "Order Details"
 end
