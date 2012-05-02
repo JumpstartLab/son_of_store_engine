@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
     if @category
       @products = @category.products.page(params[:page]).per(24)
     else
-      return redirect_to store_products_path(current_store), 
+      return redirect_to store_products_path(current_store),
              alert: "This store does not have that category."
     end
   end
@@ -33,7 +33,7 @@ class CategoriesController < ApplicationController
   def update
     @category = current_store.categories.find(params[:id])
     if @category.update_attributes(params[:category])
-      redirect_to store_categories_path(current_store), 
+      redirect_to store_categories_path(current_store),
       :notice => "Category updated."
     else
       render 'edit'

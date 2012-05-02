@@ -1,6 +1,6 @@
 class Admin::StoresController < ApplicationController
   before_filter :admin_required
-  before_filter :find_store, only: [:approve, :decline, :enable, :disable, :edit]
+  before_filter :find_store, except: [:index]
 
   def index
     @users = User.joins(:stores).uniq
@@ -28,6 +28,8 @@ class Admin::StoresController < ApplicationController
 
   def edit
   end
+
+  private
 
   def find_store
     @store = Store.find_by_slug(params[:id])

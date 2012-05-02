@@ -17,9 +17,13 @@ class Product < ActiveRecord::Base
   has_many :orders, through: :order_items
 
   def self.find_by(search_term)
-    Product.where("upper(title) like ?", "%#{search_term.upcase}%") +
+    Product.active.where("upper(title) like ?", "%#{search_term.upcase}%") +
     Category.where("upper(title) like ?",
       search_term.upcase).map {|category| category.products}.flatten
+  end
+
+  def self.find_for_store(store, search_term)
+    store.products.active.find_by(search_term)
   end
 
   def revenue

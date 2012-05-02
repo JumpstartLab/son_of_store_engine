@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def store_cart(store)
-    carts.where(store_id: store.id).first
+    carts.where(store_id: store.id).first || carts.create(store_id: store.id)
   end
 
   def promote(store, role)

@@ -1,12 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
   before_filter :lookup_cart
 
   private
 
   def lookup_cart
-    #session["#{current_store.slug}_cart_id"] = nil
     return nil unless current_store
     if current_user
       @cart = find_or_create_user_store_cart
@@ -18,17 +17,17 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_session_store_cart
-    cart_id = session["#{current_store.slug}_cart_id"] || current_store.carts.create.id
+    cart_id = session["#{current_store.slug}_cart_id"]
+    cart_id ||= current_store.carts.create.id
     Cart.find(cart_id)
   end
 
   def find_or_create_user_store_cart
     session_cart_id = session["#{current_store.slug}_cart_id"]
-    if session_cart_id 
+    if session_cart_id
       session_cart = Cart.find_by_id(session_cart_id)
     end
-    session["#{current_store.slug}_cart_id"]
-    user_cart = current_user.store_cart(current_store) || current_user.carts.create(store_id: current_store.id)
+    user_cart = current_user.store_cart(current_store)
     user_cart.absorb(session_cart) if session_cart && session_cart != user_cart
     user_cart
   end
@@ -80,13 +79,14 @@ class ApplicationController < ActionController::Base
       nil
     end
   end
-  
+
   def store_required
     unless current_store
-      redirect_to root_path, notice: "Could not find the store you were looking for. Try one of these!"
+      redirect_to root_path,
+      notice: "Could not find the store you were looking for. Try one of these!"
     end
   end
-  
+
   helper_method :current_store
   helper_method :lookup_cart
   helper_method :admin_authorize
