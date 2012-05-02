@@ -2,10 +2,16 @@ require 'bigdecimal'
 
 class StatsController < ApplicationController
   def revenue_over_time
-    day_to_revenue = OrderItem.joins(:order)
-      .where("orders.store_id = #{current_store.id}").order("date_orders_created_at")
-      .group("date(orders.created_at)").sum("quantity * unit_price")
+    #day_to_revenue = OrderItem.joins(:order)
+      #.where("orders.store_id = #{current_store.id}").order("date_orders_created_at")
+      #.group("date(orders.created_at)").sum("quantity * unit_price")
     
+    day_to_revenue = OrderItem.joins(:order)
+      .where("orders.store_id = #{current_store.id}")
+      .group("date(orders.created_at)").sum("quantity * unit_price")
+
+    day_to_revenue = day_to_revenue.sort_by { |timestamp, total| timestamp }
+
     result = day_to_revenue.collect do |date, revenue| 
         [Time.parse(date).to_i * 1000, revenue]
     end
