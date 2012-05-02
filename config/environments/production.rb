@@ -68,14 +68,20 @@ StoreEngine::Application.configure do
   # Email
   config.action_mailer.default_url_options = { :host => 'polutropon.com' }
   config.action_mailer.delivery_method = :smtp
-
-ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => "app4236527@heroku.com",
-    :password       => "86gskmjs",
-    :domain         => 'heroku.com'
+  ActionMailer::Base.smtp_settings = {
+    :address  => "smtp.mailgun.org",
+    :port  => 25,
+    :user_name  => "postmaster@app4236527.mailgun.org",
+    :password  => "6pdqgiwcyfq2",
+    :authentication  => :login
   }
+# ActionMailer::Base.smtp_settings = {
+#     :address        => 'smtp.sendgrid.net',
+#     :port           => '587',
+#     :authentication => :plain,
+#     :user_name      => "app4236527@heroku.com",
+#     :password       => "86gskmjs",
+#     :domain         => 'heroku.com'
+#   }
   ActionMailer::Base.delivery_method = :smtp  
 end

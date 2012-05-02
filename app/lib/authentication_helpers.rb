@@ -20,16 +20,18 @@ module AuthenticationHelpers
     end
   end
 
-  def not_authenticated(msg= "You must login first")\
+  def not_authenticated(msg= "You must login first")
     flash[:alert] = msg
     redirect_to '/login'
   end
 
   def require_guest_login
     unless @cart.guest? || current_user
+      url = (request.protocol + request.subdomain + "." + request.domain +
+        (request.port.nil? ? '' : ":#{request.port}") + "/cart/guest")
       msg = "You must login first or"
-      flash[:link] = ["Continue as Guest", guest_cart_path, :post]
-      require_login
+      flash[:link] = ["Continue as Guest", url, :post]
+      not_authenticated(msg)
     end
   end
 end
