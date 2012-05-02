@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       new_session
     else
-      flash.now.alert = "Email or password is invalid."      
+      flash.now.alert = "Email or password is invalid."
       render "new"
     end
   end

@@ -12,7 +12,7 @@ class BackgroundJob
   end
 
   def self.store_declined_email(store)
-    Resque.enqueue(StoreDeclinedEmailer, store.owner.id, store.name, 
+    Resque.enqueue(StoreDeclinedEmailer, store.owner.id, store.name,
                    store.description, store.slug)
   end
 

@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_filter :store_disabled
   before_filter :user_may_stock,
-  only: [:destroy, :edit, :update, :create, :new]  
+  only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required
   before_filter :find_product, only: [:show, :edit, :update, :destroy]
 
@@ -60,7 +60,7 @@ class ProductsController < ApplicationController
     session[:search]
   end
 
-  def find_product 
+  def find_product
     @product = current_store.products.find(params[:id])
   end
 

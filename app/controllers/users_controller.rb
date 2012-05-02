@@ -36,15 +36,15 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       store = Store.find_by_id(session[:checkout_store_id])
-      link = "<a href=\"#{edit_user_path(@user)}\">Edit User Settings</a>" 
-      notice = "Thank you for signing up!  #{link}".html_safe 
+      link = "<a href=\"#{edit_user_path(@user)}\">Edit User Settings</a>"
+      notice = "Thank you for signing up!  #{link}".html_safe
       if checking_out? && session[:checkout_store_id]
         redirect_to new_store_order_path(store), notice: notice
       elsif session[:previous_page] == new_user_url
         redirect_to root_path, notice: notice
       else
         redirect_to session[:previous_page], notice: notice
-      end 
+      end
     else
       render "new"
     end

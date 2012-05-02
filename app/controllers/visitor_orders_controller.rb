@@ -11,7 +11,7 @@ class VisitorOrdersController < ApplicationController
       session["#{current_store.slug}_cart_id"] = nil
       session[:checking_out] = nil
       @cart.destroy
-      redirect_to store_visitor_order_path(current_store, @order.unique_url), 
+      redirect_to store_visitor_order_path(current_store, @order.unique_url),
                   :notice => "Transaction Complete"
     else
       render :new
@@ -32,8 +32,8 @@ class VisitorOrdersController < ApplicationController
         @order = Order.new
         @order.build_address
       end
-    else 
-      redirect_to new_store_checkout_path(current_store), 
+    else
+      redirect_to new_store_checkout_path(current_store),
         :alert => "You need a email to checkout as a Guest."
     end
   end

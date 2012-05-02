@@ -42,9 +42,7 @@ class Product < ActiveRecord::Base
     if cached_value = Rails.cache.read("#{store.slug}_top_seller")
       Product.find(cached_value)
     elsif store.order_items.any?
-      top_seller = find(store.order_items.count(group: "product_id").invert.max.last)
-      Rails.cache.write("#{store.slug}_top_seller", top_seller.id)
-      Product.find(Rails.cache.read("#{store.slug}_top_seller"))
+      store.find_top_seller
     else
       store.products.first
     end

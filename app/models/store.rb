@@ -5,6 +5,7 @@ class Store < ActiveRecord::Base
   has_many :privileges
   has_many :carts
   has_many :orders
+  has_many :order_items, through: :orders
   has_many :categories
   has_many :employees, through: :privileges, source: "user"
   belongs_to :owner, class_name: "User", foreign_key: "owner_id"
@@ -72,7 +73,13 @@ class Store < ActiveRecord::Base
     employees.select {|e| e.store_role(self) == "stocker"}.size
   end
 
-  private 
+  def find_top_seller
+    top = Product.find(order_items.count(group: "product_id").invert.max.last)
+    Rails.cache.write("#{slug}_top_seller", top.id)
+    top
+  end
+
+  private
 
   def strip_whitespace
     self.name.strip!
