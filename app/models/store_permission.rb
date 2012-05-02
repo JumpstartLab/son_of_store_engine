@@ -23,13 +23,13 @@ class StorePermission < ActiveRecord::Base
   end
 
   def send_invite_email(email)
-    UserMailer.invite_admin_email(store, admin_hex, email) if permission_level == 1
-    UserMailer.invite_stocker_email(store, admin_hex, email) if permission_level == 2
+    UserMailer.invite_admin_email(store_id, admin_hex, email).deliver if permission_level == 1
+    UserMailer.invite_stocker_email(store_id, admin_hex, email).deliver if permission_level == 2
   end
 
   def send_pink_slip
-    UserMailer.fire_admin(store, user.email_address) if permission_level == 1
-    UserMailer.fire_stocker(store, user.email_address) if permission_level == 2
+    UserMailer.fire_admin(store_id, user.email_address).deliver if permission_level == 1
+    UserMailer.fire_stocker(store_id, user.email_address).deliver if permission_level == 2
   end
 
   private
@@ -37,8 +37,8 @@ class StorePermission < ActiveRecord::Base
   def alert_user
     if user_id && user_id != store.creating_user_id
       email = User.find(user_id).email_address
-      UserMailer.alert_admin_email(store_id, email) if permission_level == 1
-      UserMailer.alert_stocker_email(store_id, email) if permission_level == 2
+      UserMailer.alert_admin_email(store_id, email).deliver if permission_level == 1
+      UserMailer.alert_stocker_email(store_id, email).deliver if permission_level == 2
     end
   end
 end
