@@ -19,7 +19,7 @@ StoreEngine::Application.routes.draw do
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   match '/admin/stores', :to => 'admin/stores#index'
-  match '/products', to: 'stores#index'
+  # match '/products', to: 'stores#index'
 
   namespace :admin do
     resources :stores, only: [ :index, :update ]
