@@ -1,5 +1,17 @@
 class Seeder
 
+  def self.build_mega_db
+    build_users(10000)
+    build_stores
+    build_products(34000, 1)
+    build_products(34000, 2)
+    build_products(34000, 3)
+    build_categories
+    build_shipping_detail
+    build_credit_cards
+    build_orders
+  end
+
   def self.build_db
     build_users
     build_stores
@@ -19,9 +31,20 @@ class Seeder
     rand(max)+1
   end
 
+  def self.build_credit_cards
+    User.all.each do |user|
+      user.credit_cards.create(:credit_card_type => "Visa",
+                               :last_four => "4242",
+                               :exp_month => "05",
+                               :exp_year => "15",
+                               :stripe_customer_token => "tok_KM1feeMHDhSgiq",
+                               :default_card => false)
+    end
+  end
+
   def self.build_shipping_detail
     User.all.each do |user|
-      Seeder.at_least_one(2).times do
+      2.times do
         user.shipping_details.create( :ship_to_name => user.name,
           :ship_to_address_1 => Faker::Address.street_address,
           :ship_to_address_2 => Faker::Address.secondary_address,
@@ -34,7 +57,7 @@ class Seeder
 
   def self.build_orders
     [ 'pending', 'paid', 'shipped', 'cancelled' ].each do |status_i|
-      Seeder.at_least_two(4).times do
+      30.times do
         order = Seeder.generate_order
         order.order_status.update_attribute(:status, status_i)
       end
@@ -43,7 +66,7 @@ class Seeder
 
   def self.generate_order
     order = Order.new
-    order.user = User.first(:offset => rand( User.count ))
+    order.user = User.all.sample
     Seeder.generate_order_products(order)
     order.save
     Seeder.generate_shipping_details(order)
@@ -57,10 +80,10 @@ class Seeder
   end
 
   def self.generate_order_products(order)
-    Seeder.at_least_one(3).times do
-      product = Product.first(:offset => rand( Product.count ))
+    4.times do
+      product = Product.all.sample
       order.order_products.build(:price => product.price,
-        :product => product, :quantity => Seeder.at_least_one(3))
+        :product => product, :quantity => rand(3)+1)
     end
   end
 
@@ -69,11 +92,10 @@ class Seeder
       product = Product.create( name: "#{Faker::Name.name}",
         description: Faker::Lorem.sentences(2),
         price: (15 + rand(10) + rand(4)*0.25),
-        photo: photo_url,
+        photo: Seeder.photo_url.sample,
         store_id: store_id )
-      (rand(3) + 1).times do
-        offset = rand(Category.count)
-        product.add_category(Category.first(:offset => offset))
+      (rand(3)).times do
+        product.add_category(product.store.categories.sample)
       end
     end
   end
@@ -81,12 +103,18 @@ class Seeder
   def self.build_categories
     # should be:
     # [h,s,m].each do ...
-    Category.create( name: 'belle', store_id: 1 )
-    Category.create( name: 'bon', store_id: 1 )
-    Category.create( name: 'paris', store_id: 2 )
-    Category.create( name: 'Boots', store_id: 2 )
+    Category.create( name: 'Belle', store_id: 1 )
+    Category.create( name: 'Bonhomme', store_id: 1 )
+    Category.create( name: 'Taxidermy', store_id: 1 )
+    Category.create( name: 'Meat', store_id: 1 )
+    Category.create( name: 'Paris', store_id: 2 )
+    Category.create( name: 'Joie de Vivre', store_id: 2 )
+    Category.create( name: 'Terraria', store_id: 2 )
+    Category.create( name: 'Sled-dogs', store_id: 2 )
     Category.create( name: 'Coats', store_id: 3 )
     Category.create( name: 'Jackets', store_id: 3 )
+    Category.create( name: 'Badgers', store_id: 3 )
+    Category.create( name: 'Conveyance', store_id: 3 )
   end
 
   def self.build_stores
@@ -98,7 +126,7 @@ class Seeder
       description: "They sure are comfortable!", owner_id: 3)
   end
 
-  def self.build_users
+  def self.build_users(num=0)
     User.create( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
       password: 'hungry')
     User.create( name: 'Jeff', display_name: 'j3',
@@ -106,6 +134,9 @@ class Seeder
     admin = User.create( name: 'Chad Fowler', display_name: 'SaxPlayer',
       email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
     admin.update_attribute(:admin, true)
+    @users = num.times.map do |n|
+      FactoryGirl.create(:user, :name => "User #{n}", :email => "user#{n}@chez-pierre.info", :password => "hungry", :password_confirmation => "hungry")
+    end
   end
 
   def self.destroy_db
@@ -117,7 +148,7 @@ class Seeder
   end
 
   def self.photo_url
-    photos = ["http://s3.amazonaws.com/static.fab.com/product/125149-300x300-1335384095-primary.png",
+    ["http://s3.amazonaws.com/static.fab.com/product/125149-300x300-1335384095-primary.png",
       "http://s3.amazonaws.com/static.fab.com/product/125146-300x300-1335391068-primary.png",
       "http://s3.amazonaws.com/static.fab.com/product/125141-300x300-1335383975-primary.png",
       "http://s3.amazonaws.com/static.fab.com/product/125142-300x300-1335390858-primary.png",
@@ -155,7 +186,6 @@ class Seeder
       "http://s3.amazonaws.com/static.fab.com/product/7259-300x300-1312986784-primary.png",
       "http://s3.amazonaws.com/static.fab.com/product/114082-300x300-1334237411-primary.png",
     ]
-    photos.sample
   end
 
 end
