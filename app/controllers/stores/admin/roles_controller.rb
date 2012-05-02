@@ -22,6 +22,7 @@ module Stores
         authorize! :promote_users?, current_store
 
         @role = Role.find(params[:id])
+        @role.notify_user_of_role_removal
         if @role.destroy
           redirect_to store_admin_path(current_store.slug)
         else
@@ -33,6 +34,7 @@ module Stores
         role = params[:role]
         if role == "store_stocker" || role == "store_admin"
           user.roles.create(name: params[:role], store: current_store)
+          user.roles.last.notify_user_of_role_addition
           redirect_to store_admin_path(current_store.slug), :notice => "#{user.name} is now a #{role.gsub('_',' ')}."
         else
           redirect_to store_admin_path(current_store.slug), :notice => "That role does not exist."
