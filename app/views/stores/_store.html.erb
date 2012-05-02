@@ -1,0 +1,15 @@
+ <div class="thumbnail" id="<%= store.id %>">
+  
+  <div class="row-fluid">
+    <div class="span6">
+      <% if top_seller = Product.top_selling_for_store(store) %>
+      <%= link_to image_tag(top_seller.image_link, :width => '150'), 
+      store_path(store) %>
+      <% end %>
+    </div>
+    <div class="span6">
+      <h2><%= link_to store.name, store_path(store) %></2>
+      <h3><%= store.description %></h3>
+    </div>
+  </div>
+</div>

@@ -26,7 +26,7 @@ StoreEngine::Application.routes.draw do
     resources :products
     resource :dashboard, :controller => 'dashboard'
     resource :two_click_orders
-    resources :categories, :except => [:index]
+    resources :categories
     resources :orders
     resources :employees
     resource :checkout, :controller => 'checkout'

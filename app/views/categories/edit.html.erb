@@ -1,6 +1,12 @@
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
 <h1>Edit Category Title</h1>
 
 <%= simple_form_for([current_store, @category]) do |f| %>
     <%= f.input :title, :label => false %>
     <%= f.button :submit %>
 <% end %>
+<br/>
+<%= link_to "Return to Category Management", store_categories_path(current_store), 
+    :class => "btn-info btn-large" %>

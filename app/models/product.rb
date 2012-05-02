@@ -8,6 +8,8 @@ class Product < ActiveRecord::Base
 
   validates_uniqueness_of :title
 
+  after_create :add_image_if_blank
+
   belongs_to :store
   has_many :order_items
   has_many :product_categories
@@ -50,5 +52,11 @@ class Product < ActiveRecord::Base
 
   def status?
     activity
+  end
+
+  def add_image_if_blank
+    if image_link.blank?
+      update_attribute(:image_link, "http://t0.gstatic.com/images?q=tbn:ANd9GcTCuHKEZTTrdXLlLg27llqQX0xq2bQhhw5MtnPUeZBx1i6kAKBcKqGEFM4TBA")
+    end
   end
 end
