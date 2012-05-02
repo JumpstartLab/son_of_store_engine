@@ -1,32 +1,40 @@
-## StoreEngine
+## Ploutropon: A Top Gear Marketplace
 
-http://tutorials.jumpstartlab.com/projects/store_engine.html
+### Site Info
 
-## To setup:
+[Link to the live site](http://polutropon.com "Polutropon")
 
-Install ImageMagick (not a gem!)
+### Test User Info
 
-  brew install imagemagick
+Super Admin:
+ - email: elise.worthy@gmail.com
+ - password: elise
 
-Then set up the dbs and seed
+**Store 1 ("BOSS Accessories")**
+Admin:
+ - email: michael.verdi@gmail.com
+ - password: hungry
 
-  rake db:migrate db:test:prepare
-  rake db:seed
+Stocker:
+ - email: mike.silvis@livingsocial.com
+ - password: mike
 
-Set up your stripe secret key. Create a file `config/initializers/stripe_secret_key.rb' with the contents:
 
-  Stripe.api_key ="KEY_FROM_EMAIL"
+**Store 2 ("Silvis Bike Store")**
+Admin:
+ - email: mikesilvis@gmail.com
+ - password: mike
 
-Use POW
+Stocker:
+ - email: elise.worthy@gmail.com
+ - password: elise
 
-  curl get.pow.cx | sh
-  cd ~/.pow
-  ln -s /path/to/myapp son.dev
 
-Start Redis (For emailers, stripe, geocoder, etc.)
+**Store 3 ("Park Place Motors")**  
+Admin:
+ - email: elise.worthy@gmail.com
+ - password: elise
 
-  rake resque:work QUEUE=*
-
-To run test suite
-
-  RAILS_ENV=test rake
+Stocker:
+ - email: mike.silvis@livingsocial.com
+ - password: mike
