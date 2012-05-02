@@ -1,5 +1,8 @@
+# the wrapper for the store_slugs
 module Stores
+  # the module for store-specific admins
   module Admin
+    # for controlling products
     class ProductsController < BaseController
       helper_method :product, :products
 
@@ -53,7 +56,8 @@ module Stores
     private
       def product
         if params[:product_id] || params[:id]
-          @product ||= current_store.products.where(id: params[:product_id] || params[:id]).first
+          @product ||= current_store.products.where(id: params[:product_id] ||
+                                                        params[:id]).first
         else
           @product ||= current_store.products.build(params[:product])
         end

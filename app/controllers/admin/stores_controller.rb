@@ -1,6 +1,9 @@
+# the Site Admin module
 module Admin
+
+  # StoresController specific to site admin
   class StoresController < ApplicationController
-    
+
     before_filter :authorize_site_admin!
 
     def current_ability

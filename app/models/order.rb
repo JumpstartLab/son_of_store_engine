@@ -1,3 +1,4 @@
+# model for orders
 class Order < ActiveRecord::Base
   attr_accessible :user_id, :credit_card_id, :order_products
 
@@ -40,13 +41,16 @@ class Order < ActiveRecord::Base
   def self.build_for_guest_user(user, cart, params)
     order = user.orders.build
     order.build_order_from_cart(cart)
-    order.shipping_detail = user.shipping_details.build(params[:shipping_detail])
-    order.credit_card = user.credit_cards.build_from_stripe_for(user, params[:credit_card])
+    order.shipping_detail = user.shipping_details.build(
+      params[:shipping_detail])
+    order.credit_card = user.credit_cards.build_from_stripe_for(
+      user, params[:credit_card])
     order
   end
 
   def add_shipping_detail_for(user, attributes)
-    self.shipping_detail = user.shipping_details.find(attributes[:shipping_detail_id])
+    self.shipping_detail = user.shipping_details.find(
+      attributes[:shipping_detail_id])
   end
 
   def make_new_order_status

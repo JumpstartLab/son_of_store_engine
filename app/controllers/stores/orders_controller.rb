@@ -1,4 +1,6 @@
+# module for the store_slug namespage
 module Stores
+  # to manage orders for each store
   class OrdersController < ApplicationController
 
     def new
@@ -8,7 +10,8 @@ module Stores
           redirect_to new_store_credit_card_path(current_store.slug) and return
         elsif current_user.shipping_details.empty?
           flash.notice = flash.notice
-          redirect_to new_store_shipping_detail_path(current_store.slug) and return
+          redirect_to new_store_shipping_detail_path(
+            current_store.slug) and return
         end
 
         @order = Order.new()
@@ -21,7 +24,7 @@ module Stores
       @order = Order.build_for_user(current_user, current_cart)
       @order.add_shipping_detail_for(current_user, params[:order])
       @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
-      
+
       if @order.save && @order.charge(current_cart)
         redirect_to order_path(current_store.slug, @order.id),
           :notice => "Thank you for placing an order."

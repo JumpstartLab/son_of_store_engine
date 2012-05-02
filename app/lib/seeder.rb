@@ -1,3 +1,4 @@
+# called from seeds.rb
 class Seeder
   def self.build_db
     build_stores
@@ -33,7 +34,8 @@ class Seeder
   def self.build_shipping_detail
     User.all.each do |user|
       Seeder.at_least_one(2).times do
-        shipping_detail = user.shipping_details.create( :ship_to_name => user.name,
+        shipping_detail = user.shipping_details.create(
+          :ship_to_name => user.name,
           :ship_to_address_1 => Faker::Address.street_address,
           :ship_to_address_2 => Faker::Address.secondary_address,
           :ship_to_city => Faker::Address.city,
@@ -113,12 +115,13 @@ class Seeder
   end
 
   def self.build_users
-    stocker = User.new( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
-      password: 'hungry')
+    stocker = User.new( name: 'Matt Yoho',
+      email: 'demo08+matt@jumpstartlab.com', password: 'hungry')
     stocker.roles.build(name: "store_stocker", store: Store.find(1))
     stocker.save
-    
-    store_admin = User.new( name: 'Jeff', email: 'demo08+jeff@jumpstartlab.com',
+
+    store_admin = User.new( name: 'Jeff',
+      email: 'demo08+jeff@jumpstartlab.com',
       password: 'hungry', display_name: 'j3')
     store_admin.roles.build(name: "store_admin", store: Store.find(2))
     store_admin.save

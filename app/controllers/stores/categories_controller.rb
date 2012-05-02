@@ -1,4 +1,6 @@
+# module for the store_slug namespage
 module Stores
+  # to show categories for each store
   class CategoriesController < ApplicationController
 
     def show

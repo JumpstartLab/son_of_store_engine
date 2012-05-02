@@ -1,6 +1,7 @@
+# CanCan ability for Store Admin
 class AdminAbilityStore
   include CanCan::Ability
-  
+
   def initialize(user)
 
     user ||= User.new

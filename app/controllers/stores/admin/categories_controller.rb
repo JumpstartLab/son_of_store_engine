@@ -1,5 +1,8 @@
+# the wrapper for the store_slugs
 module Stores
+  # the module for store-specific admins
   module Admin
+    # for admin to control the categories
     class CategoriesController < BaseController
 
       before_filter :authorize_store_admin!

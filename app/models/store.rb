@@ -1,3 +1,4 @@
+# model for stores
 class Store < ActiveRecord::Base
   STATUSES = %w{ approved pending declined disabled }
 
@@ -33,9 +34,9 @@ class Store < ActiveRecord::Base
   end
 
   def stockers
-    roles.where(name: "store_stocker").pluck(:user_id).collect{ |user_id| User.find(user_id) }
-    # query = "select * from users where users.id in (select users.id from roles INNER JOIN users where roles.name = 'store_admin' AND store.id = ?);"
-    # User.find_by_sql(query, id)
+    roles.where(name: "store_stocker").pluck(:user_id).collect do |user_id|
+      User.find(user_id)
+    end
   end
 
   def creator
@@ -43,7 +44,9 @@ class Store < ActiveRecord::Base
   end
 
   def admins
-    roles.where(name: "store_admin").pluck(:user_id).collect{ |user_id| User.find(user_id) }
+    roles.where(name: "store_admin").pluck(:user_id).collect do |user_id|
+      User.find(user_id)
+    end
   end
 
   def has_multiple_admin?

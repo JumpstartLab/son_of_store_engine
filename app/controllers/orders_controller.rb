@@ -1,3 +1,4 @@
+# OrdersController that isn't within any admin/store module
 class OrdersController < ApplicationController
 
   def index

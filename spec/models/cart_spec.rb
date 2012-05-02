@@ -5,7 +5,7 @@ describe Cart do
   let(:product_one) { FactoryGirl.create(:product) }
   let(:product_two) { FactoryGirl.create(:product) }
   let(:products) { [ product_one, product_two ] }
-  
+
   context "when items have been added to the cart" do
     before(:each) do
       products.each do |product|

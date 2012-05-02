@@ -1,11 +1,14 @@
+# module for the store_slug namespage
 module Stores
+  # to handle stripe in each store
   class CreditCardsController < ApplicationController
     def new
       @credit_card = CreditCard.new
     end
 
     def create
-      new_credit_card = CreditCard.build_from_stripe_for(current_user, params[:credit_card])
+      new_credit_card = CreditCard.build_from_stripe_for(current_user,
+                                                         params[:credit_card])
       new_credit_card.save
       redirect_to new_store_order_path
     end

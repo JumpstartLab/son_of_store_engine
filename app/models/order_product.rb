@@ -1,3 +1,4 @@
+# model for order_products
 class OrderProduct < ActiveRecord::Base
   attr_accessible :order_id, :price_cents, :product_id,
     :quantity, :product, :price

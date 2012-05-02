@@ -1,3 +1,4 @@
+# class to deliver emails pertaining to users
 class UserMailer < ActionMailer::Base
   default from: "info@berrystore.com",
           bcc: "travis.valentine@livingsocial.com"
@@ -5,7 +6,7 @@ class UserMailer < ActionMailer::Base
   def user_confirmation(user)
     @user     = user
     mail(:to => @user.email, :subject => "You have been registered.",
-      :body => "Congratulations! You have successfully been registered." )  
+      :body => "Congratulations! You have successfully been registered." )
   end
 
   def signup_notification(email)

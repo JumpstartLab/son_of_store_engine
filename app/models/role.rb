@@ -1,3 +1,4 @@
+# model for roles
 class Role < ActiveRecord::Base
   TYPES = %w{ store_stocker store_admin site_admin }
 

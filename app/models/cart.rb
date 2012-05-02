@@ -1,3 +1,4 @@
+# model for carts
 class Cart < ActiveRecord::Base
   extend StoreQueries
 

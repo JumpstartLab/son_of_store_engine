@@ -1,3 +1,4 @@
+# controller for creating new store customers and users
 class UsersController < ApplicationController
   before_filter :is_current_user?, only: [ :show, :edit ]
   include SessionHelpers
@@ -13,8 +14,9 @@ class UsersController < ApplicationController
     if @user.save
       auto_login(@user)
       transfer_cart_to_user(cart_before_login, @user)
-      link = "<a href=\"#{edit_user_url(@user.id)}\">Update your profile.</a>" 
-      redirect_to params[:return_path], :notice => "You have been registered. #{link}".html_safe
+      link = "<a href=\"#{edit_user_url(@user.id)}\">Update your profile.</a>"
+      redirect_to params[:return_path],
+        :notice => "You have been registered. #{link}".html_safe
       UserMailer.user_confirmation(@user).deliver
     else
       @user.errors.full_messages.each do |msg|
@@ -38,7 +40,8 @@ class UsersController < ApplicationController
 
     # TODO: ask Charles about this
     if @user.update_attributes(params[:user])
-      redirect_to user_path(@user.id), :notice => "Your profile has been updated"
+      redirect_to user_path(@user.id),
+        :notice => "Your profile has been updated"
     else
       render :edit
     end

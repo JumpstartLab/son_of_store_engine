@@ -1,8 +1,11 @@
+# the wrapper for the store_slugs
 module Stores
+  # the module for store-specific admins
   module Admin
+    # for controlling orders
     class OrdersController < BaseController
       before_filter :authorize_store_admin!
-      
+
       def index
         @orders = current_store.orders
       end

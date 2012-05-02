@@ -1,3 +1,4 @@
+# model for products
 class Product < ActiveRecord::Base
   REGEX = /^https?:\/\/(?:[a-z\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpg|gif|png|jpeg)$/
   attr_accessible :description, :name, :photo, :price

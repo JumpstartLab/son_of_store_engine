@@ -1,3 +1,4 @@
+# resque for role mailer
 class RoleEmailer
   @queue = :emails
   def self.perform(method, user_id)
