@@ -42,7 +42,9 @@ module Admin
 
     def update
       if @store.update_attributes(params[:store])
-        redirect_to admin_store_path(@store), notice: 'Store was successfully updated.'
+        flash[:notice] = "Store was successfully updated."
+        redirect_to("http://#{params[:store][:url]}.#{request.domain}" +
+          (request.port.nil? ? '' : ":#{request.port}") + "/admin")
       else
         flash[:alert] = "There was an error while updating your store."
         render action: "edit"
