@@ -29,8 +29,8 @@
 </table>
 
 <h2>Shipped to:</h2>
-<h3><%= @order.user.full_name %></h3>
-<h6><%= @order.user.email %></h6>
+<h3><%= @order.full_name %></h3>
+<h6><%= @order.email %></h6>
 <%= render @address %>
 
 <h2 align="right">Total Price: <%= number_to_currency(@order.total_price) %></h2>

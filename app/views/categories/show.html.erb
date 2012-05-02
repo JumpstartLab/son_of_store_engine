@@ -15,5 +15,7 @@
 </ul>
 <%= paginate @products %>
 <br/>
+<% if current_user && current_user.may_stock?(current_store) %>
 <%= link_to "Return to Category Management", store_categories_path(current_store), 
     :class => "btn-info btn-large" %>
+<% end %>

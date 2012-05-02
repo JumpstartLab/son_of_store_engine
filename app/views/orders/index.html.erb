@@ -3,8 +3,10 @@
 </div>
 <h1>Orders</h1>
 <br />
+  <% if current_user && current_user.may_manage?(current_store) %>
   <%= link_to "Back to Order Management", store_store_orders_path(current_store), 
     :class => "btn-info btn-large" %>
+  <% end %>
 <br/>
 <br/>
 <br/>
