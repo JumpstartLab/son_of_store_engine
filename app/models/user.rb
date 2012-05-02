@@ -81,4 +81,8 @@ class User < ActiveRecord::Base
       Resque.enqueue(RoleEmailer, method_name, id)
     end
   end
+
+  def notify_confirmation_to_user
+    Resque.enqueue(UserEmailer, "user_confirmation", email)
+  end
 end
