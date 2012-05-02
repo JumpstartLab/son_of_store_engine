@@ -83,3 +83,59 @@ $(function () {
     
 });
 `
+`
+$(function () {
+	    $.getJSON('stats/top_ten_user_revenue', function(data) {
+        window.chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'bar',
+                type: 'column'
+            },
+            title: {
+                text: 'Top 10 Users by Spending'
+            },
+            xAxis: {
+                categories: ['Users'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Spending',
+                    align: 'middle'
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': $'+ this.y;
+                }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -100,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: data 
+        });
+    });
+    });
+`

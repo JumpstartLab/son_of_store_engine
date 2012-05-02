@@ -41,5 +41,17 @@ class StatsController < ApplicationController
     render :json => category_name_to_revenue.to_json
   end
 
-  # top 10 users by revenue (bar chart)
+  def top_ten_user_revenue
+    user_to_revenue = OrderItem.joins(:order)
+    .where("orders.store_id = #{current_store.id}")
+    .group("orders.user_id").order("sum_quantity_all_unit_price DESC")
+    .limit(10).sum("quantity * unit_price")
+#name: 'John',
+			#data: [5, 3, 4, 7, 2]
+    result = user_to_revenue.collect do |user_id, revenue| 
+      {:name => User.find(user_id).full_name, :data => [revenue]}
+    end
+
+    render :json => result.to_json
+  end
 end
