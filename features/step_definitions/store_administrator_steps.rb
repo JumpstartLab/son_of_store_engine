@@ -150,7 +150,7 @@ When /^"([^"]*)" does not have a StoreEngine user account$/ do |email|
 end
 
 Then /^an email is sent to "([^"]*)" inviting them to sign up for a StoreEngine account with a sign up link$/ do |email|
-  Resque.peek(:emails, 0, 5).last["args"].should == ["signup_notification", @email]
+  Resque.peek(:emails, 0, 100).last["args"].should == ["signup_notification", @email]
 end
 
 Given /^there is another admin with email "([^"]*)"$/ do |email|

@@ -8,18 +8,18 @@ class CreditCard < ActiveRecord::Base
   belongs_to :user
   belongs_to :store
 
-  def self.build_from_stripe_for(user, params)
-    credit_card = user.credit_cards.build
-    stripe_customer_token = credit_card.stripe_get_customer_token(
-      params[:stripe_card_token])
-    credit_card.parse_stripe_customer_token(stripe_customer_token)
-    credit_card
-  end
+  # def self.build_from_stripe_for(user, params)
+  #   credit_card = user.credit_cards.build
+  #   stripe_customer_token = credit_card.stripe_get_customer_token(
+  #     params[:stripe_card_token])
+  #   credit_card.parse_stripe_customer_token(stripe_customer_token)
+  #   credit_card
+  # end
 
-  def parse_stripe_customer_token(customer_token)
-    self.stripe_customer_token = customer_token["id"]
-    set_card_details(customer_token["active_card"])
-  end
+  # def parse_stripe_customer_token(customer_token)
+  #   self.stripe_customer_token = customer_token["id"]
+  #   set_card_details(customer_token["active_card"])
+  # end
 
 
   def set_to_default
@@ -32,12 +32,12 @@ class CreditCard < ActiveRecord::Base
   #   credit_card = parse_stripe_customer_token(stripe_customer_token)
   # end
 
-  def stripe_get_customer_token(stripe_card_token)
-    Stripe::Customer.create( description: "Mittenberry Customer
-      ##{self.user.id}", card: stripe_card_token)
-  rescue Stripe::InvalidRequestError => error
-    send_customer_create_error(error)
-  end
+  # def stripe_get_customer_token(stripe_card_token)
+  #   Stripe::Customer.create( description: "Mittenberry Customer
+  #     ##{self.user.id}", card: stripe_card_token)
+  # rescue Stripe::InvalidRequestError => error
+  #   send_customer_create_error(error)
+  # end
 
   def formatted_last_four
     "XXXX-XXXX-XXXX-#{last_four[-4..-1]}"
@@ -51,11 +51,11 @@ class CreditCard < ActiveRecord::Base
     # return false if stripe_customer_token.empty?
     return true #overwriting for stripe.
 
-    Stripe::Charge.create(amount: cart_total_in_cents,
-                          currency: 'usd',
-                          customer: stripe_customer_token)
-  rescue Stripe::InvalidRequestError => error
-    send_charge_error(error)
+  #   Stripe::Charge.create(amount: cart_total_in_cents,
+  #                         currency: 'usd',
+  #                         customer: stripe_customer_token)
+  # rescue Stripe::InvalidRequestError => error
+  #   send_charge_error(error)
   end
 
 private
