@@ -1,5 +1,6 @@
 class Store < ActiveRecord::Base
-  attr_accessible :active, :name, :enabled, :description, :users, :url
+  attr_accessible :active, :name, :enabled, :description, :users, :url, 
+                  :photo_url
 
   validates_uniqueness_of :name, :url
   validates_presence_of :name, :url

@@ -27,7 +27,7 @@ module AuthenticationHelpers
 
   def require_guest_login
     unless @cart.guest? || current_user
-      url = (request.protocol + request.subdomain + "." + request.domain + 
+      url = (request.protocol + request.subdomain + "." + request.domain +
         (request.port.nil? ? '' : ":#{request.port}") + "/cart/guest")
       msg = "You must login first or"
       flash[:link] = ["Continue as Guest", url, :post]
