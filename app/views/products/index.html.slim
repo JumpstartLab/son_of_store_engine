@@ -1,14 +1,14 @@
 h1 Products
 .products-listing
 - @products.each do |product|
-  .indiv-product
-    .product-thumbnail
-      img src="#{product.photo}"
-    .product-details
-      #prod-index-title
-        = link_to product.title, product_path(@store, product)
-      #prod-index-price
-        = number_to_currency(product.price)
-      #prod-index-cart
-        = link_to "Add to Cart", cart_path(:product_id => product), :method => :put, :class=>'btn btn-mini'
+    .indiv-product
+      .product-thumbnail
+        img src="#{product.photo}"
+      .product-details
+        #prod-index-title
+          = link_to product.title, product_path(@store, product)
+        #prod-index-price
+          = number_to_currency(product.price)
+        #prod-index-cart
+          = link_to "Add to Cart", cart_path(:product_id => product), :method => :put, :class=>'btn btn-mini'
 = will_paginate @productsg
