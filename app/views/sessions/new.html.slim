@@ -11,7 +11,7 @@
     .field
       = check_box_tag :remember_me, 1, params[:remember_me]
       = label_tag :remember_me
-    .actions= submit_tag "Log in", :id => "go_log_in", :class => "btn btn-medium"
-
-    h1#form_header Or Sign Up
-    = link_to 'Sign up now!', new_user_path
+    .actions
+      = submit_tag "Log in", :id => "go_log_in", :class => "btn btn-medium"
+      |&nbsp;&nbsp;or&nbsp;&nbsp;
+      = link_to 'Sign up now!', new_user_path
