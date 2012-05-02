@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   def new
     if request.subdomain.present?
       flash[:alert] = flash[:alert]
+      flash[:link] = flash[:link]
       redirect_to(request.protocol +
       request.domain +
       (request.port.nil? ? '' : ":#{request.port}") + "/login")
