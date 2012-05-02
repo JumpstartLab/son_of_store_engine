@@ -29,7 +29,7 @@
       - if @product.active == 1
         %p= link_to "Add To Cart", cart_path(:product_id => @product.id), :method => :put, :class => 'btn btn-custom'
         - if @product.can_two_click(current_user)
-          %p= link_to "Buy Instantly!", two_click_cart_path(:product_id => @product.id), :method => :put, :class => 'btn btn-primary', :confirm => "Are you sure you want to give us your money?"
+          %p= link_to "Buy Instantly!", two_click_cart_path(:product_id => @product.id), :method => :put, :class => 'btn btn-custom', :confirm => "Are you sure you want to give us your money?"
       - else
         %p.label.label-important This product is retired.
       %p= link_to "Back to #{@product.store.name} Store", root_path, :class => 'btn btn-custom'
