@@ -2,157 +2,43 @@
   <h1><%= @store.name %> Dashboard </h1><br />
   <%= link_to 'Edit Store Details', edit_store_path(@store), 
   :class => "btn-info btn-large" %>
+
+  <%= link_to "Manage Orders", store_store_orders_path(current_store), 
+    :class => "btn-info btn-large" %>
+
+  <%= link_to "Manage Products", store_stocker_dashboard_path(current_store), 
+    :class => "btn-info btn-large" %>
+
+  <%= link_to "Manage Categories", store_categories_path(current_store), 
+    :class => "btn-info btn-large" %>
+
+  <%= link_to "Manage Employees", store_employees_path(current_store), 
+    :class => "btn-info btn-large" %>
+
 </div>
-<br />
+<br/>
+<br/>
 <div class="well">
   <h2>Total revenue: <%= number_to_currency(Order.revenue(current_store)) %></h2>
   <h2>Total Orders: <%= @orders.count %></h2>
 </div>
 <br />
-<%= link_to "Add product", new_store_product_path(current_store), 
-    :class => "btn btn-large" %>
-<%= link_to "Add category", new_store_category_path(current_store), 
-    :class => "btn btn-large" %>
-<%= link_to "Add employee", new_store_employee_path(current_store), 
-    :class => "btn btn-large" %>
 <br />
-<br />
-<br />
-<div class="page-header">
-<h1>Orders</h1>
-</div>
-<div id= "order_count">
-  <table id="status_numbers">
-    <tbody>
-      <td style="width: 110px"><%= link_to "Pending:", 
-          store_orders_path(current_store, :status_search => "pending") %> 
-          <%= @orders.pending.count %></td>
-      <td style="width: 120px"><%= link_to "Cancelled:", 
-          store_orders_path(current_store, :status_search => "cancelled") %> 
-          <%= @orders.cancelled.count %></td>
-      <td style="width: 90px"><%= link_to "Paid:", 
-          store_orders_path(current_store, :status_search => "paid") %>
-          <%= @orders.paid.count %></td>
-      <td style="width: 120px"><%= link_to "Shipped:", 
-          store_orders_path(current_store, :status_search => "shipped") %>
-          <%= @orders.shipped.count %></td>
-      <td style="width: 120px"><%= link_to "Returned:", 
-          store_orders_path(current_store, :status_search => "returned") %> 
-          <%= @orders.returned.count %></td>
-    </tbody>
-  </table>
+<div class="well">
+  <h2>Total Categories: <%= @categories.count %></h2>
 </div>
 <br />
+<br />
+<div class="well">
+  <h2>Active products: <%= @products.where(activity: true).count %></h2>
+  <h2>Retired products: <%= @products.where(activity: false).count %></h2>
+</div>
+<br />
+<br />
+<div class="well">
+  <h2>Active Managers: <%= current_store.count_managers %></h2>
+  <h2>Active Stockers: <%= current_store.count_stockers %></h2>
+</div>
 
-<br />
-<table class="table table-striped table-condensed">
-  <thead>
-    <tr>
-      <th>Order ID</th>
-      <th>Created</th>
-      <th>User</th>
-      <th>Products</th>
-      <th>Status</th>
-      <th>Updated</th>
-      <th>Total Price</th>
-      <th>Edit</th>
-    </tr>
-  </thead>
-  <tbody id="orders">
-    <% @orders.each do |order| %><tr>
-        <td><%= link_to order.id, store_order_path(current_store, order) %></td>
-            <td><%= order.created_at.strftime("%m/%d/%Y  %I:%M%p") %></td>
-            <td><%= order.full_name %></td>
-            <td><% order.products.each do |t| %>
-                    <%= t.title %>, 
-                  <% end %></td>
-            <td><strong><%= order.current_status %></strong></td>
-            <td><%= order.updated_at.strftime("%m/%d/%Y  %I:%M%p") %>
-            <td>$<%= order.total_price %></td>
-            <td><%= link_to "Edit", edit_store_order_path(order.store, order), 
-              :class => "btn btn-mini" %></td>
-    </tr><% end %>
-  </tbody>
-</table>
-<br />
-<br />
-<%= link_to "More Orders", store_store_orders_path(current_store), 
-    :class => "btn-info btn-large" %>
-<br />
-<br />
 
-<br />
-<div class="page-header">
-<h1>Categories</h1>
-<br/>
-<%= link_to "Add Category", new_store_category_path(current_store), 
-    :class => "btn-info btn-large" %>
-</div>
-<table class="table table-striped table-condensed">
-  <thead>
-    <th>Title</th>
-  </thead>
-  <tbody>
-    <% @categories.each do |category| %><tr>
-        <td><%= link_to category.title, store_category_path(current_store, 
-                                                            category) %></td>
-      <td><%= link_to "Edit", edit_store_category_path(current_store, category), 
-              :class => "btn btn-mini" %></td>
-    </tr><% end %>
-  </tbody> 
-</table>
 
-<div class="page-header">
-<h1>Products</h1>
-<br/>
-<%= link_to "Add Product", new_store_product_path(current_store), 
-    :class => "btn-info btn-large" %>
-</div>
-<table class="table table-striped table-condensed">
-  <thead>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Price</th>
-    <th>Revenue</th>
-    
-    <th>Sales count</th>
-    <th>Categories</th>
-  </thead>
-  <tbody>
-    <% @products.each do |product| %><tr>
-      <td><%= link_to product.title, 
-              store_product_path(product.store, product) %></td>
-      <td><%= if product.activity then "Active" else "Retired" end%></td>
-      <td><%= number_to_currency(product.price) %></td>
-      <td><%= number_to_currency(product.revenue) %></td>
-      <td><%= product.sales %></td>
-      <td><%= product.categories.map! { |k| "#{k.title}" }.join(", ") %></td>
-      <td><%= link_to "Edit", edit_store_product_path(product.store, product), 
-              :class => "btn btn-mini" %></td>
-    </tr><% end %>
-  </tbody> 
-</table>
-<br />
-<%= link_to "More Products", store_stocker_dashboard_path(current_store), 
-    :class => "btn-info btn-large" %>
-<br />
-<br />
-<br />
-<br />
-<br />
-<h2> Employees </h2>
-<table class="table table-striped table-condensed">
-  <thead>
-    <th>Name</th>
-    <th>Position</th>
-    <th>Manage</th>
-  </thead>
-  <tbody>
-    <% @employees.each do |employee| %><tr>
-      <td><%= employee.full_name %></td>
-      <td><%= employee.store_role(current_store) %></td>
-      <td><%= link_to 'Manage Employee', 
-           edit_store_employee_path(current_store, employee) %></td>
-    </tr><% end %>
-  </tbody> 
-</table>

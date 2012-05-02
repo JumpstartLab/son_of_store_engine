@@ -1,25 +1,70 @@
 <h1><%= current_store.name %> Orders</h1>
-<br />
-<table class="table table-striped table-condensed" id="orders">
-  <thead>
-    <th>Order ID</th>
-    <th>Created</th>
-    <th>Products</th>
-    <th>Total Price</th>
-    <th>View Order</th>
-  </thead>
-  <tbody>
-      <% @orders.each do |order| %><tr>
-      <td><%= link_to order.id, store_order_path(current_store, order) %></td>
-      <td><%= order.created_at.strftime("%m/%d/%Y  %I:%M%p") %></td>
-      <td><% order.products.each do |t| %>
-            <%= t.title %>,
-          <% end %></td>
-      <td><%= number_to_currency(order.total_price) %></td>
-      <td><%= link_to "Edit", edit_store_order_path(current_store, order), 
-              :class => "btn btn-mini" %></td>
-      </tr><% end %>
-  </tbody>
-</table>
+<br/>
+<div>
 <%= link_to "Back to Dashboard", store_dashboard_path(current_store), 
             :class => "btn btn-large btn-info" %>
+</div>
+<br />
+<br />
+
+<div id= "order_count">
+  <table id="status_numbers">
+    <tbody>
+      <td style="width: 110px"><%= link_to "Pending:", 
+          store_orders_path(current_store, :status_search => "pending") %> 
+          <%= @orders.pending.count %></td>
+      <td style="width: 120px"><%= link_to "Cancelled:", 
+          store_orders_path(current_store, :status_search => "cancelled") %> 
+          <%= @orders.cancelled.count %></td>
+      <td style="width: 90px"><%= link_to "Paid:", 
+          store_orders_path(current_store, :status_search => "paid") %>
+          <%= @orders.paid.count %></td>
+      <td style="width: 120px"><%= link_to "Shipped:", 
+          store_orders_path(current_store, :status_search => "shipped") %>
+          <%= @orders.shipped.count %></td>
+      <td style="width: 120px"><%= link_to "Returned:", 
+          store_orders_path(current_store, :status_search => "returned") %> 
+          <%= @orders.returned.count %></td>
+    </tbody>
+  </table>
+</div>
+<br />
+
+<br />
+<table class="table table-striped table-condensed">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Created</th>
+      <th>User</th>
+      <th>Products</th>
+      <th>Status</th>
+      <th>Updated</th>
+      <th>Total Price</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody id="orders">
+    <% @orders.each do |order| %><tr>
+        <td><%= link_to order.id, store_order_path(current_store, order) %></td>
+            <td><%= order.created_at.strftime("%m/%d/%Y  %I:%M%p") %></td>
+            <td><%= order.full_name %></td>
+            <td><% order.products.each do |t| %>
+                    <%= t.title %>, 
+                  <% end %></td>
+            <td><strong><%= order.current_status %></strong></td>
+            <td><%= order.updated_at.strftime("%m/%d/%Y  %I:%M%p") %>
+            <td>$<%= order.total_price %></td>
+            <td><%= link_to "Edit", edit_store_order_path(order.store, order), 
+              :class => "btn btn-mini" %></td>
+    </tr><% end %>
+  </tbody>
+</table>
+<br />
+<br />
+
+<br />
+<br />
+
+<br />
+

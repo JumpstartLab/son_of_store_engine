@@ -3,6 +3,11 @@
   <h1>Products by <%= @category.title %></h1>
 </div>
 
+
 <ul id="products">
   <%= render :partial => "products/product", :collection => @products %>
 </ul>
+
+<br/>
+<%= link_to "Return to Category Management", store_categories_path(current_store), 
+    :class => "btn-info btn-large" %>
