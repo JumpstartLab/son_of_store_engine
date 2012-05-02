@@ -19,6 +19,18 @@ describe Category do
     end
   end
 
+  describe "#page_count" do
+    let!(:category) { Fabricate(:category) }
+    
+    before(:each) do
+      10.times { category.products << Fabricate(:product) }
+    end
+    
+    it "returns the total number of pages that would display a category's products" do
+      category.page_count(3).should == 4
+    end
+  end
+
 end
 # == Schema Information
 #

@@ -15,7 +15,7 @@ module ExtraStoreMethods
     store.email_approval if store.approval_status == "approved"
     store.email_decline  if store.approval_status == "declined"
     flash[:notice] = "#{store.name} has been #{store.approval_status}."
-    redirect_to admin_stores_path
+    redirect_to admin_store_path
   end
 
   def notify_about_enabled_status(store)
@@ -25,7 +25,7 @@ module ExtraStoreMethods
       store.email_decline
       flash[:notice] = "#{store.name} has been disabled."
     end
-    redirect_to admin_stores_path
+    redirect_to admin_store_path(store)
   end
 
   def confirm_has_store_admin_access

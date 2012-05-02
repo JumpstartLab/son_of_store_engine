@@ -32,7 +32,7 @@ describe "Store Admin Requests" do
     context "when disabling a store" do
       it "notifies about the store being disabled" do
         click_link_or_button "Disable"
-        current_path.should == "/admin/stores"
+        current_path.should == "/admin/stores/#{store.to_param}"
         page.should have_content "has been disabled"
         page.should have_content "Enable"
       end

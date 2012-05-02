@@ -15,6 +15,19 @@ describe StorePermission do
       StorePermission.last.admin_hex.should_not be_nil
     end
   end
+  describe ".create_from_params_and_user" do
+    let!(:store)  { Fabricate(:store) }
+    let!(:user)   { Fabricate(:user) }
+    let!(:params) { { store_id: store.id, permission_level: 1 } }
+    
+    it "creates a new store permission" do
+      expect { StorePermission.create_from_params_and_user(params, user) }.to change{ StorePermission.count }.by(1)
+    end
+    it "creates a new store permission for the designated user" do
+      StorePermission.create_from_params_and_user(params, user)
+      user.is_admin_of(store).should be_true
+    end
+  end
 end
 # == Schema Information
 #
