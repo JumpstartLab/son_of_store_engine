@@ -79,6 +79,10 @@ class Store < ActiveRecord::Base
     top
   end
 
+  def count_status(ord_status)
+    orders.where("status = '#{ord_status}'").count
+  end
+
   private
 
   def strip_whitespace

@@ -136,4 +136,6 @@ class Order < ActiveRecord::Base
   def send_confirmation_email
     BackgroundJob.order_email(order_user, self)
   end
+
+
 end
