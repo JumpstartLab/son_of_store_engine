@@ -4,7 +4,8 @@ h1 Order Details
     .span3 style="background-color: #eee; padding: 10px"
       h2 Your Credit Cards
       ul.unstyled
-        = f.hidden_field :customer_token, :value => @order.credit_card.stripe_customer_token
+        = f.hidden_field :credit_card_id, :value => @order.credit_card.id
+        /= f.hidden_field :customer_token, :value => @order.credit_card.stripe_customer_token
         li
           b= @order.credit_card.credit_card_type
         li= @order.credit_card.formatted_last_four

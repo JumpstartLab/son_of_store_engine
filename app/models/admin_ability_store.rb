@@ -12,8 +12,12 @@ class AdminAbilityStore
         user.has_role?("store_admin", store)
       end
 
-      can [:manage], Product do |product|
-        user.has_role?(["store_stocker","store_admin"], product.store)
+      can :read, Store do |store|
+        user.has_role?("store_stocker", store)
+      end
+
+      can [:manage,:retire], Product do |product|
+        user.has_role?(["store_stocker", "store_admin"], product.store)
       end
     end
   end

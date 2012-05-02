@@ -98,3 +98,15 @@ Then /^I should see products for the store "([^"]*)"$/ do |store_name|
     page.should have_content(product.name)
   end
 end
+
+When /^I click "([^"]*)" for the store named "([^"]*)"$/ do |action, store_name|
+  click_link(action.capitalize)
+end
+
+Then /^I am viewing the admin section for "([^"]*)"$/ do |store_name|
+  page.should have_content "Admin Dashboard for #{store_name}"
+end
+
+Then /^I can take any action an admin for "([^"]*)" could take$/ do |store_name|
+  pending
+end

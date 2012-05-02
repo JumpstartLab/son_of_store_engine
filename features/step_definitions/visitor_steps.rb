@@ -34,8 +34,8 @@ When /^I provide my info directly:$/ do |table|
   table = table.hashes.first
   @email = table["email"]
 
-  fill_in "guest_user_name",                   with: table["name"]
-  fill_in "guest_user_email",                  with: table["email"]
+  fill_in "user_name",                   with: table["name"]
+  fill_in "user_email",                  with: table["email"]
   fill_in "card_number",                       with: table["card"]
   fill_in "card_code",                         with: table["cvv"]
   select  table["month"],                      from: "card_month"
@@ -58,11 +58,8 @@ Then /^I am shown a confirmation page with a unique, hashed URL that displays my
 end
 
 Then /^I receive an email with my order details and the unique URL for later viewing$/ do
-  # XXX use a fixture for the email contents
-  email = ActionMailer::Base.deliveries.first
-  email.from.should == ["info@berrystore.com"]
-  email.to.should == [@email]
-  email.subject.to_s.should include "Your Recent Mittenberry Purchase"
+  raise User.all.inspect
+  Resque.peek(:emails, 0, 100).last["args"].should == ["order_confirmation", User.where(email: @email).first.id]
 end
 
 Given /^I have a StoreEngine account$/ do
@@ -163,11 +160,7 @@ Then /^I should see a confirmation flash message with a link to change my accoun
 end
 
 Then /^I should receive an email confirmation$/ do
-  # XXX Use fixture.
-  email = ActionMailer::Base.deliveries.last
-  email.from.should == ["info@berrystore.com"]
-  email.to.should == [@user.email]
-  email.subject.to_s.should include "You have been registered."
+  Resque.peek(:emails, 0, 100).last["args"].should == ["user_confirmation", @user.email]
 end
 
 Given /^I or someone else has created a StoreEngine account with my email address before$/ do
