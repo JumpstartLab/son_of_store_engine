@@ -9,14 +9,20 @@
 
 <%= f.hidden_field :stripe_card_token %>
 <%= f.hidden_field :user_id %>
-
+<div class="well">
+  <h4>Use the following for test CC info:</h4>
+  <ul>
+    <li>CC#: 424242424242424242</li>
+    <li>CVV: 123</li> 
+  </ul>
+</div>
 <div class="field">
   <%= label_tag :card_number, "Credit Card Number" %>
-  <%= text_field_tag :card_number, "424242424242424242", name: nil %>
+  <%= text_field_tag :card_number, "", name: nil %>
 </div>
 <div class="field">
   <%= label_tag :card_code, "Security Code on Card (CVV)" %>
-  <%= text_field_tag :card_code, "123", name: nil %>
+  <%= text_field_tag :card_code, "", name: nil %>
 </div>
 <div class="field">
   <%= label_tag :card_month, "Card Expiration" %>

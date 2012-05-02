@@ -5,6 +5,7 @@ SimpleCov.start do
   add_filter '/lib/seeder.rb'
   add_filter '/workers/*'
   add_filter 'spec/support/*'
+  add_filter '/helpers/*'
   add_filter '/controllers/calls_controller.rb'
 end
 

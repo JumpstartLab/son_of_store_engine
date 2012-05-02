@@ -57,10 +57,6 @@ describe "When I want to place an order" do
             end
           end
         end
-
-        context "and I register as a new user" do
-
-        end
       end
     end
   end

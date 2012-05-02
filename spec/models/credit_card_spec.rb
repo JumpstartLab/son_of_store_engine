@@ -28,6 +28,15 @@ describe CreditCard do
     end
   end
 
+  context "and I receive a token from stripe" do
+    let(:json) { JSON.parse(IO.read('spec/fixtures/stripe_new_customer_success.json')) }
+
+    it "can parse the token" do
+      credit_card.parse_stripe_customer_token(json)
+      credit_card.stripe_customer_token.should_not be nil
+    end
+  end
+
   context "#formatted_exp_date" do
     it "should return a formatted expiration date" do
       credit_card.formatted_exp_date.should == "05/15"
