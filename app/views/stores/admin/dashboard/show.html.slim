@@ -75,10 +75,14 @@ h3
     | &nbsp;|&nbsp;
     = link_to 'All', store_admin_path
   br/
+
+  
   table.table.table-bordered.table-striped
-    tr
-      th Customer Name
-      th Date
-      th Status
-      th Actions
-    = render :partial => "stores/admin/orders/admin_order", :collection => @orders
+    tbody
+      tr
+        th Customer Name
+        th Date
+        th Status
+        th Actions
+      = render :partial => "stores/admin/orders/admin_order", :collection => @orders
+  = paginate @orders
