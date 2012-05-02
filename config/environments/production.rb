@@ -76,7 +76,7 @@
           :domain => "gmail.com",
           :enable_starttls_auto => true,
           :authentication => :login,
-          :user_name => "storeengine2@gmail.com",
+          :user_name => "storeengine3@gmail.com",
           :password => "derpderp"
       }
 
