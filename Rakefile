@@ -18,3 +18,7 @@ unless Rails.env.production?
     end
   end
 end
+
+task "resque:setup" => :environment do
+  Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
+end
