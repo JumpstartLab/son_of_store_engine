@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501020106) do
+ActiveRecord::Schema.define(:version => 20120502033839) do
 
   create_table "cart_products", :force => true do |t|
     t.integer  "cart_id"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.datetime "updated_at",                :null => false
     t.integer  "quantity",   :default => 1
   end
+
+  add_index "cart_products", ["cart_id"], :name => "index_cart_products_on_cart_id"
+  add_index "cart_products", ["product_id"], :name => "index_cart_products_on_product_id"
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -35,6 +38,8 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.datetime "updated_at", :null => false
     t.integer  "store_id"
   end
+
+  add_index "categories", ["store_id"], :name => "index_categories_on_store_id"
 
   create_table "credit_cards", :force => true do |t|
     t.datetime "created_at",                               :null => false
@@ -58,6 +63,9 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "discounts", ["category_id"], :name => "index_discounts_on_category_id"
+  add_index "discounts", ["product_id"], :name => "index_discounts_on_product_id"
+
   create_table "order_products", :force => true do |t|
     t.integer  "product_id"
     t.integer  "order_id"
@@ -67,6 +75,9 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "order_products", ["order_id"], :name => "index_order_products_on_order_id"
+  add_index "order_products", ["product_id"], :name => "index_order_products_on_product_id"
+
   create_table "order_shipping_details", :force => true do |t|
     t.integer  "order_id"
     t.integer  "shipping_detail_id"
@@ -74,12 +85,17 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.datetime "updated_at",         :null => false
   end
 
+  add_index "order_shipping_details", ["order_id"], :name => "index_order_shipping_details_on_order_id"
+  add_index "order_shipping_details", ["shipping_detail_id"], :name => "index_order_shipping_details_on_shipping_detail_id"
+
   create_table "order_statuses", :force => true do |t|
     t.string   "status",     :default => "pending"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "order_id"
   end
+
+  add_index "order_statuses", ["order_id"], :name => "index_order_statuses_on_order_id"
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
@@ -89,12 +105,18 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.string   "sha1"
   end
 
+  add_index "orders", ["credit_card_id"], :name => "index_orders_on_credit_card_id"
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
   create_table "product_categories", :force => true do |t|
     t.integer  "product_id"
     t.integer  "category_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "product_categories", ["category_id"], :name => "index_product_categories_on_category_id"
+  add_index "product_categories", ["product_id"], :name => "index_product_categories_on_product_id"
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -106,6 +128,8 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.boolean  "retired",     :default => false
     t.integer  "store_id"
   end
+
+  add_index "products", ["store_id"], :name => "index_products_on_store_id"
 
   create_table "shipping_details", :force => true do |t|
     t.string   "ship_to_name"
@@ -121,6 +145,8 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.integer  "user_id"
   end
 
+  add_index "shipping_details", ["user_id"], :name => "index_shipping_details_on_user_id"
+
   create_table "store_admins", :force => true do |t|
     t.integer  "store_id"
     t.integer  "user_id"
@@ -128,6 +154,9 @@ ActiveRecord::Schema.define(:version => 20120501020106) do
     t.datetime "updated_at",                   :null => false
     t.boolean  "stocker",    :default => true
   end
+
+  add_index "store_admins", ["store_id"], :name => "index_store_admins_on_store_id"
+  add_index "store_admins", ["user_id"], :name => "index_store_admins_on_user_id"
 
   create_table "stores", :force => true do |t|
     t.string   "name"
