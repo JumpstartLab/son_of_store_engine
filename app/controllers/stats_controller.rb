@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class StatsController < ApplicationController
   def revenue_over_time
     key = "#{current_store.slug}:revenue_over_time"

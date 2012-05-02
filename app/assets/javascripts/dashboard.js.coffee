@@ -40,3 +40,46 @@
 		});
 	});
 });`
+
+`
+$(function () {
+	    $.getJSON('stats/category_revenue', function(data) {
+       window.chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'pie',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Revenue by Category'
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage, 2) +' %';
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage, 3) +' %';
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: data
+            }]
+        });
+    });
+    
+});
+`
