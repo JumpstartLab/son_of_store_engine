@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   def send_notice_of_termination
-    #TODO
+    BackgroundJob.termination_email(self)
   end
 
   # We probably don't need both of these - refactor one down to the other

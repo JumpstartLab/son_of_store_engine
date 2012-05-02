@@ -27,4 +27,8 @@ class BackgroundJob
   def self.user_confirmation_email(user)
     Resque.enqueue(UserConfirmationEmailer, user)
   end
+
+  def self.termination_email(user)
+    Resque.enqueue(UserTerminationEmailer, user)
+  end
 end

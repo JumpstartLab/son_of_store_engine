@@ -54,4 +54,10 @@ class UserMailer < ActionMailer::Base
     mail(:to => @email,
       :subject => "Welcome to SOSE, #{user["name"]}!" )
   end
+
+  def termination_notice(user)
+    @email = user["email"]
+    mail(:to => @email,
+      :subject => "Sorry, #{user["name"]} - you are the weakest link." )
+  end
 end
