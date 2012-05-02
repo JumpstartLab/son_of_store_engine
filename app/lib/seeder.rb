@@ -80,10 +80,10 @@ class Seeder
   end
 
   def self.generate_order_products(order)
-    Seeder.at_least_one(3).times do
-      product = Product.first(:offset => rand( Product.count ))
+    4.times do
+      product = Product.all.sample
       order.order_products.build(:price => product.price,
-        :product => product, :quantity => Seeder.at_least_one(3))
+        :product => product, :quantity => rand(3)+1)
     end
   end
 
@@ -92,9 +92,9 @@ class Seeder
       product = Product.create( name: "#{Faker::Name.name}",
         description: Faker::Lorem.sentences(2),
         price: (15 + rand(10) + rand(4)*0.25),
-        photo: photo_url,
+        photo: Seeder.photo_url.sample,
         store_id: store_id )
-      (rand(3) + 1).times do
+      (rand(3)).times do
         product.add_category(product.store.categories.sample)
       end
     end
@@ -148,7 +148,7 @@ class Seeder
   end
 
   def self.photo_url
-    @photos = ["http://s3.amazonaws.com/static.fab.com/product/125149-300x300-1335384095-primary.png",
+    ["http://s3.amazonaws.com/static.fab.com/product/125149-300x300-1335384095-primary.png",
       "http://s3.amazonaws.com/static.fab.com/product/125146-300x300-1335391068-primary.png",
       "http://s3.amazonaws.com/static.fab.com/product/125141-300x300-1335383975-primary.png",
       "http://s3.amazonaws.com/static.fab.com/product/125142-300x300-1335390858-primary.png",
