@@ -16,6 +16,8 @@ gem 'kaminari'
 gem 'faker'
 gem 'newrelic_rpm'
 gem 'redis-store', '~> 1.0.0'
+gem "resque", :git => 'git://github.com/defunkt/resque.git'
+gem 'resque-scheduler'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,6 +30,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
@@ -35,15 +38,19 @@ group :development, :test do
   gem 'capybara'
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'launchy'
+  gem 'pg' 
+end
+
+group :test do
   gem 'sqlite3'
 end
 
 group :production do
   gem 'pg'
   gem 'thin'
-  gem 'memcache-client'
 end
 
+  gem 'memcache-client'
 group :test do
   gem 'guard-spork'
   gem 'spork'
@@ -51,4 +58,3 @@ group :test do
 end
 
 gem "mocha", :group => :test
-gem "resque"

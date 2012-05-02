@@ -1,0 +1,10 @@
+store_dashboard_calcs:
+  every: 5s
+  # you can use rufus-scheduler "every" syntax in place of cron if you prefer
+  # every: 1hr
+  # By default the job name (hash key) will be taken as worker class name.
+  # If you want to have a different job name and class name, provide the 'class' option
+  class: StoreDashboardStatsJob
+  queue: store_stats
+  args:
+  description: "This job calculates dashboard statistics for all stores"
