@@ -8,7 +8,6 @@ options = {
 				renderTo : 'test',
         events: {
             redraw: function(){   // or load - refer to API documentation
-		          window.revenue_over_time = new Highcharts.StockChart(window.revenue_over_time.options);
             }
         }
 			},
