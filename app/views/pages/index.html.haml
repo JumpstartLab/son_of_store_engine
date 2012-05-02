@@ -7,7 +7,7 @@
     %li.span3
       .thumbnail
         - if store.products.first
-          = link_to image_tag(store.products.first.avatar, {style: "width:210px; height:210px;"}), subdomain_path(store.url)
+          = link_to image_tag(store.photo_url, {style: "width:210px; height:210px;"}), subdomain_path(store.url)
         - else
           = link_to image_tag("/avatars/original/missing.png",  {style: "width:210px; height:210px;"}), subdomain_path(store.url)
         %h3
