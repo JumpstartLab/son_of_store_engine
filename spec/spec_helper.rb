@@ -3,6 +3,9 @@ require 'simplecov'
 SimpleCov.start do
   'rails'
   add_filter '/lib/seeder.rb'
+  add_filter '/workers/*'
+  add_filter 'spec/support/*'
+  add_filter '/controllers/calls_controller.rb'
 end
 
 ENV["RAILS_ENV"] ||= 'test'
