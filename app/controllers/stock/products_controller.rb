@@ -3,9 +3,11 @@ module Stock
   class ProductsController < ApplicationController
     before_filter :require_login
     before_filter :confirm_stocker
-    def index
-      @products = Product.all
-    end
+
+    cache_sweeper :product_sweeper
+
+    include ProductsActions
+    
     def new
       @product = Product.new
     end
