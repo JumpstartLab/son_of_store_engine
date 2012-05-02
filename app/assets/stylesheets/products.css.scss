@@ -1,36 +1,59 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+/* INDEX */ 
 .products-listing{ 
-  width: 75%;
+  width: 100%;
   padding-left: 10%;
 }
 
 .indiv-product{ 
   display: inline-block;
-  width: 25%;
-  padding: 25px;
-  position: relative;
+  padding: 15px;
+  width: 20%;
 }
 
 .product-details{ 
   display: block;
+  position: relative;
   width: 100%;
 }
 
 .product-thumbnail{ 
-  
+  height: 100%;
+  width: 100%;
 }
 
-#prod-index-title{ 
-
+#prod-index-title{
+  width: 125%;
+  padding-top: 5px; 
+  padding-bottom: 5px;
 }
 
 #prod-index-price{ 
+  float: left;
+  padding-left: 35%;
+  padding-bottom: 5px;
+  vertical-align: middle;
+  font-size: 16px;
 
 }
 
 #prod-index-cart{ 
-  float: right;
+  padding-top: 5px;
+  padding-left: 25%;
+
+}
+
+/* SHOW */ 
+
+#prod_show_img{ 
+  float: left;
+  margin-right: 15px;
+  width: 400px;
+  height: 400px;
+}
+
+#prod_show_info{
+  margin-top:  10px;
 }

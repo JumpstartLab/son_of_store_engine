@@ -3,7 +3,7 @@ h1 = "Your Cart#{' is Empty.' if @cart.items.empty?}"
 
 div.cart id="cart"
   table.table-striped.table-condensed
-    tr.span8
+    tr.span10
       th#cart Titles
       th#cart Price
       th#cart Quantity
@@ -22,13 +22,16 @@ div.cart id="cart"
           td.subtotal = item.subtotal
           td = link_to "", cart_item_path(:item_id => item.id), :method => :delete, 
                :class=> 'i icon-remove', :confirm => "Are you sure, you'd like to remove this item?"
-      tr
+      tr.cart-total
         td
         td
         td#text Total: 
         td#total = @cart.total
-      = f.submit "Update Cart", :class => 'btn'
+        td
+        .update-cart-submit
+          = f.submit "Update Cart", :class => 'btn'
+      
     
 .cart-actions
-= link_to "Checkout", checkout_prompt_path(@store), :class=>'btn btn-primary'
-= link_to "Keep Shopping", products_path(@store), :class => 'btn btn-primary'
+  = link_to "Keep Shopping", products_path(@store), :class => 'btn'
+  = link_to "Checkout", checkout_prompt_path(@store), :class=>'btn btn-primary'

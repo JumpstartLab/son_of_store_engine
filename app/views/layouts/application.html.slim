@@ -24,11 +24,12 @@ html
               - if @store
                 li.nav = link_to("My Orders", orders_path(@store))
               li.nav id="right"
-                = "#{current_user.name} | " 
+                #user_name_link
+                  = link_to "#{current_user.name}", edit_user_registration_path
                 = link_to("Log out",
                           destroy_user_session_path(:slug => nil),
-                          :method => :delete)
-                = link_to("Manage your profile", edit_user_registration_path)
+                          :method => :delete, :class=>'btn btn-primary')
+               
             - else
               li.nav id="right"
                 = link_to "Sign up", new_user_path, :class => 'btn btn-primary'

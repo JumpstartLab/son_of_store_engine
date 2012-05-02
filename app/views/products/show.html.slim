@@ -1,18 +1,16 @@
 h1 = @product.title
-.container
-  .row
-    .span4
-      img src="#{@product.photo}" height="300px" width="300px"
-    .span8
-      h3 = "Price: #{number_to_currency(@product.price)}"
-      h3 Description
-      p = @product.description
-      - if @product.retired?
-        h4 Product retired, can't add to cart.
-      -else
-        p = link_to("Add to Cart",
-                    cart_path(:product_id => @product), :method => :put)
+#prod_show_img
+  img src="#{@product.photo}" height="300px" width="300px"
+#prod_show_info
+    h3 = "Price: #{number_to_currency(@product.price)}"
+    h3 Description
+    p = @product.description
+    - if @product.retired?
+      h4 Product retired, can't add to cart.
+    -else
+      p = link_to("Add to Cart",
+                  cart_path(:product_id => @product), :method => :put, :class => 'btn')
 
-      h3 Categories Associated with Product
-      - @product.categories.each do |category|
-        p = link_to category.name, category_path(@store, category)
+    h3 Categories Associated with Product
+    - @product.categories.each do |category|
+      p = link_to category.name, category_path(@store, category)
