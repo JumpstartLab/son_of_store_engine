@@ -45,13 +45,11 @@ class Order < ActiveRecord::Base
 
   def self.build_from_guest_id(user_id, cart)
     user = User.find(user_id)
-    order = user.orders.new
-    order.build_order_status
+    order = user.orders.new.tap { |order| order.build_order_status }
     order.build_order_from_cart(cart)
     order.credit_card_id = CreditCard.scoped.where("user_id = #{user_id}").last
-    order.order_shipping_detail = OrderShippingDetail.new(shipping_detail_id:
-      ShippingDetail.scoped.where("user_id = #{user_id}").last.id)
-    order
+    order.tap { |order| order.order_shipping_detail = OrderShippingDetail.new(shipping_detail_id:
+      ShippingDetail.scoped.where("user_id = #{user_id}").last.id) }
   end
 
   def charge(cart)
