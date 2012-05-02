@@ -1,10 +1,10 @@
 class Seeder
   def self.build_db
     build_stores
-    build_users(10,000)
+    build_users(10000)
     build_test_accounts
     build_categories
-    build_products(100,000)
+    build_products(100000)
     build_roles
   end
 
