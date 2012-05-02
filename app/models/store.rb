@@ -64,6 +64,14 @@ class Store < ActiveRecord::Base
     OrderItem.includes(:order).where("orders.store_id = ?", self.id)
   end
 
+  def count_managers
+    employees.select {|e| e.store_role(self) == "manager"}.size
+  end
+
+  def count_stockers
+    employees.select {|e| e.store_role(self) == "stocker"}.size
+  end
+
   private 
 
   def strip_whitespace

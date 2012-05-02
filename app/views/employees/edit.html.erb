@@ -10,8 +10,12 @@
 <%= label_tag :role %>
 <%= select_tag "role", options_for_select(%w(stocker manager)) %>
 <br />
+<br />
 <%= submit_tag "Update Employee", class: "btn btn-info" %>
-
-<br /><br /><br /><br /><br />
 <%= link_to "Fire Employee", store_employee_path(current_store, @employee), method: :delete, confirm: "Are you sure you wish to fire this employee?",
   class: "btn btn-danger"  %>
+<br/>
+<br/>
+<br/>
+<%= link_to "Back to Employee Management", store_employees_path(current_store), 
+    :class => "btn-info btn-large" %>

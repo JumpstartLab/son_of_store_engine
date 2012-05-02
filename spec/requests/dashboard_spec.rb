@@ -51,22 +51,27 @@ describe "Dashboard" do
     before(:each) { visit store_dashboard_path(store) }
 
     it "displays the list of all orders" do
+      click_link "Manage Orders"
       find('#order_count').should have_content(store.orders.count)
     end
 
     it "displays the user name for each order" do
+      click_link "Manage Orders"
       page.should have_content(order.user.full_name)
     end
 
     it "displays the total price for each order" do
+      click_link "Manage Orders"
       page.should have_content(order.total_price)
     end
 
     it "displays the order status for each order" do
+      click_link "Manage Orders"
       page.should have_content(order.current_status.titleize)
     end
 
     it "offers me the option to hire an employee" do
+      click_link "Manage Employees"
       page.should have_content("Add employee")
     end
   end
@@ -75,8 +80,10 @@ describe "Dashboard" do
     let!(:store) { FactoryGirl.create(:store) }
     before(:each) { login(admin) }
     before(:each) { visit store_dashboard_path(store) }
+
     it "can hire a user as an employee if the user exists" do
       new_employee = FactoryGirl.create(:user)
+      click_link "Manage Employees"
       click_link "Add employee"
       fill_in "Email", with: new_employee.email
       select "stocker", from: "Role"
@@ -87,6 +94,7 @@ describe "Dashboard" do
     end
 
     it "sends an invitation to the new employee if the account does not exist" do
+      click_link "Manage Employees"
       click_link "Add employee"
       fill_in "Email", with: "cheddar_bay@biscuits.com"
       select "stocker", from: "Role"
@@ -100,6 +108,7 @@ describe "Dashboard" do
       employee.promote(store, :manager)
       employee.may_manage?(store).should be_true
       visit store_dashboard_path(store)
+      click_link "Manage Employees"
       click_link "Manage Employee"
       click_link "Fire Employee"
       employee.may_manage?(store).should be_false

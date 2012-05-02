@@ -4,3 +4,9 @@
 <h2>Edit <%=@product.title %></h2>
 
 <%= render "form" %>
+
+<br/>
+<br/>
+<br/>
+<%= link_to "Back to Product Management", store_stocker_dashboard_path(current_store), 
+    :class => "btn-info btn-large" %>

@@ -26,7 +26,7 @@ StoreEngine::Application.routes.draw do
     resources :products
     resource :dashboard, :controller => 'dashboard'
     resource :two_click_orders
-    resources :categories, :except => [:index]
+    resources :categories
     resources :orders
     resources :employees
     resource :checkout, :controller => 'checkout'
@@ -37,6 +37,9 @@ StoreEngine::Application.routes.draw do
     resource :stocker_dashboard, :controller => 'stocker_dashboard', 
              :only => :show
     resources :store_orders, :only => [:index]
+    match "stats/revenue_over_time" => "stats#revenue_over_time"
+    match "stats/category_revenue" => "stats#category_revenue"
+    match "stats/top_ten_user_revenue" => "stats#top_ten_user_revenue"
   end
 
 

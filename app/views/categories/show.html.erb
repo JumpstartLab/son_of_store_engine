@@ -4,10 +4,16 @@
 <div class="page-header">
   <h1>Products by <%= @category.title %></h1>
 </div>
+
 <%= link_to "Back to All Products", 
     store_products_path(current_store), :class => "btn btn-small" %>
 <br />
 <br />
+
 <ul id="products">
   <%= render :partial => "products/product", :collection => @products %>
 </ul>
+
+<br/>
+<%= link_to "Return to Category Management", store_categories_path(current_store), 
+    :class => "btn-info btn-large" %>
