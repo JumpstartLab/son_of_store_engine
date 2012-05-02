@@ -24,8 +24,8 @@ class StoreRole < ActiveRecord::Base
   end
 
   def new_user(input)
-    u = User.find_by_email(input[:email])
-    if u
+    user_for_role = User.find_by_email(input[:email])
+    if user_for_role
       self.user = User.find_by_email(input[:email])
       self.permission = input[:role]
       self.save
