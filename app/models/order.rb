@@ -16,6 +16,10 @@ class Order < ActiveRecord::Base
 
   scope :desc, order("id DESC")
 
+  def to_param
+    sha1
+  end
+
   def send_confirmation
     Resque.enqueue(Emailer, "order", "confirmation", self)
   end

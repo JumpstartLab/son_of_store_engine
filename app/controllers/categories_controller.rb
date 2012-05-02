@@ -6,7 +6,6 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @categories = Category.where(:store_id => store.id)
     @products = @category.products.page(params[:page]).per(12)
   end
 
