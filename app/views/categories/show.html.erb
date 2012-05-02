@@ -13,7 +13,7 @@
 <ul id="products">
   <%= render :partial => "products/product", :collection => @products %>
 </ul>
-
+<%= paginate @products %>
 <br/>
 <%= link_to "Return to Category Management", store_categories_path(current_store), 
     :class => "btn-info btn-large" %>
