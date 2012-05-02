@@ -33,6 +33,7 @@ module Admin
     def create
       @store = Store.create_store(params[:store], current_user)
       if @store.save
+        Resque.enqueue(NewStoreRequestEmailer, @store.id)
         redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
       else
         flash[:alert] = "There was an error while creating your store."
