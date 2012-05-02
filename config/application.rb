@@ -64,5 +64,6 @@ module StoreEngine
     config.assets.version = '1.0'
 
     #config.middleware.use ::Rack::PerftoolsProfiler, :default_printer => 'pdf', :bundler => true
+    config.assets.initialize_on_precompile = false
   end
 end
