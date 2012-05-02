@@ -92,8 +92,6 @@ describe "Creating stores" do
       it "declines the store" do
         Store.last.approved.should == false
       end
-
-      it "emails the store owner of the decline"
     end
 
     context "and I click to approve a store" do
@@ -106,8 +104,6 @@ describe "Creating stores" do
       it "flashes a confirmation message" do
         page.should have_content("was updated!")
       end
-
-      it "emails the store owner that the store was approved"
 
       context "and I want to disable the store" do
 

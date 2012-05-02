@@ -139,11 +139,6 @@ describe "When I want to place an order" do
         #   click_link_or_button('Create Order')
         # end
 
-        it "sends a confirmation email" do
-          pending "Need to fix orders_controller create method as per todo comment there"
-          ActionMailer::Base.deliveries.last.to.should == [User.last.email]
-          ActionMailer::Base.deliveries.last.subject.should == "Order Confirmation"
-        end
       end
 
     end
