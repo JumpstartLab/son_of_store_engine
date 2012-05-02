@@ -27,7 +27,7 @@ class CartsController < ApplicationController
   def checkout
 
   end
-  
+
   def update_quantity
     @cart.update_quantity(params[:cart][:order_products_attributes])
     if @cart.save

@@ -5,15 +5,17 @@ class SessionsController < ApplicationController
   def new
     if request.subdomain.present?
       flash[:alert] = flash[:alert]
-      redirect_to(request.protocol + request.domain + (request.port.nil? ? '' : ":#{request.port}") + "/login")
+      redirect_to(request.protocol +
+      request.domain +
+      (request.port.nil? ? '' : ":#{request.port}") + "/login")
     end
     @user = User.new
   end
 
   def create
     cart_id = session["cart_#{session[:current_store]}"]
-    current_store = session[:current_store] 
-    user = login(params[:user][:email], 
+    current_store = session[:current_store]
+    user = login(params[:user][:email],
            params[:user][:password],
           remember_me = false)
     user_checker(cart_id, current_store, user)
@@ -31,7 +33,8 @@ class SessionsController < ApplicationController
       render 'new'
     else
       session["cart_#{current_store}"] = cart_id
-      redirect_back_or_to(subdomain_path(current_store), :notice => 'Login successful.')
+      redirect_back_or_to(subdomain_path(current_store),
+                          :notice => 'Login successful.')
     end
   end
 end
