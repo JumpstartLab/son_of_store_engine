@@ -13,8 +13,9 @@ class StoresController < ApplicationController
     @store = Store.new(params[:store])
 
     if @store.save
-      @store.roles << Role.new(user: current_user, name: "store_admin")
-      redirect_to "/stores/#{@store.id}", :notice => "#{@store.name} at www.store-engine.com/#{@store.slug} is waiting approval."
+      current_user.roles.create(name: "store_admin", store: @store)
+      redirect_to "/stores/#{@store.id}", :notice => "#{@store.name} at
+         www.store-engine.com/#{@store.slug} is waiting approval."
       StoreMailer.store_creation_alert(@store).deliver
     else
       render :new

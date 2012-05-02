@@ -1,10 +1,10 @@
 class Order < ActiveRecord::Base
   attr_accessible :user_id, :credit_card_id, :order_products
 
-  belongs_to :user
-  belongs_to :credit_card
+  belongs_to :credit_card, :autosave => true
+  belongs_to :shipping_detail, :autosave => true
   belongs_to :store
-  belongs_to :shipping_detail
+  belongs_to :user
 
   has_many :order_products, :dependent => :destroy
   has_many :products, :through => :order_products
@@ -31,9 +31,17 @@ class Order < ActiveRecord::Base
     order.user if order
   end
 
-  def self.build_for(user, cart)
+  def self.build_for_user(user, cart)
     order = user.orders.build
     order.build_order_from_cart(cart)
+    order
+  end
+
+  def self.build_for_guest_user(user, cart, params)
+    order = user.orders.build
+    order.build_order_from_cart(cart)
+    order.shipping_detail = user.shipping_details.build(params[:shipping_detail])
+    order.credit_card = user.credit_cards.build_from_stripe_for(user, params[:credit_card])
     order
   end
 

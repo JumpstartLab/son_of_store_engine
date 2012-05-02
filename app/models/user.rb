@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
+  PROMOTE = %w{ store_stocker store_admin }
+
   #CONSIDER TAKING CART_ID AWAY.
   attr_accessible :email, :name, :display_name, :password,
     :password_confirmation, :cart_id
@@ -20,10 +22,6 @@ class User < ActiveRecord::Base
   has_many :credit_cards, :autosave => true
   has_many :orders
   has_many :shipping_details
-
-  # has_many :store_users
-  # has_many :stores, :through => :store_users
-
   has_many :roles
   has_many :stores, :through => :roles
 
@@ -43,6 +41,19 @@ class User < ActiveRecord::Base
     type == "GuestUser"
   end
 
+  def get_cart_for_store(store)
+    carts.where(:store_id => store.id).first || 
+      carts.create!(:store_id => store.id)
+  end
+
+  def promote_to(role, store)
+    if ( PROMOTE.include? role ) && ( roles.where(store_id: store.id).where(name: role).count == 0 )
+      roles.create(name: role, store: store)
+    else
+      return false
+    end
+  end
+
   def has_role?(roles, store=nil)
     roles = Array(roles).map(&:to_s)
 
@@ -56,5 +67,4 @@ class User < ActiveRecord::Base
   def find_cart_by_store_id(store_id)
     carts.where(:store_id => store_id).first
   end
-
 end

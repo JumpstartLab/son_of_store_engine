@@ -5,15 +5,11 @@ module Stores
       before_filter :authorize_store_admin!
 
       def new
-        authorize! :manage, current_store
-
         @category = Category.new
       end
 
       def show
-        authorize! :manage, current_store
-
-        @category = Category.find(params[:id])
+        @category = current_store.categories.find(params[:id])
         @products = @category.products
       end
 
@@ -30,11 +26,11 @@ module Stores
       end
 
       def edit
-        @category = Category.find(params[:id])
+        @category = current_store.categories.find(params[:id])
       end
 
       def update
-        @category = Category.find(params[:id])
+        @category = current_store.categories.find(params[:id])
         @category.update_attributes(params[:category])
 
         if @category.save
@@ -47,11 +43,6 @@ module Stores
           render 'edit'
         end
       end
-
-      private
-
-
-
     end
   end
 end

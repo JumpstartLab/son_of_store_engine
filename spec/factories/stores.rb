@@ -25,7 +25,6 @@ FactoryGirl.define do
   end
 
   factory :store_with_products_and_categories, parent: :store_with_products do
-
     after_create do |store, evaluator|
       FactoryGirl.create_list(
         :category,

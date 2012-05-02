@@ -17,7 +17,7 @@ javascript:
 
   = u.text_field :name, :placeholder => "Name"
   = u.text_field :email, :placeholder => "E-mail Address"
-  = fields_for @credit_card do |c|
+  = fields_for @order.credit_card do |c|
     = c.hidden_field :stripe_card_token
     .field
       = label_tag :card_number, "Credit Card Number"
@@ -32,7 +32,7 @@ javascript:
     #stripe_error
       noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
   h2 Shipping
-  = fields_for @shipping_detail do |s|
+  = fields_for @order.shipping_detail do |s|
     .field
       = label_tag :ship_to_name, "Name"
       = s.text_field :ship_to_name
