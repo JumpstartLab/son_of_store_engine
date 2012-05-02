@@ -7,8 +7,8 @@ class OrdersController < ApplicationController
       @orders = current_store.orders.where(
         status: params[:status_search]).page(params[:page]).per(24)
     else
-      @orders = current_store.orders.find_all_by_user_id(
-        current_user.id).page(params[:page]).per(24)
+      @orders = Order.where(
+        user_id: current_user.id).page(params[:page]).per(24)
     end
   end
 
