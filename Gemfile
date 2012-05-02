@@ -16,6 +16,8 @@ gem 'redis-store', '~> 1.0.0'
 gem 'capistrano'
 gem 'unicorn'
 gem 'newrelic_rpm'
+gem 'omniauth'
+gem "omniauth-facebook"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -11,15 +11,15 @@ html
       div class="navbar-inner"
         div class="container"
           ul id="nav"
-            li.nav class="brand" 
-              =link_to "Konami Coders Inc.", root_path
+            li.nav class="brand"
+              = link_to "Son of Store Engine", root_path
             li.nav id="right"
                 = "#{current_user.name} | " 
                 = link_to("Log out",
                           destroy_user_session_path(:slug => nil),
                           :method => :delete)
-                = link_to("Manage your profile", edit_user_registration_path)   
-    
+                = link_to("Manage your profile", edit_user_registration_path)
+
     div.container
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}", :class => 'alert alert-info'

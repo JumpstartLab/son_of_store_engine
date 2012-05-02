@@ -1,8 +1,13 @@
-if ENV['HOST'] == 'sonofstoreengine'
-  delivery_method = :sendmail
-else
-  delivery_method = :smtp
+require 'socket'
 
+if Socket.gethostname == 'sonofstoreengine'
+  ActionMailer::Base.smtp_settings = {
+    :address              => '127.0.0.1',
+    :port                 => '25',
+    :domain               => 'sonofstoreengine.com',
+    :enable_starttls_auto => false
+  }
+else
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => '587',
@@ -13,7 +18,11 @@ else
   }
 end
 
-delivery_method = :test if Rails.env.test?
+delivery_method = if Rails.env.production?
+                    :smtp
+                  else
+                    :test
+                  end
 
 ActionMailer::Base.delivery_method = delivery_method
 ActionMailer::Base.default_url_options[:host] = 'sonofstoreengine.com'

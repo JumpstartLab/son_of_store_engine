@@ -15,6 +15,14 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+require 'yaml'
+begin
+  $PRODUCTION_CONFIG = 
+    YAML.load(File.open('/home/deployer/production_config.yml'))
+rescue StandardError => e
+  puts "Could not parse YAML: #{e.message}"
+end
+
 module StoreEngine
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

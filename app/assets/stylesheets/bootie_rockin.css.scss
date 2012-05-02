@@ -1,7 +1,7 @@
 @import "bootstrap";
 
-body { padding-top: 60px;
-       padding-left: 60px;
+body { padding-top: 100px;
+       padding-left: 25px;
        font-size: 14px;
        font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
@@ -21,7 +21,7 @@ li.nav{
 
 li.nav.brand{ 
   float: left;
-  
+  font-size: 40px;
 }
 
 li.categories{
@@ -32,6 +32,12 @@ li.categories{
 li.nav#right
 {
   float: right;
+  padding:10px;
+}
+
+li.nav a.btn {
+  font-size:15px;
+  margin-right: 14px;
 }
 
 li.nav#right_big
@@ -97,4 +103,34 @@ td#text{
   text-align:right;
 }
 
+h3.tagline {
+  font-size: 30px;
+  margin:20px;
+}
 
+.tutorial a {
+  float:left;
+  display:block;
+  width:300px;
+  height:300px;
+  text-indent:-424242px;
+}
+
+.tutorial a#create_store {
+  background:url('create_store.jpg') no-repeat top left;
+}
+.tutorial a#add_products {
+  background:url('add_products.jpg') no-repeat top left;
+}
+.tutorial a#sell_online {
+  background:url('sell_online.jpg') no-repeat top left;
+}
+.tutorial a#create_store:hover {
+  background:url('create_store_on.jpg') no-repeat top left;
+}
+.tutorial a#add_products:hover {
+  background:url('add_products_on.jpg') no-repeat top left;
+}
+.tutorial a#sell_online:hover {
+  background:url('sell_online_on.jpg') no-repeat top left;
+}
