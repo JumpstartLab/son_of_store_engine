@@ -1,0 +1,13 @@
+<%= form_for @store do |f| %>
+  <% if @store.errors.any? %>
+    <div class="alert alert-error">
+      <% @store.errors.full_messages.each do |message| %>
+        <%= message %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= f.text_field :name, :placeholder => "Enter your store name" %>
+  <%= f.text_field :description, :placeholder => "Enter your description" %>
+  <%= f.text_field :slug, :placeholder => "Enter your path" %>
+  <%= f.submit "Create" %>
+<% end %>

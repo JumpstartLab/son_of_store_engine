@@ -1,0 +1,20 @@
+header.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      = link_to current_store.name, store_path, id: "logo"
+      nav
+        ul.nav.pull-right
+          li= link_to "Products", store_products_path(store_slug)
+          li#cart-menu
+            = link_to store_cart_path(store_slug) do
+              i.icon-shopping-cart.icon-white
+              | &nbsp;&nbsp;Cart (#{get_cart_count})
+          - if current_user
+            li
+              = link_to user_path(current_user.id) do
+                i.icon-user.icon-white
+                | &nbsp;&nbsp;#{current_user.name}
+            li= link_to "Sign out", signout_path(slug: store_slug)
+          - else
+            li= link_to "Sign in", signin_path(url_for.include?("order") ? {slug: store_slug, checkout: true} : {slug: store_slug})
+            li= link_to "Register", signup_path(slug: store_slug)

@@ -1,0 +1,14 @@
+table.table.table-bordered.table-striped
+  tr
+    th Store Name
+    th Description
+    th Path
+    th Actions
+  - stores.each do |store|
+    tr(title=store.slug)
+      td
+        = store.name
+      td= truncate(store.description, :length => 32)
+      td= link_to store.slug, store_path(store.slug)
+      td
+        = store_actions_by_status(store)

@@ -1,0 +1,15 @@
+table.table.table-bordered.table-striped
+  theader
+    tr
+      th Order Number
+      th Store Name
+      th Purchase Date
+      th Status
+      th Order Total
+  - @orders.each do |order|
+    tr
+      td= link_to "Order ##{order.id}", user_order_path(current_user.id, order.id)
+      td= order.store_name
+      td= order.created_at.to_s(:month_day_and_year)
+      td= order.status
+      td= order.order_total

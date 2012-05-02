@@ -1,0 +1,11 @@
+.row
+  .span12
+    h4 Browse by category:
+    br/
+    ul.nav.nav-pills
+      = render :partial => "stores/categories/category", :collection => @categories
+= paginate @products
+ul.thumbnails
+  - @products.each_slice(3) do |slice|
+    .row style="margin-bottom:20px"
+      = render :partial => "product", :collection => slice, :as => "product"

@@ -1,0 +1,20 @@
+h1 Your Cart
+#cart
+  table.table.table-bordered.table-striped
+    thead
+      tr
+        th Name
+        th Quantity
+        th Price
+        th Total
+    tbody
+      - if current_cart.cart_products.empty?
+        td colspan="4"
+      - else
+        = render :partial => "cart_products", :locals => { cart_products: current_cart.cart_products }
+        tr#total-row
+          td colspan="2"
+          td style="border-left: 0px; border-right: 0px;"
+          td= current_cart.cart_total
+  - unless current_cart.cart_products.empty?
+      = link_to "Checkout", new_store_order_path, :method => :get, :id => "go_checkout"
