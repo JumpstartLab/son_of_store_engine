@@ -21,7 +21,7 @@ class Store < ActiveRecord::Base
 
   # will have store image eventually
   def image
-    "icon.png"
+    "storefront.png"
   end
 
   def active_status
