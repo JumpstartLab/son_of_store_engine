@@ -15,14 +15,21 @@ class StatsController < ApplicationController
     render :json => result.to_json
   end
 
-  def percent_sales_per_category
-    total = 0
+  def category_revenue
+    result = OrderItem.joins(:order => :store).joins(:product => :product_categories).
+      where("orders.store_id = #{current_store.id}").group("category_id").sum("quantity * price")
 
-    Order.limit()
-    #result = Order.limit(600).collect do |order| 
-      #total += order.total_price.to_f
-      #[order.created_at.to_i * 1000, total]
-    #end
-    #render :json => result.to_json
+    total_revenue = result.values.inject(0) do |sum, revenue| 
+      sum += revenue 
+    end
+
+    category_name_to_revenue = []
+    result.each do |category, revenue|
+      category = Category.find(category)
+      percentage = (revenue.to_f / total_revenue.to_f) * 100
+      category_name_to_revenue << ["#{category.title} ($#{revenue})", percentage.to_f]
+    end
+
+    render :json => category_name_to_revenue.to_json
   end
 end
