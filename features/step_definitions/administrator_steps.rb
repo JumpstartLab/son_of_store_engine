@@ -52,17 +52,11 @@ Then /^I should not see the option to "approve" or "decline" it$/ do
 end
 
 Then /^the user who requested approval is notified of the acceptance$/ do
-  # XXX use a fixture for the email contents
-  # email = ActionMailer::Base.deliveries.first
-  # email.from.should == ["info@berrystore.com"]
-  # email.to.should == [@user.email]
-  # email.subject.to_s.should include "Your store has been approved"
-  Resque.peek(:emails)["args"].first.should == @store.id
+  Resque.peek(:emails, 0, 5).last["args"].should == ["store_approval_notification", @store.id]
 end
 
 Then /^the user who requested approval is notified of the decline/ do
-  # XXX use a fixture for the email contents
-  Resque.peek(:emails)["args"].first.should == @store.id
+  Resque.peek(:emails, 0, 5).last["args"].should == ["store_declined_notification", @store.id]
 end
 
 Given /^a store "([^"]*)" has been approved and is enabled$/ do |name|

@@ -1,5 +1,4 @@
-@mofo 
-
+@mofos
 Feature:
   As a store administrator
   I should be able to add another store administrator
