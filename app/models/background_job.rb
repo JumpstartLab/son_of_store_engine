@@ -29,6 +29,6 @@ class BackgroundJob
   end
 
   def self.termination_email(user)
-    Resque.enqueue(UserTerminationEmailer, user)
+    Resque.enqueue(TerminationEmailer, user)
   end
 end

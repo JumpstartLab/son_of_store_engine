@@ -44,7 +44,7 @@ class Product < ActiveRecord::Base
     elsif store.order_items.any?
       store.find_top_seller
     else
-      store.products.first
+      store.products.active.first
     end
   end
 

@@ -74,7 +74,8 @@ class Store < ActiveRecord::Base
   end
 
   def find_top_seller
-    top = Product.find(order_items.count(group: "product_id").invert.max.last)
+    top = Product.active.find(
+      order_items.count(group: "product_id").invert.max.last)
     Rails.cache.write("#{slug}_top_seller", top.id)
     top
   end
