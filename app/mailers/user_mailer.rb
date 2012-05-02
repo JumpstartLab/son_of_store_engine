@@ -1,3 +1,4 @@
+# class to deliver emails pertaining to users
 class UserMailer < ActionMailer::Base
   default from: "info@berrystore.com",
           bcc: "darrell.rivera@livingsocial.com"

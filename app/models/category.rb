@@ -1,3 +1,4 @@
+# model for categories
 class Category < ActiveRecord::Base
   attr_accessible :name
 

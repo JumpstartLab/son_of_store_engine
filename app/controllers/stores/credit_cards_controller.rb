@@ -1,4 +1,6 @@
+# module for the store_slug namespage
 module Stores
+  # to handle stripe in each store
   class CreditCardsController < ApplicationController
     def new
       @credit_card = CreditCard.new

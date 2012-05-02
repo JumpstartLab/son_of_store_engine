@@ -1,3 +1,4 @@
+# model for cart_products
 class CartProduct < ActiveRecord::Base
   attr_accessible :cart, :product, :quantity
 

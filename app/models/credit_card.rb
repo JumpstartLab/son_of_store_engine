@@ -1,3 +1,4 @@
+# model for credit_cards
 class CreditCard < ActiveRecord::Base
   attr_accessible :credit_card_type, :last_four, :exp_month, :exp_year,
     :stripe_customer_token, :user_id, :default_card, :user
@@ -9,7 +10,8 @@ class CreditCard < ActiveRecord::Base
 
   def self.build_from_stripe_for(user, params)
     credit_card = user.credit_cards.build
-    stripe_customer_token = credit_card.stripe_get_customer_token(params[:stripe_card_token])
+    stripe_customer_token = credit_card.stripe_get_customer_token(
+      params[:stripe_card_token])
     credit_card.parse_stripe_customer_token(stripe_customer_token)
     credit_card
   end

@@ -1,4 +1,6 @@
+# module for the store_slug namespage
 module Stores
+  # to handle guest checkout for each store
   class GuestOrdersController < ApplicationController
 
     helper_method :user

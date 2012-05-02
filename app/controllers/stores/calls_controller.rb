@@ -1,4 +1,6 @@
+# module for the store_slug namespage
 module Stores
+  # for twilio api
   class CallsController < ApplicationController
     def create
       render :layout => "empty"

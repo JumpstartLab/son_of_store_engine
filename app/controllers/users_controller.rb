@@ -1,3 +1,4 @@
+# controller for creating new store customers and users
 class UsersController < ApplicationController
   before_filter :is_current_user?, only: [ :show, :edit ]
   include SessionHelpers
@@ -38,7 +39,8 @@ class UsersController < ApplicationController
 
     # TODO: ask Charles about this
     if @user.update_attributes(params[:user])
-      redirect_to user_path(@user.id), :notice => "Your profile has been updated"
+      redirect_to user_path(@user.id),
+        :notice => "Your profile has been updated"
     else
       render :edit
     end

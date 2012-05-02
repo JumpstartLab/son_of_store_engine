@@ -1,9 +1,13 @@
+# module for the store_slug namespage
 module Stores
+  # to manage products for each store
   class ProductsController < ApplicationController
     before_filter :store_must_exist
 
     def index
-      @products = current_store.active_products.order("name").page(params[:page]).per(12)
+      @products = current_store.active_products.order(
+        "name").page(params[:page]).per(12)
+      @products.accessible_by(current_ability)
       @categories = current_store.categories
     end
 

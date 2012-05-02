@@ -1,3 +1,4 @@
+# called from seeds.rb
 class Seeder
   def self.build_db
     build_stores
@@ -32,7 +33,8 @@ class Seeder
   def self.build_shipping_detail
     User.all.each do |user|
       Seeder.at_least_one(2).times do
-        shipping_detail = user.shipping_details.create!( :ship_to_name => user.name,
+        shipping_detail = user.shipping_details.create(
+          :ship_to_name => user.name,
           :ship_to_address_1 => Faker::Address.street_address,
           :ship_to_address_2 => Faker::Address.secondary_address,
           :ship_to_city => Faker::Address.city,

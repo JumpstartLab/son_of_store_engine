@@ -1,3 +1,4 @@
+# model for users
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
@@ -17,7 +18,7 @@ class User < ActiveRecord::Base
     user.validates :display_name, length: { minimum: 2, maximum: 32 },
       :unless => "display_name.blank?"
   end
-  
+
   has_many :carts, :autosave => true
   has_many :credit_cards, :autosave => true
   has_many :orders
@@ -42,12 +43,13 @@ class User < ActiveRecord::Base
   end
 
   def get_cart_for_store(store)
-    carts.where(:store_id => store.id).first || 
+    carts.where(:store_id => store.id).first ||
       carts.create!(:store_id => store.id)
   end
 
   def promote_to(role_name, store)
-    if (PROMOTE.include? role_name) && (roles.where(store_id: store.id, name: role_name).count == 0 )
+    if (PROMOTE.include? role_name) && (roles.where(
+        store_id: store.id, name: role_name).count == 0 )
       roles.create(name: role_name, store: store)
     else
       return false

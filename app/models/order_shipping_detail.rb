@@ -1,3 +1,4 @@
+# model for order_shipping_details
 class OrderShippingDetail < ActiveRecord::Base
   attr_accessible :order_id, :shipping_detail_id
 

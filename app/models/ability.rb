@@ -1,3 +1,4 @@
+# general CanCan file
 class Ability
   include CanCan::Ability
 

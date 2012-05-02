@@ -1,3 +1,4 @@
+# model for shipping details
 class ShippingDetail < ActiveRecord::Base
   attr_accessible :ship_to_name, :ship_to_address_1, :ship_to_address_2,
     :ship_to_city, :ship_to_state, :ship_to_country, :ship_to_zip,

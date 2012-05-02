@@ -1,3 +1,4 @@
+# extact cart storage
 class CartStorage
   attr_reader :session
 
