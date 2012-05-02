@@ -26,6 +26,7 @@ class Striper
     customer_token = Stripe::Customer.create(
       description: "Mittenberry Customer
       ##{@card.user.id}", card: token)
+    @card.update_attributes(stripe_customer_token: customer_token["id"])
     @card.parse_stripe_customer_token(customer_token)
     @card.save
   end
