@@ -38,6 +38,7 @@ StoreEngine::Application.routes.draw do
              :only => :show
     resources :store_orders, :only => [:index]
     match "stats/revenue_over_time" => "stats#revenue_over_time"
+    match "stats/category_revenue" => "stats#category_revenue"
   end
 
 
