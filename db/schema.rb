@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120426030258) do
+ActiveRecord::Schema.define(:version => 20120502010734) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street_1"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120426030258) do
     t.integer  "quantity",   :default => 1
   end
 
+  add_index "cart_items", ["product_id", "cart_id"], :name => "index_cart_items_on_product_id_and_cart_id"
+
   create_table "carts", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -41,12 +43,17 @@ ActiveRecord::Schema.define(:version => 20120426030258) do
     t.integer  "store_id"
   end
 
+  add_index "carts", ["store_id"], :name => "index_carts_on_store_id"
+  add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
+
   create_table "categories", :force => true do |t|
     t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "store_id"
   end
+
+  add_index "categories", ["store_id"], :name => "index_categories_on_store_id"
 
   create_table "order_items", :force => true do |t|
     t.integer  "product_id"
@@ -56,6 +63,8 @@ ActiveRecord::Schema.define(:version => 20120426030258) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end
+
+  add_index "order_items", ["product_id", "order_id"], :name => "index_order_items_on_product_id_and_order_id"
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
@@ -69,6 +78,9 @@ ActiveRecord::Schema.define(:version => 20120426030258) do
     t.string   "unique_url"
   end
 
+  add_index "orders", ["store_id"], :name => "index_orders_on_store_id"
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
   create_table "privileges", :force => true do |t|
     t.integer  "user_id"
     t.integer  "store_id"
@@ -76,6 +88,9 @@ ActiveRecord::Schema.define(:version => 20120426030258) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "privileges", ["store_id"], :name => "index_privileges_on_store_id"
+  add_index "privileges", ["user_id"], :name => "index_privileges_on_user_id"
 
   create_table "product_categories", :force => true do |t|
     t.integer  "product_id"
@@ -94,6 +109,8 @@ ActiveRecord::Schema.define(:version => 20120426030258) do
     t.datetime "updated_at",                                                   :null => false
     t.integer  "store_id"
   end
+
+  add_index "products", ["store_id"], :name => "index_products_on_store_id"
 
   create_table "searches", :force => true do |t|
     t.string   "title"
