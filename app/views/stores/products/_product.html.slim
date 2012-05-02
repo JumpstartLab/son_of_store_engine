@@ -5,14 +5,11 @@ li.span4
       p
         = link_to product.name, store_product_path(:store_slug => store_slug, :id => product.id)
       h4
-        | Price: #{product.price}
+        | $#{product.price}
       p
-      h5 Description
-      p= truncate(product.description, :length=>100)
+      p.italicize= truncate(product.description, :length=>40)
       p
-      h6 Categories:
       h6
-        br/
         - product.categories.each do |category|
           span.label= link_to category.name, store_category_path(store_slug, category.id)
           | &nbsp;
