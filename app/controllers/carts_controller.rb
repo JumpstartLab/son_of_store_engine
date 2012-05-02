@@ -27,7 +27,7 @@ class CartsController < ApplicationController
   def checkout
 
   end
-  
+
   def update_quantity
     @cart.update_quantity(params[:cart][:order_products_attributes])
     if @cart.save
@@ -39,8 +39,8 @@ class CartsController < ApplicationController
   end
 
   def guest
-    u = User.create(:guest => true)
-    @cart.user = u
+    guest_user = User.create(:guest => true)
+    @cart.user = guest_user
     @cart.save
     redirect_to new_order_path
   end

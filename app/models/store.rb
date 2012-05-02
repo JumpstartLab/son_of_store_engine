@@ -53,9 +53,9 @@ class Store < ActiveRecord::Base
   end
 
   def self.create_store(params, user)
-    s = Store.new(params)
-    s.users << user
-    s
+    new_store = Store.new(params)
+    new_store.users << user
+    new_store
   end
 
   def approve

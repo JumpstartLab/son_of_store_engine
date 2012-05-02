@@ -6,7 +6,7 @@ class Notification < ActionMailer::Base
   def order_email(order_id)
     @order =  Order.find_cart(order_id)
     @user  =  @order.user
-    mail(:to => @user.email, :subject => "Order Placed - ##{@order.id}")    
+    mail(:to => @user.email, :subject => "Order Placed - ##{@order.id}")
   end
 
   # User Emails
@@ -18,31 +18,38 @@ class Notification < ActionMailer::Base
   def new_store_approval(store_id)
     @store = Store.find(store_id)
     @admin_user = @store.users.first
-    mail(:to => @admin_user.email, :subject => "New Store: #{@store.name} was #{@store.status_name}")
+    mail(:to => @admin_user.email,
+         :subject => "New Store: #{@store.name} was #{@store.status_name}")
   end
 
   def new_store_request(store_id)
     @store = Store.find(store_id)
     @admin_user = @store.users.first
-    mail(:to => @admin_user.email, :subject => "New Store: #{@store_name} is now awaiting approval!")
+    mail(:to => @admin_user.email,
+         :subject => "New Store: #{@store_name} is now awaiting approval!")
   end
 
   def remove_role(email,store_id)
      @store = Store.find(store_id)
-     mail(:to => email, :subject => "Yo dawg, you've been fired! #{@store.name} Doesn't want you anymore") 
+     mail(:to => email,
+          :subject => "Yo dawg, you've been fired!
+                       #{@store.name} Doesn't want you anymore")
   end
 
   def new_user_and_store_role(email, store_id, role)
     @email = email
     @store = Store.find(store_id)
     @role = role
-    mail(:to => email, :subject => "You have been invited to become a #{role} of #{@store.name}")
+    mail(:to => email,
+         :subject => "You have been invited to become a
+                     #{role} of #{@store.name}")
   end
 
   def new_store_role(email,store_id,role)
     @store = Store.find(store_id)
     @role = role
-    mail(:to => email, :subject => "You are now a store #{role} of #{@store.name}")
+    mail(:to => email,
+         :subject => "You are now a store #{role} of #{@store.name}")
   end
 
 end
