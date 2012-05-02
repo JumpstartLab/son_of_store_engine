@@ -11,6 +11,7 @@ gem 'redis-store', "~> 1.0.0"
 gem 'fabrication'
 gem 'faker'
 gem 'kaminari'
+gem 'newrelic_rpm'
 
 group :production do
   gem 'pg'
