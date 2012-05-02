@@ -12,6 +12,7 @@ module Stores
         if @user = User.find_by_email(params[:user][:email])
           determine_path_and_assign_role(@user)
         else
+          new_user_email = params[:user][:email]
           Resque.enqueue(UserEmailer, "signup_notification", new_user_email)
           redirect_to store_admin_path(current_store.slug),
             :notice => "That user does not exist, so we sent them a signup email."
