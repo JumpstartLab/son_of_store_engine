@@ -12,7 +12,7 @@ class CartItemsController < ApplicationController
   def increment
     @cart.add_or_increment_by_product(params[:product_id])
       respond_to do |format|
-        format.html { redirect_to store_cart_path(current_store), 
+        format.html { redirect_to store_cart_path(current_store),
                       notice: 'Added to cart.' }
         format.js
       end

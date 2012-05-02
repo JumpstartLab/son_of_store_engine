@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       new_session
     else
-      flash.now.alert = "Email or password is invalid."      
+      flash.now.alert = "Email or password is invalid."
       render "new"
     end
   end
@@ -20,9 +20,7 @@ class SessionsController < ApplicationController
     elsif session[:request_page].blank?
       redirect_to root_url, notice: "Logged in!"
     else
-      new_session = session[:request_page]
-      session[:request_page] = nil
-      redirect_to new_session, notice: "Logged in!"
+      plain_login
     end
   end
 
@@ -34,6 +32,12 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def plain_login
+    new_session = session[:request_page]
+    session[:request_page] = nil
+    redirect_to new_session, notice: "Logged in!"
+  end
 
   def lookup_by_email_or_username(account_name)
     user = User.find_by_email(account_name)

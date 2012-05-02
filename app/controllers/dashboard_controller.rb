@@ -1,19 +1,20 @@
 class DashboardController < ApplicationController
-  before_filter :validate_store 
+  before_filter :validate_store
   before_filter :user_may_manage, only: :show
   before_filter :ensure_active
 
   def show
-    @orders = @store.orders.page(params[:page]).per(10)
+    @order = Order.where("store_id = #{current_store.id}").count
+    @product = Product.where("store_id = #{current_store.id}")
+      .where(:activity => true).count
     @categories = @store.categories
-    @products = @store.products.page(params[:page]).per(10)
     @employees = @store.employees
   end
 
   private
   def validate_store
     @store = current_store
-    return redirect_to root_path, 
+    return redirect_to root_path,
            alert: "Oops, Store doesn't exist." unless @store
   end
 

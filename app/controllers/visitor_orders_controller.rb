@@ -1,39 +1,25 @@
 class VisitorOrdersController < ApplicationController
   before_filter :valid_email_or_redirect, :only => :new
+  before_filter :create_visitor, only: :create
 
   def create
-    visitor = VisitorUser.create(:email => session[:guest_email])
-    @order = visitor.orders.new(params[:order])
+    @order = @visitor.orders.new(params[:order])
     @order.update_attribute(:store, current_store)
-    @order.save
-    @order.add_order_items_from(@cart)
+    @order.tap { |order| order.save }.add_order_items_from(@cart)
     if @order.save_with_payment
-      session["#{current_store.slug}_cart_id"] = nil
-      session[:checking_out] = nil
-      @cart.destroy
-      redirect_to store_visitor_order_path(current_store, @order.unique_url), 
-                  :notice => "Transaction Complete"
+     manage_session_and_redirect
     else
-      render :new
+     render :new
     end
   end
 
   def new
-    email = params[:guest_email]
-    session[:guest_email] = email
-    visitor_user = VisitorUser.new(:email => email)
-
+    session[:guest_email] = params[:guest_email]
+    visitor_user = VisitorUser.new(email: session[:guest_email])
     if visitor_user.save
-      @path = store_visitor_orders_path(current_store)
-      if @cart.quantity == 0
-        redirect_to current_store,
-          :alert => "You can't order something with nothing in your cart."
-      else
-        @order = Order.new
-        @order.build_address
-      end
-    else 
-      redirect_to new_store_checkout_path(current_store), 
+      make_order
+    else
+      redirect_to new_store_checkout_path(current_store),
         :alert => "You need a email to checkout as a Guest."
     end
   end
@@ -45,9 +31,31 @@ class VisitorOrdersController < ApplicationController
 
 private
 
+  def manage_session_and_redirect
+    session["#{current_store.slug}_cart_id"] = nil
+    session[:checking_out] = nil
+    @cart.destroy
+    redirect_to store_visitor_order_path(current_store, @order.unique_url),
+          :notice => "Transaction Complete"
+  end
+
+  def make_order
+    @path = store_visitor_orders_path(current_store)
+    if @cart.quantity == 0
+      redirect_to current_store,
+      :alert => "You can't order something with nothing in your cart."
+    else
+      @order = Order.new.tap { |order| order.build_address }
+    end
+  end
+
   def valid_email_or_redirect
     unless User.where(:email => params[:guest_email]).count == 0
       redirect_to new_session_path, :alert => "Not a unique email"
     end
+  end
+
+  def create_visitor
+    @visitor = VisitorUser.create(:email => session[:guest_email])
   end
 end

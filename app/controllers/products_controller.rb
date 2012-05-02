@@ -1,18 +1,16 @@
 class ProductsController < ApplicationController
   before_filter :store_disabled
   before_filter :user_may_stock,
-  only: [:destroy, :edit, :update, :create, :new]  
+  only: [:destroy, :edit, :update, :create, :new]
   before_filter :store_required
   before_filter :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @admin = admin?
-    if params[:search] && params[:search].length > 0
-      session[:search] = true
-      @products = current_store.products.active.where("title LIKE '%#{params[:search]}%'").page(params[:page]).per(24)
-    else
-      session[:search] = false 
+    if session[:search] = params[:search].blank?
       @products = current_store.products.active.page(params[:page]).per(24)
+    else
+      @products = Product.find_for_store(current_store,
+                  params[:search]).page(params[:page]).per(24)
     end
     @top_selling = Product.top_selling_for_store(current_store)
     @categories = current_store.categories
@@ -24,7 +22,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_store.products.new(params[:product])
-    store = @product.store
     if @product.save
       notice = "Product #{@product.title} created."
       dashboard_redirect(notice)
@@ -62,7 +59,7 @@ class ProductsController < ApplicationController
     session[:search]
   end
 
-  def find_product 
+  def find_product
     @product = current_store.products.find(params[:id])
   end
 

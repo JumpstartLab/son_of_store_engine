@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: "storeengine@gmail.com"
-  
+
   def order_confirmation(user, order)
     @user = user
     @order = order
@@ -11,17 +11,18 @@ class UserMailer < ActionMailer::Base
   def status_confirmation(user, order)
     @user = user
     @order = order
+    status = order.current_status
     mail(:to => @user.email,
-      :subject => "Your #{order.store.name} Order #{order.id} is now #{order.current_status}" )
+      :subject => "Your #{order.store.name} Order #{order.id} is now #{status}")
   end
 
-  def declined_store_notice(user, store_name, store_description, 
+  def declined_store_notice(user, store_name, store_description,
                             store_slug)
     @user = user
     @store_name = store_name
     @store_description = store_description
     @store_slug = store_slug
-    mail(:to => @user.email, 
+    mail(:to => @user.email,
       :subject => "Your Store Proposal for #{store_name} has been declined")
   end
 
@@ -45,7 +46,7 @@ class UserMailer < ActionMailer::Base
     @privilege = privilege
     @store_name = Store.find_by_id(store["id"]).name
     mail(:to => @email,
-      :subject => "#{@store_name} wants you to sign up so you can be a #{@privilege}!" )
+      :subject => "#{store["name"]} wants you to sign up to be a #{privilege}!")
   end
 
   def user_confirmation(user)

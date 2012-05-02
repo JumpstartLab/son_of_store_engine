@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def store_cart(store)
-    carts.where(store_id: store.id).first
+    carts.where(store_id: store.id).first || carts.create(store_id: store.id)
   end
 
   def promote(store, role)
@@ -60,17 +60,18 @@ class User < ActiveRecord::Base
   end
 
   def may_manage?(store)
-    return true if admin
-    (store.owner == self) || store_privileges(store).map(&:name).include?("manager")
+    return true if admin || store.owner == self
+    store_privileges(store).map(&:name).include?("manager")
   end
 
   def may_stock?(store)
-    may_manage?(store) || store_privileges(store).map(&:name).include?("stocker")
+    return true if may_manage?(store)
+    store_privileges(store).map(&:name).include?("stocker")
   end
 
   def places_of_employment
-    p = privileges.collect do |priv|
-      priv.store
+    privileges.collect do |privilege|
+      privilege.store
     end
   end
 end
