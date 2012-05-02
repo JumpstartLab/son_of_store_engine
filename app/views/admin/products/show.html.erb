@@ -4,6 +4,9 @@
    <%= render :partial => @product %>
     <li class="span8">
       <h1><%= @product.name.capitalize %></h1>
+      <% if @product.retired %>
+        <h2>This product is retired. You will not be able to add it to your cart.<h2>
+      <% end %>
       <h4>Description:</h4><br />
       <%= @product.description %>
       <br />
