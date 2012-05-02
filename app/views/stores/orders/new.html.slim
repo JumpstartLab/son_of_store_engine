@@ -1,5 +1,5 @@
 h1 Order Details
-= form_for @order do |f|
+= form_for @order, url: store_orders_path(store_slug) do |f|
   .row
     .span3 style="background-color: #eee; padding: 10px"
       h2 Your Credit Cards

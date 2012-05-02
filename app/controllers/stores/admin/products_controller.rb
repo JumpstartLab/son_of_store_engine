@@ -53,7 +53,8 @@ module Stores
     private
       def product
         if params[:product_id] || params[:id]
-          @product ||= current_store.products.where(id: params[:product_id] || params[:id]).first
+          @product ||= current_store.products.where(id: params[:product_id] ||
+            params[:id]).first
         else
           @product ||= current_store.products.build(params[:product])
         end

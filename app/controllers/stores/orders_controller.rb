@@ -23,9 +23,9 @@ module Stores
       @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
       
       if @order.save && @order.charge(current_cart)
-        redirect_to order_path(current_store.slug, @order.id),
+        redirect_to user_order_path(@order.id),
           :notice => "Thank you for placing an order."
-        @order.user_id.send_order_confirmation
+        @order.send_order_confirmation
       else
         render :new
       end

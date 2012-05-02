@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     carts = current_carts
     if user = login(params[:email], params[:password], params[:remember_me])
       carts.each { |cart| transfer_cart_to_user(cart, user) }
-      redirect_to return_path, :notice => "You have been signed in."    
+      redirect_to return_path, :notice => "You have been signed in."
     else
       invalid_login_credentials
       render :new
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    
+
     if params[:slug].blank?
       logout_path = root_path
     else

@@ -2,7 +2,7 @@ module Stores
   module Admin
     class OrdersController < BaseController
       before_filter :authorize_store_admin!
-      
+
       def index
         @orders = current_store.orders
       end
