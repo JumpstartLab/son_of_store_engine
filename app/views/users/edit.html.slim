@@ -1,4 +1,4 @@
-.center
+.span5
   h2 Please edit your details
   = form_for @user, :url => user_path(@user.id) do |f|
     = render 'errors', :object => @user, :field => :name

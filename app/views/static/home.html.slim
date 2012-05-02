@@ -1,9 +1,16 @@
-h1 Welcome to STOREBERRY
-
-- if current_user
-  p = link_to "Create new store", new_store_path
-- else
-  = link_to "Signup", signup_path
-  |  or 
-  = link_to "Login", signin_path
-  |  to create your own berry store
+#static
+  h1#home Create your own store on StoreBerry
+  .span6
+    ul id="home"
+      li Create your own store
+      li Identify your store with a unique URL
+      li Manage roles for controlling your store
+      li Over 95,000 products online
+  .span4
+    - if current_user
+      h3 = link_to "Create new store", new_store_path
+    - else
+      h3 = link_to "Signup", signup_path, :class => "btn btn-primary btn-large"
+      br/
+      |  or 
+      = link_to "Login", signin_path
