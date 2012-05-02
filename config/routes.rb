@@ -12,7 +12,9 @@ StoreEngine::Application.routes.draw do
   match '/unauthorized', :to => "static#unauthorized"
   match '/about', :to => "static#about"
 
-  resources :users, only: [:show, :create, :new, :edit, :update] do
+  resources :users, only: [:show, :create, :new, :edit, :update]
+
+  resource :user do
     resources :orders, :only => [:index, :show]
   end
 

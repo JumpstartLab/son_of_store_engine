@@ -1,6 +1,6 @@
 module Admin
   class StoresController < ApplicationController
-    
+
     before_filter :authorize_site_admin!
 
     def current_ability
