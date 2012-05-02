@@ -3,11 +3,11 @@ module Stores
 
     def new
       guard_new_order do
-        if current_user.credit_cards.empty?
-          flash.notice = flash.notice unless flash.notice.empty?
+        if current_user.credit_cards.blank?
+          flash.notice = flash.notice unless flash.notice.blank?
           redirect_to new_store_credit_card_path(current_store.slug) and return
-        elsif current_user.shipping_details.empty?
-          flash.notice = flash.notice unless flash.notice.empty?
+        elsif current_user.shipping_details.blank?
+          flash.notice = flash.notice unless flash.notice.blank?
           redirect_to new_store_shipping_detail_path(current_store.slug) and return
         end
 

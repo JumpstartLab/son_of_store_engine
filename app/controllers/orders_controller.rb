@@ -22,5 +22,4 @@ private
          orders which you have placed.'
     end
   end
-
 end
