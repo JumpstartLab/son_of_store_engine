@@ -87,7 +87,7 @@ describe "Dashboard" do
       click_link "Add employee"
       fill_in "Email", with: new_employee.email
       select "stocker", from: "Role"
-      click_button "Save changes"
+      click_button "HIRE!"
       page.should have_content("hired")
       new_employee.may_stock?(store).should be_true
       ActionMailer::Base.deliveries.last.subject.include?("new job").should be_true
@@ -98,7 +98,7 @@ describe "Dashboard" do
       click_link "Add employee"
       fill_in "Email", with: "cheddar_bay@biscuits.com"
       select "stocker", from: "Role"
-      click_button "Save changes"
+      click_button "HIRE!"
       page.should have_content("invited")
       ActionMailer::Base.deliveries.last.subject.include?("sign up").should be_true
     end

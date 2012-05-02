@@ -17,7 +17,70 @@
 
 </div>
 <br />
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home">Daily Revenue</a></li>
+  <li><a href="#profile">Category Revenue</a></li>
+  <li><a href="#messages">Power Spenders</a></li>
+</ul>
+ 
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+    <div id="test" style="height: 350px; min-width: 500px"></div>
+  </div>
+  <div class="tab-pane" id="profile">
+    <div id="pie" style="height: 350px; min-width: 500px; padding-left: 225px;"></div>
+  </div>
+  <div class="tab-pane" id="messages">
+    <div id="bar" style="height: 350px; width: 71%;"></div>
+  </div>
+</div>
+<br />
+<br />
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="well">
+        <h2>Total revenue: <%= number_to_currency(Order.revenue(current_store)) %></h2>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="well">
+        <h2>Total Orders: <%= @orders.count %></h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="well">
+        <h2>Total Categories: <%= @categories.count %></h2>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="well">
+        <h2>Active products: <%= @products.where(activity: true).count %></h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="well">
+        <h2>Active Managers: <%= current_store.count_managers %></h2>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="well">
+        <h2>Active Stockers: <%= current_store.count_stockers %></h2>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<br />
 
-<div id="test" style="height: 500px; min-width: 500px"></div>
-<div id="pie" style="height: 500px; min-width: 500px"></div>
-<div id="bar" style="height: 500px; min-width: 500px"></div>
+
+
+
