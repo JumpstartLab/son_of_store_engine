@@ -25,5 +25,5 @@ class Address < ActiveRecord::Base
   def self.shipping
     where(:is_billing => false)
   end
-  
+
 end
