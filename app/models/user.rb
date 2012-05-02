@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_one :cart
   has_one :address
   after_create :send_confirmation_mail
-
+  self.per_page = 15
   def guest_user
     self.guest == true
   end
