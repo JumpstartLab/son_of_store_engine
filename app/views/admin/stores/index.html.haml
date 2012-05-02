@@ -1,40 +1,38 @@
--cache("admin_stores_index_page") do
-  %h1 Listing stores
-  %table.table.table-striped
-    %tr
-      %th Name
-      %th Description
-      %th URL
-      %th Admin
-      %th Status
-      %th Actions
-      %th{:colspan => 3}
-    - @stores.each do |store|
-      -cache("admin_store_with_id#{store.id}")
-        %tr{id: "store_#{store.id}"}
-          %td= store.name
-          %td= truncate(store.description, :length => 32)
-          %td= store.url
-          %td= link_to "Admin", "http://#{store.url}.#{request.host}/admin"
-          - if store.pending?
-            %td
-              = link_to "Approve", approve_admin_store_path(store), method: :put
-              |
-              = link_to "Decline", decline_admin_store_path(store), method: :put
-            %td
-          - elsif store.approved?
-            %td= store.status_name
-            %td
-              - if store.disabled?
-                = link_to "Enable", enable_admin_store_path(store), method: :put
-              - else
-                = link_to "Disable", disable_admin_store_path(store), method: :put
-          - else
-            %td
-            %td
-          %td= link_to 'Show', admin_store_path(store)
-          %td= link_to 'Edit', edit_admin_store_path(store)
-          %td= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete
-  %br
+%h1 Listing stores
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Description
+    %th URL
+    %th Admin
+    %th Status
+    %th Actions
+    %th{:colspan => 3}
+  - @stores.each do |store|
+    -cache("admin_store_with_id#{store.id}") do
+      %tr{id: "store_#{store.id}"}
+        %td= store.name
+        %td= truncate(store.description, :length => 32)
+        %td= store.url
+        %td= link_to "Admin", "http://#{store.url}.#{request.host}/admin"
+        - if store.pending?
+          %td
+            = link_to "Approve", approve_admin_store_path(store), method: :put
+            |
+            = link_to "Decline", decline_admin_store_path(store), method: :put
+          %td
+        - elsif store.approved?
+          %td= store.status_name
+          %td
+            - if store.disabled?
+              = link_to "Enable", enable_admin_store_path(store), method: :put
+            - else
+              = link_to "Disable", disable_admin_store_path(store), method: :put
+        - else
+          %td
+          %td
+        %td= link_to 'Show', admin_store_path(store)
+        %td= link_to 'Edit', edit_admin_store_path(store)
+        %td= link_to 'Destroy', admin_store_path(store), :confirm => 'Are you sure?', :method => :delete
 
-  = link_to 'New Store', new_admin_store_path
+= link_to 'New Store', new_admin_store_path
