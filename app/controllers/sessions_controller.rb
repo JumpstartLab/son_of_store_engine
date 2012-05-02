@@ -12,12 +12,10 @@ class SessionsController < ApplicationController
     cart = current_cart
     last_page = session[:last_page]
     if user = login(params[:email], params[:password], params[:remember_me])
-      # session[:last_page] = last_page
-      # successful_login(cart, user)
-      login_user(params)
+      session[:last_page] = last_page
+      successful_login(cart, user)
     else
-      session[:cart_id] = cart.id
-      invalid_email
+      reject_login(cart)
     end
   end
 
@@ -29,14 +27,14 @@ class SessionsController < ApplicationController
 
 private
 
-  def login_user(params)
-    session[:last_page] = last_page
-    successful_login(cart, user)
-  end
-
   def invalid_email
     flash.now.alert = "Email or password was invalid."
     render :new
+  end
+
+  def reject_login(cart)
+    session[:cart_id] = cart.id
+    invalid_email
   end
 
 end
