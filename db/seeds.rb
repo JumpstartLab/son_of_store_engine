@@ -22,6 +22,12 @@ end
 #                 :email => Faker::Internet.email
 #              )
 # end
+
+# 100.times do |s|
+#   n = Faker::Name.name
+#   Store.create(name: n, active: rand(3), enabled: true, url: n)
+# end
+
 @new_store = Store.create(name: "Cool Sunglasses", active: 2, enabled: true, url: "cool-sunglasses")
 @new_store_2 = Store.create(:name => "Best Sunglasses", enabled: true, active: 2, url:"best-sunglasses")
 @new_store_3 = Store.create(:name => "Bike Store", enabled: true, active: 2, url:"bike-store")
