@@ -58,8 +58,7 @@ Then /^I am shown a confirmation page with a unique, hashed URL that displays my
 end
 
 Then /^I receive an email with my order details and the unique URL for later viewing$/ do
-  raise User.all.inspect
-  Resque.peek(:emails, 0, 100).last["args"].should == ["order_confirmation", User.where(email: @email).first.id]
+  Resque.peek(:emails, 0, 100).last["args"].should == ["order_confirmation", Order.where(user_id: User.where(email: @email).first).first.id]
 end
 
 Given /^I have a StoreEngine account$/ do

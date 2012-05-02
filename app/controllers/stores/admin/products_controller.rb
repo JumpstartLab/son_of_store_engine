@@ -21,7 +21,6 @@ module Stores
             notice: 'Product was successfully created.'
         else
           flash.now[:error] = product.errors.full_messages.join("\n")
-          @categories = current_store.categories
           render 'new'
         end
       end
@@ -31,7 +30,6 @@ module Stores
       end
 
       def edit
-        @categories = current_store.categories
       end
 
       def update

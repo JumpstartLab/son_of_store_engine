@@ -9,4 +9,9 @@ class Category < ActiveRecord::Base
 
   validates_uniqueness_of :name, :scope => :store_id
   validates_presence_of :name
+
+  def active_products
+    products.where(retired: false)
+  end
+
 end

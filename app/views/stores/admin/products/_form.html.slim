@@ -17,9 +17,10 @@
     = f.label :categories
     p Product is currently assigned to the following categories. Uncheck any of the boxes to remove the category.
     = hidden_field_tag "categories[]"
-    - @categories.each do |category|
-      = check_box_tag 'categories[]', category.id, product.category_ids.include?(category.id), id: category.name.gsub(' ', '_')
-      = label_tag category.name
+    - current_store.categories.each do |category|
+      = label_tag
+      | category.name, nil, class: 'checkbox inline'
+      = check_box_tag 'categories[]', category.id, product.category_ids.include?(category.id)
   .actions
     br/
     = f.submit

@@ -2,9 +2,11 @@ module Stores
   class CategoriesController < ApplicationController
 
     def show
-      @category = current_store.categories.find(params[:id])
       @categories = current_store.categories
-      @products = @category.products
+      @category = @categories.find(params[:id])
+      # @products = @category.active_products
+      @products = @category.active_products.order("name").page(params[:page]).per(12)
+
     end
 
   end

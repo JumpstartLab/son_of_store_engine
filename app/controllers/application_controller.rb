@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
   def get_cart_from_session
     cart_id = cart_storage[current_store.id]
-    current_store.carts.where(id: cart_id, store_id: current_store.id).first
+    current_store.carts.where(id: cart_id).first
   end
 
   def get_cart_from_user_if_logged_in
