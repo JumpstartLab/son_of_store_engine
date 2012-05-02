@@ -38,7 +38,7 @@
                     = link_to "Orders", "/#{@current_store.to_param}/admin/orders", id: "admin_nav_orders"
                   li
                     = link_to "Categories", "/#{@current_store.to_param}/admin/categories", id: "admin_nav_categories"
-            - if current_user.is_stocker_of(@current_store)
+            - elsif current_user.is_stocker_of(@current_store)
                 li#admin_nav.dropdown
                   a.dropdown-toggle data-toggle="dropdown" href="#admin_nav"
                     | Admin Dashboards
