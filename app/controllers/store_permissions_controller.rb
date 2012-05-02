@@ -6,8 +6,10 @@ class StorePermissionsController < ApplicationController
   def create
     if added_user.nil?
       invite_user
+      notice = "This user has been invited to accept this role."
     else
       give_user_permissions(added_user)
+      notice = "This user has been added as an employee."
     end
     redirect_to admin_store_path(store), notice: notice
   end
