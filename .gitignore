@@ -18,3 +18,4 @@
 /*.dat
 /*.rdb
 /public/uploads
+production_config.yml
