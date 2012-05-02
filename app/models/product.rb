@@ -58,7 +58,7 @@ class Product < ActiveRecord::Base
 
   def add_image_if_blank
     if image_link.blank?
-      update_attribute(:image_link, "http://t0.gstatic.com/images?q=tbn:ANd9GcTCuHKEZTTrdXLlLg27llqQX0xq2bQhhw5MtnPUeZBx1i6kAKBcKqGEFM4TBA")
+      update_attribute(:image_link, "http://bit.ly/KKjyCm")
     end
   end
 end
