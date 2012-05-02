@@ -7,7 +7,9 @@ module CartHelpers
 
   def find_cart_for_user
     current_user.cart = Cart.create if current_user.cart.nil?
-    merge_carts(session["cart_#{request.subdomain}"]) unless session["cart_#{request.subdomain}"].blank?
+    unless session["cart_#{request.subdomain}"].blank?
+      merge_carts(session["cart_#{request.subdomain}"])
+    end
     @cart = current_user.cart
   end
 
@@ -35,6 +37,6 @@ module CartHelpers
   end
 
   def clear_cart_from_session
-    session["cart_#{request.subdomain}"] = nil 
+    session["cart_#{request.subdomain}"] = nil
   end
 end
