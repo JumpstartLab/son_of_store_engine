@@ -29,6 +29,12 @@ class User < ActiveRecord::Base
   #   @email = email.downcase
   # end
 
+  def transfer_roles
+    PendingRole.where(email: email).each do |role|
+      role.destroy if roles.create(name: role.name, store: role.store)
+    end
+  end
+
   def add_order(order)
     orders << order
   end

@@ -5,9 +5,7 @@ class Role < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :store
-
   # validates_presence_of :name
-  validates_presence_of :user_id
   validates_uniqueness_of :user_id, :scope => [ :store_id, :name ]
 
   def user_name

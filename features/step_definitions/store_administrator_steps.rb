@@ -200,7 +200,7 @@ When /^I add the stocker "([^"]*)"$/ do |email|
   click_on 'Create Account'
 end
 
-Then /^an email is sent to "([^"]*)" to notify them they are a stocker for "([^"]*)" and can access the admin page at "([^"]*)"http:\/\/storeengine\.com\/cool\-sunglasses\/stock\/products"$/ do |email, store, url|
+Then /^an email is sent to "([^"]*)" to notify them they are a stocker for "([^"]*)" and can access the admin page at "([^"]*)"$/ do |email, store, url|
   user = User.where(email: email).first
   Resque.peek(:emails, 0, 100).last["args"].should == ["store_stocker_addition_notification", user.id]
 end
@@ -228,4 +228,14 @@ end
 Then /^an email is sent to "([^"]*)" to notify them they are no longer a stocker for "([^"]*)"$/ do |email, store|
   user = User.where(email: email).first
   Resque.peek(:emails, 0, 100).last["args"].should == ["store_stocker_removal_notification", user.id]
+end
+
+When /^I sign up using "([^"]*)"$/ do |email|
+  click_link('Register')
+  fill_in('user_email', with: email)
+  fill_in('user_name', with: 'Ed')
+  fill_in('user_display_name', with: 'Ed')
+  fill_in('user_password', with: 'foobar')
+  fill_in('user_password_confirmation', with: 'foobar')
+  click_on('Create Account')
 end

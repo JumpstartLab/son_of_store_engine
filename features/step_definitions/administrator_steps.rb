@@ -17,6 +17,10 @@ Given /^I visit "([^"]*)"$/ do |uri|
   visit(url)
 end
 
+Given /^I log out$/ do
+  click_on('Sign out')
+end
+
 When /^I click "([^"]*)" for "([^"]*)"$/ do |action, store|
   # XXX we'll probably need to be smarter about this
   # after we implement subdomains and/or domains

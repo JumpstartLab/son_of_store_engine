@@ -14,6 +14,7 @@ module Stores
           assign_role(@user)
         else
           new_user_email = params[:user][:email]
+          PendingRole.add_pending_role(current_store, params)
           Resque.enqueue(UserEmailer, "signup_notification", new_user_email)
           redirect_to store_admin_path(current_store.slug),
             :notice => "That user does not exist. A signup email has been sent."

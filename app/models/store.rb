@@ -32,6 +32,10 @@ class Store < ActiveRecord::Base
     scope status.to_sym, where(:status => status)
   end
 
+  def active_roles
+    roles.where('user_id IS NOT NULL')
+  end
+
   def stockers
     roles.where(name: "store_stocker").pluck(:user_id).collect{ |user_id| User.find(user_id) }
     # query = "select * from users where users.id in (select users.id from roles INNER JOIN users where roles.name = 'store_admin' AND store.id = ?);"

@@ -29,7 +29,7 @@ h1 Admin Dashboard for #{@store.name}
         th Role
         th Actions
 
-      - @store.roles.each do |role|
+      - @store.active_roles.each do |role|
         tr
           td = role.user_email
           td = role.formatted_name
