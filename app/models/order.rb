@@ -83,9 +83,13 @@ class Order < ActiveRecord::Base
     create_user(token) unless user.stripe_id
     self.is_cart = false
     Resque.enqueue(StripeCharge, total_price_after_sale_in_cents, user.stripe_id)
+    update_payment
+    notify_charge
+  end
+
+  def update_payment
     self.status = Status.find_or_create_by_name("paid")
     self.save
-    notify_charge
   end
 
   def notify_charge

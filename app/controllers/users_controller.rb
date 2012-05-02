@@ -14,7 +14,10 @@ class UsersController < ApplicationController
     current_store = session[:current_store]
     if @user.save
       auto_login(@user)
-      redirect_back_or_to(subdomain_path(current_store), :notice => "Account successfully made! " + view_context.link_to("Update your info", profile_path))
+      redirect_back_or_to(subdomain_path(current_store),
+                          :notice => "Account successfully made! " +
+                          view_context.link_to("Update your info",
+                                               profile_path))
     else
       render '/sessions/new'
     end

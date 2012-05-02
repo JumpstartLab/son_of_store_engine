@@ -47,11 +47,11 @@ class Store < ActiveRecord::Base
   def editable?(user)
     true if store_roles.find_by_user_id(user.id)
   end
+
   def self.create_store(params, user)
-    s = Store.new(params)
-    s.users << user
-    Resque.enqueue(NewStoreRequestEmailer, s.id)
-    s
+    new_store = Store.new(params)
+    new_store.users << user
+    new_store
   end
 
   def approve

@@ -1,26 +1,25 @@
-- cache(@store) do
-  %p
-    %b Name:
-    = @store.name
-  %p
-    %b Active:
-    = @store.status_name
-  %p
-    %b Description:
-    = @store.description
-  %p
-    %b URL:
-    = @store.url
-  %table.table.table-striped
+%p
+  %b Name:
+  = @store.name
+%p
+  %b Active:
+  = @store.status_name
+%p
+  %b Description:
+  = @store.description
+%p
+  %b URL:
+  = @store.url
+%table.table.table-striped
+  %tr
+    %th Remove
+    %th Role
+    %th Stocker Emailer
+  - @store.store_roles.each do |sr|
     %tr
-      %th Remove
-      %th Role
-      %th Stocker Emailer
-    - @store.store_roles.each do |sr|
-      %tr
-        %td= link_to "Remove", admin_store_role_path(sr), method: :delete, confirm: "You sure dawg? He can't be that bad."
-        %td= sr.role
-        %td= sr.user.email
+      %td= link_to "Remove", admin_store_role_path(sr), method: :delete, confirm: "You sure dawg? He can't be that bad."
+      %td= sr.role
+      %td= sr.user.email
 
 
   %p

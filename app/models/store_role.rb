@@ -24,15 +24,19 @@ class StoreRole < ActiveRecord::Base
   end
 
   def new_user(input)
-    u = User.find_by_email(input[:email])
-    if u
-      self.user = User.find_by_email(input[:email])
-      self.permission = input[:role]
-      self.save
+    user_for_role = User.find_by_email(input[:email])
+    if user_for_role
+      update_role(input)
       Resque.enqueue(NewStoreRoleEmailer, input[:email], self.store.id, role)
     else
       Resque.enqueue(NewUserAndStoreRoleEmailer, input[:email], self.store.id, role)
     end
+  end
+
+  def update_role(input)
+    self.user = User.find_by_email(input[:email])
+    self.permission = input[:role]
+    self.save
   end
 
   def remove_role
