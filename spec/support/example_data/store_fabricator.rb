@@ -1,6 +1,6 @@
 Fabricator(:store, :class_name => Store) do
   name   { "#{Faker::Company.name}#{sequence}" }
-  domain { "#{Faker::Company.name.downcase.gsub(" ", "")}#{sequence}" }
+  domain { "#{Faker::Company.name.downcase.gsub(" ", "").gsub(",", "")}#{sequence}" }
   description "#{ Faker::Company.catch_phrase } #{ Faker::Company.catch_phrase } #{ Faker::Company.catch_phrase }"
   approval_status "approved"
   enabled true

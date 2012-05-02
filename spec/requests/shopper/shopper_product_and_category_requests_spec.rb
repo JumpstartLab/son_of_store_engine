@@ -61,6 +61,7 @@ describe "shopper product & category requests", :shopper => true do
     
     before(:each) do
       product.categories << category
+      # visit category_path(domain: store, id: category)
       visit "/#{store.to_param}/categories/#{category.to_param}"
     end
     
