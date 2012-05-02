@@ -17,6 +17,7 @@ gem 'addressable'
 gem 'dynamic_form'
 gem 'cancan'
 gem 'newrelic_rpm'
+gem 'kaminari'
 
 group :production do
   gem 'pg'
