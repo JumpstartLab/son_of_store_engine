@@ -36,7 +36,7 @@ class LineItemsController < ApplicationController
   def destroy
     order = @line_item.order
     @line_item.destroy
-    redirect_to order_path(order)
+    redirect_to "/#{@current_store.to_param}/orders/#{order.to_param}"
   end
 
 end
