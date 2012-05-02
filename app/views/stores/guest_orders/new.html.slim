@@ -1,0 +1,45 @@
+h1 Order Details
+
+= form_for user, :url => store_guest_orders_path(store_slug) do |u|
+  - if user.errors.any?
+    h2 Errors
+    ul
+      - user.errors.full_messages.each do |msg|
+        li= msg
+
+  h2 Card
+
+  = u.text_field :name, :placeholder => "Name"
+  = u.text_field :email, :placeholder => "E-mail Address"
+  = fields_for @order.credit_card do |c|
+    = c.hidden_field :stripe_card_token
+    .field
+      = label_tag :card_number, "Credit Card Number"
+      = text_field_tag :card_number, "424242424242424242", name: 'number'
+    .field
+      = label_tag :card_code, "Security Code on Card (CVV)"
+      = text_field_tag :card_code, "123", name: 'cvv'
+    .field
+      = label_tag :card_month, "Card Expiration"
+      = select_month nil, {add_month_numbers: true}, {name: 'month', id: "card_month"}
+      = select_year 2014, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: 'year', id: "card_year"}
+  h2 Shipping
+  = fields_for @order.shipping_detail do |s|
+    .field
+      = label_tag :ship_to_name, "Name"
+      = s.text_field :ship_to_name
+    .field
+      = label_tag :ship_to_address_1, "Address"
+      = s.text_field :ship_to_address_1
+      br/
+      = s.text_field :ship_to_address_2
+    .field
+      = label_tag :ship_to_city, "City"
+      = s.text_field :ship_to_city
+    .field
+      = label_tag :ship_to_state, "State"
+      = s.select :ship_to_state, options_for_select(SHIPPING_STATES)
+    .field
+      = label_tag :ship_to_zip, "Zipcode"
+      = s.text_field :ship_to_zip
+  = u.submit("Place Order")

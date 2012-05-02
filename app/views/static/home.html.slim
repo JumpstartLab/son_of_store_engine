@@ -1,0 +1,9 @@
+h1 Welcome to STOREBERRY
+
+- if current_user
+  p = link_to "Create new store", new_store_path
+- else
+  = link_to "Signup", signup_path
+  |  or 
+  = link_to "Login", signin_path
+  |  to create your own berry store

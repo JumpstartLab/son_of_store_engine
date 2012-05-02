@@ -1,0 +1,40 @@
+h1 Order Details
+= form_for @order, url: store_orders_path(store_slug) do |f|
+  .row
+    .span3 style="background-color: #eee; padding: 10px"
+      h2 Your Credit Cards
+      ul.unstyled
+        = f.hidden_field :credit_card_id, :value => @order.credit_card.id
+        /= f.hidden_field :customer_token, :value => @order.credit_card.stripe_customer_token
+        li
+          b= @order.credit_card.credit_card_type
+        li= @order.credit_card.formatted_last_four
+        li
+          | Expires on: #{@order.credit_card.formatted_exp_date}
+        li= link_to "Add a new credit card", new_store_credit_card_path(store_slug)
+    .span3 style="background-color: #eee; padding: 10px"
+      h2 Your Shipping Address
+      ul.unstyled
+        = f.hidden_field :shipping_detail_id, :value => @order.shipping_detail.id
+        li= raw(formatted_shipping_address(@order.shipping_detail))
+        li= link_to "Add a new shipping address", new_store_shipping_detail_path(store_slug)
+  br/
+  .row
+    .span12
+      table.table.table-bordered.table-striped
+        thead
+          tr
+            th Name
+            th Quantity
+            th Price
+            th Total
+        tbody
+          - if current_cart.cart_products.empty?
+            td colspan="4"
+          - else
+            = render :partial => "cart_products", :locals => { cart_products: current_cart.cart_products }
+            tr#total-row
+              td colspan="2"
+              td style="border-left: 0px; border-right: 0px;"
+              td= current_cart.cart_total
+      = f.submit

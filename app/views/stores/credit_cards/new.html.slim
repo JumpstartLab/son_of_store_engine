@@ -1,0 +1,16 @@
+h1 Add a Credit Card
+
+= form_for(@credit_card, url: store_credit_cards_path(@credit_card.id), method: (@credit_card.new_record? ? :post : :put)) do |f|
+  .field
+    = label_tag :card_number, "Credit Card Number"
+    = text_field_tag :card_number, "424242424242424242", name: 'number'
+  .field
+    = label_tag :card_code, "Security Code on Card (CVV)"
+    = text_field_tag :card_code, "123", name: 'cvv'
+  .field
+    = label_tag :card_month, "Card Expiration"
+    = select_month nil, {add_month_numbers: true}, {name: 'month', id: "card_month"}
+    = select_year 2014, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: 'year', id: "card_year"}
+  .actions
+    br/
+    = f.submit

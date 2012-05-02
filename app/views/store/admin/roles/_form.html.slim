@@ -1,0 +1,6 @@
+.center
+  h2 Please enter your details
+  = form_for @user, :url => admin_roles_path do |f|
+    = f.text_field :email, :placeholder => "E-mail Address"
+    br/
+    = f.submit "Create Account", :class => "btn btn-large btn-primary"

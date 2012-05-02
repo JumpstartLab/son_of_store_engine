@@ -1,0 +1,14 @@
+header.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      = link_to "StoreBerry", root_path, id: "logo"
+      nav
+        ul.nav.pull-right
+          li#cart-menu
+          - if current_user
+            / XXX Ed, bro. Fix this.
+            li= link_to "Stores", admin_stores_path if current_user.has_role?(:site_admin)
+            li= link_to user_path(current_user.id) do
+                i.icon-user.icon-white
+                | &nbsp;&nbsp;#{current_user.name}
+            li= link_to "Sign out", signout_path, method: "delete"
