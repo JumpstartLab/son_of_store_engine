@@ -3,7 +3,7 @@ class TwoClickOrdersController < ApplicationController
 
   def create
     if current_user.addresses.first && current_user.stripe_id
-      @order = current_store.orders.new(user: current_user)
+      @order = current_store.orders.create(user: current_user)
       @order.two_click(params[:product_id])
       if @order.save_with_payment
         redirect_to store_order_path(@order.store, @order.id),
@@ -22,7 +22,6 @@ class TwoClickOrdersController < ApplicationController
   end
 
   def show
-    raise params.inspect
     redirect_to root_path,
     :alert => "You need to be logged in to instant purchase."
   end
