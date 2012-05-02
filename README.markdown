@@ -10,7 +10,7 @@ Super Admin:
  - email: demo11+chad@jumpstartlab.com
  - password: hungry
 
-**Store 1 ("Cool Runnings")**  
+**Store 1 ("Cool Runnings")**
 Admin:
  - email: cool.runnings.admin@jumpstartlab.com
  - password: hungry
