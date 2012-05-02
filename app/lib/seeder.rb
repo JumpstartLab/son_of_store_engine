@@ -3,10 +3,10 @@ class Seeder
   def self.build_mega_db
     build_users(10000)
     build_stores
-    build_categories
     build_products(34000, 1)
     build_products(34000, 2)
     build_products(34000, 3)
+    build_categories
     build_shipping_detail
     build_credit_cards
     build_orders
