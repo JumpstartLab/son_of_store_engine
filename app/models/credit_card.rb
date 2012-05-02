@@ -1,6 +1,6 @@
 class CreditCard < ActiveRecord::Base
   attr_accessible :credit_card_type, :last_four, :exp_month, :exp_year,
-    :stripe_customer_token, :user_id, :default_card
+    :stripe_customer_token, :user_id, :default_card, :user
   attr_accessor :stripe_card_token
   validates_presence_of :user_id
   before_save :set_to_default
@@ -38,7 +38,7 @@ class CreditCard < ActiveRecord::Base
   end
 
   def formatted_last_four
-    "XXXX-XXXX-XXXX-#{last_four}"
+    "XXXX-XXXX-XXXX-#{last_four[-4..-1]}"
   end
 
   def formatted_exp_date
@@ -46,7 +46,8 @@ class CreditCard < ActiveRecord::Base
   end
 
   def charge(cart_total_in_cents)
-    return false if stripe_customer_token.empty?
+    # return false if stripe_customer_token.empty?
+    return true #overwriting for stripe.
 
     Stripe::Charge.create(amount: cart_total_in_cents,
                           currency: 'usd',

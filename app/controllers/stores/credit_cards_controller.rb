@@ -5,8 +5,10 @@ module Stores
     end
 
     def create
-      new_credit_card = CreditCard.build_from_stripe_for(current_user, params[:credit_card])
-      new_credit_card.save
+      # new_credit_card = CreditCard.build_from_stripe_for(current_user, params[:credit_card])
+      new_credit_card = current_user.credit_cards.create(last_four: params[:number],
+                                                          exp_month: params[:month],
+                                                          exp_year: params[:year])
       redirect_to new_store_order_path
     end
 

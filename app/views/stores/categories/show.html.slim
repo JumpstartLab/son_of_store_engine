@@ -3,6 +3,7 @@ br/
 .row
   = link_to 'Back to all products', store_products_path, :class => "btn"
 br/
+= paginate @products
 ul.thumbnails
   - @products.each_slice(3) do |slice|
     .row style="margin-bottom:20px"

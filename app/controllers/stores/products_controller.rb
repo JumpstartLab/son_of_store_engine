@@ -1,6 +1,5 @@
 module Stores
   class ProductsController < ApplicationController
-    load_and_authorize_resource
     before_filter :store_must_exist
 
     def index

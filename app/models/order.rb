@@ -41,7 +41,10 @@ class Order < ActiveRecord::Base
     order = user.orders.build
     order.build_order_from_cart(cart)
     order.shipping_detail = user.shipping_details.build(params[:shipping_detail])
-    order.credit_card = user.credit_cards.build_from_stripe_for(user, params[:credit_card])
+    order.credit_card = user.credit_cards.build(last_four: params[:number],
+                                                exp_month: params[:month],
+                                                exp_year: params[:year])
+    # order.credit_card = user.credit_cards.build_from_stripe_for(user, params[:credit_card])
     order
   end
 
