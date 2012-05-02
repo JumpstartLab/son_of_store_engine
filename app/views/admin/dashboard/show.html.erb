@@ -43,9 +43,10 @@
         <% @admins.each do |admin| %>
           <tr id="admin_<%=admin.id%>">
         <td> <%= "#{admin.name} (#{admin.email})" %></td>
-        <% unless admin == store.owner || admin == current_user %>
-          <td> <%= link_to "Remove Admin", admin_store_admin_path(admin), :confirm => "Really remove #{admin.name} from store admins?", :method => "delete" %> </td>
+        <td><% unless admin == store.owner || admin == current_user %>
+           <%= link_to "Remove Admin", admin_store_admin_path(admin), :confirm => "Really remove #{admin.name} from store admins?", :method => "delete" %> 
         <% end %>
+        </td>
       </tr>
         <% end %>
       </tbody>
@@ -70,9 +71,9 @@
         <% @stockers.each do |stocker| %>
           <tr id="stocker_<%=stocker.id%>">
         <td> <%= "#{stocker.name} (#{stocker.email})" %></td>
-        <% unless stocker == store.owner || stocker == current_user %>
-          <td> <%= link_to "Remove Stocker", admin_store_admin_path(stocker), :confirm => "Really remove #{stocker.name} from store stockers?", :method => "delete" %> </td>
-        <% end %>
+        <td><% unless stocker == store.owner || stocker == current_user %>
+           <%= link_to "Remove Stocker", admin_store_admin_path(stocker), :confirm => "Really remove #{stocker.name} from store stockers?", :method => "delete" %> 
+        <% end %></td>
       </tr>
         <% end %>
       </tbody>
