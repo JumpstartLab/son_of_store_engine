@@ -1,5 +1,5 @@
 class StoreDashboardStatsJob
-  extend MemoryCache 
+  extend MemoryCache
   @queue = :store_stats
 
   def self.perform
@@ -15,7 +15,7 @@ class StoreDashboardStatsJob
       .where("orders.store_id = #{store.id}")
       .group("date(orders.created_at)").order("date_orders_created_at").sum("quantity * unit_price")
 
-    result = day_to_revenue.collect do |date, revenue| 
+    result = day_to_revenue.collect do |date, revenue|
       [Time.parse(date).to_i * 1000, revenue.to_i]
     end
 
@@ -27,8 +27,8 @@ class StoreDashboardStatsJob
     result = OrderItem.joins(:order => :store).joins(:product => :product_categories).
       where("orders.store_id = #{store.id}").group("category_id").sum("quantity * price")
 
-    total_revenue = result.values.inject(0) do |sum, revenue| 
-      sum += revenue.to_f 
+    total_revenue = result.values.inject(0) do |sum, revenue|
+      sum += revenue.to_f
     end
 
     category_name_to_revenue = []
@@ -47,7 +47,7 @@ class StoreDashboardStatsJob
     .where("orders.store_id = #{store.id}")
     .group("orders.user_id").order("sum_quantity_all_unit_price DESC")
     .limit(10).sum("quantity * unit_price")
-    result = user_to_revenue.collect do |user_id, revenue| 
+    result = user_to_revenue.collect do |user_id, revenue|
       {:name => User.find(user_id).full_name, :data => [revenue.to_i] }
     end
 
