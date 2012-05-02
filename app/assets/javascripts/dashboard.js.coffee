@@ -3,11 +3,13 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 `$(function() {
 	$.getJSON('stats/revenue_over_time', function(data) {
-
-		// Create the chart
-		window.chart = new Highcharts.StockChart({
+options = {
 			chart : {
-				renderTo : 'test'
+				renderTo : 'test',
+        events: {
+            redraw: function(){   // or load - refer to API documentation
+            }
+        }
 			},
 
 			rangeSelector : {
@@ -38,19 +40,28 @@
 					stops : [[0, Highcharts.getOptions().colors[0]], [1, 'rgba(0,0,0,0)']]
 				}
 			}]
-		});
+		}
+		// Create the chart
+		window.revenue_over_time = new Highcharts.StockChart(options);
 	});
 });`
 
 `
 $(function () {
 	    $.getJSON('stats/category_revenue', function(data) {
-       window.chart = new Highcharts.Chart({
+       window.category_revenue = new Highcharts.Chart({
             chart: {
                 renderTo: 'pie',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false
+                plotShadow: false,
+                style: { height: '350px'},
+                spacingRight: 450,
+                events: {
+                  redraw: function(){   // or load - refer to API documentation
+		                window.category_revenue = new Highcharts.Chart(window.category_revenue.options);
+                  }
+             }
             },
             title: {
                 text: 'Revenue by Category'
@@ -87,10 +98,16 @@ $(function () {
 `
 $(function () {
 	    $.getJSON('stats/top_ten_user_revenue', function(data) {
-        window.chart = new Highcharts.Chart({
+        window.user_revenue = new Highcharts.Chart({
             chart: {
                 renderTo: 'bar',
-                type: 'column'
+                style: { height: '350px', width: '100%'},
+                type: 'column',
+                events: {
+                  redraw: function(){   // or load - refer to API documentation
+		                window.user_revenue = new Highcharts.Chart(window.user_revenue.options);
+                  }
+             }
             },
             title: {
                 text: 'Top 10 Users by Spending'
@@ -125,9 +142,6 @@ $(function () {
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'top',
-                x: -100,
-                y: 100,
-                floating: true,
                 borderWidth: 1,
                 backgroundColor: '#FFFFFF',
                 shadow: true
@@ -135,7 +149,7 @@ $(function () {
             credits: {
                 enabled: false
             },
-            series: data 
+            series: data,
         });
     });
     });
@@ -144,3 +158,6 @@ $ ->
   $("#myTab a").click (e) ->
     e.preventDefault()
     $(this).tab "show"
+    window.revenue_over_time.redraw();
+    window.category_revenue.redraw();
+    window.user_revenue.redraw();
