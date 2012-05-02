@@ -3,10 +3,12 @@ class Admin::StoresController < ApplicationController
   before_filter :find_store, only: [:show, :edit]
   before_filter :confirm_has_store_admin_access, only: [:show, :edit]
   before_filter :require_admin, only: [:index]
-  
+
   def show
-    @admin_records = StorePermission.where("store_id = ? AND permission_level = ? AND user_id IS NOT NULL", @current_store.id, 1)
-    @stocker_records = StorePermission.where("store_id = ? AND permission_level = ? AND user_id IS NOT NULL", @current_store.id, 2)
+    adm_query = "store_id = ? AND permission_level = ? AND user_id IS NOT NULL"
+    @admin_records = StorePermission.where(adm_query, @current_store.id, 1)
+    stck_query = "store_id = ? AND permission_level = ? AND user_id IS NOT NULL"
+    @stocker_records = StorePermission.where(stck_query, @current_store.id, 2)
     @store_permission = StorePermission.new
   end
 

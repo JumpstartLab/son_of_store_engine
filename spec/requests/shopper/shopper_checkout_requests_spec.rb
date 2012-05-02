@@ -170,7 +170,7 @@ describe "shopper checkout", :shopper => true do
          password: "test", display_name: "Test"})
         current_path.should == "/#{store.to_param}"
         page.should have_content "Welcome"
-        click_link "View Your Profile"
+        click_link "View Profile"
         current_path.should == profile_path
       end
 

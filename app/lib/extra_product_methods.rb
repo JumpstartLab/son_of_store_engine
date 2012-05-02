@@ -13,7 +13,10 @@ module ExtraProductMethods
   end
 
   def confirm_has_store_admin_or_stocker_access
-    redirect_to root_path unless current_user.is_admin_of(@current_store) || current_user.is_stocker_of(@current_store)
+    unless current_user.is_admin_of(@current_store) ||
+      current_user.is_stocker_of(@current_store)
+      redirect_to root_path
+    end
   end
 
   def active_store_products

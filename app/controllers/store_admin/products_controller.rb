@@ -48,7 +48,8 @@ class StoreAdmin::ProductsController < ApplicationController
 
   def update
     @product.update_attributes(params[:product])
-    redirect_to admin_products_path(@current_store), notice: "\'#{@product.title}\' has been updated"
+    notice = "\'#{@product.title}\' has been updated"
+    redirect_to admin_products_path(@current_store), notice: notice
   end
 
 end
