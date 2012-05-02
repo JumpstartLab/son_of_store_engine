@@ -22,13 +22,15 @@ module Stores
 
       def destroy
         authorize! :promote_users, current_store
-
         @role = current_store.roles.find(params[:id])
-        if current_store.has_multiple_admin? && @role.destroy
-          @role.user.notify_user_of_role_removal
+
+        if @role.name == "store_admin" && current_store.has_multiple_admin?
+          redirect_to :back, :notice => 'Unable to demote user. Store must have at least one admin.'
+        elsif @role.destroy
+          @role.user.notify_of_role_removal(@role)
           redirect_to store_admin_path(current_store.slug), :notice => 'Role has been removed'
         else
-          redirect_to :back, :notice => 'Unable to demote user. Store must have at least one admin.'
+          redirect_to :back, :notice => 'Something went wrong.'
         end
       end
 
@@ -36,7 +38,7 @@ module Stores
         role = params[:role]
         if user.promote_to(role, current_store)
           message = "#{user.name} is now a #{role.gsub('_',' ')}."
-          user.notify_of_role_addition
+          user.notify_of_role_addition(role)
         else
           message = "#{user.name} cannot be a #{role.gsub('_',' ')}."
         end
