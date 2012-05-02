@@ -18,6 +18,10 @@ class Product < ActiveRecord::Base
 
   default_scope order(:title)
 
+  def self.by_category_id(category_id)
+    joins(:categories).where(:category_id => category_id)
+  end
+
   def self.active
     where(retired: false)
   end

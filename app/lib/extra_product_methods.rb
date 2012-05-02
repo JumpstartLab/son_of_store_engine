@@ -9,7 +9,7 @@ module ExtraProductMethods
   end
 
   def store_category_products(category_id)
-    @products = Product.joins(:categories).where(:category_id => category_id)
+    @products = Product.by_category_id
   end
 
   def confirm_has_store_admin_or_stocker_access
