@@ -1,8 +1,8 @@
 CarrierWave.configure do |config|
   config.fog_credentials = {
     :provider               => 'AWS',       # required
-    :aws_access_key_id      => ENV['AWS_ACCESS_KEY'],       # required
-    :aws_secret_access_key  => ENV['AWS_SECRET_KEY']       # required
+    :aws_access_key_id      => $PRODUCTION_CONFIG[:aws_key],       # required
+    :aws_secret_access_key  => $PRODUCTION_CONFIG[:aws_secret]     # required
   }
 
   config.fog_directory  = 'son_of_store_engine'                     # required
