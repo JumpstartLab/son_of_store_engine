@@ -1,3 +1,6 @@
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
 <div class="well">
 <h1>Order: <%= @order.id %> </h1>
 </div>
@@ -39,8 +42,12 @@
       :class => "btn btn-mini" %>
   <%= link_to "Dashboard", store_dashboard_path(current_store), 
       :class => "btn btn-mini" %>
+  <%= link_to "Shop More", store_products_path(current_store), 
+      :class => "btn btn-primary btn-mini" %>
    
 <% else %>
   <%= link_to "Back to Your Orders", store_orders_path(current_store), 
-      :class => "btn btn-large" %>
+      :class => "btn btn-small" %>
+  <%= link_to "Shop More", store_products_path(current_store), 
+      :class => "btn btn-primary btn-small" %>
 <% end %>
