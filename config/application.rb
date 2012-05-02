@@ -16,9 +16,10 @@ if defined?(Bundler)
 end
 
 require 'yaml'
-$PRODUCTION_CONFIG = begin
-  YAML.load(File.open('/home/deployer/production_config.yml'))
-rescue ArgumentError => e
+begin
+  $PRODUCTION_CONFIG = 
+    YAML.load(File.open('/home/deployer/production_config.yml'))
+rescue StandardError => e
   puts "Could not parse YAML: #{e.message}"
 end
 
