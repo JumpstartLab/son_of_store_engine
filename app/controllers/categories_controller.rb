@@ -1,6 +1,7 @@
 # Allows restful actions for the categories
 class CategoriesController < ApplicationController
   cache_sweeper :category_sweeper
+  
   def index
     @categories = Category.all
   end
