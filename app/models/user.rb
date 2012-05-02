@@ -46,9 +46,9 @@ class User < ActiveRecord::Base
       carts.create!(:store_id => store.id)
   end
 
-  def promote_to(role, store)
-    if ( PROMOTE.include? role ) && ( roles.where(store_id: store.id).where(name: role).count == 0 )
-      roles.create(name: role, store: store)
+  def promote_to(role_name, store)
+    if (PROMOTE.include? role_name) && (roles.where(store_id: store.id, name: role_name).count == 0 )
+      roles.create(name: role_name, store: store)
     else
       return false
     end
@@ -68,16 +68,16 @@ class User < ActiveRecord::Base
     carts.where(:store_id => store_id).first
   end
 
-  def notify_of_role_removal(name)
-    if name == "store_admin" || name == "store_stocker"
-      method_name = "#{name}_removal_notification"
+  def notify_of_role_removal(role)
+    if PROMOTE.include? role.name
+      method_name = "#{role.name}_removal_notification"
     end 
     Resque.enqueue(RoleEmailer, method_name, id)
   end
 
-  def notify_of_role_addition(name)
-    if name == "store_admin" || name == "store_stocker"
-      method_name = "#{name}_addition_notification"
+  def notify_of_role_addition(role_name)
+    if PROMOTE.include? role_name
+      method_name = "#{role_name}_addition_notification"
     end
     Resque.enqueue(RoleEmailer, method_name, id)
   end
