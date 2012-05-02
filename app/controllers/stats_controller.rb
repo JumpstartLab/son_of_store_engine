@@ -2,18 +2,12 @@ require 'bigdecimal'
 
 class StatsController < ApplicationController
   def revenue_over_time
-    #day_to_revenue = OrderItem.joins(:order)
-      #.where("orders.store_id = #{current_store.id}").order("date_orders_created_at")
-      #.group("date(orders.created_at)").sum("quantity * unit_price")
-    
     day_to_revenue = OrderItem.joins(:order)
       .where("orders.store_id = #{current_store.id}")
-      .group("date(orders.created_at)").sum("quantity * unit_price")
-
-    day_to_revenue = day_to_revenue.sort_by { |timestamp, total| timestamp }
+      .group("date(orders.created_at)").order("date_orders_created_at").sum("quantity * unit_price")
 
     result = day_to_revenue.collect do |date, revenue| 
-        [Time.parse(date).to_i * 1000, revenue]
+      [Time.parse(date).to_i * 1000, revenue.to_i]
     end
 
     #key = "#{current_store.slug}:revenue_over_time"
@@ -52,10 +46,8 @@ class StatsController < ApplicationController
     .where("orders.store_id = #{current_store.id}")
     .group("orders.user_id").order("sum_quantity_all_unit_price DESC")
     .limit(10).sum("quantity * unit_price")
-#name: 'John',
-			#data: [5, 3, 4, 7, 2]
     result = user_to_revenue.collect do |user_id, revenue| 
-      {:name => User.find(user_id).full_name, :data => [revenue] }
+      {:name => User.find(user_id).full_name, :data => [revenue.to_i] }
     end
 
     render :json => result.to_json

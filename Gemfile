@@ -35,7 +35,8 @@ group :development, :test do
   gem 'capybara'
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'launchy'
-  gem 'sqlite3'
+  #gem 'sqlite3'
+  gem 'pg' 
 end
 
 group :production do
