@@ -1,10 +1,10 @@
 = render :partial => 'layouts/head'
 %body
   .wrapper
-    - if polutropon_path
-      = render :partial => 'layouts/home'
-    - else
+    - if request.subdomain.present?
       = render :partial => 'layouts/nav'
+    - else
+      = render :partial => 'layouts/home'
 
     .topper
     .container
