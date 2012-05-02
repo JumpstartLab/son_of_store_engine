@@ -1,11 +1,10 @@
 class Admin::OrdersController < Admin::ApplicationController
 
   def index
-    @orders = Order.all
+    @orders = Order.page(params[:page]).per(20)
   end
 
   def show
-    #@orders = Order.all
     @order = Order.find(params[:id])
   end
 

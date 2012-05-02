@@ -18,8 +18,7 @@
   <td><%= truncate(store.description, :length=>32) %></td>
   <td><%= store.approved.nil? %></td>
   <td><%= store_actions_by_status(store) %></td>
-  <td><%= link_to "Administer", "http://woracesworkshop.herokuapp.com" %></td>
+  <td><%= link_to "Administer", admin_dashboard_url(:subdomain => store.url_name), id: "edit_store_#{store.id}" %></td>
 </tr>
 <% end %>
-
 </table>

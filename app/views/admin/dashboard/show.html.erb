@@ -1,10 +1,13 @@
-<h1>Admin Dashboard</h1>
+<h1 id="admin_dashboard">Admin Dashboard</h1>
 
 <div class="row">
   <div class="span6" style="margin-bottom:20px">
+    <h4>Store Name:</h4> <%= store.name %>
+    <h4>Store Description:</h4> <%= store.description %>
     <h4>
-    <%= link_to 'Add a product', new_admin_product_path %> | 
-    <%= link_to 'Create a category', new_admin_category_path %>
+      <%= link_to 'Edit Store Details', edit_admin_store_path(store) %> |
+      <%= link_to 'Add a product', new_admin_product_path %> |
+      <%= link_to 'Create a category', new_admin_category_path %>
     </h4>
   </div>
 </div>
@@ -103,6 +106,7 @@
 <%= render :partial => "admin/orders/admin_order", :collection => @orders %>
 
 </table>
+<%= paginate @orders %>
 
 <h2>Categories</h2>
 

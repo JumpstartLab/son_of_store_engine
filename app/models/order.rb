@@ -1,6 +1,5 @@
 class Order < ActiveRecord::Base
   attr_accessible :user_id, :credit_card_id, :order_products
-
   belongs_to :user
   belongs_to :credit_card
 
@@ -88,10 +87,10 @@ class Order < ActiveRecord::Base
 
   def self.orders_by_status(status_filter=nil)
     if status_filter.nil?
-      Order.all
+      Order.scoped
     else
       Order.joins(:order_status).
-      where('order_statuses.status = ?', status_filter)
+      scoped.where('order_statuses.status = ?', status_filter)
     end
   end
 

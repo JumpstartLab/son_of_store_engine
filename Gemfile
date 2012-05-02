@@ -16,6 +16,7 @@ gem 'tlsmail'
 gem 'redis-store'
 gem 'capistrano'
 gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
+gem 'kaminari'
 
 group :production do
   gem 'pg'
