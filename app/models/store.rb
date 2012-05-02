@@ -11,6 +11,10 @@ class Store < ActiveRecord::Base
 
   after_create :make_owner_an_admin
 
+  def page_count(per_page)
+    (products.size/per_page) + 1
+  end
+
   def to_param
     domain
   end

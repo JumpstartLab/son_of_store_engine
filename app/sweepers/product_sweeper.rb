@@ -14,28 +14,25 @@ class ProductSweeper < ActionController::Caching::Sweeper
   private
 
   def expire_caches_for(product)
-    store_products_count = store_products ? store_products.count : 0
-    page_count = (store_products_count/ITEMS_PER_PAGE) + 1
-    expire_fragment "#{product.store.to_param}_products_"
-    expire_fragment "#{product.store.to_param}_admin_products_"
-    (2..page_count).each do |page_number|
-      expire_fragment "#{product.store.to_param}_products_#{page_number}"
-      expire_fragment "#{product.store.to_param}_admin_products_#{page_number}"
+    slug = product.store.to_param
+    [slug, slug + "_admin"].each do |fragment|
+      expire_pages_with_key(category, fragment)
     end
   end
 
   def expire_category_caches_for(product)
     product.categories.each do |category|
-      slug = category.store.to_param
-      expire_category_pages_with_key(category, slug)
-      expire_category_pages_with_key(category, slug + "_admin")
+      slug = category.store.to_param 
+      ["_category", "_admin_category"].each do |fragment|
+        expire_pages_with_key(category, slug + fragment)
+      end
     end
   end
 
-  def expire_category_pages_with_key(category, slug)
-    expire_fragment "#{slug}_category_products_"
-    (2..category.page_count(ITEMS_PER_PAGE)).each do |page_number|
-      expire_fragment "#{slug}_category_products_#{page_number}"
+  def expire_pages_with_key(set, slug)
+    expire_fragment "#{slug}_products_"
+    (2..set.page_count(ITEMS_PER_PAGE)).each do |page_number|
+      expire_fragment "#{slug}_products_#{page_number}"
     end
   end
 end
