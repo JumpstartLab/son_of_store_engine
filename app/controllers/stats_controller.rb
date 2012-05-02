@@ -3,7 +3,7 @@ require 'bigdecimal'
 class StatsController < ApplicationController
   def revenue_over_time
     day_to_revenue = OrderItem.joins(:order)
-      .where("orders.store_id = #{current_store.id}")
+      .where("orders.store_id = #{current_store.id}").order("orders.created_at")
       .group("date(orders.created_at)").sum("quantity * unit_price")
     
     result = day_to_revenue.collect do |date, revenue| 
