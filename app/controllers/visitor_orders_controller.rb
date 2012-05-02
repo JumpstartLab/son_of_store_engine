@@ -1,12 +1,16 @@
 class VisitorOrdersController < ApplicationController
   before_filter :valid_email_or_redirect, :only => :new
+  before_filter :create_visitor, only: :create
 
   def create
-    visitor = VisitorUser.create(:email => session[:guest_email])
-    @order = visitor.orders.new(params[:order])
+    @order = @visitor.orders.new(params[:order])
     @order.update_attribute(:store, current_store)
     @order.tap { |order| order.save }.add_order_items_from(@cart)
-    @order.save_with_payment ? manage_session_and_redirect : render(:new)
+    if @order.save_with_payment
+     manage_session_and_redirect
+    else
+     render :new
+    end
   end
 
   def new
@@ -49,5 +53,9 @@ private
     unless User.where(:email => params[:guest_email]).count == 0
       redirect_to new_session_path, :alert => "Not a unique email"
     end
+  end
+
+  def create_visitor
+    @visitor = VisitorUser.create(:email => session[:guest_email])
   end
 end
