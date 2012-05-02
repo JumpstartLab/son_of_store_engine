@@ -6,6 +6,9 @@ class LineItem < ActiveRecord::Base
 
   def self.increment_or_create_line_item(params)
     order = Order.find(params[:order_id])
+
+    params[:price] = params[:price].to_f*100
+
     if order.has_product?(params[:product_id])
       line_item = order.line_items.find_by_product_id(params[:product_id])
       line_item.increment_quantity(params[:quantity])
@@ -16,6 +19,11 @@ class LineItem < ActiveRecord::Base
 
   def subtotal
     BigDecimal.new((quantity.to_f * price.to_f).to_s, 2)
+  end
+
+  def price
+    cents = BigDecimal.new(read_attribute(:price).to_s)
+    price = cents / 100
   end
 
   def clean_price
