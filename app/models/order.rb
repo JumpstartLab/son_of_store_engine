@@ -42,12 +42,10 @@ class Order < ActiveRecord::Base
 
   def self.revenue(store = nil)
     if store
-      @orders = store.orders
+      OrderItem.joins(:order).where("orders.store_id = #{store.id}")
+      .sum("quantity * unit_price").to_i
     else
-      @orders = Order.all
-    end
-    @orders.inject(0) do |result, order|
-      result += order.total_price
+      OrderItem.joins(:order).sum("quantity * unit_price").to_i
     end
   end
 
