@@ -19,7 +19,7 @@ class Superadmin::StoresController < Superadmin::ApplicationController
   private
 
   def send_notification(store)
-    Notification.store_accepted_notification(store) if store.active?
-    Notification.store_declined_notification(store) if store.declined?
+    store.send_accepted_email if store.active?
+    store.send_declined_email if store.declined?
   end
 end

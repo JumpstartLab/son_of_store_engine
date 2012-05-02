@@ -143,6 +143,16 @@ class Store < ActiveRecord::Base
     self.css.file.path.split("/").last if self.css.file
   end
 
+  def send_accepted_email
+    StoreMailer.store_accepted_notification(self, 
+      self.users.first.email).deliver
+  end
+
+  def send_declined_email
+    StoreMailer.store_declined_notification(self, 
+      self.users.first.email).deliver
+  end
+
   private
 
   def parameterize_slug

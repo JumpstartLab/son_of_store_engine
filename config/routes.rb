@@ -1,4 +1,5 @@
 StoreEngine::Application.routes.draw do
+  mount Resque::Server.new, :at => "/resque"
   get "stores/edit"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
