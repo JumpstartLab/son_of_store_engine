@@ -58,17 +58,6 @@ describe Order do
         order.charge(cart).should == true
       end
     end
-
-    context "if charge is unsucessful" do
-      before do
-        credit_card.stub(:charge).and_return(false)
-        order.credit_card = credit_card
-      end
-
-      it "should return false" do
-        order.charge(cart).should == false
-      end
-    end
   end
 
   describe "#set_cc_from_stripe_customer_token" do

@@ -54,7 +54,8 @@ class Order < ActiveRecord::Base
   end
 
   def charge(cart)
-    if credit_card.charge(cart.cart_total_in_cents)
+    cc = user.credit_cards.where("stripe_customer_token IS NOT NULL").last
+    if cc.charge(cart.cart_total_in_cents)
       mark_as_paid
       cart.destroy
       true

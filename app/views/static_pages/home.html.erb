@@ -1,4 +1,10 @@
 <div class="center">
-  <h2><%= link_to "Browse les stores!", stores_path %></h2>
   <%= link_to image_tag("splash.jpg", alt: "splash-rolex"), stores_path %>
+  <div class="page-header">
+    <h1>Chef Pierre says, '<i>Bonjour!</i>'</h1>
+    <p>Chez Pierre is an eclectic mix of the finest francophilian fancies. Take a look around!</p>
+    <p>
+      <%= link_to "Browse les stores!", stores_path, class: "center btn btn-primary btn-large" %>
+    </p>
+  </div>
 </div>

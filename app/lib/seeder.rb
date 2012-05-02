@@ -66,9 +66,10 @@ class Seeder
 
   def self.build_products(quantity, store_id)
     quantity.times do
-      product = Product.create( name: "The #{Faker::Name.name}",
+      product = Product.create( name: "#{Faker::Name.name}",
         description: Faker::Lorem.sentences(2),
         price: (15 + rand(10) + rand(4)*0.25),
+        photo: photo_url,
         store_id: store_id )
       (rand(3) + 1).times do
         offset = rand(Category.count)
@@ -80,9 +81,9 @@ class Seeder
   def self.build_categories
     # should be:
     # [h,s,m].each do ...
-    Category.create( name: 'Hats', store_id: 1 )
-    Category.create( name: 'Scarves', store_id: 1 )
-    Category.create( name: 'Mittens', store_id: 2 )
+    Category.create( name: 'belle', store_id: 1 )
+    Category.create( name: 'bon', store_id: 1 )
+    Category.create( name: 'paris', store_id: 2 )
     Category.create( name: 'Boots', store_id: 2 )
     Category.create( name: 'Coats', store_id: 3 )
     Category.create( name: 'Jackets', store_id: 3 )
@@ -93,7 +94,7 @@ class Seeder
       description: "Buy our sunglasses!", owner_id: 1)
     Store.create( name: "Worace's Workshop", url_name: "woraces-workshop",
       description: "Wonderful wares whenever Worace wants!", owner_id: 2)
-    Store.create( name: "Matt's Mumus", url_name: "matts-mumus",
+    Store.create( name: "Pierre's Kitchen", url_name: "pierres-kitchen",
       description: "They sure are comfortable!", owner_id: 3)
   end
 
@@ -113,6 +114,48 @@ class Seeder
     Category.destroy_all
     Order.destroy_all
     ShippingDetail.destroy_all
+  end
+
+  def self.photo_url
+    photos = ["http://s3.amazonaws.com/static.fab.com/product/125149-300x300-1335384095-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125146-300x300-1335391068-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125141-300x300-1335383975-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125142-300x300-1335390858-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125140-300x300-1335383963-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125138-300x300-1335390939-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125136-300x300-1335383994-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125135-300x300-1335384248-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125211-300x300-1335384139-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125206-300x300-1335390228-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125204-300x300-1335384163-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125199-300x300-1335384026-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125198-300x300-1335384045-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125195-300x300-1335383991-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125192-300x300-1335384172-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125190-300x300-1335384190-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125189-300x300-1335389943-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125187-300x300-1335389901-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125186-300x300-1335389866-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125178-300x300-1335389573-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125176-300x300-1335383954-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125173-300x300-1335384218-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125172-300x300-1335383966-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125169-300x300-1335384041-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125167-300x300-1335389409-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125158-300x300-1335384196-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125156-300x300-1335383960-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125155-300x300-1335384023-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/125171-300x300-1335384157-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/100617-300x300-1335459351-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/122389-300x300-1335454040-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/85154-300x300-1331153250-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/126868-300x300-1335480013-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/126848-300x300-1335478036-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/124837-300x300-1335540216-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/7259-300x300-1312986784-primary.png",
+      "http://s3.amazonaws.com/static.fab.com/product/114082-300x300-1334237411-primary.png",
+    ]
+    photos.sample
   end
 
 end
