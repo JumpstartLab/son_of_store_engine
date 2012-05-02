@@ -16,6 +16,7 @@ gem 'kaminari'
 gem 'faker'
 gem 'newrelic_rpm'
 gem 'redis-store', '~> 1.0.0'
+gem 'resque-scheduler'
 
 # Gems used only for assets and not required
 # in production environments by default.

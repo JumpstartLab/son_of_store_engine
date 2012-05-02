@@ -175,6 +175,10 @@ GEM
       redis-namespace (~> 1.0.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-scheduler (1.9.9)
+      redis (>= 2.0.1)
+      resque (>= 1.8.0)
+      rufus-scheduler
     rest-client (1.6.7)
       mime-types (>= 1.16)
     ripper_ruby_parser (0.0.6)
@@ -198,6 +202,8 @@ GEM
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
     rubyzip (0.9.7)
+    rufus-scheduler (2.0.16)
+      tzinfo (>= 0.3.23)
     sass (3.1.15)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -285,6 +291,7 @@ DEPENDENCIES
   redis-store (~> 1.0.0)
   reek!
   resque
+  resque-scheduler
   rspec-rails
   sass-rails (~> 3.2.3)
   simple_form
