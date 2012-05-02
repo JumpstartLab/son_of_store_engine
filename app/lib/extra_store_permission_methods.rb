@@ -7,7 +7,9 @@ module ExtraStorePermissionMethods
   end
 
   def invite_user
-    StorePermission.invite_user_to_access_store(params[:store_permission], params[:email])
-    notice = "#{params[:email]} is not currently a DOSE member. They have been invited to sign up to fulfill this role."
+    StorePermission.invite_user_to_access_store(params[:store_permission],
+                                                params[:email])
+    notice = "#{params[:email]} is not currently a DOSE member."+
+      "They have been invited to sign up to fulfill this role."
   end
 end

@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
   end
 
   def is_stocker_of(store)
-    self.admin || store_permissions.where("store_id = #{store.id} AND permission_level = 2").first
+    admin_query = "store_id = #{store.id} AND permission_level = 2"
+    self.admin || store_permissions.where(admin_query).first
   end
 end
 # == Schema Information

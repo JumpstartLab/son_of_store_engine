@@ -7,7 +7,8 @@ class OrdersController < ApplicationController
     if params[:status] == "all"
       @orders = user_store_orders.page(params[:page]).per(ITEMS_PER_PAGE)
     elsif params[:status]
-      @orders = user_store_orders.where(:status => params[:status]).page(params[:page]).per(ITEMS_PER_PAGE)
+      @orders = user_store_orders.where(:status => params[:status])
+      @orders = @orders.page(params[:page]).per(ITEMS_PER_PAGE)
     else
       @orders = user_store_orders.page(params[:page]).per(ITEMS_PER_PAGE)
     end

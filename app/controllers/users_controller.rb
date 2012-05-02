@@ -18,7 +18,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      update_store_permission(params[:invite_code], @user) unless params[:invite_code].empty?
+      unless params[:invite_code].empty?
+        update_store_permission(params[:invite_code], @user)
+      end
       @user = User.find_by_email_address(@user.email_address)
       notify_user_about_sign_up
     else

@@ -5,7 +5,9 @@ module ExtraCategoryMethods
   end
 
   def lookup_products
-    @products = active_store_products.joins(:categories).where("category_id = #{@category.id}").page(params[:page]).per(ITEMS_PER_PAGE)
+    @products = active_store_products.joins(:categories)
+    @products = @products.where("category_id = #{@category.id}")
+    @products = @products.page(params[:page]).per(ITEMS_PER_PAGE)
   end
 
   def store_categories
