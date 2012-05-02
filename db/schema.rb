@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501210106) do
+ActiveRecord::Schema.define(:version => 20120502022145) do
 
   create_table "billing_methods", :force => true do |t|
     t.string   "credit_card_number"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(:version => 20120501210106) do
     t.integer  "month"
     t.integer  "year"
   end
+
+  add_index "billing_methods", ["user_id"], :name => "index_billing_methods_on_user_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -46,6 +48,9 @@ ActiveRecord::Schema.define(:version => 20120501210106) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
+  add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
+
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.integer  "billing_method_id"
@@ -58,7 +63,10 @@ ActiveRecord::Schema.define(:version => 20120501210106) do
     t.string   "special_url"
   end
 
+  add_index "orders", ["billing_method_id"], :name => "index_orders_on_billing_method_id"
+  add_index "orders", ["shipping_address_id"], :name => "index_orders_on_shipping_address_id"
   add_index "orders", ["store_id"], :name => "index_orders_on_store_id"
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
   create_table "product_categorizations", :force => true do |t|
     t.integer  "product_id"
@@ -66,6 +74,9 @@ ActiveRecord::Schema.define(:version => 20120501210106) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
+  add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
 
   create_table "products", :force => true do |t|
     t.string   "title"
@@ -92,12 +103,17 @@ ActiveRecord::Schema.define(:version => 20120501210106) do
     t.integer  "user_id"
   end
 
+  add_index "shipping_addresses", ["user_id"], :name => "index_shipping_addresses_on_user_id"
+
   create_table "store_permissions", :force => true do |t|
     t.integer "user_id"
     t.integer "store_id"
     t.integer "permission_level"
     t.string  "admin_hex"
   end
+
+  add_index "store_permissions", ["store_id"], :name => "index_store_permissions_on_store_id"
+  add_index "store_permissions", ["user_id"], :name => "index_store_permissions_on_user_id"
 
   create_table "stores", :force => true do |t|
     t.string   "name"
@@ -110,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20120501210106) do
     t.integer  "creating_user_id"
   end
 
+  add_index "stores", ["creating_user_id"], :name => "index_stores_on_creating_user_id"
   add_index "stores", ["domain"], :name => "index_stores_on_domain"
 
   create_table "users", :force => true do |t|

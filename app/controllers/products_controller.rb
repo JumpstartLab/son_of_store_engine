@@ -2,7 +2,6 @@ class ProductsController < ApplicationController
   include ExtraProductMethods
   before_filter :lookup_product, :only => :show
   before_filter :store_enabled
-  # default_scope
 
   def index
     @active_store_products = active_store_products
