@@ -1,18 +1,43 @@
-<h1>Your Profile</h1>
+<h1><%= @user.name %>'s Profile</h1>
 
 <div class="row">
   <div class="span3" style="background-color: #eee; padding: 10px">
-    <h2>Your Details</h2>
+    <h2 class="center">Your Details</h2>
     <ul class="unstyled">
       <li><%= @user.display_name %></li>
       <li><%= @user.name %></li>
       <li><%= @user.email %></li>
     </ul> 
   </div>
-
-  <div class="span3" style="background-color: #eee; padding: 10px">
-    <h2>Merchant info</h2>
-    <%= link_to "Create a store", new_store_url(subdomain: false), :class => "btn btn-primary" %>
+  <div class="span4">
+    <ul></ul>
+  </div>
+  <div class="center span4 pull-right" style="background-color: #eee; padding: 10px">
+    <h2>Merchant Center!</h2>
+    <% if current_user.stores.any? %>
+      <div class="table table-bordered table-striped">
+        <table>
+          <th>Store</th>
+          <th>Role</th>
+            <% current_user.stores.each do |store| %>
+            <tr>
+              <td><%= store.name %></td>
+              <td><%= store_button(store) %></td>
+            </tr>
+            <% end %>
+        </table>
+      </div>
+    <% end %>
+    <p>
+      <%= link_to "Create a new store", new_store_url(subdomain: false), class: "btn btn-primary" %>
+    </p>
+    <p>
+      <%= super_admin_note %>
+    </p>
+    <p>
+      <%= super_admin_link %>
+    </p>
+    </p>
   </div>
 </div>
 
@@ -22,6 +47,6 @@
   <div class="span12">
     <h2>Most Recent Orders</h2>
     <%= render :partial => 'shared/orders', :object => @orders %>
-    <%= link_to "Show all orders", orders_path %>
+    <%= link_to "Show all of your orders", orders_path %>
   </div>
 </div>
