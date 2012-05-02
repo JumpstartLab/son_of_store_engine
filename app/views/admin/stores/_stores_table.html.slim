@@ -5,7 +5,7 @@ table.table.table-bordered.table-striped
     th Path
     th Actions
   - stores.each do |store|
-    tr(title=store.slug)
+    tr title=store.slug
       td
         = store.name
       td= truncate(store.description, :length => 32)

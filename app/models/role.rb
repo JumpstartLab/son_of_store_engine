@@ -18,6 +18,10 @@ class Role < ActiveRecord::Base
     store.name
   end
 
+  def user_email
+    user.email
+  end
+
   def formatted_name
     self.name.gsub('_', ' ').capitalize if self.name
   end
