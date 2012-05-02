@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   def show
     @category = current_store.categories.find_by_id(params[:id])
     if @category
-      @products = @category.products
+      @products = @category.products.page(params[:page]).per(24)
     else
       return redirect_to store_products_path(current_store), 
              alert: "This store does not have that category."
