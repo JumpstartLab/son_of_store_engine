@@ -15,12 +15,12 @@
     </p>
     <p>
       <h3>Products</h3>
-      <%= link_to 'Products Index (Admin View)', admin_products_url(subdomain: store.url_name), class: "nav nav-pills" %> |
-      <%= link_to 'Add a product', new_admin_product_path, class: "btn btn-danger" %>
+        <%= link_to 'Products Index (Admin View)', admin_products_url(subdomain: store.url_name), class: "btn btn-info" %> |
+        <%= link_to 'Add a product', new_admin_product_path, class: "btn btn-danger" %>
     </p>
     <p>
       <h3>Categories</h3>
-        <%= link_to 'Cateogies Index (Admin View)', admin_categories_url(subdomain: store.url_name) %> |
+        <%= link_to 'Cateogies Index (Admin View)', admin_categories_url(subdomain: store.url_name), class: "btn btn-info" %> |
         <%= link_to 'Create a category', new_admin_category_path, class: "btn btn-danger" %>
     </p>
     <h4>
