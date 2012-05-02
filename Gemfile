@@ -29,6 +29,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
@@ -36,8 +37,11 @@ group :development, :test do
   gem 'capybara'
   gem 'cane', :git => "git://github.com/square/cane.git"
   gem 'launchy'
-  #gem 'sqlite3'
   gem 'pg' 
+end
+
+group :test do
+  gem 'sqlite3'
 end
 
 group :production do
