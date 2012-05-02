@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120430030347) do
+ActiveRecord::Schema.define(:version => 20120502023244) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20120430030347) do
   end
 
   add_index "products", ["retired"], :name => "index_products_on_retired"
+  add_index "products", ["store_id", "retired"], :name => "index_products_on_store_id_and_retired"
   add_index "products", ["store_id"], :name => "index_products_on_store_id"
   add_index "products", ["title"], :name => "index_products_on_title"
 
@@ -153,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20120430030347) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
