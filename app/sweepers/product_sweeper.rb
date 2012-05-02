@@ -26,14 +26,16 @@ class ProductSweeper < ActionController::Caching::Sweeper
 
   def expire_category_caches_for(product)
     product.categories.each do |category|
-      page_count = (category.products.size/ITEMS_PER_PAGE) + 1
-      slug = product.store.to_param
-      expire_fragment "#{slug}_category_products_"
-      expire_fragment "#{slug}_admin_category_products_"
-      (2..page_count).each do |page_number|
-        expire_fragment "#{slug}_category_products_#{page_number}"
-        expire_fragment "#{slug}_admin_category_products_#{page_number}"
-      end
+      slug = category.store.to_param
+      expire_category_pages_with_key(category, slug)
+      expire_category_pages_with_key(category, slug + "_admin")
+    end
+  end
+
+  def expire_category_pages_with_key(category, slug)
+    expire_fragment "#{slug}_category_products_"
+    (2..category.page_count(ITEMS_PER_PAGE)).each do |page_number|
+      expire_fragment "#{slug}_category_products_#{page_number}"
     end
   end
 end

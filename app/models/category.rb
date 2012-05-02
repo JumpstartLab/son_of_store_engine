@@ -19,6 +19,10 @@ class Category < ActiveRecord::Base
       "icon.png"
     end
   end
+
+  def page_count(per_page)
+    (products.size/per_page) + 1
+  end
 end
 # == Schema Information
 #
