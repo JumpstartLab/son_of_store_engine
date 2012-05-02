@@ -1,5 +1,13 @@
 class Seeder
 
+  def self.build_mega_db
+    build_users(10000)
+    build_stores
+    build_products(34000, 1)
+    build_products(34000, 2)
+    build_products(34000, 3)
+  end
+
   def self.build_db
     build_users
     build_stores
@@ -98,7 +106,7 @@ class Seeder
       description: "They sure are comfortable!", owner_id: 3)
   end
 
-  def self.build_users
+  def self.build_users(num=0)
     User.create( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
       password: 'hungry')
     User.create( name: 'Jeff', display_name: 'j3',
@@ -106,6 +114,9 @@ class Seeder
     admin = User.create( name: 'Chad Fowler', display_name: 'SaxPlayer',
       email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
     admin.update_attribute(:admin, true)
+    @users = num.times.map do |n|
+      FactoryGirl.create(:user, :name => "User #{n}", :email => "user#{n}@chez-pierre.info", :password => "hungry")
+    end
   end
 
   def self.destroy_db
