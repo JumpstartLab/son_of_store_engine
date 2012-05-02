@@ -11,3 +11,5 @@ table.table.table-condensed.table-striped
         td = link_to(order.id, order_path(@store, order))
         td = link_to(order.created_at, order_path(@store, order))
         td = link_to(order.total, order_path(@store, order))
+
+= link_to "Back to Store", products_path(@store), :class => 'btn'
