@@ -14,7 +14,10 @@ class User < ActiveRecord::Base
                       :allow_blank => true,
                       :allow_nil => true, :unless => :guest
 
-  validates_length_of :display_name, :within => 2..32, :allow_blank => true, :unless => :guest
+  validates_length_of :display_name,
+                      :within => 2..32,
+                      :allow_blank => true,
+                      :unless => :guest
 
   has_many :orders
   has_many :store_roles
@@ -32,7 +35,7 @@ class User < ActiveRecord::Base
   def send_confirmation_mail
     Resque.enqueue(NewUserEmailer, email)
   end
-  
+
   def verify_user(input)
     add_email(input[:email]) if input[:email]
     Resque.enqueue(CheckAddress, self.id, input[:street], input[:zipcode])
