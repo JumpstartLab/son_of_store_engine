@@ -1,12 +1,10 @@
 class Seeder
   def self.build_db
     build_stores
-    build_users(100)
+    build_users(10,000)
     build_test_accounts
-    build_shipping_detail
     build_categories
-    build_products(500)
-    build_orders(50)
+    build_products(100,000)
     build_roles
   end
 
@@ -96,7 +94,7 @@ class Seeder
         price: (15 + rand(10) + rand(4)*0.25) )
       product.store = Store.first(:offset => rand( Store.count ))
       store_categories = product.store.categories
-      Seeder.at_least_one(3).times do
+      Seeder.at_least_one(2).times do
         category_to_add = store_categories[rand(store_categories.size)]
         product.add_category(category_to_add)
       end
@@ -131,7 +129,8 @@ class Seeder
 
   def self.build_roles
     Store.all.each do |store|
-      store.roles << Role.create!(user: User.find(1), name: "store_admin")
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_admin")
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_stocker")
     end
   end
 
