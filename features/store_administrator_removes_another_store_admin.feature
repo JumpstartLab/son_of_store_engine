@@ -1,5 +1,3 @@
-@mofos
-
 Feature:
   As a store administrator
   I should be able to remove another store administrator

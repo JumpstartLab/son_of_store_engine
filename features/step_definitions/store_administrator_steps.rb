@@ -132,15 +132,15 @@ end
 
 Then /^an email is sent to "([^"]*)" to notify them they are an admin for "([^"]*)" and can access the admin page at "([^"]*)"http:\/\/storeengine\.com\/cool\-sunglasses\/admin"$/ do |email, store_name, uri|
   user = User.where(email: email).first
-  Resque.peek(:emails, 0, 5).last["args"].should == ["store_admin_addition_notification", user.id]
+  Resque.peek(:emails, 0, 100).last["args"].should == ["store_admin_addition_notification", user.id]
 end
 
 Given /^"([^"]*)" has a StoreEngine user account$/ do |email|
   create(:user, email: email)
 end
 
-When /^I add the admin "([^"]*)"$/ do |arg1|
-  fill_in 'user_email', with: 'foo@bar.com'
+When /^I add the admin "([^"]*)"$/ do |email|
+  fill_in 'user_email', with: email
   click_on 'Create Account'
 end
 
@@ -178,7 +178,7 @@ Then /^"([^"]*)" does not show as an admin$/ do |email|
 end
 
 Then /^"([^"]*)" is sent an email notification$/ do |email|
-  Resque.peek(:emails, 0, 5).last["args"].should == ["signup_notification", @email]
+  Resque.peek(:emails, 0, 100).last["args"].should == ["store_admin_removal_notification", User.where(email: email).first.id]
 end
 
 When /^I cancel it$/ do
@@ -189,4 +189,43 @@ Then /^"([^"]*)" shows as an admin$/ do |email|
   within find('tr', title: email).parent do
     text.should include 'Store admin'
   end
+end
+
+Given /^I to click to add a new stocker$/ do
+  click_on 'Add stocker'
+end
+
+When /^I add the stocker "([^"]*)"$/ do |email|
+  fill_in 'user_email', with: email
+  click_on 'Create Account'
+end
+
+Then /^an email is sent to "([^"]*)" to notify them they are a stocker for "([^"]*)" and can access the admin page at "([^"]*)"http:\/\/storeengine\.com\/cool\-sunglasses\/stock\/products"$/ do |email, store, url|
+  user = User.where(email: email).first
+  Resque.peek(:emails, 0, 100).last["args"].should == ["store_stocker_addition_notification", user.id]
+end
+
+Given /^there is stocker with email "([^"]*)"$/ do |email|
+  create(:store_stocker, email: email, store: @store)
+end
+
+When /^I click "([^"]*)" for the stocker "([^"]*)"$/ do |action, email|
+  click_link(email)
+end
+
+Then /^"([^"]*)" does not show as a stocker$/ do |email|
+  within find('tr', title: email).parent do
+    text.should_not include 'Store stocker'
+  end
+end
+
+Then /^"([^"]*)" shows as a stocker$/ do |email|
+  within find('tr', title: email).parent do
+    text.should include 'Store stocker'
+  end
+end
+
+Then /^an email is sent to "([^"]*)" to notify them they are no longer a stocker for "([^"]*)"$/ do |email, store|
+  user = User.where(email: email).first
+  Resque.peek(:emails, 0, 100).last["args"].should == ["store_stocker_removal_notification", user.id]
 end

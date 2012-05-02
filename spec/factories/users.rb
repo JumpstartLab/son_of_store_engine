@@ -34,4 +34,14 @@ FactoryGirl.define do
       evaluator.store.roles << user.roles.create(name: "store_admin")
     end
   end  
+
+  factory :store_stocker, parent: :user do
+    ignore do
+      store { }
+    end
+
+    after_create do |user, evaluator|
+      evaluator.store.roles << user.roles.create(name: "store_stocker")
+    end
+  end  
 end

@@ -10,7 +10,7 @@ module Stores
 
       def create
         authorize! :promote_users, current_store
-        if @user = User.find_by_email(params[:user][:email])
+        if @user = User.where(email: params[:user][:email]).first
           assign_role(@user)
         else
           new_user_email = params[:user][:email]
