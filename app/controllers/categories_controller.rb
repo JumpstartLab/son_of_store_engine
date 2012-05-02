@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_filter :lookup_products, :only => :show
 
   def index
-    @categories = store_categories.all
+    @categories = store_categories.page(params[:page]).per(ITEMS_PER_PAGE)
   end
 
   def show
