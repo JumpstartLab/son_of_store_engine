@@ -17,14 +17,14 @@ module NavHelper
   end
 
   def nav_array_home_user
-    { 
-      "View/Edit Profile" => profile_path,      
+    {
+      "View/Edit Profile" => profile_path,
       "Logout" => logout_path,
     }
   end
 
   def nav_array_home_guest
-    { 
+    {
       "Login or Signup" => login_path
     }
   end
@@ -62,7 +62,6 @@ module NavHelper
       "Orders"      => admin_orders_path,
       "Categories"  => admin_categories_path,
       "Users"       => admin_users_path,
-      "Sales"       => admin_sales_path
     }
   end
 end

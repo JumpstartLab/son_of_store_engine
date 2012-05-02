@@ -1,7 +1,7 @@
-- cache("categories_index_page") do
-  %h1 Product Categories
-  %ul#categories
-    - @categories.each do |category|
+%h1 Product Categories
+%ul#categories
+  - @categories.each do |category|
+    - cache("category_with_id#{category.id}") do
       %li
         %p{:id => "category_#{category.id}"}
 
