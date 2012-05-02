@@ -22,15 +22,14 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.create
     build_order_from_cart(params)
-
-    if @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
-      @order.send_confirmation
+    # if @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
+      #@order.send_confirmation
       redirect_to @order,
         :notice => "Thank you for placing an order." if @order.charge(current_cart)
       # TODO: Fix where the redirect happens here! It's not hitting render :new right... we need a fail option?
-    else
-      render :new
-    end
+    # else
+    #   render :new
+    # end
   end
 
   def show
