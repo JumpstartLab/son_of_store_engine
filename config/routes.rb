@@ -32,6 +32,7 @@ StoreEngine::Application.routes.draw do
     resources :categories, only: [:index, :show]
     resources :orders, except: [:new, :create, :destroy]
     match '/admin' => 'admin/stores#show'
+    match '/stock/products' => 'store_admin/products#index'
     resources :line_items, except: [:new]
     namespace :admin, module: "store_admin" do
       resources :orders
