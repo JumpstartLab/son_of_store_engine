@@ -83,7 +83,6 @@ describe "Creating stores" do
     it "shows me all of the stores in the system" do
       Store.all.each do |store|
         page.should have_content(store.name)
-        page.should have_content(store.url_name)
       end
     end
 

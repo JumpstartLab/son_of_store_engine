@@ -6,13 +6,13 @@ module Admin::DashboardHelper
 
   def store_status
     if store.pending?
-      "Pending approval"
+      "pending approval"
     elsif store.approved && store.enabled
-      "running live baby!"
+      "LIVE!!"
     elsif store.approved && store.disabled
       "down for maintenance"
     elsif store.declined
-      "declined. Go leave us alone"
+      "declined. Go away."
     end
   end
 
