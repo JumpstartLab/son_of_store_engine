@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_carts
-    ids = cart_storage.values
-    ids.map do |id|
+    cart_ids = cart_storage.values
+    cart_ids.map do |id|
       Cart.where(id: id).first
     end.compact
   end
@@ -37,12 +37,12 @@ class ApplicationController < ActionController::Base
 
   def get_cart_from_session
     cart_id = cart_storage[current_store.id]
-    current_store.carts.where(:id => cart_id, :store_id => current_store.id).first
+    current_store.carts.where(id: cart_id, store_id: current_store.id).first
   end
 
   def get_cart_from_user_if_logged_in
     if current_user
-      cart = current_user.carts.where(:store_id => current_store.id).first || current_user.carts.create!(:store_id => current_store.id)
+      cart = current_user.get_cart_for_store(current_store)
       cart_storage[current_store.id] = cart.id
       cart
     end

@@ -3,7 +3,7 @@ module Stores
 
     def show
       @category = current_store.categories.find(params[:id])
-      @categories = Category.all
+      @categories = current_store.categories
       @products = @category.products
     end
 

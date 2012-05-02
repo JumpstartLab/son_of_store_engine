@@ -3,6 +3,8 @@ module Stores
     class ProductsController < BaseController
       helper_method :product, :products
 
+      before_filter :can_manage_store_products
+
       def index
         @retired_products = current_store.retired_products
         @categories = current_store.categories
@@ -13,8 +15,6 @@ module Stores
       end
 
       def create
-        authorize! :create, @store
-
         if product.save
           product.update_categories(params[:categories][1..-1])
           redirect_to store_admin_products_path(current_store.slug),
@@ -57,12 +57,15 @@ module Stores
         else
           @product ||= current_store.products.build(params[:product])
         end
-        authorize! :manage, @product
       end
 
       def products
         @products = current_store.active_products
-        # XXX AUTHORIZE COLLECTION?
+      end
+
+      def can_manage_store_products
+        authorize! :read, current_store
+        authorize! :manage, Product
       end
 
     end

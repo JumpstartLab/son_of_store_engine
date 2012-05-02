@@ -24,11 +24,11 @@ class Product < ActiveRecord::Base
   monetize :price_cents, :target_name => "price"
 
   def self.all_active(store)
-    Product.where(:store_id => store.id).where(:retired => false)
+    Product.where(:store_id => store.id, :retired => false)
   end
 
   def self.all_retired(store)
-    Product.where(:store_id => store.id).where(:retired => true)
+    Product.where(:store_id => store.id, :retired => true)
   end
 
   def activate

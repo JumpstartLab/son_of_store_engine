@@ -1,14 +1,15 @@
 module Stores
   module Admin
     class CategoriesController < BaseController
-      load_and_authorize_resource
+
+      before_filter :authorize_store_admin!
 
       def new
         @category = Category.new
       end
 
       def show
-        @category = Category.find(params[:id])
+        @category = current_store.categories.find(params[:id])
         @products = @category.products
       end
 
@@ -25,11 +26,11 @@ module Stores
       end
 
       def edit
-        @category = Category.find(params[:id])
+        @category = current_store.categories.find(params[:id])
       end
 
       def update
-        @category = Category.find(params[:id])
+        @category = current_store.categories.find(params[:id])
         @category.update_attributes(params[:category])
 
         if @category.save

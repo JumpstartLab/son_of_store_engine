@@ -27,4 +27,4 @@ Feature:
     When I click "retire" for an existing product
     Then that product is retired, as in StoreEngine v1
     Then I should see the list of products for my store
-    And I should see a confirmation flash message with "Product has been retired."
+    And I should see a confirmation flash message with "Product status changed."

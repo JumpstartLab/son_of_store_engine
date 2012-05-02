@@ -18,7 +18,7 @@ module Stores
     end
 
     def create
-      @order = Order.build_for(current_user, current_cart)
+      @order = Order.build_for_user(current_user, current_cart)
       @order.add_shipping_detail_for(current_user, params[:order])
       @order.set_cc_from_stripe_customer_token(params[:order][:customer_token])
       

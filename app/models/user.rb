@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
 
+  PROMOTE = %w{ store_stocker store_admin }
+
   #CONSIDER TAKING CART_ID AWAY.
   attr_accessible :email, :name, :display_name, :password,
     :password_confirmation, :cart_id
@@ -20,10 +22,6 @@ class User < ActiveRecord::Base
   has_many :credit_cards, :autosave => true
   has_many :orders
   has_many :shipping_details
-
-  # has_many :store_users
-  # has_many :stores, :through => :store_users
-
   has_many :roles
   has_many :stores, :through => :roles
 
@@ -43,16 +41,44 @@ class User < ActiveRecord::Base
     type == "GuestUser"
   end
 
-  def has_role?(role, store=nil)
-    role = role.to_s
-    if store
-      store.roles.where(user_id: id, name: role).count > 0
+  def get_cart_for_store(store)
+    carts.where(:store_id => store.id).first || 
+      carts.create!(:store_id => store.id)
+  end
+
+  def promote_to(role, store)
+    if ( PROMOTE.include? role ) && ( roles.where(store_id: store.id).where(name: role).count == 0 )
+      roles.create(name: role, store: store)
     else
-      roles.where(name: role).count > 0
+      return false
+    end
+  end
+
+  def has_role?(roles, store=nil)
+    roles = Array(roles).map(&:to_s)
+
+    if store
+      store.roles.where("user_id = ? AND name in (?)", id, roles).count > 0
+    else
+      self.roles.where("user_id = ? AND name in (?)", id, roles).count > 0
     end
   end
 
   def find_cart_by_store_id(store_id)
     carts.where(:store_id => store_id).first
+  end
+
+  def notify_of_role_removal(name)
+    if name == "store_admin" || name == "store_stocker"
+      method_name = "#{name}_removal_notification"
+    end 
+    Resque.enqueue(RoleEmailer, method_name, id)
+  end
+
+  def notify_of_role_addition(name)
+    if name == "store_admin" || name == "store_stocker"
+      method_name = "#{name}_addition_notification"
+    end
+    Resque.enqueue(RoleEmailer, method_name, id)
   end
 end

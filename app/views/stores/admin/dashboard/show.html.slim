@@ -1,23 +1,18 @@
 h1 Admin Dashboard for #{@store.name}
 .row
   .span6 style="margin-bottom:20px"
-    h4
-      | Creator: #{@store.creator.user_name}
-      br/
-      br/
-      | Admins:
-      ul
-      - @store.admins.each do |store_admin|
-        li= store_admin.user_name
-        | &nbsp;
-        = link_to 'Remove as admin', store_admin_role_path(:id => store_admin.id), :method => :delete, :confirm => 'Sure?'
-      br/
-      br/
-      | Stockers:
-      - @store.stockers.each do |stocker|
-        li= stocker.user_name
-        | &nbsp;
-        = link_to 'Remove as stocker', store_admin_role_path(:id => stocker.id), :method => :delete, :confirm => 'Sure?'
+    table.table.table-bordered.table-striped
+      tr
+        th User Name
+        th Role
+        th Actions
+
+      - @store.roles.each do |role|
+        tr
+          td = role.user_name
+          td = role.formatted_name
+          td = link_to 'Remove', store_admin_role_path(:id => role.id), :method => :delete, :confirm => 'Sure?'
+
     br/
     h4
       -if can? :manage, @store
@@ -27,7 +22,7 @@ h1 Admin Dashboard for #{@store.name}
         | &nbsp;|&nbsp;
         = link_to 'Add stocker', new_store_admin_role_path(@store.slug, role: "store_stocker")
 
-.row.row
+.row
   .span6 style="margin-bottom:20px"
     h4
       -if can? :create, Product
