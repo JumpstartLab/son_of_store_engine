@@ -15,6 +15,12 @@ class StorePermission < ActiveRecord::Base
 
   PERMISSION_TYPES = { 1 => "ADMIN", 2 => "STOCKER" }
 
+  def self.create_from_params_and_user(params, user)
+    store_permission = StorePermission.new(params)
+    store_permission.user = user
+    store_permission.save!
+  end
+
   def self.invite_user_to_access_store(store_permission_params, email)
     permission = StorePermission.new(store_permission_params)
     permission.admin_hex = create_hex

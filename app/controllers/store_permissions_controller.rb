@@ -4,8 +4,6 @@ class StorePermissionsController < ApplicationController
   before_filter :find_store, only: :destroy
 
   def create
-    added_user = User.where(:email_address => params[:email]).first
-    store = Store.find(params[:store_permission][:store_id])
     if added_user.nil?
       invite_user
     else
@@ -27,5 +25,13 @@ class StorePermissionsController < ApplicationController
     unless params[:email].match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/)
       redirect_to :back, notice: "Invalid Email"
     end
+  end
+
+  def added_user
+    @added_user ||= User.where(:email_address => params[:email]).first
+  end
+
+  def store
+    @store ||= Store.find(params[:store_permission][:store_id])
   end
 end
