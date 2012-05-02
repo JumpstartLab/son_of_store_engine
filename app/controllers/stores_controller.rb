@@ -16,7 +16,7 @@ class StoresController < ApplicationController
       current_user.roles.create(name: "store_admin", store: @store)
       redirect_to "/stores/#{@store.id}", :notice => "#{@store.name} at
          www.store-engine.com/#{@store.slug} is waiting approval."
-      StoreMailer.store_creation_alert(@store).deliver
+      Resque.enqueue(StoreEmailer, "store_creation_alert", @store.id)
     else
       render :new
     end

@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base 
+class ApplicationController < ActionController::Base
   protect_from_forgery
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Access denied."
@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :verify_store_status
-  
+
   helper_method :current_cart
   helper_method :current_store
   helper_method :verify_store_status
@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
 
   def current_cart
     if current_store
-      @cart ||= get_cart_from_session || get_cart_from_user_if_logged_in || create_new_cart
+      @cart ||= get_cart_from_session ||
+        get_cart_from_user_if_logged_in || create_new_cart
     end
   end
 
@@ -58,7 +59,8 @@ class ApplicationController < ActionController::Base
     if current_store && current_store.status == "pending"
       redirect_to root_path, :notice => "That store is pending approval."
     elsif current_store && current_store.status == "disabled"
-      redirect_to root_path, :notice => "This site is currently down for maintenence."
+      redirect_to root_path, :notice =>
+        "This site is currently down for maintenence."
     end
   end
 

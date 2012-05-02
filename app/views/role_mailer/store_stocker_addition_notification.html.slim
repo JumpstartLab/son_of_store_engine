@@ -1,1 +1,8 @@
-p You are a store stocker
+p = "Hi #{@user.name}, "
+
+p = "You have been added as a store stocker for #{@user.stores.last.name}"
+
+p = "You can access the store at http://storeberry.herokuapp.com/#{@user.stores.last.name.downcase}/admin/products"
+
+p Thanks,
+p Storeberry
