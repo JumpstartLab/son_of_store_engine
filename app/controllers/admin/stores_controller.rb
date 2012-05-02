@@ -34,7 +34,7 @@ module Admin
       @store = Store.create_store(params[:store], current_user)
       if @store.save
         Resque.enqueue(NewStoreRequestEmailer, @store.id)
-        redirect_to admin_store_path(@store), notice: 'Store was successfully created.'
+        redirect_to admin_store_path(@store), notice: 'Store created!'
       else
         flash[:alert] = "There was an error while creating your store."
         render action: "new"
@@ -54,22 +54,22 @@ module Admin
 
     def approve
       @store.approve
-      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Approved"
+      redirect_to admin_stores_path, notice: "#{@store.name} approved!"
     end
 
     def decline
       @store.decline
-      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Declined"
+      redirect_to admin_stores_path, notice: "#{@store.name} declined!"
     end
 
     def enable
       @store.enable
-      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Enabled"
+      redirect_to admin_stores_path, notice: "#{@store.name} enabled!"
     end
 
     def disable
       @store.disable
-      redirect_to admin_stores_path, notice: "#{@store.name} Successfully Disabled"
+      redirect_to admin_stores_path, notice: "#{@store.name} disabled!"
     end
 
     private

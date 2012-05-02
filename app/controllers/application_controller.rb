@@ -7,7 +7,10 @@ class ApplicationController < ActionController::Base
   before_filter :verify_user
 
   def subdomain_path(sub)
-    request.protocol + ("#{sub}." if sub).to_s + request.domain + (request.port.nil? ? '' : ":#{request.port}")
+    request.protocol + 
+    ("#{sub}." if sub).to_s + 
+    request.domain + 
+    (request.port.nil? ? '' : ":#{request.port}")
   end  
 
   helper_method :subdomain_path
