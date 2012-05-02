@@ -1,6 +1,7 @@
 require "bundler/capistrano"
 
-server "50.116.34.44", :web, :app, :db, primary: true
+# server "50.116.34.44", :web, :app, :db, primary: true
+server "50.116.39.245", :web, :app, :db, primary: true
 
 set :application, "son_of_store_engine"
 set :user, "deployer"
