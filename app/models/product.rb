@@ -17,9 +17,13 @@ class Product < ActiveRecord::Base
   has_many :orders, through: :order_items
 
   def self.find_by(search_term)
-    Product.where("upper(title) like ?", "%#{search_term.upcase}%") +
+    Product.active.where("upper(title) like ?", "%#{search_term.upcase}%") +
     Category.where("upper(title) like ?",
       search_term.upcase).map {|category| category.products}.flatten
+  end
+
+  def self.find_for_store(store, search_term)
+    store.products.where("upper(title) like ?", "%#{search_term.upcase}%")
   end
 
   def revenue
@@ -38,9 +42,7 @@ class Product < ActiveRecord::Base
     if cached_value = Rails.cache.read("#{store.slug}_top_seller")
       Product.find(cached_value)
     elsif store.order_items.any?
-      top_seller = find(store.order_items.count(group: "product_id").invert.max.last)
-      Rails.cache.write("#{store.slug}_top_seller", top_seller.id)
-      Product.find(Rails.cache.read("#{store.slug}_top_seller"))
+      store.find_top_seller
     else
       store.products.first
     end
@@ -56,7 +58,7 @@ class Product < ActiveRecord::Base
 
   def add_image_if_blank
     if image_link.blank?
-      update_attribute(:image_link, "http://t0.gstatic.com/images?q=tbn:ANd9GcTCuHKEZTTrdXLlLg27llqQX0xq2bQhhw5MtnPUeZBx1i6kAKBcKqGEFM4TBA")
+      update_attribute(:image_link, "http://bit.ly/KKjyCm")
     end
   end
 end

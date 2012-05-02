@@ -1,7 +1,7 @@
 require 'digest/sha1'
 
 class Order < ActiveRecord::Base
-  include StripeProcessor  
+  include StripeProcessor
 
   VALID_STATUSES = ['pending', 'paid', 'shipped', 'cancelled', 'returned']
   attr_accessible :status, :total_price, :user,
@@ -122,8 +122,8 @@ class Order < ActiveRecord::Base
 
   def order_user
    if user
-      User.find_by_id(user.id) 
-    else 
+      User.find_by_id(user.id)
+    else
       VisitorUser.find_by_id(visitor_user.id)
     end
   end
