@@ -18,6 +18,9 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'omniauth'
 gem "omniauth-facebook"
+gem 'sinatra', '~> 1.3.0'
+gem 'resque'
+gem 'resque_mailer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -33,7 +36,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'taps'
+  #gem 'taps'
   gem 'pg'
   gem 'fabrication'
   gem 'rspec-rails'

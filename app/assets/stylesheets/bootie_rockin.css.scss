@@ -12,11 +12,15 @@ ul, li, p, table, th, tr, td{
 
 .navbar{ 
   width: 100%;
+  padding-bottom: 10px
+}
+.navbar-inner{ 
+  padding-bottom: 10px;
 }
 
 li.nav{
   display:inline;
-  margin: 0 1em 0 0;
+  margin: 1em 1em 0 0;
 }
 
 li.nav.brand{ 
@@ -133,4 +137,12 @@ h3.tagline {
 }
 .tutorial a#sell_online:hover {
   background:url('sell_online_on.jpg') no-repeat top left;
+}
+
+#user_name_link{ 
+  margin-right: 10px;
+}
+
+#admin_name{ 
+  margin-right: 20px;
 }

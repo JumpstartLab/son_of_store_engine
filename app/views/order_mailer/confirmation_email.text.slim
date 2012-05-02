@@ -1,4 +1,4 @@
 = "Thank you for your order!"
 = "==============================================="
-= "Your order number is #{@order.id}"
-= "To review your order visit: #{tracking_path(@order.slug)}"
+= "Your order number is #{@order['id']}"
+= "To review your order visit: #{tracking_path(@order['slug'])}"
