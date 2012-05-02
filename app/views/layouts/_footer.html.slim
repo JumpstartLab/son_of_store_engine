@@ -1,7 +1,8 @@
 footer.footer
   small
-    | Charles, Darrell, Ed, and Travis, 2012
+    | Charles, Darrell, Ed, and Travis &copy; 2012 &nbsp;|&nbsp;
+    = link_to "About",   about_path
   br/
-  nav
-    ul
-      li= link_to "About",   about_path
+  - unless Rails.env.production?
+    nav
+      ul
