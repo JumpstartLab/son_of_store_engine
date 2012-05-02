@@ -3,7 +3,7 @@
 <%= form_for @order, url: orders_path do |f| %>
 
 <div class="row">
-  <div class="span3" style="background-color: #eee; padding: 10px">
+  <div class="span3 well">
     <h2>Your Credit Cards</h2>
     <ul class="unstyled">
       <%= f.hidden_field :customer_token, :value => @credit_card.stripe_customer_token %>
@@ -14,7 +14,7 @@
     </ul>
   </div>
 
-  <div class="span3" style="background-color: #eee; padding: 10px">
+  <div class="span3 well">
     <h2>Your Shipping Address</h2>
     <ul class="unstyled">
       <%= f.hidden_field :shipping_detail_id, :value => @shipping_detail.id %>
