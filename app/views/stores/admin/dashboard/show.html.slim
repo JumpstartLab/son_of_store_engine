@@ -23,15 +23,9 @@ h1 Admin Dashboard for #{@store.name}
       -if can? :manage, @store
         = link_to "Edit #{@store.name}", edit_store_admin_store_path(current_store.slug)
         | &nbsp;|&nbsp;
-<<<<<<< HEAD
         = link_to 'Add new store admin', new_store_admin_role_path(@store.slug, role: "store_admin")
         | &nbsp;|&nbsp;
         = link_to 'Add stocker', new_store_admin_role_path(@store.slug, role: "store_stocker")
-=======
-        = link_to 'Add new store admin', store_admin_store_admin_new_path(@store.slug)
-        | &nbsp;|&nbsp;
-        = link_to 'Add stocker', store_admin_store_stocker_new_path(@store.slug)
->>>>>>> c01a3777a60ef64060a2b4a3c144325f1f29c15c
 
 .row.row
   .span6 style="margin-bottom:20px"

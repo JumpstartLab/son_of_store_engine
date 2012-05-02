@@ -25,7 +25,7 @@ module Stores
       if @order.save && @order.charge(current_cart)
         redirect_to order_path(current_store.slug, @order.id),
           :notice => "Thank you for placing an order."
-        OrderMailer.order_confirmation(@order).deliver
+        @order.user_id.send_order_confirmation
       else
         render :new
       end
