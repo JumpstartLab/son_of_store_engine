@@ -5,11 +5,11 @@ class OrdersController < ApplicationController
 
   def index
     if params[:status] == "all"
-      @orders = user_store_orders.page(params[:page]).per(10)
+      @orders = user_store_orders.page(params[:page]).per(ITEMS_PER_PAGE)
     elsif params[:status]
-      @orders = user_store_orders.where(:status => params[:status]).page(params[:page]).per(10)
+      @orders = user_store_orders.where(:status => params[:status]).page(params[:page]).per(ITEMS_PER_PAGE)
     else
-      @orders = user_store_orders.page(params[:page]).per(10)
+      @orders = user_store_orders.page(params[:page]).per(ITEMS_PER_PAGE)
     end
   end
 

@@ -5,7 +5,7 @@ class StoreAdmin::CategoriesController < ApplicationController
   before_filter :confirm_has_store_admin_access
 
   def index
-    @categories = store_categories.page(params[:page]).per(10)
+    @categories = store_categories.page(params[:page]).per(ITEMS_PER_PAGE)
   end
 
   def show
