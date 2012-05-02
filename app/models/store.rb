@@ -8,7 +8,7 @@ class Store < ActiveRecord::Base
   has_many :products
   has_many :users, :through => :store_roles
   STATUS = ["Declined", "Pending", "Approved"]
-
+  self.per_page = 15
   def status_name
     STATUS[active]
   end
@@ -22,10 +22,10 @@ class Store < ActiveRecord::Base
   end
 
   def user
-    
+
   end
   def user_permission
-    
+
   end
 
   def approved?
@@ -33,11 +33,15 @@ class Store < ActiveRecord::Base
   end
 
   def disabled?
-    !enabled? 
+    !enabled?
   end
 
   def self.find_active_store(url)
     Store.where('url = ? AND active = ? AND enabled = ?', url, 2, true).first
+  end
+
+  def self.find_all_active_stores
+    Store.where('active = ? AND enabled = ?', 2, true)
   end
 
   def self.find_store(url)

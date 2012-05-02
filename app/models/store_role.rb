@@ -6,7 +6,7 @@ class StoreRole < ActiveRecord::Base
   def admin?
     permission == 9
   end
-  
+
   def stocker?
     permission == 5
   end
@@ -20,7 +20,7 @@ class StoreRole < ActiveRecord::Base
   end
 
   def email
-    
+
   end
 
   def new_user(input)
@@ -29,7 +29,9 @@ class StoreRole < ActiveRecord::Base
       update_role(input)
       Resque.enqueue(NewStoreRoleEmailer, input[:email], self.store.id, role)
     else
-      Resque.enqueue(NewUserAndStoreRoleEmailer, input[:email], self.store.id, role)
+      Resque.enqueue(NewUserAndStoreRoleEmailer,
+                     input[:email],
+                     self.store.id, role)
     end
   end
 

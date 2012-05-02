@@ -13,6 +13,6 @@ class BillingProcessor
           :description => user.email
         )
     user.stripe_id = customer.id
-    user.save    
+    user.save
   end
 end

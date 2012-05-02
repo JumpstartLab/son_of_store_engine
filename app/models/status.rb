@@ -19,5 +19,5 @@ class Status < ActiveRecord::Base
   def paid?
     name == 'paid'
   end
-  
+
 end

@@ -40,9 +40,8 @@ class Notification < ActionMailer::Base
     @email = email
     @store = Store.find(store_id)
     @role = role
-    mail(:to => email,
-         :subject => "You have been invited to become a
-                     #{role} of #{@store.name}")
+    msg = "You are now a store #{role} of #{@store.name}"
+    mail(:to => email, :subject => msg)
   end
 
   def new_store_role(email,store_id,role)

@@ -26,7 +26,7 @@ class Cart < Order
       self.add_product(product.id)
     end
   end
-  
+
   def update_quantity(cps)
     cps.each do |key, val|
       select_order_product(val[:id]).update_quantity(val[:quantity])

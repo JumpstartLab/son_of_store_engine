@@ -27,7 +27,7 @@ describe "Stores" do
           fill_in 'store[description]', :with => "My AWESOME store"
           fill_in 'store[url]', :with => 'my-test-store'
           click_on 'Create Store'
-          page.should have_content "Store was successfully created."
+          page.should have_content "Store created!"
         end
         it "fails" do
           visit new_admin_store_path
@@ -80,13 +80,13 @@ describe "Stores" do
             within("#store_#{store1.id}") do
               click_on "Approve"
             end
-            page.should have_content "#{store1.name} Successfully Approved"
+            page.should have_content "#{store1.name} approved!"
           end
           it "and then enable a store" do   
              within("#store_#{store3.id}") do
                click_on "Enable"
              end
-             page.should have_content "#{store3.name} Successfully Enabled"
+             page.should have_content "#{store3.name} enabled!"
           end
           it "should now be able to see the store" do
             visit "http://#{store4.url}.son.test"
@@ -98,7 +98,7 @@ describe "Stores" do
             within("#store_#{store5.id}") do
               click_on "Disable"
             end
-            page.should have_content "Successfully Disabled"
+            page.should have_content "#{store5.name} disabled!"
           end
           it "and then the store is no longer showed" do
             visit "http://my-test-store.son.test"
@@ -110,7 +110,7 @@ describe "Stores" do
             within("#store_#{store2.id}") do
               click_on "Decline"
             end
-            page.should have_content ("Successfully Declined")
+            page.should have_content ("#{store2.name} declined!")
           end
         end
       end

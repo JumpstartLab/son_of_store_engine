@@ -3,7 +3,8 @@ require "open-uri"
 # Product has multiple things including name, description, etc
 class Product < ActiveRecord::Base
   attr_accessible :description, :name, :price,
-                  :categories, :avatar, :category_ids, :avatar_from_url, :sale, :store
+                  :categories, :avatar,
+                  :category_ids, :avatar_from_url, :sale, :store
 
   validates_presence_of :name, :description, :price
   validates_numericality_of :price_in_cents, :greater_than => 0
