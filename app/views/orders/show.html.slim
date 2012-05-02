@@ -1,7 +1,7 @@
 h2#order_number = "Order ##{@order.id}"
-h3 = "Status: #{@order.status}"
 h3 = "Total: #{@order.total}"
-h4
+h3 = "Status: #{@order.status}"
+h4.permalink
   = "To visit this order again in the future use your "
   = link_to "order permalink", permalink(@order), :id => 'unique_url'
 
@@ -14,6 +14,7 @@ table.table.table-striped.table-condensed
   - @order.items.each do |item|
       tr
         td = link_to(item.title, product_path(@store, item.product))
-        td = link_to(item.price, product_path(@store, item.product))
-        td = link_to(item.quantity, product_path(@store, item.product))
-        td = link_to(item.subtotal, product_path(@store, item.product))
+        td = item.price
+        td = item.quantity
+        td = item.subtotal
+= link_to "View All of My Orders", orders_path(@store), :class => 'btn'
