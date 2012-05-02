@@ -1,3 +1,5 @@
+@mofo
+
 Feature:
   As a store administrator
   I can edit and update my store details

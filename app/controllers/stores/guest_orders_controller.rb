@@ -4,8 +4,9 @@ module Stores
     helper_method :user
 
     def new
-      @shipping_detail = ShippingDetail.new()
-      @credit_card = CreditCard.new()
+      @order = Order.new
+      @order.build_shipping_detail
+      @order.build_credit_card
     end
 
     def show
