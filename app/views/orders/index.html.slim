@@ -1,21 +1,20 @@
 h1 Orders
 = render partial: "filter"
 - if @orders.count > 0
-  - cache("#{@current_store.to_param}_orders_#{params[:page]}") do
-    table.table.table-striped#order-table
-      thead
-        tr
-          - if admin_view?
-            th Actions
-            th Purchaser
-            th Email
-          th Order Id
-          th Order Date
-          th Items
-          th Subtotal
-          th Status
-      tbody
-        = render partial: "order", collection: @orders
+  table.table.table-striped#order-table
+    thead
+      tr
+        - if admin_view?
+          th Actions
+          th Purchaser
+          th Email
+        th Order Id
+        th Order Date
+        th Items
+        th Subtotal
+        th Status
+    tbody
+      = render partial: "order", collection: @orders
   .span9 = paginate @orders
 - else
  h3 = "No Orders Match Your Criteria"
