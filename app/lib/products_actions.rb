@@ -1,6 +1,7 @@
 module ProductsActions
   def index
-    @products = Product.where(:active => 1).page(params[:page])
+    o = "updated_at DESC"
+    @products = Product.where(:active => 1).order(o).page(params[:page])
     @categories = Category.all
   end
 
