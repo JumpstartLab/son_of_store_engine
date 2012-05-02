@@ -24,7 +24,7 @@
               li = link_to "Orders", orders_path(@current_store)
             li= link_to "My Account", user_url(current_user)
             li= link_to "Logout", logout_path, :method => :delete
-            - if admin? || current_user.is_admin_of(@current_store) || false
+            - if admin? || current_user.is_admin_of(@current_store)
               li#admin_nav.dropdown
                 a.dropdown-toggle data-toggle="dropdown" href="#admin_nav"
                   | Admin Dashboards
@@ -38,6 +38,14 @@
                     = link_to "Orders", "/#{@current_store.to_param}/admin/orders", id: "admin_nav_orders"
                   li
                     = link_to "Categories", "/#{@current_store.to_param}/admin/categories", id: "admin_nav_categories"
+            - if current_user.is_stocker_of(@current_store)
+                li#admin_nav.dropdown
+                  a.dropdown-toggle data-toggle="dropdown" href="#admin_nav"
+                    | Admin Dashboards
+                    b.caret
+                  ul.dropdown-menu
+                    li
+                      = link_to "Products", "/#{@current_store.to_param}/admin/products", id: "admin_nav_products"
           - else
             li= link_to "Sign-In", login_page_path
             li= link_to "Sign-Up", new_user_path

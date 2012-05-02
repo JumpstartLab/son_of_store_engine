@@ -54,7 +54,12 @@ class User < ActiveRecord::Base
     admin_user = "store_id = #{store.id} AND permission_level = 1"
     self.admin || store_permissions.where(admin_user).first
   end
-  
+
+  def is_stocker_of(store)
+    stocker_user = "store_id = #{store.id} AND permission_level = 2"
+    store_permissions.where(stocker_user).first
+  end
+
   def is_stocker_of(store)
     self.admin || store_permissions.where("store_id = #{store.id} AND permission_level = 2").first
   end
