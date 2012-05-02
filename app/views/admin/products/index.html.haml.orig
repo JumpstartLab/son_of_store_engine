@@ -18,5 +18,9 @@
         %td= link_to "Edit", edit_admin_product_path(product)
         %td= link_to product.name, product_path(product)
         %td= product.price_in_dollars
+<<<<<<< HEAD
+= link_to "New", new_admin_product_path, :class => "btn btn-primary btn-large right"
+=======
   = will_paginate @products
   = link_to "New", new_admin_product_path, :class => "btn btn-primary btn-large right"
+>>>>>>> master

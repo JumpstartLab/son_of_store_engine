@@ -1,20 +1,21 @@
 .page_header
-  %h1 
+  %h1
     = @products.first.store.name + " from Polutropon"
 %hr
 %ul.thumbnails
   -@products.each do |product|
-    %li.span3
-      .thumbnail
-        = link_to image_tag(product.avatar.url, {style: "width:210px; height:210px;"}), product_path(product)
-        %h3= link_to product.name, product_path(product)
-        - if product.best_sale
-          %div{:style=> "text-decoration:line-through;"}= product.price
-          %h4= product.sale_price_in_dollars
-        - else
-          %h4= product.price
-        - if product.active == 1
-          %p= link_to "Add To Cart", cart_path(:product_id => product.id), :method => :put, :class => 'btn btn-custom'
+    - cache("product_index_with_id_#{product.id}") do
+      %li.span3
+        .thumbnail
+          = link_to image_tag(product.avatar.url, {style: "width:210px; height:210px;"}), product_path(product)
+          %h3= link_to product.name, product_path(product)
+          - if product.best_sale
+            %div{:style=> "text-decoration:line-through;"}= product.price
+            %h4= product.sale_price_in_dollars
+          - else
+            %h4= product.price
+          - if product.active == 1
+            %p= link_to "Add To Cart", cart_path(:product_id => product.id), :method => :put, :class => 'btn btn-custom'
 
   .row-fluid
     = will_paginate @products
@@ -22,4 +23,3 @@
   .sale-button
     = link_to "View #{current_tenant.name} Sales", sales_path, :class => 'btn btn-custom'
 
- 
