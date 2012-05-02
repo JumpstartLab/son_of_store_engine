@@ -16,6 +16,12 @@ def user(values)
   u
 end
 
+# 6018.times do |u|
+#   User.create( 
+#                 :name => Faker::Name.name, :password => Faker::Name.name, 
+#                 :email => Faker::Internet.email
+#              )
+# end
 @new_store = Store.create(name: "Cool Sunglasses", active: 2, enabled: true, url: "cool-sunglasses")
 @new_store_2 = Store.create(:name => "Best Sunglasses", enabled: true, active: 2, url:"best-sunglasses")
 @new_store_3 = Store.create(:name => "Bike Store", enabled: true, active: 2, url:"bike-store")
