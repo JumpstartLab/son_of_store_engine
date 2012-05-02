@@ -5,17 +5,8 @@ class VisitorOrdersController < ApplicationController
     visitor = VisitorUser.create(:email => session[:guest_email])
     @order = visitor.orders.new(params[:order])
     @order.update_attribute(:store, current_store)
-    @order.save
-    @order.add_order_items_from(@cart)
-    if @order.save_with_payment
-      session["#{current_store.slug}_cart_id"] = nil
-      session[:checking_out] = nil
-      @cart.destroy
-      redirect_to store_visitor_order_path(current_store, @order.unique_url),
-                  :notice => "Transaction Complete"
-    else
-      render :new
-    end
+    @order.tap { |order| order.save }.add_order_items_from(@cart)
+    @order.save_with_payment ? manage_session_and_redirect : render(:new)
   end
 
   def new
@@ -35,6 +26,14 @@ class VisitorOrdersController < ApplicationController
   end
 
 private
+
+  def manage_session_and_redirect
+    session["#{current_store.slug}_cart_id"] = nil
+    session[:checking_out] = nil
+    @cart.destroy
+    redirect_to store_visitor_order_path(current_store, @order.unique_url),
+          :notice => "Transaction Complete"
+  end
 
   def make_order
     @path = store_visitor_orders_path(current_store)
