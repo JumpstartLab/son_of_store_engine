@@ -2,6 +2,7 @@ StoreEngine::Application.routes.draw do
 
   resources :users
   resources :sessions
+  resources :all_orders, :controller => 'user_orders'
   
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
@@ -14,7 +15,7 @@ StoreEngine::Application.routes.draw do
       put "decline", on: :member
     end
   end
-  match "/code" => redirect("http://github.com/chrismanderson/store_engine")
+  match "/code" => redirect("https://github.com/tkiefhaber/son_of_store_engine")
   match "/profile" => "users#profile", as: "profile"
 
   match "/new" => "stores#new"

@@ -30,7 +30,7 @@ describe 'viewing all orders' do
   end
 end
 
-describe 'checking out' do
+describe 'checking out', :stripe => :stub do
   let(:user) { FactoryGirl.create(:user) }
 
   it "redirects to login if the user is not logged in" do

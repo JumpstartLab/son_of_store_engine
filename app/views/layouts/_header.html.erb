@@ -50,11 +50,7 @@
               <% else %>
                 <li><%= link_to "Profile", profile_path %></li>
               <% end %>
-              <% if current_store %>
-                <li>
-                  <%= link_to "Orders", store_orders_path(current_store) %>
-                </li>
-              <% end %>
+              <li><%= link_to "Orders", all_orders_path %></li>
               <li><%= link_to "Log Out", logout_path %></li>
             </ul>
           </li>
