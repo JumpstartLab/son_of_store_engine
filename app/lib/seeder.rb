@@ -1,11 +1,10 @@
 class Seeder
   def self.build_db
     build_stores
-    build_users
-    build_shipping_detail
+    build_users(10,000)
+    build_test_accounts
     build_categories
-    build_products(50)
-    build_orders(100)
+    build_products(100,000)
     build_roles
   end
 
@@ -19,28 +18,28 @@ class Seeder
 
   def self.build_stores
     [ "Mittenberry", "Crackberry", "Blackberry" ].each do |name|
-      store = Store.create(:name => name)
+      store = Store.create!(name: name, slug: name.downcase)
       store.slug = name.downcase
       store.status = "approved"
       store.description = Faker::Lorem.paragraph(3)
-      store.save
+      store.save!
     end
 
-    Store.create(:name => "Testberry", :slug => "testberry",
+    Store.create!(:name => "Testberry", :slug => "testberry",
                  :description => "The berriest test of them all!")
   end
 
   def self.build_shipping_detail
     User.all.each do |user|
       Seeder.at_least_one(2).times do
-        shipping_detail = user.shipping_details.create( :ship_to_name => user.name,
+        shipping_detail = user.shipping_details.create!( :ship_to_name => user.name,
           :ship_to_address_1 => Faker::Address.street_address,
           :ship_to_address_2 => Faker::Address.secondary_address,
           :ship_to_city => Faker::Address.city,
           :ship_to_state => Faker::Address.state, :ship_to_country => "USA",
           :ship_to_zip => Faker::Address.zip_code )
         shipping_detail.store = Store.first(:offset => rand( Store.count ))
-        shipping_detail.save
+        shipping_detail.save!
       end
     end
   end
@@ -54,13 +53,22 @@ class Seeder
     end
   end
 
+  def self.build_roles
+    Store.all.each do |store|
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_stocker")
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_admin")
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_stocker")
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_admin")
+    end
+  end
+
   def self.generate_order
     order = Order.new
     order.user = User.first(:offset => rand( User.count ))
     order.store = Store.first(:offset => rand( Store.count ))
     Seeder.generate_order_products(order)
     Seeder.generate_shipping_details(order)
-    order.save
+    order.save!
     order
   end
 
@@ -82,11 +90,11 @@ class Seeder
   def self.build_products(quantity)
     quantity.times do
       product = Product.create( name: "The #{Faker::Name.name}",
-        description: Faker::Lorem.paragraph(3),
+        description: Faker::Lorem.sentence(1),
         price: (15 + rand(10) + rand(4)*0.25) )
       product.store = Store.first(:offset => rand( Store.count ))
       store_categories = product.store.categories
-      Seeder.at_least_one(3).times do
+      Seeder.at_least_one(2).times do
         category_to_add = store_categories[rand(store_categories.size)]
         product.add_category(category_to_add)
       end
@@ -94,39 +102,50 @@ class Seeder
     end
   end
 
+  def self.build_users(quantity)
+    quantity.times do
+      user = User.create( name: "#{Faker::Name.name}",
+        email: "#{Faker::Internet.email}",
+        password: 'password')
+    end
+  end
+
   def self.build_categories
     # should be:
     # [h,s,m].each do ...
     Store.all.each do |store|
-      store.categories.create( name: 'Category 1' )
-      store.categories.create( name: 'Category 2' )
-      store.categories.create( name: 'Category 3' )
-      store.categories.create( name: 'Category 4' )
-      store.categories.create( name: 'Category 5' )
+      store.categories.create( name: 'Wool' )
+      store.categories.create( name: 'Cashmere' )
+      store.categories.create( name: 'Leather' )
+      store.categories.create( name: 'Nylon' )
+      store.categories.create( name: 'Latex' )
+      store.categories.create( name: 'Cotton' )
+      store.categories.create( name: 'Spandex' )
+      store.categories.create( name: 'Pleather' )
+      store.categories.create( name: 'Polyester' )
+      store.categories.create( name: 'Crocodile' )
     end
   end
 
   def self.build_roles
     Store.all.each do |store|
-      store.roles << Role.create(user: User.find(1), name: "store_admin")
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_admin")
+      store.roles << Role.create(user: User.first(:offset => rand( User.count )), name: "store_stocker")
     end
   end
 
-  def self.build_users
-    stocker = User.new( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
-      password: 'hungry')
-    stocker.roles.build(name: "store_stocker", store: Store.find(1))
-    stocker.save
+  def self.build_test_accounts
+    stocker = User.create!( name: 'Matt Yoho', email: 'demo08+matt@jumpstartlab.com',
+      password: 'hungry', password_confirmation: 'hungry')
+    role = stocker.roles.create!(name: "store_stocker", store: Store.find(1))
     
-    store_admin = User.new( name: 'Jeff', email: 'demo08+jeff@jumpstartlab.com',
-      password: 'hungry', display_name: 'j3')
-    store_admin.roles.build(name: "store_admin", store: Store.find(2))
-    store_admin.save
+    store_admin = User.create!( name: 'Jeff', email: 'demo08+jeff@jumpstartlab.com',
+      password: 'hungry', password_confirmation: 'hungry', display_name: 'j3')
+    store_admin.roles.create!(name: "store_admin", store: Store.find(2))
 
-    admin = User.new( name: 'Chad Fowler', display_name: 'SaxPlayer',
-      email: 'demo08+chad@jumpstartlab.com', password: 'hungry')
-    admin.roles.build(name: "site_admin")
-    admin.save
+    admin = User.create!(name: 'Chad Fowler', display_name: 'SaxPlayer',
+      email: 'demo08+chad@jumpstartlab.com', password: 'hungry', password_confirmation: 'hungry')
+    admin.roles.create!(name: "site_admin")
   end
 
   def self.destroy_db
@@ -135,6 +154,8 @@ class Seeder
     Category.destroy_all
     Order.destroy_all
     ShippingDetail.destroy_all
+    Store.destroy_all
+    Role.destroy_all
   end
 
 end
