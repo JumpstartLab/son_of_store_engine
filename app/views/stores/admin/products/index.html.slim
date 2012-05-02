@@ -21,18 +21,20 @@ table.table.table-bordered.table-striped
     /th Buy it!
     th Retire it!
   = render :partial => "product_table", :collection => products, :as => :product
-.row
-  .span12
-    ul.nav.nav-pills
-    h4 Retired Products:
-    br/
-    table.table.table-bordered.table-striped
-      tr
-        th Name
-        th Description
-        th Price
-        th Photo
-        th Categories
-        th Buy it!
-        th Unretire it!
-      = render :partial => "product_table", :collection => @retired_products, :as => :product
+= paginate products
+-if @retired_products.any?
+  .row
+    .span12
+      ul.nav.nav-pills
+      h4 Retired Products:
+      br/
+      table.table.table-bordered.table-striped
+        tr
+          th Name
+          th Description
+          th Price
+          th Photo
+          th Categories
+          th Buy it!
+          th Unretire it!
+        = render :partial => "product_table", :collection => @retired_products, :as => :product
