@@ -49,7 +49,7 @@ class StatsController < ApplicationController
 #name: 'John',
 			#data: [5, 3, 4, 7, 2]
     result = user_to_revenue.collect do |user_id, revenue| 
-      {:name => User.find(user_id).full_name, :data => [revenue}
+      {:name => User.find(user_id).full_name, :data => [revenue] }
     end
 
     render :json => result.to_json
