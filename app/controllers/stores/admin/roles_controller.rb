@@ -29,8 +29,8 @@ module Stores
 
         if @role.name == "store_admin" && current_store.has_multiple_admin?
           redirect_to :back,
-            :notice => "Unable to demote user." +
-                       "Store must have at least one admin."
+            :notice => "Unable to demote user.
+             Store must have at least one admin."
         elsif @role.destroy
           @role.user.notify_of_role_removal(@role)
           redirect_to store_admin_path(current_store.slug),

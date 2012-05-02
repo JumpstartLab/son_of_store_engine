@@ -32,9 +32,11 @@ module Stores
 
       def warn_on_update_slug
         confirm_link = "<a class='submit' href='#'>Confirm</a>"
-        cancel_link = "<a href=\"#{edit_store_admin_store_path(current_store.slug)}\">Cancel</a>"
-        flash.now.alert = "Are you sure you want to change the store URL for #{current_store.name}?
-          This action could break external links to #{current_store.name}. #{confirm_link} | #{cancel_link}".html_safe
+        cancel_link = "<a href=\"#{edit_store_admin_store_path(
+          current_store.slug)}\">Cancel</a>"
+        flash.now.alert = "Are you sure you want to change the store URL for
+          #{current_store.name}? This action could break external links to
+          #{current_store.name}. #{confirm_link} | #{cancel_link}".html_safe
       end
 
     end
