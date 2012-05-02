@@ -1,7 +1,6 @@
 StoreEngine::Application.routes.draw do
   get "stores/edit"
-
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
     get "users/new" => "devise/registrations#new", :as => :new_user 
