@@ -1,3 +1,6 @@
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
 <%= form_for([@order.store, @order]) do |o| %>
 <p>
   Order Status: <%= select('order', 'status', 

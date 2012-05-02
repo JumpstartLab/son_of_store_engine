@@ -1,8 +1,27 @@
-<h1>Check out our virtual mall of America!</h1>
+<h1>Featured Store</h1>
+<br />
+<div class="hero-unit">
+  <div class="row-fluid">
+    <% if @top_selling %> 
+      <%= link_to image_tag(@top_selling.image_link, :height => '150'), 
+      store_path(@random_store), :class => "hero-image" %>
+    <hgroup>
+    <h1><%= link_to @random_store.name, store_path(@random_store) %></h1>
+    <h2><%= @random_store.description %></h2>
+    </hgroup>
+    <% end %>
+  </div>
+</div>
 
-<ul>
-<% @stores.each do |store| %>
+<div class="page-header">
+  <h1>Stores</h1>
+</div>
 
-<%= link_to store.name, store %>
-<% end %>
+
+<ul class="thumbnails">
+  <% @stores.each_slice(2) do |items_for_row| %>
+    <li class="span6">
+      <%= render :partial => "store", :collection => items_for_row, :as => :store %>
+    </li>
+  <% end %>
 </ul>

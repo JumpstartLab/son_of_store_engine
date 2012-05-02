@@ -16,7 +16,11 @@ class StoresController < ApplicationController
   end
 
   def index
-    @stores = Store.where status: "enabled"
+    @stores = Store.where(status: "enabled").shuffle
+    until @top_selling || @stores.empty?
+      @random_store = @stores.pop
+      @top_selling = Product.top_selling_for_store(@random_store)
+    end
   end
 
   def show
