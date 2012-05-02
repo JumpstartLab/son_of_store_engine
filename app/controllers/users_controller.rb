@@ -14,10 +14,9 @@ class UsersController < ApplicationController
     if @user.save
       auto_login(@user)
       transfer_cart_to_user(cart_before_login, @user)
-      link = "<a href=\"#{edit_user_url(@user.id)}\">Update your profile.</a>"
-      redirect_to params[:return_path],
-        :notice => "You have been registered. #{link}".html_safe
-      UserMailer.user_confirmation(@user).deliver
+      link = "<a href=\"#{edit_user_url(@user.id)}\">Update your profile.</a>" 
+      redirect_to params[:return_path], :notice => "You have been registered. #{link}".html_safe
+      @user.notify_confirmation_to_user
     else
       @user.errors.full_messages.each do |msg|
         flash.now[:error] = msg

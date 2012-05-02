@@ -6,8 +6,10 @@ module Stores
     helper_method :user
 
     def new
-      @shipping_detail = ShippingDetail.new()
-      @credit_card = CreditCard.new()
+      @user = User.new
+      @order = Order.new
+      @order.build_shipping_detail
+      @order.build_credit_card
     end
 
     def show
@@ -15,12 +17,12 @@ module Stores
     end
 
     def create
-      @order = Orders.build_for_guest_user(user, current_cart, params)
+      @order = Order.build_for_guest_user(user, current_cart, params)
 
-      if @order.save && @order.charge(current_cart)
-        redirect_to order_path(current_store.slug, @order.id),
+      if @order.save! && @order.charge(current_cart)
+        redirect_to user_order_path(@order.id),
           notice: "Thank you for placing an order."
-        OrderMailer.order_confirmation(@order).deliver
+        @order.send_order_confirmation
       else
         render :new
       end
@@ -29,7 +31,7 @@ module Stores
     private
 
     def user
-      @user ||= GuestUser.create(params[:guest_user])
+      @user ||= GuestUser.create!(params[:user])
     end
   end
 end

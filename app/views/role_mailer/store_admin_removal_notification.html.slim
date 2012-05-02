@@ -1,6 +1,6 @@
-p = "Hi #{@role.user.name}, "
+p = "Hi #{@user.name}, "
 
-p = "You have been removed as a store admin for #{@role.store.name}
+p = "You have been removed as a store admin for #{@user.stores.last.name}"
 
 p Thanks,
 p Storeberry

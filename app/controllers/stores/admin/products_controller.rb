@@ -24,7 +24,6 @@ module Stores
             notice: 'Product was successfully created.'
         else
           flash.now[:error] = product.errors.full_messages.join("\n")
-          @categories = current_store.categories
           render 'new'
         end
       end
@@ -34,7 +33,6 @@ module Stores
       end
 
       def edit
-        @categories = current_store.categories
       end
 
       def update
@@ -64,14 +62,13 @@ module Stores
       end
 
       def products
-        @products = current_store.active_products
+        @products = current_store.active_products.order("name").page(params[:page]).per(12)
       end
 
       def can_manage_store_products
         authorize! :read, current_store
-        authorize! :manage, Product
+        # authorize! :manage, :products
       end
-
     end
   end
 end

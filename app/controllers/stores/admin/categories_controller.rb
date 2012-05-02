@@ -38,7 +38,7 @@ module Stores
 
         if @category.save
           redirect_to store_admin_products_path,
-          notice: 'Category was successfully updated.'
+            notice: 'Category was successfully updated.'
         else
           @category.errors.full_messages.each do |msg|
             flash.now[:error] = msg

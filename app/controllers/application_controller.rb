@@ -20,8 +20,7 @@ class ApplicationController < ActionController::Base
   def current_cart
     if current_store
       @cart ||= get_cart_from_session ||
-                get_cart_from_user_if_logged_in ||
-                create_new_cart
+        get_cart_from_user_if_logged_in || create_new_cart
     end
   end
 
@@ -40,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def get_cart_from_session
     cart_id = cart_storage[current_store.id]
-    current_store.carts.where(id: cart_id, store_id: current_store.id).first
+    current_store.carts.where(id: cart_id).first
   end
 
   def get_cart_from_user_if_logged_in
@@ -61,8 +60,8 @@ class ApplicationController < ActionController::Base
     if current_store && current_store.status == "pending"
       redirect_to root_path, :notice => "That store is pending approval."
     elsif current_store && current_store.status == "disabled"
-      redirect_to root_path,
-        :notice => "This site is currently down for maintenence."
+      redirect_to root_path, :notice =>
+        "This site is currently down for maintenence."
     end
   end
 

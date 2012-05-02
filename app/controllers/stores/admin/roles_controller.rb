@@ -13,7 +13,7 @@ module Stores
 
       def create
         authorize! :promote_users, current_store
-        if @user = User.find_by_email(params[:user][:email])
+        if @user = User.where(email: params[:user][:email]).first
           assign_role(@user)
         else
           new_user_email = params[:user][:email]
@@ -27,16 +27,15 @@ module Stores
         authorize! :promote_users, current_store
         @role = current_store.roles.find(params[:id])
 
-        if @role.name == "store_admin" && current_store.has_multiple_admin?
-          redirect_to :back,
-            :notice => "Unable to demote user.
-             Store must have at least one admin."
-        elsif @role.destroy
+        if (@role.name == "store_admin" && current_store.has_multiple_admin?) ||
+                                           @role.name == "store_stocker"
+          @role.destroy
           @role.user.notify_of_role_removal(@role)
-          redirect_to store_admin_path(current_store.slug),
-            :notice => 'Role has been removed'
+          redirect_to store_admin_path(current_store.slug), :notice =>
+                    "Role has been removed."
         else
-          redirect_to :back, :notice => 'Something went wrong.'
+          redirect_to :back, :notice =>
+            "Unable to demote user. Store must have at least one admin."
         end
       end
 

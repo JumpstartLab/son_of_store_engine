@@ -1,8 +1,8 @@
 # resque for order emails
 class OrderEmailer
   @queue = :emails
-  def self.perform(method, user_id)
-    OrderMailer.send(method.to_sym, user_id).deliver
+  def self.perform(method, order_id)
+    OrderMailer.send(method.to_sym, order_id).deliver
   end
 
 end

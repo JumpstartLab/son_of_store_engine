@@ -22,3 +22,6 @@
 
 # MAC OSX
 .DS_Store
+
+# Redis
+dump.rdb

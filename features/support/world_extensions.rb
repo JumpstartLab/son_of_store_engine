@@ -17,7 +17,11 @@ module WorldExtensions
 
   def log_in_as_store_admin
     user = FactoryGirl.create(:store_admin)
-    raise user.roles.inspect
+    log_in(user)
+  end
+
+  def log_in_as_store_stocker(store)
+    user = FactoryGirl.create(:store_stocker, store: store)
     log_in(user)
   end
 

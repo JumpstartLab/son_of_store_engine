@@ -73,14 +73,18 @@ class User < ActiveRecord::Base
   def notify_of_role_removal(role)
     if PROMOTE.include? role.name
       method_name = "#{role.name}_removal_notification"
-    end
-    Resque.enqueue(RoleEmailer, method_name, id)
+      Resque.enqueue(RoleEmailer, method_name, id)
+    end 
   end
 
   def notify_of_role_addition(role_name)
     if PROMOTE.include? role_name
       method_name = "#{role_name}_addition_notification"
+      Resque.enqueue(RoleEmailer, method_name, id)
     end
-    Resque.enqueue(RoleEmailer, method_name, id)
+  end
+
+  def notify_confirmation_to_user
+    Resque.enqueue(UserEmailer, "user_confirmation", email)
   end
 end

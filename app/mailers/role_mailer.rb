@@ -1,7 +1,7 @@
 # class to deliver emails pertaining to roles
 class RoleMailer < ActionMailer::Base
   default from: "info@berrystore.com",
-          bcc: "travis.valentine@livingsocial.com"
+          bcc: "darrell.rivera@livingsocial.com"
 
   def store_stocker_removal_notification(user_id)
     @user = User.find(user_id)

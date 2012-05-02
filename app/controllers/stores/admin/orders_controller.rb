@@ -17,7 +17,6 @@ module Stores
       def update
         @order = current_store.orders.find_by_id(params[:id])
         authorize! :update, @order
-
       end
     end
   end
