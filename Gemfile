@@ -17,6 +17,7 @@ gem 'redis-store'
 gem 'capistrano'
 gem 'rack-perftools_profiler', :require => 'rack/perftools_profiler'
 gem 'kaminari'
+gem 'factory_girl_rails', '~> 3.1.0'
 
 group :production do
   gem 'pg'
@@ -42,7 +43,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'factory_girl_rails', '~> 3.1.0'
   gem 'guard'
   gem 'growl'
   gem 'reek', :git => "git://github.com/mvz/reek.git", :branch => "ripper_ruby_parser-2"
