@@ -31,9 +31,9 @@ h1 Admin Dashboard for #{@store.name}
 
       - @store.roles.each do |role|
         tr
-          td = role.user_name
+          td = role.user_email
           td = role.formatted_name
-          td = link_to 'Remove', store_admin_role_path(:id => role.id), :method => :delete, :confirm => 'Sure?'
+          td = link_to 'Remove', store_admin_role_path(:id => role.id), :method => :delete, :confirm => 'Sure?', :id => role.user_email
     h4
       -if can? :manage, @store
         = link_to 'Add new store admin', new_store_admin_role_path(@store.slug, role: "store_admin")
