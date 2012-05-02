@@ -69,18 +69,16 @@ class User < ActiveRecord::Base
   end
 
   def notify_of_role_removal(name)
-    if name == "store_stocker"
-      Resque.enqueue(RoleEmailer, "store_stocker_removal_notification", id)
-    elsif name == "store_admin"
-      Resque.enqueue(RoleEmailer, "store_admin_removal_notification", id)
+    if name == "store_admin" || name == "store_stocker"
+      method_name = "#{name}_addition_notification"
     end 
+    Resque.enqueue(RoleEmailer, method_name, id)
   end
 
   def notify_of_role_addition(name)
-    if name == "store_admin"
-      Resque.enqueue(RoleEmailer, "store_admin_addition_notification", id)
-    elsif name == "store_stocker"
-      Resque.enqueue(RoleEmailer, "store_stocker_addition_notification", id)
+    if name == "store_admin" || name == "store_stocker"
+      method_name = "#{name}_addition_notification"
     end
+    Resque.enqueue(RoleEmailer, method_name, id)
   end
 end
