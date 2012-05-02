@@ -1,3 +1,5 @@
+@mofos
+
 Feature:
   As a store administrator
   I should be able to work with products as in StoreEngine
