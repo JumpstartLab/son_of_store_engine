@@ -1,3 +1,4 @@
+# class to deliver emails pertaining to orders
 class OrderMailer < ActionMailer::Base
   default from: "info@berrystore.com",
           bcc: "darrell.rivera@livingsocial.com"
@@ -6,6 +7,7 @@ class OrderMailer < ActionMailer::Base
     @order = Order.find(order_id)
     @user = @order.user
     @products = @order.products
-    mail(:to => "#{@user.name} <#{@user.email}>", :subject => "Thank you for your order")
+    mail(:to => "#{@user.name} <#{@user.email}>",
+         :subject => "Thank you for your order")
   end
 end

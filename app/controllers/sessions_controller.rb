@@ -1,3 +1,4 @@
+# controller for signing in/out of the site
 class SessionsController < ApplicationController
   include SessionHelpers
 
@@ -18,7 +19,6 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-
     if params[:slug].blank?
       logout_path = root_path
     else

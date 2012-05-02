@@ -1,3 +1,4 @@
+# helper to transfer cart to user
 module SessionHelpers
   private
 

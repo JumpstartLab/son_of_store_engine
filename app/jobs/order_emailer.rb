@@ -1,3 +1,4 @@
+# resque for order emails
 class OrderEmailer
   @queue = :emails
   def self.perform(method, order_id)

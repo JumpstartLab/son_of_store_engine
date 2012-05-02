@@ -1,6 +1,7 @@
+# CanCan file for Site Admin
 class AdminAbilitySite
   include CanCan::Ability
-  
+
   def initialize(user)
 
     user ||= User.new

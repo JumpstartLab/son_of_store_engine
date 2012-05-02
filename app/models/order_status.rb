@@ -1,3 +1,4 @@
+# model for order_statuses
 class OrderStatus < ActiveRecord::Base
   attr_accessible :status, :order_id
 

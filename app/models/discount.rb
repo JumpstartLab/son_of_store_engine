@@ -1,3 +1,4 @@
+# model for discount
 class Discount < ActiveRecord::Base
   attr_accessible :category_id, :percentage, :product_id
 

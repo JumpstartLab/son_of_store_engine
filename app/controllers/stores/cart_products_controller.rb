@@ -1,4 +1,6 @@
+# module for the store_slug namespage
 module Stores
+  # to show cart products for each store
   class CartProductsController < ApplicationController
 
     def new

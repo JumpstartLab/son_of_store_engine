@@ -1,5 +1,8 @@
+# the wrapper for the store_slugs
 module Stores
+  # the module for store-specific admins
   module Admin
+    # for updating order statuses
     class StatusesController < BaseController
       before_filter :authorize_store_admin!
 

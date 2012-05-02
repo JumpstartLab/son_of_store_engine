@@ -1,3 +1,4 @@
+# to enable the creation of new stores
 class StoresController < ApplicationController
   skip_before_filter :verify_store_status
 

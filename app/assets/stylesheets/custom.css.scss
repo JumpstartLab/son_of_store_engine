@@ -2,6 +2,20 @@
 
 /* universal */
 
+body { background: #F4F5ED url("http://hungryacademy.com/images/noise.png") repeat top left; }
+#static { height: 500px; }
+h1#home { color: #46433A; font-size: 50px; font-weight: 400; margin-bottom: 40px; }
+ul#home { list-style-type: none; font-size: 20px; }
+ul#home li { padding: 15px 0; }
+#form_header { margin-bottom: 20px; }
+.navbar-fixed-bottom { margin-top: 40px; border-top: 1px dotted #999; padding-top: 5px; color: #999; }
+form input[type="checkbox"] { float: left; margin-right: 5px; }
+.nav-pills li:first-child { padding: 0 3px 0 0; }
+.nav-pills li { padding: 0 3px; }
+.nav-pills .active > a, .nav-pills .active > a:hover { background-color: #64B6B1 !important; }
+h6 .label a { color: #fff; }
+.italicize { font-style: italic; color: #595959; }
+
 html {
   overflow-y: scroll;
 }

@@ -1,4 +1,6 @@
+# module for the store_slug namespage
 module Stores
+  # to add shipping details for orders in each store
   class ShippingDetailsController < ApplicationController
 
     def new

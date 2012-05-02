@@ -1,5 +1,5 @@
-.center
-  h2 Please enter your details
+.span5
+  h2#form_header Please enter your details
   = form_for @user, :url => users_path do |f|
     =hidden_field_tag :return_path, return_path
 
@@ -14,3 +14,5 @@
     = f.password_field :password_confirmation, :placeholder => "Confirm Password"
     br/
     = f.submit "Create Account", :class => "btn btn-large btn-primary"
+    |&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;
+    = link_to "Log in", signin_path

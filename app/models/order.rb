@@ -1,3 +1,4 @@
+# model for orders
 class Order < ActiveRecord::Base
   attr_accessible :user_id, :credit_card_id, :order_products
 
@@ -49,7 +50,8 @@ class Order < ActiveRecord::Base
   end
 
   def add_shipping_detail_for(user, attributes)
-    self.shipping_detail = user.shipping_details.find(attributes[:shipping_detail_id])
+    self.shipping_detail = user.shipping_details.find(
+      attributes[:shipping_detail_id])
   end
 
   def make_new_order_status

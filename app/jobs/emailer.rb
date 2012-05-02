@@ -1,3 +1,4 @@
+# resque for store emailer
 class Emailer
   @queue = :emails
   def self.perform(method, store_id)

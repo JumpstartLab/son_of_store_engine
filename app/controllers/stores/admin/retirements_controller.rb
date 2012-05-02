@@ -1,5 +1,8 @@
+# the wrapper for the store_slugs
 module Stores
+  # the module for store-specific admins
   module Admin
+    # for controlling product retirements
     class RetirementsController < BaseController
 
       def create
