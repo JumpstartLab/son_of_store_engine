@@ -9,8 +9,8 @@
 
 .indiv-product{ 
   display: inline-block;
-  padding: 25px;
-  width: 30%
+  padding: 15px;
+  width: 20%;
 }
 
 .product-details{ 
@@ -20,27 +20,29 @@
 }
 
 .product-thumbnail{ 
-  height: 85%;
-  width: 85%;
+  height: 100%;
+  width: 100%;
 }
 
 #prod-index-title{
-  float: left;
+  width: 125%;
   padding-top: 5px; 
-  padding-right: 5px;
   padding-bottom: 5px;
 }
 
 #prod-index-price{ 
   float: left;
+  padding-left: 35%;
+  padding-bottom: 5px;
   vertical-align: middle;
-  padding-top: 5px;
+  font-size: 16px;
+
 }
 
 #prod-index-cart{ 
-  padding-top: 10px;
+  padding-top: 5px;
   padding-left: 25%;
-  position: absolute;
+
 }
 
 /* SHOW */ 
