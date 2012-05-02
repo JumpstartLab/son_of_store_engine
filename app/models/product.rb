@@ -23,7 +23,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.find_for_store(store, search_term)
-    store.products.active.find_by(search_term)
+    store.products.where("upper(title) like ?", "%#{search_term.upcase}%")
   end
 
   def revenue

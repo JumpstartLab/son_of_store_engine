@@ -6,13 +6,11 @@ class ProductsController < ApplicationController
   before_filter :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @admin = admin?
-    if params[:search] && params[:search].length > 0
-      session[:search] = true
-      @products = current_store.products.active.where("title LIKE '%#{params[:search]}%'").page(params[:page]).per(24)
-    else
-      session[:search] = false 
+    if session[:search] = params[:search].blank?
       @products = current_store.products.active.page(params[:page]).per(24)
+    else
+      @products = Product.find_for_store(current_store,
+                  params[:search]).page(params[:page]).per(24)
     end
     @top_selling = Product.top_selling_for_store(current_store)
     @categories = current_store.categories
