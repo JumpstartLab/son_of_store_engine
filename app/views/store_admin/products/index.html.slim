@@ -17,6 +17,8 @@
           = render partial: "shared/admin_product", collection: @products
   .span9 = paginate @products
 - else
+  h1 Products
+  = link_to 'New', new_admin_product_path(:domain), :class => 'btn btn-primary'
   h3 = "Sorry, no products match your search criteria!"
 
 
