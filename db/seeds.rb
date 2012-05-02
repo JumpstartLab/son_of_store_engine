@@ -3,4 +3,5 @@
 #
 # Examples:
 #
+  require 'seeder'
   Seeder.build_db
