@@ -16,6 +16,7 @@ gem 'kaminari'
 gem 'faker'
 gem 'newrelic_rpm'
 gem 'redis-store', '~> 1.0.0'
+gem "resque", :git => 'git://github.com/defunkt/resque.git'
 gem 'resque-scheduler'
 
 # Gems used only for assets and not required
@@ -57,4 +58,3 @@ group :test do
 end
 
 gem "mocha", :group => :test
-gem "resque"
