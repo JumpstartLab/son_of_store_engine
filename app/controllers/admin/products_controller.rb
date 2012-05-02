@@ -46,7 +46,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
     if @product.save
       @product.update_categories(params[:categories][1..-1])
-      redirect_to admin_product_path(@product),
+      redirect_to admin_products_path(subdomain: store.url_name),
         notice: 'Product was successfully updated.'
     else
       @product.errors.full_messages.each do |msg|
