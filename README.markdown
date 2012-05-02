@@ -20,7 +20,7 @@ Stocker:
  - password: hungry
 
 
-**Store 2 ("Cool Sunglasses")**  
+**Store 2 ("Cool Sunglasses")**
 Admin:
  - email: cool.sunglasses.admin@jumpstartlab.com
  - password: hungry
