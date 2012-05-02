@@ -1,5 +1,5 @@
 Fabricator(:user, :class_name => User) do
-  email_address { Faker::Internet.email }
+  email_address { "#{Faker::Name.first_name}#{sequence}@jumpstartlab.com" }
   full_name { Faker::Name.name }
   display_name { Faker::Name.first_name }
   password { "test" }
