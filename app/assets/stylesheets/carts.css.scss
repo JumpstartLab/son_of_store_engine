@@ -1,3 +1,18 @@
 // Place all the styles related to the Carts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.update-cart-submit{ 
+  padding-bottom: 10px;
+  top: relative;
+}
+
+.cart-actions{ 
+  float: right;
+  padding-top: 10px;
+  padding-right: 23%;
+}
+
+tr.cart-total{ 
+  border-top: double #bdbdbd;
+}

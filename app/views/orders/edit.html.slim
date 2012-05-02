@@ -9,6 +9,7 @@ h1 Billing Information
     = f.label :email
     = f.email_field :email
 
+  h4 Credit Card Information
   = fields_for :credit_card do |cc_form|
     div class="field"
       = cc_form.label :credit_card_number
@@ -59,4 +60,4 @@ h1 Billing Information
       = address.text_field :zipcode
 
   div class="action"
-    = f.submit "Submit"
+    = f.submit "Submit", :class => 'btn'
