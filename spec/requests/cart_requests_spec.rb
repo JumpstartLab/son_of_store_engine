@@ -310,7 +310,7 @@ describe Cart do
     before(:each) do
       visit product_path(store, product)
       click_link "Add to Cart"
-      click_link ""
+      click_link "Remove Item"
     end
 
     it "removes the product from my cart" do
