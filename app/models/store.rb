@@ -22,10 +22,10 @@ class Store < ActiveRecord::Base
   end
 
   def user
-    
+
   end
   def user_permission
-    
+
   end
 
   def approved?
@@ -33,7 +33,7 @@ class Store < ActiveRecord::Base
   end
 
   def disabled?
-    !enabled? 
+    !enabled?
   end
 
   def self.find_active_store(url)
