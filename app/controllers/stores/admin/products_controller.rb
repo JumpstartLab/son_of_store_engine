@@ -66,9 +66,8 @@ module Stores
 
       def can_manage_store_products
         authorize! :read, current_store
-        authorize! :manage, Product
+        # authorize! :manage, :products
       end
-
     end
   end
 end

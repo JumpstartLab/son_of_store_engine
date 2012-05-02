@@ -58,6 +58,7 @@ StoreEngine::Application.routes.draw do
       resource :store, only: [:edit, :update]
     end
     match '/admin', :to => 'admin/dashboard#show'
+    match '/stock/products', :to => 'admin/products#index'
   end
 
   namespace :admin do
