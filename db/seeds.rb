@@ -27,7 +27,8 @@ chad = User.create(full_name: 'Chad Fowler',
  display_name: 'SaxPlayer', password: 'hungry')
 chad.update_attribute(:admin, true)
 
-10000.times do
+#10000.times do
+2.times do
   Fabricate(:user)
 end
 
@@ -53,8 +54,9 @@ categories = []
   categories << Fabricate(:category, store_id: store.id)
 end
 
-33000.times do
-  Fabricate(:product, store_id: store.id, image_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
+33.times do
+#33000.times do
+  Fabricate(:product, store_id: store.id, photo_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
 end
 
 
@@ -80,8 +82,9 @@ categories = []
   categories << Fabricate(:category, store_id: store2.id)
 end
 
-33000.times do
-  Fabricate(:product, store_id: store2.id, image_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
+33.times do
+#33000.times do
+  Fabricate(:product, store_id: store2.id, photo_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
 end
 
 ### STORE 3 ###
@@ -106,6 +109,7 @@ categories = []
   categories << Fabricate(:category, store_id: store3.id)
 end
 
-34000.times do
-  Fabricate(:product, store_id: store3.id, image_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
+33.times do
+#34000.times do
+  Fabricate(:product, store_id: store3.id, photo_url: IMAGE_ARRAY[rand(4)], category_ids: [categories[rand(10)]])
 end
