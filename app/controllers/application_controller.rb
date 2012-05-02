@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_store_admin
-    redirect_to_last_page unless 
+    redirect_to_last_page unless
       current_user.admin || store.admins.include?(current_user)
   end
 
@@ -98,17 +98,32 @@ private
   def successful_first_login(cart, user)
     cart.assign_cart_to_user(user)
     if session[:return_to_url]
-      redirect_to session[:return_to_url]
-      flash[:message] = "Sign-up complete! You're now logged in! <a href=\"#{url_for(user)}\" id=\"btn\">My Profile</a>".html_safe
-      return
+      signup_redirect_to_url(user)
     elsif session[:last_page]
-      redirect_to session[:last_page]
-      flash[:message] = "Sign-up complete! You're now logged in! <a href=\"#{url_for(user)}\" id=\"btn\">My Profile</a>".html_safe
-      return
+      signup_redirect_to_last_page(user)
     else
       redirect_to stores_path,
         :notice => "Logged in! Buy things! Capitalism!"
     end
+  end
+
+  def signup_redirect_to_url(user)
+    redirect_to session[:return_to_url]
+    flash[:message] = signup_message.html_safe
+    return
+  end
+
+  def signup_redirect_to_last_page(user)
+    redirect_to session[:last_page]
+    flash[:message] = signup_message.html_safe
+    return
+  end
+
+  def signup_message(user)
+    profile_link = "<a href=\"#{url_for(user)}\" id=\"btn\">My Profile</a>"
+    message = "Sign-up complete! You're now logged in!"
+    message = message + " " + profile_link
+    return message
   end
 
 end
