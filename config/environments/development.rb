@@ -44,14 +44,14 @@ StoreEngine::Application.configure do
   #   :password  => "6pdqgiwcyfq2",
   #   :authentication  => :login
   # }
-  # ActionMailer::Base.smtp_settings = {
-  #   :address        => 'smtp.sendgrid.net',
-  #   :port           => '587',
-  #   :authentication => :plain,
-  #   :user_name      => "app4236527@heroku.com",
-  #   :password       => "86gskmjs",
-  #   :domain         => 'heroku.com'
-  # }
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => "app4236527@heroku.com",
+    :password       => "86gskmjs",
+    :domain         => 'heroku.com'
+  }
   # ActionMailer::Base.delivery_method = :smtp
 
 end

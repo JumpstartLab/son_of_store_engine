@@ -28,15 +28,15 @@ class Notification < ActionMailer::Base
   end
 
   def remove_role(email,store_id)
-     store = Store.find(store_id)
-     mail(:to => email, :subject => "Yo dawg, you've been fired! #{store.name} Doesn't want you anymore") 
+     @store = Store.find(store_id)
+     mail(:to => email, :subject => "Yo dawg, you've been fired! #{@store.name} Doesn't want you anymore") 
   end
 
   def new_user_and_store_role(email, store_id, role)
     @email = email
     @store = Store.find(store_id)
     @role = role
-    mail(:to => email, :subject => "You have been invited to become a #{role} of #{store.name}")      
+    mail(:to => email, :subject => "You have been invited to become a #{role} of #{@store.name}")
   end
 
   def new_store_role(email,store_id,role)
