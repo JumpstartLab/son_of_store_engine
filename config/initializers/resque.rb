@@ -6,4 +6,6 @@ uri = URI.parse(ENV["redis://dariver1:b5cb61b99299685e5cefd9e38f7545e2@panga.red
 
 Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password, :thread_safe => true)
 
-Dir["/app/jobs/*.rb"].each { |file| require file }
+# Dir["/app/jobs/*.rb"].each { |file| require file }
+
+Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
