@@ -7,7 +7,7 @@ module Stock
     cache_sweeper :product_sweeper
 
     include ProductsActions
-    
+
     def new
       @product = Product.new
     end
@@ -39,7 +39,7 @@ module Stock
         render 'edit'
       end
     end
-  private 
+  private
 
     def confirm_stocker
       sr = current_tenant.store_roles.find_by_user_id(current_user.id)

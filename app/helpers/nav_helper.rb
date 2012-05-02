@@ -32,7 +32,8 @@ module NavHelper
   def nav_array_admin
     {
       "Admin Dashboard" => admin_dashboard_path,
-      "#{current_tenant.name} Cart (#{@cart.products.size if @cart})" => cart_path,
+      "#{current_tenant.name} Cart
+        (#{@cart.products.size if @cart})" => cart_path,
       "#{current_tenant.name} Orders" => my_orders_orders_path,
       "Profile" => profile_path,
       "Logout" => logout_path
@@ -41,7 +42,8 @@ module NavHelper
 
   def nav_array_user
     {
-      "#{current_tenant.name} Cart (#{@cart.products.size if @cart})" => cart_path,
+      "#{current_tenant.name} Cart
+        (#{@cart.products.size if @cart})" => cart_path,
       "#{current_tenant.name} Orders" => my_orders_orders_path,
       "Profile" => profile_path,
       "Logout" => logout_path
@@ -51,7 +53,8 @@ module NavHelper
   def nav_guest
     {
       "#{current_tenant.name} Products" => root_path,
-      "#{current_tenant.name} Cart (#{@cart.products.size if @cart})" => cart_path,
+      "#{current_tenant.name} Cart
+        (#{@cart.products.size if @cart})" => cart_path,
       "Login or Signup" => login_path
     }
   end
