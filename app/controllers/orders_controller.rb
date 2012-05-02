@@ -4,9 +4,11 @@ class OrdersController < ApplicationController
 
   def index
     if params[:status_search] && current_user && current_user.admin?
-      @orders = Order.where(status: params[:status_search])
+      @orders = current_store.orders.where(
+        status: params[:status_search]).page(params[:page]).per(24)
     else
-      @orders = Order.find_all_by_user_id(current_user.id)
+      @orders = Order.where(
+        user_id: current_user.id).page(params[:page]).per(24)
     end
   end
 
@@ -39,21 +41,16 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.new(params[:order])
-    @order.tap { |order| order.update_attribute(:store, current_store) }.save
+    @order.update_attribute(:store, current_store)
+    @order.save
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
-      manage_session_and_redirect
+      @cart.destroy
+      session[:cart_id] = Cart.create.id
+      session[:checking_out] = nil
+      redirect_to [current_store, @order], :notice => "Transaction Complete"
     else
       render :new
     end
-  end
-
-  private
-
-  def manage_session_and_redirect
-    @cart.destroy
-    session[:cart_id] = Cart.create.id
-    session[:checking_out] = nil
-    redirect_to [current_store, @order], :notice => "Transaction Complete"
   end
 end

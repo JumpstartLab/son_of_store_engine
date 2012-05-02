@@ -12,19 +12,19 @@
     <tbody>
       <td style="width: 110px"><%= link_to "Pending:", 
           store_orders_path(current_store, :status_search => "pending") %> 
-          <%= @orders.pending.count %></td>
+          <%= current_store.count_status("pending") %></td>
       <td style="width: 120px"><%= link_to "Cancelled:", 
           store_orders_path(current_store, :status_search => "cancelled") %> 
-          <%= @orders.cancelled.count %></td>
+          <%= current_store.count_status("cancelled") %></td>
       <td style="width: 90px"><%= link_to "Paid:", 
           store_orders_path(current_store, :status_search => "paid") %>
-          <%= @orders.paid.count %></td>
+          <%= current_store.count_status("paid") %></td>
       <td style="width: 120px"><%= link_to "Shipped:", 
           store_orders_path(current_store, :status_search => "shipped") %>
-          <%= @orders.shipped.count %></td>
+          <%= current_store.count_status("shipped") %></td>
       <td style="width: 120px"><%= link_to "Returned:", 
           store_orders_path(current_store, :status_search => "returned") %> 
-          <%= @orders.returned.count %></td>
+          <%= current_store.count_status("returned") %></td>
     </tbody>
   </table>
 </div>
@@ -62,9 +62,9 @@
 </table>
 <br />
 <br />
+<%= paginate @orders %>
 
 <br />
 <br />
-
 <br />
 
