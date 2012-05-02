@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_store.products.new(params[:product])
-    store = @product.store
     if @product.save
       notice = "Product #{@product.title} created."
       dashboard_redirect(notice)

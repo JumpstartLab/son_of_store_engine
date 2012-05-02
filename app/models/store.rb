@@ -66,11 +66,11 @@ class Store < ActiveRecord::Base
   end
 
   def count_managers
-    employees.select {|e| e.store_role(self) == "manager"}.size
+    employees.select {|emp| emp.store_role(self) == "manager"}.size
   end
 
   def count_stockers
-    employees.select {|e| e.store_role(self) == "stocker"}.size
+    employees.select {|emp| emp.store_role(self) == "stocker"}.size
   end
 
   def find_top_seller

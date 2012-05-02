@@ -39,16 +39,21 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.new(params[:order])
-    @order.update_attribute(:store, current_store)
-    @order.save
+    @order.tap { |order| order.update_attribute(:store, current_store) }.save
     @order.add_order_items_from(@cart)
     if @order.save_with_payment
-      @cart.destroy
-      session[:cart_id] = Cart.create.id
-      session[:checking_out] = nil
-      redirect_to [current_store, @order], :notice => "Transaction Complete"
+      manage_session_and_redirect
     else
       render :new
     end
+  end
+
+  private
+
+  def manage_session
+    @cart.destroy
+    session[:cart_id] = Cart.create.id
+    session[:checking_out] = nil
+    redirect_to [current_store, @order], :notice => "Transaction Complete"
   end
 end
