@@ -5,8 +5,8 @@ Given /^I am a Store administrator for "([^"]*)"$/ do |name|
 end
 
 Then /^I should be able to click to edit the store details$/ do
-  page.should have_link "Edit #{@store.name}"
-  click_on "Edit #{@store.name}"
+  page.should have_link "(Edit)"
+  click_on "(Edit)"
 end
 
 When /^I am editing the store$/ do
