@@ -11,6 +11,7 @@ class ShippingAddressesController < ApplicationController
     session[:return_to] = request.referrer
     @shipping_address = ShippingAddress.new
   end
+
   def edit
     session[:return_to] = request.referrer
   end
