@@ -1,13 +1,6 @@
-<!-- <form class="filter_options_container">
-<h1>Filter Products by Category <%= select('product', 
-                                           'category', 
-                                           Category.all.collect(&:title)) %>
-                              <input type="submit" value="Filter" />
-                            </form> -->
-
-</h1>
-
-  
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
 <ul id="products">
   <%= render :partial => "products/product", :collection => @products %>
 </ul>
