@@ -1,6 +1,6 @@
 require 'fabrication'
 
-stores =  10.times.map { |n| Fabricate(:store, :name => "Store #{n}", :slug => "store-#{n}") }
+stores =  10.times.map { |n| Fabricate(:store, :name => "Seed Store #{n}", :slug => "seed-store-#{n}") }
 100.times { Fabricate(:product, :photo => '', :store => Store.all.sample) }
 10.times { Fabricate(:category) }
 
