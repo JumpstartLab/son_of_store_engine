@@ -1,7 +1,7 @@
 class LineItemsController < ApplicationController
   include ExtraLineItemMethods
   before_filter :lookup_line_item, :only => [:show, :edit, :destroy, :update]
-  before_filter :lookup_order, :only => [:show, :edit, :destroy, :update]
+  before_filter :lookup_order, :only => [:show, :edit, :update]
 
   def index
     redirect_to products_path(@store)
@@ -34,8 +34,9 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
+    order = @line_item.order
     @line_item.destroy
-    redirect_to order_path(@order)
+    redirect_to order_path(order)
   end
 
 end
