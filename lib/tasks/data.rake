@@ -23,3 +23,15 @@ task :randomize_times => :environment do
     user.update_attribute(:created_at, ((rand * 365)+1).days.ago)
   end
 end
+
+task :randomize_categories => :environment do
+  Store.all.reject{|s| s.slug == "shoe_shop" }.each do |store|
+    puts "Randomizing store #{store.name}"
+    10.times do |i|
+      store.categories.create!(title: "Category #{i}")
+    end
+    store.products.each do |product|
+      ProductCategory.create!(product_id: product.id, category_id: store.categories.sample.id)
+    end
+  end
+end
