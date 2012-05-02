@@ -79,7 +79,7 @@ describe Product do
     context "when there is no photo_url" do
       it "returns the logo" do
         product.update_attribute(:photo_url, "")
-        product.image.should == "/logo.png"
+        product.image.should == "icon.png"
       end
     end
   end
