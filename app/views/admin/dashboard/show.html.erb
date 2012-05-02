@@ -1,112 +1,136 @@
-<h1 id="admin_dashboard">Admin Dashboard</h1>
+<h1 id="admin_dashboard"><%= store.name %> Admin Dashboard</h1>
 
 <div class="row">
-  <div class="span6" style="margin-bottom:20px">
-    <h4>Store Name:</h4> <%= store.name %>
-    <h4>Store Description:</h4> <%= store.description %>
+  <div class="span6 well" style="margin-bottom:20px">
+    <p>
+      <h3>Store:</h3> <h4><%= link_to store.name, store_path(subdomain: store.url_name) %></h4>
+    <p>
+    <p>
+      <h3>Description:</h3>
+        <%= store.description %>
+    </p>
+    <p>
+      <h3>Status</h3>
+      <h4 style="color: red">Your store is currently <%= store_status %></h4>
+    </p>
+    <p>
+      <h3>Products</h3>
+        <%= link_to 'Products Index (Admin View)', admin_products_url(subdomain: store.url_name), class: "btn btn-info" %> |
+        <%= link_to 'Add a product', new_admin_product_path, class: "btn btn-danger" %>
+    </p>
+    <p>
+      <h3>Categories</h3>
+        <%= link_to 'Cateogies Index (Admin View)', admin_categories_url(subdomain: store.url_name), class: "btn btn-info" %> |
+        <%= link_to 'Create a category', new_admin_category_path, class: "btn btn-danger" %>
+    </p>
     <h4>
-      <%= link_to 'Edit Store Details', edit_admin_store_path(store) %> |
-      <%= link_to 'Add a product', new_admin_product_path %> |
-      <%= link_to 'Create a category', new_admin_category_path %>
+      <%= link_to 'Edit Store Details', edit_admin_store_path(store), class: "btn btn-primary" %>
     </h4>
   </div>
 </div>
 
-<div id="admins">
-  <h3>Admins for <%= store.name %></h3><br />
+<div class="row">
+  <div id="admins" class="span6 well">
+    <h3>Admins for <%= store.name %></h3><br />
 
-  <table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-      <th>Name (email)</th>
-    </tr>
-    </thead>
-    <tbody>
-      <% @admins.each do |admin| %>
-        <tr id="admin_<%=admin.id%>">
-      <td> <%= "#{admin.name} (#{admin.email})" %></td>
-      <% unless admin == store.owner || admin == current_user %>
-        <td> <%= link_to "Remove Admin", admin_store_admin_path(admin), :confirm => "Really remove #{admin.name} from store admins?", :method => "delete" %> </td>
-      <% end %>
-    </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= form_for (@new_admin), :url => admin_store_admins_path do |f| %>
-    <%= text_field_tag :new_admin_email_address, nil, placeholder: "worace@worace.worace" %>
-    <%= f.hidden_field :stocker, :value => @new_admin.stocker %>
-    <%= f.submit "Add Admin" %>
-  <% end %>
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Name (email)</th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @admins.each do |admin| %>
+          <tr id="admin_<%=admin.id%>">
+        <td> <%= "#{admin.name} (#{admin.email})" %></td>
+        <% unless admin == store.owner || admin == current_user %>
+          <td> <%= link_to "Remove Admin", admin_store_admin_path(admin), :confirm => "Really remove #{admin.name} from store admins?", :method => "delete" %> </td>
+        <% end %>
+      </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= form_for (@new_admin), :url => admin_store_admins_path do |f| %>
+      <%= text_field_tag :new_admin_email_address, nil, placeholder: "worace@worace.worace", class: "span6" %>
+      <%= f.hidden_field :stocker, :value => @new_admin.stocker %>
+      <%= f.submit "Add Admin" %>
+    <% end %>
+  </div>
+
+  <div id="stockers" class="span5 well">
+    <h3>Stockers for <%= store.name %></h3><br />
+
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Name (email)</th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @stockers.each do |stocker| %>
+          <tr id="stocker_<%=stocker.id%>">
+        <td> <%= "#{stocker.name} (#{stocker.email})" %></td>
+        <% unless stocker == store.owner || stocker == current_user %>
+          <td> <%= link_to "Remove Stocker", admin_store_admin_path(stocker), :confirm => "Really remove #{stocker.name} from store stockers?", :method => "delete" %> </td>
+        <% end %>
+      </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+    <%= form_for (@new_stocker), :url => admin_store_admins_path do |f| %>
+      <%= text_field_tag :new_stocker_email_address, nil, placeholder: "worace@worace.worace", class: "span5" %>
+      <%= f.hidden_field :stocker, :value => @new_stocker.stocker %>
+      <%= f.submit "Add Stocker" %>
+    <% end %>
+  </div>
 </div>
 
-<div id="stockers">
-  <h3>Stockers for <%= store.name %></h3><br />
-
+<div id="orders-by-status" class="well">
+  <h3>Orders by status</h3><br />
   <table class="table table-bordered table-striped">
-    <thead>
     <tr>
-      <th>Name (email)</th>
+      <th>Status</th>
+      <th>Orders</th>
     </tr>
-    </thead>
-    <tbody>
-      <% @stockers.each do |stocker| %>
-        <tr id="stocker_<%=stocker.id%>">
-      <td> <%= "#{stocker.name} (#{stocker.email})" %></td>
-      <% unless stocker == store.owner || stocker == current_user %>
-        <td> <%= link_to "Remove Stocker", admin_store_admin_path(stocker), :confirm => "Really remove #{stocker.name} from store stockers?", :method => "delete" %> </td>
-      <% end %>
+    <tr>
+      <td>Pending</td>
+      <td><%= orders_count_by_status('pending') %><tr>
+      <td>Cancelled</td>
+      <td><%= orders_count_by_status('cancelled') %><tr>
+      <td>Paid</td>
+      <td><%= orders_count_by_status('paid') %><tr>
+      <td>Shipped</td>
+      <td><%= orders_count_by_status('shipped') %><tr>
+
     </tr>
-      <% end %>
-    </tbody>
   </table>
-
-
-  <%= form_for (@new_stocker), :url => admin_store_admins_path do |f| %>
-    <%= text_field_tag :new_stocker_email_address, nil, placeholder: "worace@worace.worace" %>
-    <%= f.hidden_field :stocker, :value => @new_stocker.stocker %>
-    <%= f.submit "Add Stocker" %>
-  <% end %>
 </div>
 
-<h3>Orders by status</h3><br />
-<table class="table table-bordered table-striped">
-  <tr>
-    <th>Status</th>
-    <th>Orders</th>
-  </tr>
-  <tr>
-    <td>Pending</td>
-    <td><%= orders_count_by_status('pending') %><tr>
-    <td>Cancelled</td>
-    <td><%= orders_count_by_status('cancelled') %><tr>
-    <td>Paid</td>
-    <td><%= orders_count_by_status('paid') %><tr>
-    <td>Shipped</td>
-    <td><%= orders_count_by_status('shipped') %><tr>
+<div id="orders-summary" class="well">
+  <h3>Orders Summary<h3><br />
+  <h4>Filter by:
+    <%= link_to 'Pending', admin_dashboard_path(order_status: 'pending') %> |
+    <%= link_to 'Cancelled', admin_dashboard_path(order_status: 'cancelled') %> |
+    <%= link_to 'Paid', admin_dashboard_path(order_status: 'paid') %> |
+    <%= link_to 'Shipped', admin_dashboard_path(order_status: 'shipped') %> |
+    <%= link_to 'All', admin_dashboard_path %>
+  </h4><br />
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Customer Name</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
 
-  </tr>
-</table>
+  <%= render :partial => "admin/orders/admin_order", :collection => @orders %>
 
-<h3>Orders Summary<h3><br />
-<h4>Filter by:
-  <%= link_to 'Pending', admin_dashboard_path(order_status: 'pending') %> |
-  <%= link_to 'Cancelled', admin_dashboard_path(order_status: 'cancelled') %> |
-  <%= link_to 'Paid', admin_dashboard_path(order_status: 'paid') %> |
-  <%= link_to 'Shipped', admin_dashboard_path(order_status: 'shipped') %> |
-  <%= link_to 'All', admin_dashboard_path %>
-</h4><br />
-<table class="table table-bordered table-striped">
-  <tr>
-    <th>Customer Name</th>
-    <th>Date</th>
-    <th>Status</th>
-    <th>Actions</th>
-  </tr>
+  </table>
+</div>
 
-<%= render :partial => "admin/orders/admin_order", :collection => @orders %>
-
-</table>
-<%= paginate @orders %>
+  <%= paginate @orders %>
 
 <h2>Categories</h2>
 
