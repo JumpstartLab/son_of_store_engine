@@ -22,7 +22,7 @@
     .control-group
       = f.label :price, :class => 'control-label'
       .controls
-        = f.number_field :price, :class => 'number_fielda', value: @product.price
+        = f.text_field :price, :class => 'text_field', value: @product.price
     .control-group
       = f.label :photo_url, :class => 'control-label'
       .controls
