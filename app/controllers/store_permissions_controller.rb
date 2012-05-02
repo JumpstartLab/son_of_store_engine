@@ -1,4 +1,5 @@
 class StorePermissionsController < ApplicationController
+  include ExtraStorePermissionMethods
   before_filter :validate_added_email, only: :create
   before_filter :find_store, only: :destroy
 
@@ -6,13 +7,9 @@ class StorePermissionsController < ApplicationController
     added_user = User.where(:email_address => params[:email]).first
     store = Store.find(params[:store_permission][:store_id])
     if added_user.nil?
-      StorePermission.invite_user_to_access_store(params[:store_permission], params[:email])
-      notice = "#{params[:email]} is not currently a DOSE member. They have been invited to sign up to fulfill this role."
+      invite_user
     else
-      store_permission = StorePermission.new(params[:store_permission])
-      store_permission.user_id = added_user.id
-      store_permission.save
-      notice = "#{added_user.full_name} has been given this role."
+      give_user_permissions(added_user)
     end
     redirect_to admin_store_path(store), notice: notice
   end
