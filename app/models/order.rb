@@ -97,4 +97,9 @@ class Order < ActiveRecord::Base
       total + order_product.price * order_product.quantity
     end
   end
+
+  def send_order_confirmation
+    Resque.enqueue(OrderEmailer, "order_confirmation", id)
+  end
+
 end

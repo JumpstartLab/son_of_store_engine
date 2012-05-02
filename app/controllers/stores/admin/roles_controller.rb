@@ -13,7 +13,8 @@ module Stores
         if @user = User.find_by_email(params[:user][:email])
           assign_role(@user)
         else
-          #send email
+          new_user_email = params[:user][:email]
+          Resque.enqueue(UserEmailer, "signup_notification", new_user_email)
           redirect_to store_admin_path(current_store.slug),
             :notice => "That user does not exist. A signup email has been sent."
         end
@@ -24,6 +25,7 @@ module Stores
 
         @role = current_store.roles.find(params[:id])
         if current_store.has_multiple_admin? && @role.destroy
+          @role.user.notify_user_of_role_removal
           redirect_to store_admin_path(current_store.slug), :notice => 'Role has been removed'
         else
           redirect_to :back, :notice => 'Unable to demote user. Store must have at least one admin.'
@@ -34,6 +36,7 @@ module Stores
         role = params[:role]
         if user.promote_to(role, current_store)
           message = "#{user.name} is now a #{role.gsub('_',' ')}."
+          user.notify_of_role_addition
         else
           message = "#{user.name} cannot be a #{role.gsub('_',' ')}."
         end

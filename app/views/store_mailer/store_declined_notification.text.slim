@@ -1,0 +1,10 @@
+= "Hi #{@store.users.first.name}, "
+
+| Your store (
+= @store.name
+| ) at 
+= link_to "http://storeberry.herokuapp.com/#{@store.slug}"
+|  has been declined.
+
+Sorry,
+Storeberry

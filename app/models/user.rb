@@ -67,4 +67,20 @@ class User < ActiveRecord::Base
   def find_cart_by_store_id(store_id)
     carts.where(:store_id => store_id).first
   end
+
+  def notify_of_role_removal(name)
+    if name == "store_stocker"
+      Resque.enqueue(RoleEmailer, "store_stocker_removal_notification", id)
+    elsif name == "store_admin"
+      Resque.enqueue(RoleEmailer, "store_admin_removal_notification", id)
+    end 
+  end
+
+  def notify_of_role_addition(name)
+    if name == "store_admin"
+      Resque.enqueue(RoleEmailer, "store_admin_addition_notification", id)
+    elsif name == "store_stocker"
+      Resque.enqueue(RoleEmailer, "store_stocker_addition_notification", id)
+    end
+  end
 end

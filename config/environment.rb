@@ -5,9 +5,8 @@ require File.expand_path('../application', __FILE__)
 StoreEngine::Application.initialize!
 
 ActionMailer::Base.smtp_settings = {
-  :address  => "smtp.someserver.net",
-  :port  => 25,
-  :user_name  => "hungryopensource",
-  :password  => "hungryacademy",
-  :authentication  => :login
-}
+ :address  => "smtp.gmail.com",
+ :port  => 587,
+ :user_name  => "hungryopensource",
+ :password  => "hungryacademy",
+ :authentication  => "plain" }
