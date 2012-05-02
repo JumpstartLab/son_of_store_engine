@@ -1,3 +1,33 @@
-## SonofStoreEngine
+## Chez Pierre (Son of Store Engine)
 
-http://tutorials.jumpstartlab.com/projects/son_of_store_engine.html
+Built over a sleepless week-and-a-half.
+Project outline can be found here: http://tutorials.jumpstartlab.com/projects/son_of_store_engine.html
+
+### Site Info
+
+[Link to the live site](http://chez-pierre.info/ "Chez Pierre")
+
+### Test User Info
+
+Super Admin:
+ - email: demo08+chad@jumpstartlab.com
+ - password: hungry
+
+**Store 1 ("Worace's Workshop")**
+Admin:
+ - email: demo08+jeff@jumpstartlab.com
+ - password: hungry
+
+Stocker:
+ - email: demo08+matt@jumpstartlab.com
+ - password: hungry
+
+
+**Store 2 ("Pierre's Kitchen")**
+Admin:
+ - email: demo08+matt@jumpstartlab.com
+ - password: hungry
+
+Stocker:
+ - email: demo08+jeff@jumpstartlab.com
+ - password: hungry
