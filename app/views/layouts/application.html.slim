@@ -17,7 +17,7 @@ html
       .row
         - unless notice.nil?
           .span8#notice = notice
-        - if !admin_view? && params[:domain]
+        - if !admin_view? && params[:domain] && @current_store && @current_store.enabled
           .span8#main-content = yield
           = render partial: "shared/search"
           = render partial: "shared/cart", locals: {user: current_user}
