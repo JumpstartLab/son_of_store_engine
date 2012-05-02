@@ -84,31 +84,41 @@ private
   def successful_login(cart, user)
     cart.assign_cart_to_user(user)
     if session[:return_to_url]
-      redirect_to session[:return_to_url]
-      return
+      login_redirect_to_url
     elsif session[:last_page]
-      redirect_to session[:last_page]
-      return
+      login_redirect_to_last_page
     else
       redirect_to stores_path,
         :notice => "Logged in! Buy things! Capitalism!"
     end
   end
 
+  def login_redirect_to_url
+    redirect_to session[:return_to_url]
+    return
+  end
+
+  def login_redirect_to_last_page
+    redirect_to session[:last_page]
+    return
+  end
+
   def successful_first_login(cart, user)
     cart.assign_cart_to_user(user)
-    if session[:return_to_url]
-      redirect_to session[:return_to_url]
-      flash[:message] = "Sign-up complete! You're now logged in! <a href=\"#{url_for(user)}\" id=\"btn\">My Profile</a>".html_safe
-      return
-    elsif session[:last_page]
-      redirect_to session[:last_page]
-      flash[:message] = "Sign-up complete! You're now logged in! <a href=\"#{url_for(user)}\" id=\"btn\">My Profile</a>".html_safe
-      return
+    if session[:return_to_url] || session[:last_page]
+      redirect_to(session[:return_to_url] || session[:last_page])
+      flash[:message] = login_message(user).html_safe
     else
       redirect_to stores_path,
         :notice => "Logged in! Buy things! Capitalism!"
     end
+  end
+
+  def login_message(user)
+    message = "Sign-up complete! You're now logged in!"
+    url = "<a href=\"#{url_for(user)}\" id=\"btn\">My Profile</a>"
+    message = message + " " + url
+    return message
   end
 
 end
