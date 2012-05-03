@@ -11,17 +11,17 @@
     </p>
     <p>
       <h3>Status</h3>
-      <h4 style="color: red">Your store is currently <%= store_status %></h4>
+      <h4 style="color: blue">Your store is currently <%= store_status %></h4>
     </p>
     <p>
       <h3>Products</h3>
-        <%= link_to 'Products Index (Admin View)', admin_products_url(subdomain: store.url_name), class: "btn btn-info" %> |
-        <%= link_to 'Add a product', new_admin_product_path, class: "btn btn-danger" %>
+        <%= link_to 'Products Index (Admin View)', admin_products_url(subdomain: store.url_name), class: "btn btn-info" %>
+        <%= link_to 'Add a product', new_admin_product_path, class: "btn btn-success" %>
     </p>
     <p>
       <h3>Categories</h3>
-        <%= link_to 'Cateogies Index (Admin View)', admin_categories_url(subdomain: store.url_name), class: "btn btn-info" %> |
-        <%= link_to 'Create a category', new_admin_category_path, class: "btn btn-danger" %>
+        <%= link_to 'Cateogies Index (Admin View)', admin_categories_url(subdomain: store.url_name), class: "btn btn-info" %>
+        <%= link_to 'Add a category', new_admin_category_path, class: "btn btn-success" %>
     </p>
     <h4>
       <%= link_to 'Edit Store Details', edit_admin_store_path(store), class: "btn btn-primary" %>
@@ -120,7 +120,8 @@
   </h4><br />
   <table class="table table-bordered table-striped">
     <tr>
-      <th>Customer Name</th>
+      <th>Order #</th>
+      <th>Customer</th>
       <th>Date</th>
       <th>Status</th>
       <th>Actions</th>
@@ -132,9 +133,3 @@
 </div>
 
   <%= paginate @orders %>
-
-<h2>Categories</h2>
-
-<table class="table table-bordered table-striped">
-    <%= render :partial => "categories/category", :collection => @categories %>
-</table>

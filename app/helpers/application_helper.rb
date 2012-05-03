@@ -23,13 +23,13 @@ module ApplicationHelper
 
   def store_button(store)
     if store.stockers.include?(current_user)
-      link_to "Stock products!", 
+      link_to "Stock products", 
         admin_products_url(subdomain: store.url_name),
         class: "pull-right btn btn-success"
     elsif store.admins.include?(current_user)
-      link_to "Don't hate! Administrate!", 
+      link_to "Manage", 
         admin_dashboard_url(subdomain: store.url_name),
-        class: "pull-right btn btn-danger"
+        class: "pull-right btn btn-info"
     end
   end
 end
