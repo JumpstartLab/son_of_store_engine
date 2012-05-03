@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   # end
 
   def show
-    @category = Category.find(params[:id])
+    @category = store.categories.find(params[:id])
     @products = @category.products.page(params[:page]).per(12)
   end
 

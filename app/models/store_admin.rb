@@ -1,6 +1,8 @@
 class StoreAdmin < ActiveRecord::Base
   attr_accessible :user_id, :store_id, :stocker
 
+  validates_uniqueness_of :user_id, :scope => :store_id
+
   belongs_to :user
   belongs_to :store
   after_create :new_admin_notification_email

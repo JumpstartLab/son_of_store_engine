@@ -5,11 +5,11 @@ class Admin::OrdersController < Admin::ApplicationController
   end
 
   def show
-    @order = Admin::OrdersController.find_by_id_or_sha1(params[:id])
+    @order = Order.find_by_sha1(params[:id])
   end
 
   def update
-    @order = Admin::OrdersController.find_by_id_or_sha1(params[:id])
+    @order = Order.find_by_sha1(params[:id])
   end
 
   def self.find_by_id_or_sha1(id)
