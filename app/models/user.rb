@@ -1,6 +1,7 @@
 # An authenticated person on the system
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :display_name, :phone_number, :guest
+  attr_accessible :email, :name, :password, :display_name, :phone_number,
+                  :guest
   attr_protected :permission
 
   default_scope :conditions => { :active => 1 }

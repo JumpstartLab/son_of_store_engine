@@ -25,8 +25,8 @@ class SearchController < ApplicationController
 private
 
   def search(query)
-    value = "%#{query}%"
-    @products = Product.where("name LIKE ? OR description LIKE ?", value, value)
+    v = "%#{query}%"
+    @products = Product.where("name LIKE ? OR description LIKE ?", v, v)
   end
 
 end
