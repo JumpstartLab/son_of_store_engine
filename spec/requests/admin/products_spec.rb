@@ -74,8 +74,11 @@ describe "As an admin updating products" do
     end
 
   context "when I'm on a product page" do
-    let(:product) { FactoryGirl.create(:product) }
-    before(:each) { visit admin_product_path(product)}
+    let(:store)   { Store.find_by_url_name("best-sunglasses")   }
+    let(:product) { FactoryGirl.create(:product, :store_id => store.id) }
+    before(:each) do
+      visit admin_product_path(product)
+    end
 
     context "and I click 'Edit this product'" do
       before(:each) { click_link("Edit this product") }

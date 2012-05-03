@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 describe "When I want to place an order" do
+  let!(:store) { Store.find_by_url_name("best-sunglasses") }
   let!(:user) { FactoryGirl.create(:user) }
-  let(:product) { FactoryGirl.create(:product) }
+  let(:product) { FactoryGirl.create(:product, :store_id => store.id) }
+
+  before(:each) do
+    set_host("best-sunglasses")
+  end
 
   context "as an unauthenticated user" do
     context "and I add an item to my cart" do
