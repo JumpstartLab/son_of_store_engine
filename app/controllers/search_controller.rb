@@ -26,7 +26,7 @@ private
 
   def search(query)
     v = "%#{query}%"
-    @products = Product.where("name LIKE ? OR description LIKE ?", v, v)
+    @products = Product.where("name LIKE ? OR description LIKE ? AND active = ?", v, v, 1).page(params[:page])
   end
 
 end
