@@ -9,12 +9,12 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def new
-    @product = Product.new
+    @product = store.products.new
     @categories = store.categories.all
   end
 
   def create
-    @product = Product.create(params[:product])
+    @product = store.products.create(params[:product])
     @categories = @product.categories
 
     if @product.save
@@ -30,21 +30,19 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def show
-    @product = Product.find_by_id(params[:id])
+    @product = store.products.find_by_id(params[:id])
     @categories = @product.categories
   end
 
   def edit
-    @product = Product.find(params[:id])
-    @categories = Category.all
+    @product = store.products.find(params[:id])
+    @categories = store.categories.all
   end
 
   def update
-    @product = Product.find(params[:id])
-    @categories = Category.all
-    @product.update_attributes(params[:product])
-
-    if @product.save
+    @product = store.products.find(params[:id])
+    @categories = store.categories.all
+    if @product.update_attributes(params[:product])
       @product.update_categories(params[:categories][1..-1])
       redirect_to admin_products_path(subdomain: store.url_name),
         notice: 'Product was successfully updated.'
