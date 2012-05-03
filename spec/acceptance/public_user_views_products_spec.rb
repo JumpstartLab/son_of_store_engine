@@ -1,4 +1,4 @@
-require 'spec_helper'
+aequire 'spec_helper'
 
 feature "Public User Views Products", :acceptance => true do
   let!(:product){ create_product }
