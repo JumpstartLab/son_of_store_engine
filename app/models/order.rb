@@ -64,7 +64,7 @@ class Order < ActiveRecord::Base
   end
 
   def store_name
-    store.name
+    try(:store).try(:name)
   end
 
   def mark_as_paid
