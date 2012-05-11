@@ -6,7 +6,7 @@ class ShippingDetail < ActiveRecord::Base
 
   validates_presence_of :user_id
 
-  has_many :orders, :through => :order_shipping_details
+  has_many :orders, :through => order_shipping_details
   belongs_to :user
   belongs_to :store
   before_save :set_to_default

@@ -14,7 +14,6 @@ describe OrderStatus do
             order_status.status.should == s
           end
         end
-
       end
 
       context "with invalid attributes" do
