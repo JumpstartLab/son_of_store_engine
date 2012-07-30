@@ -1,3 +1,5 @@
+For specifications of this project, see: http://tutorials.jumpstartlab.com/projects/son_of_store_engine.html
+
 ## StoreEngine
 ### Team 4
 
