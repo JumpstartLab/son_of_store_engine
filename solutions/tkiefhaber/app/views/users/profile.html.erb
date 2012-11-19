@@ -1,0 +1,65 @@
+<h1>Your Stores</h1>
+
+<br/>
+<%= link_to "Create A Store", new_store_path, :class => "btn-primary btn-large"%>
+<br/>
+<br/>
+
+<% if @user.stores.count > 0 %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Slug</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody> 
+    <% @user.stores.each do |store| %>
+      <tr>
+        <td><%= store.name %></td>
+        <td><%= (store.description || "(blank)").truncate(32) %></td>
+        <td><%= store.slug %></td>
+        <td><%= store.status %></td>
+        <td>
+          <%= link_to "Administer", store_dashboard_path(store), 
+              :class => "btn" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<h1>Your Jobs</h1>
+
+<% if @places_of_employment.count > 0 %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody> 
+    <% @places_of_employment.each do |store| %>
+      <tr>
+        <td><%= store.name %></td>
+        <td><%= @user.store_role(store) %></td>
+        <td>
+          <% if @user.may_manage?(store) %>
+            <%= link_to "Administer", store_dashboard_path(store), 
+                :class => "btn" %>
+          <% else @user.may_stock?(store) %>
+            <%= link_to "Administer", store_stocker_dashboard_path(store), 
+                :class => "btn" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

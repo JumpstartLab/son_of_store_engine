@@ -1,0 +1,44 @@
+<h1>Stores by User</h1>
+<br/>
+<% @users.each do |user| %>
+  <h2><%= user.full_name %></h2>
+  <br/>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="store_column">Name</th>
+      <th class="store_column">Description</th>
+      <th class="store_column">Slug</th>
+      <th class="store_status">Status</th>
+      <th class="store_column">Action</th>
+    </tr>
+  </thead>
+  <tbody> 
+      <% user.stores.each do |store| %>
+      <tr>
+        <td><%= link_to store.name, store_path(store) %></td>
+        <td><%= (store.description || "(blank)").truncate(32) %></td>
+        <td><%= store.slug %></td>
+        <td><%= store.status %></td>
+        <td>
+          <%= link_to "Administer", store_dashboard_path(store), 
+              :class => "btn btn-small" %>
+          <% if store.pending? %>
+            <%= link_to "Approve", approve_admin_store_path(store), 
+                method: :put, :class => "btn-small btn-success" %>
+            <%= link_to "Decline", decline_admin_store_path(store), 
+                method: :put, :class => "btn-small btn-danger" %>
+          <% elsif store.enabled? %>
+            <%= link_to "Disable", disable_admin_store_path(store), 
+                method: :put, :class => "btn-small btn-danger" %>
+          <% elsif store.disabled? %>
+            <%= link_to "Enable", enable_admin_store_path(store),
+                method: :put, :class => "btn-small btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

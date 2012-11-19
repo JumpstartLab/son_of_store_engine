@@ -1,0 +1,34 @@
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
+<h1>Orders</h1>
+<br />
+  <% if current_user && current_user.may_manage?(current_store) %>
+  <%= link_to "Back to Order Management", store_store_orders_path(current_store), 
+    :class => "btn-info btn-large" %>
+  <% end %>
+<br/>
+<br/>
+<br/>
+
+<table class="table table-striped table-condensed" id="orders">
+  <thead>
+    <th>Order ID</th>
+    <th>Created</th>
+    <th>Products</th>
+    <th>Total Price</th>
+    <th>View Order</th>
+  </thead>
+  <tbody>
+      <% @orders.each do |order| %><tr>
+      <td><%= link_to order.id, store_order_path(current_store, order) %></td>
+      <td><%= order.created_at.strftime("%m/%d/%Y  %I:%M%p") %></td>
+      <td><% order.products.each do |t| %>
+            <%= t.title %>,
+          <% end %></td>
+      <td><%= number_to_currency(order.total_price) %></td>
+      <td><%= link_to "View", store_order_path(current_store, order), 
+              :class => "btn btn-mini" %></td>
+      </tr><% end %>
+  </tbody>
+</table>

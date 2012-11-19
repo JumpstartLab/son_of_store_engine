@@ -1,0 +1,21 @@
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
+<div class="page-header">
+  <h1>Products by <%= @category.title %></h1>
+</div>
+
+<%= link_to "Back to All Products", 
+    store_products_path(current_store), :class => "btn btn-small" %>
+<br />
+<br />
+
+<ul id="products">
+  <%= render :partial => "products/product", :collection => @products %>
+</ul>
+<%= paginate @products %>
+<br/>
+<% if current_user && current_user.may_stock?(current_store) %>
+<%= link_to "Return to Category Management", store_categories_path(current_store), 
+    :class => "btn-info btn-large" %>
+<% end %>
