@@ -1,0 +1,9 @@
+.span10
+  = form_for([:admin, @category]) do |f|
+    .admin-new-cat-name
+      #new-cat-label
+        = f.label :name
+      = f.text_field :name
+
+    .admin-new-cat-actions
+      = f.submit :class=> 'btn btn-mini'

@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title SonOfStoreEngine
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+    - if @store and not @store.css.blank?
+      = stylesheet_link_tag raw(@store.css)
+
+  =yield :head
+
+  body
+    div class="navbar navbar-fixed-top"
+      div class="navbar-inner"
+          ul id="nav"
+            - if @store and not @store.name.blank?
+              li.nav class="brand"
+                = link_to "#{@store.name.titlecase}", products_path(@store)
+            - if @store and can? :manage, @store
+              li.nav = link_to("Admin Dashboard", admin_dashboard_path(@store))
+            - if current_user
+              - if @store
+                li.nav = link_to("My Orders", orders_path(@store))
+              li.nav id="right"
+                #user_name_link
+                  = link_to "#{current_user.name}", edit_user_registration_path
+                = link_to("Log out",
+                          destroy_user_session_path(:slug => nil),
+                          :method => :delete, :class=>'btn btn-primary')
+               
+            - else
+              li.nav id="right"
+                = link_to "Sign up", new_user_path, :class => 'btn btn-primary'
+                = link_to "Log In", new_user_session_path, :class => 'btn btn-primary'
+            - if @store
+              li.nav = link_to "View Cart", cart_path(@store)
+              li.nav = link_to "Browse by Category", categories_path(@store)  
+            - else
+              li.nav class="brand"
+                =link_to "Son of Store Engine", root_path
+
+    .container-fluid
+      div class="container"
+        - flash.each do |name, msg|
+          = content_tag :div, msg.html_safe, :id => "flash_#{name}"
+
+        = yield

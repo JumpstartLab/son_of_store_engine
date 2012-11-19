@@ -1,0 +1,19 @@
+h1 #{@store.name} Products
+
+table.table-condensed.table-striped
+  - @products.each do |product|
+    tr id="product_#{product.id}"
+      td.product_title
+        = link_to product.title, admin_product_path(@store, product)
+      td = number_to_currency(product.price)
+      td = link_to "Edit", edit_admin_product_path(@store, product)
+      td
+        - if product.retired?
+          = 'Retired'
+        - else
+          = link_to "Retire", admin_product_retire_path(@store, :product_id => product)
+
+#create_new_prod_from_index
+  = link_to "New Product", new_admin_product_path, :class=> 'btn btn-primary'
+
+= will_paginate(@products)
