@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Hello #{@admin_user.name}
+    %p
+      You recently created the store #{@store.name} on #{@store.created_at}.
+      - if @store.approved?
+        We are happy to inform you that your store as been approved!
+      - elsif @store.declined?
+        We regret to inform you that your store has been declined

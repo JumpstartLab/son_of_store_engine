@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @store_role] do |f|
+  %legend New Store Role
+  = f.input :email
+  %div.control-group.email.optional
+    .controls
+      = f.collection_radio_buttons :role, [[9, 'ADMIN'] ,[5, 'STOCKER']], :first, :last
+  = f.submit :class => 'btn btn-primary controls'

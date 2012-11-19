@@ -1,0 +1,15 @@
+- cache("product_index_with_id_#{product.id}") do
+  %div{:id => [product.id], :class => "thumbnail"}
+    .row-fluid
+      .span6
+        = link_to (image_tag product.avatar.url(:medium), :class => "product_img"), product_path(product)
+      .span6
+        %h3= link_to product.name, product_path(product)
+        - if product.best_sale
+          %div{:style=> "text-decoration:line-through;"}= product.price
+          %h4= product.sale_price_in_dollars
+        - else
+          %h4= product.price
+        - if product.active == 1
+          %p= link_to "Add To Cart", cart_path(:product_id => product.id), :method => :put, :class => 'btn btn-info'
+

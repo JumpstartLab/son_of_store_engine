@@ -1,0 +1,8 @@
+%h1 Product Categories
+%ul#categories
+  - @categories.each do |category|
+    - cache("category_with_id#{category.id}") do
+      %li
+        %p{:id => "category_#{category.id}"}
+
+        #{link_to category.name, category_path(category)}

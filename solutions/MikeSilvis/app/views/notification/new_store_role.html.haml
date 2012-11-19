@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      Hello
+    %p
+      You are now a #{@role} of #{@store.name}
+    - if @role == "ADMIN"
+      You can access the admin page at http://#{@store.url}.polutropon.com/admin
+    - if @role == "STOCKER"
+      You can access the STOCKER page at http://#{@store.url}.polutropon.com/stock/products      

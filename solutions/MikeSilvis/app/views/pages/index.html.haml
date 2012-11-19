@@ -1,0 +1,17 @@
+.hero-unit
+  %h1 The Top Gear Family
+  %p The best in performance vehicles and gear from top speciality providers
+
+%ul.thumbnails
+  - @store.each do |store|
+    %li.span3
+      .thumbnail
+        - if store.photo_url
+          = link_to image_tag(store.photo_url, {style: "width:210px; height:210px;"}), subdomain_path(store.url)
+        - else
+          = link_to image_tag("/avatars/original/missing.png",  {style: "width:210px; height:210px;"}), subdomain_path(store.url)
+        %h3
+          = store.name 
+        %p 
+          = store.description
+= will_paginate @store

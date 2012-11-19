@@ -1,0 +1,9 @@
+= form_for [:admin, @store], :url => add_user_admin_stores_path do |f|
+  %legend Add Admin
+  = f.label :user, "Email"
+  = f.text_field :user
+  =# f.label :user_permission, "Admin? Defaults to store stocker"
+  =# f.check_box :user_permission
+  %br
+  %br
+  = f.submit "Add", :class => "btn btn-primary"
