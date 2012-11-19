@@ -1,0 +1,16 @@
+- if @stores.count > 0
+  table.table.table-striped#order-table
+    thead
+      tr
+        th Actions
+        th Status
+        th Enabled?
+        th Name
+        th Domain
+        th Description
+        th Owner
+        th Created On
+    tbody
+      = render partial: "store", collection: @stores
+- else
+  h3 = "No Stores Have Been Created Yet"

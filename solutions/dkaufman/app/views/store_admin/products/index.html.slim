@@ -1,0 +1,24 @@
+- if @products.any?
+  - cache("#{@current_store.to_param}_admin_products_#{params[:page]}") do
+    #products
+      h1 Products
+      = link_to 'New', new_admin_product_path(:domain), :class => 'btn btn-primary'
+      table.table.table-striped#order-table
+        thead
+          tr
+          th Actions
+          th ID
+          th Title
+          th Categories
+          th Price
+          th Status
+          th Created At
+        tbody
+          = render partial: "shared/admin_product", collection: @products
+  .span9 = paginate @products
+- else
+  h1 Products
+  = link_to 'New', new_admin_product_path(:domain), :class => 'btn btn-primary'
+  h3 = "Sorry, no products match your search criteria!"
+
+

@@ -1,0 +1,143 @@
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20120502022145) do
+
+  create_table "billing_methods", :force => true do |t|
+    t.string   "credit_card_number"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "name"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "user_id"
+    t.string   "card_type"
+    t.integer  "month"
+    t.integer  "year"
+  end
+
+  add_index "billing_methods", ["user_id"], :name => "index_billing_methods_on_user_id"
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "store_id"
+  end
+
+  add_index "categories", ["store_id"], :name => "index_categories_on_store_id"
+
+  create_table "line_items", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.integer  "price"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
+  add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
+
+  create_table "orders", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "billing_method_id"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "status",              :default => "pending"
+    t.integer  "shipping_address_id"
+    t.string   "action_time"
+    t.integer  "store_id"
+    t.string   "special_url"
+  end
+
+  add_index "orders", ["billing_method_id"], :name => "index_orders_on_billing_method_id"
+  add_index "orders", ["shipping_address_id"], :name => "index_orders_on_shipping_address_id"
+  add_index "orders", ["store_id"], :name => "index_orders_on_store_id"
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
+  create_table "product_categorizations", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
+  add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
+
+  create_table "products", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.integer  "price"
+    t.string   "photo_url"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "retired",     :default => false
+    t.integer  "store_id"
+  end
+
+  add_index "products", ["store_id"], :name => "index_products_on_store_id"
+
+  create_table "shipping_addresses", :force => true do |t|
+    t.string   "street"
+    t.string   "state"
+    t.string   "zipcode"
+    t.string   "city"
+    t.string   "name"
+    t.string   "email_address"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "user_id"
+  end
+
+  add_index "shipping_addresses", ["user_id"], :name => "index_shipping_addresses_on_user_id"
+
+  create_table "store_permissions", :force => true do |t|
+    t.integer "user_id"
+    t.integer "store_id"
+    t.integer "permission_level"
+    t.string  "admin_hex"
+  end
+
+  add_index "store_permissions", ["store_id"], :name => "index_store_permissions_on_store_id"
+  add_index "store_permissions", ["user_id"], :name => "index_store_permissions_on_user_id"
+
+  create_table "stores", :force => true do |t|
+    t.string   "name"
+    t.string   "approval_status",  :default => "pending"
+    t.string   "domain"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.boolean  "enabled",          :default => false
+    t.text     "description"
+    t.integer  "creating_user_id"
+  end
+
+  add_index "stores", ["creating_user_id"], :name => "index_stores_on_creating_user_id"
+  add_index "stores", ["domain"], :name => "index_stores_on_domain"
+
+  create_table "users", :force => true do |t|
+    t.string   "email_address"
+    t.string   "full_name"
+    t.string   "display_name"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "password_digest"
+    t.boolean  "admin",           :default => false
+    t.boolean  "admin_view",      :default => false
+  end
+
+end
