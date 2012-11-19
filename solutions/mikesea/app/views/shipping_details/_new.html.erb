@@ -1,0 +1,31 @@
+<%= form_for @shipping_detail, :url => url do |f| %>
+
+<div class="field">
+  <%= label_tag :ship_to_name, "Name" %>
+  <%= f.text_field :ship_to_name %>
+</div>
+<div class="field">
+  <%= label_tag :ship_to_address_1, "Address" %>
+  <%= f.text_field :ship_to_address_1 %>
+  <br />
+  <%= f.text_field :ship_to_address_2 %>
+</div>
+<div class="field">
+  <%= label_tag :ship_to_city, "City" %>
+  <%= f.text_field :ship_to_city %>
+</div>
+<div class="field">
+  <%= label_tag :ship_to_state, "State" %>
+  <%= f.select :ship_to_state, options_for_select(us_states) %>
+</div>
+<div class="field">
+  <%= label_tag :ship_to_zip, "Zipcode" %>
+  <%= f.text_field :ship_to_zip %>
+</div>
+
+<%= f.hidden_field :user_id%>
+
+<div class="actions"><br />
+  <%= f.submit %>
+</div>
+<% end %>

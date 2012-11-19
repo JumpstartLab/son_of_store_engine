@@ -1,0 +1,20 @@
+<h1>SUPER ADMIN STORES DASHBOARD</h1>
+
+<h3>Stores Summary<h3><br />
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Store Name</th>
+    <th>Description</th>
+    <th>Actions</th>
+    <th>Administer</th>
+  </tr>
+
+<% @stores.each do |store| %>
+<tr id="<%= store.url_name %>">
+  <td><%= link_to store.name, store_url(subdomain: store.url_name) %></td>
+  <td><%= truncate(store.description, :length=>32) %></td>
+  <td><%= store_actions_by_status(store) %></td>
+  <td><%= link_to "Administer", admin_dashboard_url(:subdomain => store.url_name), id: "edit_store_#{store.id}", class: "btn btn-info" %></td>
+</tr>
+<% end %>
+</table>
