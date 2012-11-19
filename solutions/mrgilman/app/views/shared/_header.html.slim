@@ -1,0 +1,21 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to "Daughter of Store Engine", root_url, class: "brand", id: "brand"
+      .nav-collapse
+        ul.nav.nav-pills
+          li#menu1.dropdown
+          - if logged_in?
+            li= link_to "My Account", user_url(current_user)
+            li= link_to "Logout", logout_path, :method => :delete
+            - if admin?
+              li#admin_nav
+                li= link_to "Admin Dashboard", admin_stores_path
+
+          - else
+            li= link_to "Sign-In", login_page_path
+            li= link_to "Sign-Up", new_user_path

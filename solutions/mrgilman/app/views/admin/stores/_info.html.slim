@@ -1,0 +1,22 @@
+.row
+  h2.span8 Info
+.row
+  .label.span2 Name
+  strong.span6#store_name 
+    = @store.name
+.row
+  .label.span2 Domain
+  .span6#store_domain
+    = link_to @store.domain, store_path(@store)
+.row
+  .label.span2 Description
+  .span6#store_description
+    = @store.description
+.row
+  .label.span2 Approval Status
+  div(class="span6 approval_status_#{@store.approval_status.downcase}" id="store_approval_status")
+      = @store.approval_status.upcase
+.row
+  .label.span2 Active Status
+  div(class="span6 active_status_#{@store.active_status.downcase}" id="store_active_status")
+    = @store.active_status.upcase
