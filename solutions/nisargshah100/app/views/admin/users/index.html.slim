@@ -1,0 +1,5 @@
+h1 Manage #{@store.name} Users
+
+= render "admin_form", :users => @store.admin_users
+
+= render "stocker_form", :users => @store.stocker_users

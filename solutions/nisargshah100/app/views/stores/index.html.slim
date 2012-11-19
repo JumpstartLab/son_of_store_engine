@@ -1,0 +1,23 @@
+h3 Welcome to Son of Store Engine!
+
+- if can? :manage, :stores
+  div= link_to 'Administer Stores', superadmin_stores_path
+  
+- if current_user
+  div= link_to 'Create A Store', new_store_path
+
+  hr
+  h3 Pending Stores
+  ul
+  - @pending_stores.each do |store|
+    li = link_to store.name, products_path(store)
+
+  hr
+  h3 Approved Stores
+  ul
+  - @stores.each do |store|
+    li = link_to store.name, products_path(store)
+
+- else
+  h4 Please login to create and manage your stores. 
+

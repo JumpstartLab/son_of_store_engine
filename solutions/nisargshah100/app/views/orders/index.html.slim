@@ -1,0 +1,13 @@
+h1 My Orders
+
+table.table.table-condensed.table-striped
+  tr
+    th = "Order Number"
+    th = "Placed on"
+    th = "Total"
+  - @orders.each do |order|
+    - cache(order) do
+      tr
+        td = link_to(order.id, order_path(@store, order))
+        td = link_to(order.created_at, order_path(@store, order))
+        td = link_to(order.total, order_path(@store, order))

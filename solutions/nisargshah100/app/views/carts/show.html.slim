@@ -1,0 +1,34 @@
+h1 = "Your Cart#{' is Empty.' if @cart.items.empty?}"
+
+
+div.cart id="cart"
+  table.table-striped.table-condensed
+    tr.span8
+      th#cart Titles
+      th#cart Price
+      th#cart Quantity
+      th#cart Subtotal
+      th#cart Actions
+    = form_for(@cart, url: cart_path(@store)) do |f|
+      - @cart.items.each do |item|
+        tr#cart
+          td.title = item.title
+          td.price = item.price
+          td.quantity
+            = f.fields_for(item) do |i|
+              = i.hidden_field :id
+              / = i.label :quantity
+              = i.text_field :quantity
+          td.subtotal = item.subtotal
+          td = link_to "", cart_item_path(:item_id => item.id), :method => :delete, 
+               :class=> 'i icon-remove', :confirm => "Are you sure, you'd like to remove this item?"
+      tr
+        td
+        td
+        td#text Total: 
+        td#total = @cart.total
+      = f.submit "Update Cart", :class => 'btn'
+    
+.cart-actions
+= link_to "Checkout", checkout_prompt_path(@store), :class=>'btn btn-primary'
+= link_to "Keep Shopping", products_path(@store), :class => 'btn btn-primary'

@@ -1,0 +1,22 @@
+= form_for([:admin, @product]) do |f|
+  div class="field"
+    = f.label :title
+    = f.text_field :title
+
+  div class="field"
+    = f.label :description
+    = f.text_area :description
+
+  div class="field"
+    = f.label :price
+    = f.text_field :price
+
+  div class="field"
+    = f.label :photo
+    = f.text_field :photo
+
+  .prod-actions
+    = f.submit :class => 'btn btn-primary'
+    - if params[:action] == "edit"
+      = link_to("Retire Product",
+                admin_product_retire_path(:product_id => @product.id), :class => 'btn btn-small')
