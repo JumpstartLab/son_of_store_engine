@@ -1,0 +1,14 @@
+<h2 id="edit_url">Edit the URL</h1>
+
+<%= form_for([:admin, @store]) do |f| %>
+
+ <div class="field">
+    <%= f.label :url_name %>
+    <%= f.text_field :url_name, :class => "url_name" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Change URL', :class => "btn btn-danger", :confirm => "WARNING: This will change the url of your store and break existing links. Would you like to continue?" %>
+  </div>
+
+<% end %>

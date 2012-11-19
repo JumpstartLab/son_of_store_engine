@@ -1,0 +1,27 @@
+<h2>Sign in</h2>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_tag sessions_path do %>
+      <div class="field">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div class="field">
+        <%= label_tag :password %>
+        <%= password_field_tag :password %>
+      </div>
+      <div class="field">
+        <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+        <%= label_tag :remember_me %>
+      </div>
+      <div class="actions">
+        <%= submit_tag "Log in", :id => "go_log_in", :class => "btn" %>
+        <%= link_to "Register", signup_path, :class => "btn" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="span6 offset3">
+    <h4 id="sign_up"> Don't have an account?<br> <%= link_to "Sign up!", signup_path %><br> <%= link_to "Checkout as Guest", new_guest_path unless current_cart.empty?%></h4>
+  </div>
+</div>
