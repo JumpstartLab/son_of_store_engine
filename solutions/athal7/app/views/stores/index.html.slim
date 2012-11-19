@@ -1,0 +1,9 @@
+h1 Stores Index
+ul.image-and-title
+  - @stores.each do |store| 
+    li.span2.category id==dom_id(store)
+      .image
+        = link_to image_tag(store.image), "/#{store.to_param}", class: "image-link"
+      .overlay
+        h3
+          = link_to store.name,"/#{store.to_param}" 

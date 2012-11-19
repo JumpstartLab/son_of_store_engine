@@ -1,0 +1,23 @@
+= form_for @store_permission do |f|
+  = text_field_tag :email
+  = f.select :permission_level, [["Administrator", 1], ["Stocker",2]]
+  = f.hidden_field :store_id, :value => @current_store.id
+  = f.submit "Add New Store Employee"
+
+h3 Administrators
+table
+  - @admin_records.each do |admin_record|
+    tr id="#{dom_id(admin_record.user)}_admin_listing"
+      td
+        = admin_record.user.email_address
+      td
+        = link_to "Remove", store_permission_path(admin_record), method: "delete", confirm: "Are you sure you want to fire this employee?"
+
+h3 Stockers
+table
+  - @stocker_records.each do |stocker_record|
+    tr id="#{dom_id(stocker_record.user)}_stocker_listing"
+      td
+        = stocker_record.user.email_address
+      td
+        = link_to "Remove", store_permission_path(stocker_record), method: "delete", confirm: "Are you sure you want to fire this employee?"

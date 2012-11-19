@@ -1,0 +1,25 @@
+doctype
+html
+  head
+    title = @current_store && @current_store.enabled ? @current_store.name : "Daughter of Store Engine"
+    /![if lt IE 9]
+      | <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    meta content="width=(device-width,)initial-scale=1.0" name="viewport"
+  body
+    - if @current_store && @current_store.enabled
+      = render partial: "shared/store_header"
+    - else
+      = render partial: "shared/header"
+    .container
+      .row
+        - unless notice.nil?
+          .span8#notice = notice
+        - if !admin_view? && params[:domain] && @current_store && @current_store.enabled
+          .span8#main-content = yield
+          = render partial: "shared/search"
+          = render partial: "shared/cart", locals: {user: current_user}
+        - else
+          .span16#main-content = yield

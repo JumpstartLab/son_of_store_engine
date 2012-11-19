@@ -1,0 +1,9 @@
+tr(id="store_#{store.id}")
+  td = render partial: "store_admin_buttons", locals: { store: store }
+  td = store.approval_status
+  td.enabled = store.enabled ? "Yes" : "No"
+  td = link_to store.name, admin_store_path(store)
+  td = link_to store.domain, "/#{store.domain}"
+  td = store.description ? store.description[0..31] : "None"
+  td = store.owner.full_name
+  td = store.created_on
