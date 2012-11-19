@@ -1,0 +1,22 @@
+h1.admin-cat-header #{@store.name} Product Categories
+
+.span12
+  .admin-cat-index
+    table.table-condensed.table-striped
+      tr
+        th.categories Name
+        th.categories Actions
+        th.categories 
+      - @categories.each do |category|
+          tr
+            #admin-index-cat-name
+              td = link_to category.name, admin_category_path(@store, category)
+            #admin-index-cat-actions
+              td = link_to "Edit", edit_admin_category_path(@store, category)
+              td = link_to 'Destroy', admin_category_path(@store), 
+                            :method => :delete, 
+                            :confirm => 'Are you sure you would like to delete this category?', 
+                            :class => 'btn btn-small btn-danger',
+                            :id => "#{dom_id(category)}_destroy"
+  .admin-new-cat-action
+    = link_to "New Category", new_admin_category_path, :class=> 'btn btn-primary'

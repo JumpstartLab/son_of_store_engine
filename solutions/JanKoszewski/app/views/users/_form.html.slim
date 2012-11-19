@@ -1,0 +1,8 @@
+= form_for @user do |f|
+  = f.fields_for :roles do |r|
+    - Role.all.each do |role|
+      = label_tag role.id, role.name
+      = check_box_tag :role_ids, role.id, @user.roles.include?(role),
+        :name => 'user[role_ids][]', :id => role.name
+
+  = f.submit
