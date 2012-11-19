@@ -1,0 +1,14 @@
+javascript:
+  | $('#add_to_cart').addClass('disabled').click(function() { return false; });
+ul.thumbnails
+  .row style="margin-bottom:20px"
+    = render :partial => @product
+    li.span8
+      h1= @product.name.titleize
+      h4 Description:
+      br/
+      = @product.description
+      br/
+      br/
+      br/
+      = link_to 'Back to products', store_products_path(store_slug), :class => "btn"

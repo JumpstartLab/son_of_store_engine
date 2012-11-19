@@ -1,0 +1,16 @@
+- cart_products.each do |cart_product|
+  tr
+    td
+      = link_to cart_product.name, store_product_path(:store_slug => store_slug, :id => cart_product.product_id)
+      = link_to store_cart_product_path(:store_slug => store_slug, :id => cart_product.id), :method => :delete do
+        | &nbsp;
+        i.icon-trash
+        | &nbsp;
+        | Remove from cart
+    td
+      = form_for cart_product, :url => store_cart_product_path(:store_slug => store_slug, :id => cart_product.id) do |f|
+        = f.text_field :quantity, :value => cart_product.quantity, :id => "quantity_product_#{cart_product.product.id}", :class => "cart_product_quantity"
+        | &nbsp;
+        = f.submit "update", :class => "btn btn-medium btn-primary", :id => "update_product_#{cart_product.product.id}"
+    td= cart_product.price
+    td= cart_product.subtotal

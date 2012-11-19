@@ -1,0 +1,21 @@
+li.span4
+  .thumbnail
+    = image_tag(product.photo, :size => "280x280", :class => "thumbnail")
+    .caption
+      p
+        = link_to product.name, store_product_path(:store_slug => store_slug, :id => product.id)
+      h4
+        | $#{product.price}
+      p
+      p.italicize= truncate(product.description, :length=>40)
+      p
+      h6
+        - product.categories.each do |category|
+          span.label= link_to category.name, store_category_path(store_slug, category.id)
+          | &nbsp;
+      p
+      p
+        = link_to 'Add to cart',                                               \
+          new_store_cart_product_path(:store_slug => store_slug, :id => product.id), \
+            :class => "btn btn-primary #{add_class_disabled?(product)}",       \
+            :id => "add_to_cart_#{product.id}"
