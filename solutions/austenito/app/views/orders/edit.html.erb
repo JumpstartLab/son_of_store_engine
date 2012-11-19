@@ -1,0 +1,17 @@
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
+<%= form_for([@order.store, @order]) do |o| %>
+<p>
+  Order Status: <%= select('order', 'status', 
+                    %w(pending cancelled shipped paid returned)) %>
+</p>
+
+<p>
+  <%= o.submit :class => "btn-primary btn-large" %> 
+</p>
+
+<% end %>
+
+  <%= link_to "Return to Order Management", store_store_orders_path(current_store), 
+    :class => "btn-info btn-large" %>

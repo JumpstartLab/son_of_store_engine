@@ -1,0 +1,49 @@
+<div class="page-header">
+<h1><%= current_store.name %></h1>
+</div>
+<%= link_to "Back to All Products", 
+    store_products_path(@product.store), :class => "btn btn-small" %>
+<br />
+<br />   
+<% cache @product do %>
+  <div class="hero-unit">
+    <div class="row-fluid">
+      <div class="span7">
+        <h1><%= @product.title %></h1>
+          <% if @product.activity == false %>
+            <div class="alert alert-error">
+              <a class="close" data-dismiss="alert">×</a>
+              <strong>This product is retired.</strong> 
+              Sorry, you can't buy any more of these.
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-image"><img src="<%= @product.image_link %>"></img></div>
+  <div class="product-description"><%= @product.description %></div>
+  <h1><%= number_to_currency(@product.price) %></h1>
+  <br />
+  <p>Categories: <% @product.categories.each do |c| %>
+    <%= link_to c.title, store_category_path(c.store, c) %>,
+  <% end %></p>
+<% end %>
+
+<% if admin? %>
+  <%= link_to "Edit", edit_store_product_path(@product.store, @product), 
+      :class => "btn btn-large" %>
+<% end %> 
+<%= link_to "Add to Cart", store_cart_items_path(current_store, 
+                                                  :product_id => @product), 
+    :method => :post, :class => "btn btn-large btn-info" %> 
+<% if current_user %>
+  <%= link_to "Buy instantly", 
+    store_two_click_orders_path(@product.store, :product_id => @product), 
+      :method => :post, :class => "btn btn-large btn-notice", 
+      :confirm => "Really order #{@product.title} 
+      for #{number_to_currency(@product.price)}?" %>
+<% end %>
+
+</div>
+
